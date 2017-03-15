@@ -175,6 +175,7 @@ rain() {
         --why='Rain Sounds' \
         mpv --no-video ${path}/rain.mp3 \
         > /dev/null 2>&1 &
+    (exit 0)
 }
 
 emacs() {
@@ -206,17 +207,8 @@ emacs() {
 emacsctl() {
     
     case $1 in
-        stop)
-            systemctl --user stop emacs
-            ;;
-        start)
-            systemctl --user start emacs
-            ;;
-        restart)
-            systemctl --user restart emacs
-            ;;
-        status)
-            systemctl --user status emacs
+        stop|start|restart|status)
+            systemctl --user "$1" emacs
             ;;
         *)
             echo "Usage:"
@@ -234,40 +226,40 @@ sms() {
 3m1L6if4R\
 xYcUewDvevb"
 
-    case $1 in
-        quota)
-            curl https://textbelt.com/quota/${key}
+    if [[ "$1" == 'quota' ]]; then
+        curl https://textbelt.com/quota/${key}
+        echo ""
+        (exit 0)
+    elif [[ "$1" == 'status' ]]; then
+        curl https://textbelt.com/status/"${2}"
+        echo ""
+        (exit 0)
+    elif [[ "$1" =~ [0-9]{10} ]]; then
+        if [[ "$2" != '' ]]; then
+            curl -X POST https://textbelt.com/text \
+                 --data-urlencode number="${1}" \
+                 --data-urlencode message="${2}" \
+                 -d key="${key}"
             echo ""
-            ;;
-        [0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789][0123456789]) # <---- FUCK THIS!!!
-            if [[ "$2" != "" ]]; then
-                curl -X POST https://textbelt.com/text \
-                     --data-urlencode number="${1}" \
-                     --data-urlencode message="${2}" \
-                     -d key="${key}"
-                echo ""
-            else
-                echo "Please provide a message!"
-                (exit 2)
-            fi
-            ;;
-        status)
-            curl https://textbelt.com/status/"${2}"
-            echo ""
-            ;;
-        *)
-            echo "Usage:"
-            echo "     Current quota:  sms quota"
-            echo "    Send a message:  sms <number> <message>"
-            echo "  Check sms status:  sms status <id>"
-            echo "     Anything else:  this message."
-            echo ""
-            echo "Exit status:"
-            echo "  0: success."
-            echo "  1: failure."
-            echo "  2: no message indicated."
-            ;;
-    esac
+            (exit 0)
+        else
+            echo "Please provide a message!"
+            (exit 2)
+        fi
+    else
+        echo "Usage:"
+        echo "     Current quota:  sms quota"
+        echo "    Send a message:  sms <number> <message>"
+        echo "  Check sms status:  sms status <id>"
+        echo "     Anything else:  this message."
+        echo ""
+        echo "Exit status:"
+        echo "  0: success."
+        echo "  1: failure."
+        echo "  2: no message indicated."
+        (exit 0)
+    fi  
+           
 }
 ######################################################################
 #                   #  END MISC Functions  #                         #
@@ -279,6 +271,7 @@ xYcUewDvevb"
 ######################################################################
 #                        #  Aliases  #                               #
 ######################################################################
+alias lz="ls -AlFZ --color=always"
 alias la="ls -AlF --color=always"
 alias ll="ls -lF --color=always"
 alias l="ls -CF --color=always"
@@ -287,6 +280,17 @@ alias pgrepg="ps -ax | grep -v grep | grep"
 alias mountt="mount | column -t"
 alias src="source /home/ebeale/.bashrc"
 alias rc="emacs /home/ebeale/.bashrc"
+
+alias meraki="mpw -c 2 meraki.com"
+alias gmail-tps="mpw gmail-tps"
+alias work-phone="mpw -t x work-phone"
+alias jss-prod="mpw -t x jss-prod"
+alias foadmin="mpw -t x foadmin"
+alias foroot="mpw -t x foroot"
+alias padmin="mpw -t x padmin"
+alias proot="mpw -t x proot"
+
+alias gmail-personal="mpw gmail-personal"
 
 alias mpv="DRI=prime mpv"
 ######################################################################
