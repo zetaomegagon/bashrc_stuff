@@ -261,6 +261,38 @@ xYcUewDvevb"
     fi  
            
 }
+
+isitup() {
+
+    local head=$(curl -sI "$1" | head -1 | cut -d ' ' -f 2)
+    local moved=$(curl -sI "$1" | grep 'Location' \
+                      | cut -d ' ' -f2 \
+                      | tr -d '\r')
+    
+    local r="\033[0;31m" # Ansi red 
+    local c="\033[0m" # Ansi no color (clear)
+
+    if [[ "$head" =~ 2[0-9]{2} ]]; then
+        echo -e "\n${r}${1}${c}...is up!\n"
+        (exit 0)
+    elif [[ "$head" == '301' ]]; then
+        isitup "${moved%/}"
+        (exit 2)
+    elif [[ "$head" =~ 4[0-9]{2} ]];then
+        echo -e "\n${r}${1}${c}...is down!\n"
+        (exit 1)
+    else
+        echo "Usage:"
+        echo "  isitup {http|https}://<fqdn>"
+        echo "  isitup <base-url>"
+        echo ""
+        echo "Exit Status:"
+        echo ""
+        echo "  0: success."
+        echo "  1: a 400s error."
+        echo "  2: error 301, continued with new URI."
+    fi
+}
 ######################################################################
 #                   #  END MISC Functions  #                         #
 ######################################################################
