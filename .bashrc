@@ -167,6 +167,7 @@ rsft() {
 }
 
 rain() {
+    ## 
     local path="/home/ebeale/Music"
     
     systemd-inhibit \
@@ -178,34 +179,8 @@ rain() {
     (exit 0)
 }
 
-emacs() {
-
-    local status="$(systemctl --user status emacs \
-                       | grep 'Active' \
-                       | cut -d ' ' -f 5)"
-    local r="\033[0;31m" # Ansi red 
-    local c="\033[0m" # Ansi no color (clear)
-
-    if [[ "$status" == "active" ]]; then
-        emacsclient -ta "" "$1"
-        (exit 0)
-    elif [[ "$status" == "failed" ]]; then
-        systemctl --user start emacs
-        echo -e "${r}Emacs service is starting.${c}"
-        sleep 1
-        emacsclient -ta "" "$1"
-        (exit 1)
-    else
-        systemctl --user restart emacs
-        echo -e "${r}Emacs service is restarting.${c}" 
-        sleep 1
-        emacsclient -ta "" "$1"
-        (exit 2)
-    fi
-}
-
 emacsctl() {
-    
+    ## Maintain an Emacs service unit
     case $1 in
         stop|start|restart|status)
             systemctl --user "$1" emacs
@@ -216,54 +191,75 @@ emacsctl() {
     esac
 }
 
-sms() {
-
-    local key="492eafcb4\
-315b6e9ca\
-4fcab1cb7\
-5da2afa71\
-2570T6Mss\
-3m1L6if4R\
-xYcUewDvevb"
-
-    if [[ "$1" == 'quota' ]]; then
-        curl https://textbelt.com/quota/${key}
-        echo ""
-        (exit 0)
-    elif [[ "$1" == 'status' ]]; then
-        curl https://textbelt.com/status/"${2}"
-        echo ""
-        (exit 0)
-    elif [[ "$1" =~ [0-9]{10} ]]; then
-        if [[ "$2" != '' ]]; then
-            curl -X POST https://textbelt.com/text \
-                 --data-urlencode number="${1}" \
-                 --data-urlencode message="${2}" \
-                 -d key="${key}"
-            echo ""
-            (exit 0)
-        else
-            echo "Please provide a message!"
-            (exit 2)
-        fi
-    else
-        echo "Usage:"
-        echo "     Current quota:  sms quota"
-        echo "    Send a message:  sms <number> <message>"
-        echo "  Check sms status:  sms status <id>"
-        echo "     Anything else:  this message."
-        echo ""
-        echo "Exit status:"
-        echo "  0: success."
-        echo "  1: failure."
-        echo "  2: no message indicated."
-        (exit 0)
-    fi  
-           
+emacs() {
+    ## Wrapper for Emacs that makes sure
+    ## Emacs runs despite the service state
+    local status=$(emacsctl status \
+                       | grep 'Active' \
+                       | awk '{print $2}')
+    
+    case "$status" in
+        active)
+            emacsclient -ta "" ${1}
+            ;;
+        failed)
+            systemctl --user start emacs
+            emacsclient -ta "" ${1}
+            ;;
+        *)
+            systemctl --user restart emacs
+            emacsclient -ta "" ${1}
+    esac
 }
 
-isitup() {
+sms() {
+    ## A textmessage utility
+    local key=""
 
+    case $1 in
+        quota)
+            curl https://textbelt.com/quota/"${key}"
+            echo ""
+            (exit 0)
+            ;;
+        status)
+            curl https://textbelt.com/status/"${2}"
+            echo ""
+            (exit 0)
+            ;;
+        *)
+            if [[ "$1" =~ [0-9]{10} ]] && [[ "$2" != '' ]]; then
+                
+                curl -X POST https://textbelt.com/text \
+                     --data-urlencode number="${1}" \
+                     --data-urlencode message="${2}" \
+                     -d key="${key}"
+                echo ""
+                (exit 0)
+
+            elif [[ "$2" == '' ]]; then
+
+                echo "Please provide a message!"
+                (exit 1)
+
+            else
+                echo "Usage:"
+                echo "     Current quota:  sms quota"
+                echo "    Send a message:  sms <number> <message>"
+                echo "  Check sms status:  sms status <id>"
+                echo "     Anything else:  this message."
+                echo ""
+                echo "Exit status:"
+                echo "  0: success."
+                echo "  1: failure."
+                echo "  2: no message indicated."
+                (exit 0)
+            fi
+    esac       
+}
+
+up() {
+    ## A far-from-perfect website status checker
     local head=$(curl -sI "$1" | head -1 | cut -d ' ' -f 2)
     local moved=$(curl -sI "$1" | grep 'Location' \
                       | cut -d ' ' -f2 \
@@ -275,8 +271,8 @@ isitup() {
     if [[ "$head" =~ 2[0-9]{2} ]]; then
         echo -e "\n${r}${1}${c}...is up!\n"
         (exit 0)
-    elif [[ "$head" == '301' ]]; then
-        isitup "${moved%/}"
+    elif [[ "$head" =~ 3[0-9]{2} ]]; then
+        up "${moved%/}"
         (exit 2)
     elif [[ "$head" =~ 4[0-9]{2} ]];then
         echo -e "\n${r}${1}${c}...is down!\n"
@@ -285,12 +281,6 @@ isitup() {
         echo "Usage:"
         echo "  isitup {http|https}://<fqdn>"
         echo "  isitup <base-url>"
-        echo ""
-        echo "Exit Status:"
-        echo ""
-        echo "  0: success."
-        echo "  1: a 400s error."
-        echo "  2: error 301, continued with new URI."
     fi
 }
 ######################################################################
@@ -313,7 +303,7 @@ alias mountt="mount | column -t"
 alias src="source /home/ebeale/.bashrc"
 alias rc="emacs /home/ebeale/.bashrc"
 
-alias meraki="mpw -c 2 meraki.com"
+alias meraki="mpw -c 3 meraki.com"
 alias gmail-tps="mpw gmail-tps"
 alias work-phone="mpw -t x work-phone"
 alias jss-prod="mpw -t x jss-prod"
