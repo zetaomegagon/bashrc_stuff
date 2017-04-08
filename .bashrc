@@ -147,6 +147,90 @@ protosrv() {
         (exit 1)
     fi
 }
+
+gcp() {
+
+    local user="administrator"
+    local host="GCP Connector"
+    local addr1="10.0.0.13"
+    local port1="22"
+    #local addr2="209.118.43.165"
+    #local port2="22"
+    local r="\033[0;31m" # Ansi red 
+    local c="\033[0m" # Ansi no color (clear)
+    
+    if nc -z -w 3 $addr1 $port1; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over LAN...(${addr1})\n"
+        ssh ${user}@${addr1}
+        
+    elif nc -z -w 3 $addr2 $port2; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over WWW...(${addr2})\n"
+        ssh -p $port2 ${user}@${addr2}
+        
+    else
+        echo -e "\n    ${r}${addr1}${c}: cannot establish connection..."
+        echo -e "${r}${addr2}${c}: cannot establish connection...\n"
+        (exit 1)
+    fi
+}
+
+jss() {
+
+    local user="administrator"
+    local host="JSS"
+    local addr1="10.0.4.1"
+    local port1="22"
+    #local addr2="209.118.43.165"
+    #local port2="22"
+    local r="\033[0;31m" # Ansi red 
+    local c="\033[0m" # Ansi no color (clear)
+    
+    if nc -z -w 3 $addr1 $port1; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over LAN...(${addr1})\n"
+        ssh ${user}@${addr1}
+        
+    elif nc -z -w 3 $addr2 $port2; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over WWW...(${addr2})\n"
+        ssh -p $port2 ${user}@${addr2}
+        
+    else
+        echo -e "\n    ${r}${addr1}${c}: cannot establish connection..."
+        echo -e "${r}${addr2}${c}: cannot establish connection...\n"
+        (exit 1)
+    fi
+}
+
+master() {
+
+    local user="jamf"
+    local host="MASTER"
+    local addr1="10.0.0.10"
+    local port1="22"
+    #local addr2="209.118.43.165"
+    #local port2="22"
+    local r="\033[0;31m" # Ansi red 
+    local c="\033[0m" # Ansi no color (clear)
+    
+    if nc -z -w 3 $addr1 $port1; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over LAN...(${addr1})\n"
+        ssh ${user}@${addr1}
+        
+    elif nc -z -w 3 $addr2 $port2; then
+
+        echo -e "\nConnecting to ${r}${host}${c} over WWW...(${addr2})\n"
+        ssh -p $port2 ${user}@${addr2}
+        
+    else
+        echo -e "\n    ${r}${addr1}${c}: cannot establish connection..."
+        echo -e "${r}${addr2}${c}: cannot establish connection...\n"
+        (exit 1)
+    fi
+}
 ######################################################################
 #                   #  END Remote Servers  #                         #
 ######################################################################
@@ -273,16 +357,40 @@ up() {
         (exit 0)
     elif [[ "$head" =~ 3[0-9]{2} ]]; then
         up "${moved%/}"
-        (exit 2)
-    elif [[ "$head" =~ 4[0-9]{2} ]];then
+        (exit 0)
+    elif [[ "$head" =~ 4|5[0-9]{2} ]];then
         echo -e "\n${r}${1}${c}...is down!\n"
-        (exit 1)
+        (exit "$head")
     else
         echo "Usage:"
         echo "  isitup {http|https}://<fqdn>"
         echo "  isitup <base-url>"
     fi
 }
+
+locate() {
+     egrep --color=always "$1" .locatedb
+}
+
+# locate-update() {
+
+#     local pid_file="/tmp/locate.pid"
+#     local pid=$(cat "$pid_file")
+#     local dir="/home/ebeale"
+#     local db="${dir}/.locatedb"
+#     local update=$(find "${dir}/" -name '*' > "$db")
+    
+#     while : ; do
+#         "$update"
+#         sleep 15m &
+#         echo "$!" > "$pid"
+#         fg "$pid"
+#     done
+
+#     kill "$pid" && rm "$pid_file"
+# }
+
+# locate-update &
 ######################################################################
 #                   #  END MISC Functions  #                         #
 ######################################################################
@@ -298,10 +406,12 @@ alias la="ls -AlF --color=always"
 alias ll="ls -lF --color=always"
 alias l="ls -CF --color=always"
 
-alias pgrepg="ps -ax | grep -v grep | grep"
+alias psgrep="ps -ax | grep -v grep | grep"
 alias mountt="mount | column -t"
 alias src="source /home/ebeale/.bashrc"
 alias rc="emacs /home/ebeale/.bashrc"
+alias grep="grep --color=always"
+alias less="less -R"
 
 alias meraki="mpw -c 3 meraki.com"
 alias gmail-tps="mpw gmail-tps"
@@ -311,8 +421,20 @@ alias foadmin="mpw -t x foadmin"
 alias foroot="mpw -t x foroot"
 alias padmin="mpw -t x padmin"
 alias proot="mpw -t x proot"
+alias usac="mpw -t x usac.org"
+alias frn="mpw frn"
+alias frn-phrase="mpw -p frn"
 
 alias gmail-personal="mpw gmail-personal"
+
+#### Chromebox
+# decryption key
+alias chromebox="mpw -t x chromebox"
+### Chromebox accts
+# admin
+alias chronos="mpw -t x chronos"
+# root
+alias chronos-root="mpw -t x chronos-root"
 
 alias mpv="DRI=prime mpv"
 ######################################################################
