@@ -10,6 +10,15 @@ tstart() {
             fi
         fi
     fi
-} 
+}
 
-tstart
+## Start 9h of rain sleep sounds
+rain() {
+    local path="$HOME/Music"
+    local track="rain.mp3"
+    local opts="--no-video"
+    local mpv="/usr/bin/mpv"
+
+    $mpv $opts $path/$track >/dev/null 2>&1 &
+    RAIN="$!"
+}
