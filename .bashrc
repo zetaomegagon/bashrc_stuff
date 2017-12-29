@@ -19,3 +19,5 @@ if [ -f ${HOME}/aliases ]; then
     source aliases
 fi
 
+# Startup commands
+tstart
