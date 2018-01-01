@@ -20,5 +20,5 @@ rain() {
     local mpv="/usr/bin/mpv"
 
     $mpv $opts $path/$track >/dev/null 2>&1 &
-    RAIN="$!"
+    echo "$!" > /tmp/rain.$!
 }
