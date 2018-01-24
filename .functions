@@ -66,9 +66,7 @@ mpw() {
     printf %s "$(MP_FULLNAME=$MP_FULLNAME command mpw "$@")" | _copy
 
     # for gpaste-client clear last password after 10 seconds
-    set +m
-    { sleep 10; gpaste-client delete-password 'Master Password'; } &
-    sleep 3
-    set -m
+    
+    ({ sleep 10; gpaste-client delete-password 'Master Password'; } >/dev/null 2>&1 &)
 }
 export MP_FULLNAME=Elijah\ Thomas\ Beale
