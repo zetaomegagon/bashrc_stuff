@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias chrome-sync='mpw -t x chrome-sync'
 alias egrep='egrep --color=auto'
 alias ephemere-admin='mpw -t x ephemere-admin'
@@ -73,3 +75,4 @@ alias apple-dev-job='mpw -va tps.apple.developer.job'
 alias apple-dev='mpw -va tps.apple.developer'
 alias 23andme='mpw -tx 23andme.com'
 alias 23andme.pet='mpw -va 23andme.com.pet'
+alias ddg='mpw -tx duckduckgo.com'
