@@ -21,7 +21,7 @@ rain() {
     local opts="--no-video"
     local mpv="/usr/bin/mpv"
 
-    $mpv $opts $path/$track >/dev/null 2>&1 &
+    "$mpv" "$opts" "$path"/"$track" >/dev/null 2>&1 &
     echo "$!" > /tmp/rain.$!
 }
 
