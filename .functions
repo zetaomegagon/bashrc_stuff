@@ -38,16 +38,16 @@ gitrc() {
 ## mpw helper function
 mpw() {
     _copy() {
-        local clips=('pbcopy' 'xclip' 'gpaste-client')
-        local use="${clips[2]}"
+        _clips=('pbcopy' 'xclip' 'gpaste-client')
+        _use="${_clips[2]}"
 
-        case "$use" in
-            "${clips[0]}")
-                hash "$use" 2>/dev/null && "$use" ;;
-            "${clips[1]}")
-                hash "$use" 2>/dev/null && "$use" ;;
-            "${clips[2]}")
-                hash "$use" 2>/dev/null && "$use" add-password 'Master Password' ;;
+        case "$_use" in
+            "${_clips[0]}")
+                hash "$_use" 2>/dev/null && "$_use" ;;
+            "${_clips[1]}")
+                hash "$_use" 2>/dev/null && "$_use" ;;
+            "${_clips[2]}")
+                hash "$_use" 2>/dev/null && "$_use" add-password 'Master Password' ;;
             *)
                 cat; echo 2>/dev/null
                 return
@@ -66,7 +66,9 @@ mpw() {
     printf %s "$(MP_FULLNAME=$MP_FULLNAME command mpw "$@")" | _copy
 
     # for gpaste-client clear last password after 10 seconds
+    if [[ "$_use" = "${_clips[2]}" ]]; then
+        ({ sleep 10; gpaste-client delete-password 'Master Password'; } >/dev/null 2>&1 &)
+    fi
     
-    ({ sleep 10; gpaste-client delete-password 'Master Password'; } >/dev/null 2>&1 &)
 }
 export MP_FULLNAME=Elijah\ Thomas\ Beale
