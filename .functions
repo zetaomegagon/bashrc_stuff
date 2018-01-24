@@ -26,7 +26,8 @@ rain() {
 }
 
 ## Add, commit, push functions and aliases
-git-alias() {
+gitrc() {
+    git add ~/.bashrc
     git add ~/.aliases
     git add ~/.functions
 

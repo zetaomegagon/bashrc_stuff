@@ -1,5 +1,4 @@
 # .bashrc
-
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -11,13 +10,16 @@ fi
 export PATH="${HOME}/bin:$PATH"
 
 # User specific aliases and functions
-if [ -f ${HOME}/functions ]; then
-    source functions
+if [ -f ${HOME}/.functions ]; then
+    source ~/.functions
 fi
 
-if [ -f ${HOME}/aliases ]; then
-    source aliases
+if [ -f ${HOME}/.aliases ]; then
+    source ~/.aliases
 fi
 
 # Startup commands
-tstart
+tmux-start
+
+## Added by Master Password
+source bashlib
