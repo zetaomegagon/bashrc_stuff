@@ -1,0 +1,71 @@
+#!/bin/bash
+
+## Start tmux on every shell login
+tmux-start() {
+    if which tmux >/dev/null 2>&1; then
+        if [[ -z "$TMUX" ]] ;then
+            ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
+            if [[ -z "$ID" ]] ;then # if not available create a new one
+                tmux new-session
+            else
+                tmux attach-session -t "$ID" # if available attach to it
+            fi
+        fi
+    fi
+}
+
+## Start 9h of rain sleep sounds
+rain() {
+    local path="$HOME/Music"
+    local track="rain.mp3"
+    local opts="--no-video"
+    local mpv="/usr/bin/mpv"
+
+    $mpv $opts $path/$track >/dev/null 2>&1 &
+    echo "$!" > /tmp/rain.$!
+}
+
+## Add, commit, push functions and aliases
+git-alias() {
+    git add ~/.aliases
+    git add ~/.functions
+
+    git commit -m "auto generated message."
+    git push origin master
+}
+
+## mpw helper function
+mpw() {
+    _copy() {
+        local clips=('pbcopy' 'xclip' 'gpaste-client')
+        local use="${clips[2]}"
+
+        case "$use" in
+            "${clips[0]}")
+                hash "$use" 2>/dev/null && "$use" ;;
+            "${clips[1]}")
+                hash "$use" 2>/dev/null && "$use" ;;
+            "${clips[2]}")
+                hash "$use" 2>/dev/null && "$use" add-password 'Master Password' ;;
+            *)
+                cat; echo 2>/dev/null
+                return
+        esac
+
+        echo >&2 "Copied!"
+            
+        
+    }   
+
+    # Empty the clipboard
+    :| _copy 2>/dev/null
+
+    # Ask for the user's name and password if not yet known.
+    MP_FULLNAME=${MP_FULLNAME:-$(ask 'Your Full Name:')}
+
+    # Start Master Password and copy the output.
+    printf %s "$(MP_FULLNAME=$MP_FULLNAME command mpw "$@")" | _copy
+
+    { sleep 10; gpaste-client delete-password 'Master Password'; } &
+}
+export MP_FULLNAME=Elijah\ Thomas\ Beale
