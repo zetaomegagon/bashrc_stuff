@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 ## Start tmux on every shell login
@@ -103,25 +102,40 @@ new-alias() {
 
 ## Simple calculator
 mcalc() {
-    local expr="$@"
+    local expr="$*"
     echo "$expr" | bc
 }
 
 ## Start chromium in incognito mode, run out of a temp folder, destroy
 ## temp folder on exit
 incognito() {
-    local url="$1"
-    local data_dir="/tmp/incognito"
-
-    if [[ ! -d "$data_dir" ]]; then
-        mkdir "$data_dir"
+    _default_url="https://images.google.com"
+    _url="$1"
+    _data_dir="/tmp/incognito"
+    
+    incog() {       
+        chromium-browser \
+            --incognito \
+            --user-data-dir="$_data_dir" \
+            "$1" >/dev/null 2>&1 &
+        wait $!
+        rm -r "$_data_dir"
+    }
+    
+    if [[ ! -d "$_data_dir" ]]; then
+        mkdir "$_data_dir"
     fi
 
-    # run chromium in the background and mask job exit status
-    ({ chromium-browser \
-           --incognito \
-           --user-data-dir="$data_dir" \
-           "$url" &
-       wait $!
-       rm -r "$data_dir"; } >/dev/null 2>&1 &) 
+    case "$_url" in
+        "") (incog "$_default_url" &) ;;
+        *) (incog "$_url" &)
+    esac
+
+           # run chromium in the background and mask job exit status
+           # ({ chromium-browser \
+               #        --incognito \
+               #        --user-data-dir="$data_dir" \
+               #        "$url" &
+           #    wait $!
+           #    rm -r "$data_dir"; } >/dev/null 2>&1 &) 
 }
