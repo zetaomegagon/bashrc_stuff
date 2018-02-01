@@ -110,6 +110,7 @@ mcalc() {
 ## Start chromium in incognito mode, run out of a temp folder, destroy
 ## temp folder on exit
 incognito() {
+    local url="$1"
     local data_dir="/tmp/incognito"
 
     if [[ ! -d "$data_dir" ]]; then
@@ -120,5 +121,7 @@ incognito() {
     ({ chromium-browser \
            --incognito \
            --user-data-dir="$data_dir" \
-           "https://images.google.com" & wait $! && rm -r "$data_dir"; } >/dev/null 2>&1 &) 
+           "$url" &
+       wait $!
+       rm -r "$data_dir"; } >/dev/null 2>&1 &) 
 }
