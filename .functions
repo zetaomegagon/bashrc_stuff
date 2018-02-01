@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 ## Start tmux on every shell login
@@ -102,5 +103,22 @@ new-alias() {
 
 ## Simple calculator
 mcalc() {
-    echo "$@" | bc
+    local expr="$@"
+    echo "$expr" | bc
+}
+
+## Start chromium in incognito mode, run out of a temp folder, destroy
+## temp folder on exit
+incognito() {
+    local data_dir="/tmp/incognito"
+
+    if [[ ! -d "$data_dir" ]]; then
+        mkdir "$data_dir"
+    fi
+
+    # run chromium in the background and mask job exit status
+    ({ chromium-browser \
+           --incognito \
+           --user-data-dir="$data_dir" \
+           "https://images.google.com" & wait $! && rm -r "$data_dir"; } >/dev/null 2>&1 &) 
 }
