@@ -82,13 +82,13 @@ alias pintrest='mpw -tx pintrest.com'
 
 alias meraki.vpn.carol='mpw -tx meraki.vpn.carol'
 
-# VirtualBox                                                                                                                                                                                                                                 
-alias vmanage='VBoxManage'                                                                                                                                                                                                                   
-alias vmlist='vmanage list vms'                                                                                                                                                                                                              
-alias vmlistl='vmanage list --long vms | less'                                                                                                                                                                                               
-alias vminfo='vmanage showvminfo --machinereadable'                                                                                                                                                                                          
-alias vmmod='vmanage modifyvm'                                                                                                                                                                                                               
-alias vmclone='vmanage clonevm'                                                                                                                                                                                                              
-alias vmimport='vmanage import'                                                                                                                                                                                                             
-alias vmstart='vmanage startvm --type gui'                                                                                                                                                                                                   
+# VirtualBox
+alias vmanage='VBoxManage'
+alias vmlist='vmanage list vms'
+alias vmlistl='vmanage list --long vms | less'
+alias vminfo='vmanage showvminfo --machinereadable'
+alias vmmod='vmanage modifyvm'
+alias vmclone='vmanage clonevm'
+alias vmimport='vmanage import'
+alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
