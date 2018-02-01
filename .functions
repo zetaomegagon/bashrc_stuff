@@ -129,13 +129,5 @@ incognito() {
     case "$_url" in
         "") (incog "$_default_url" &) ;;
         *) (incog "$_url" &)
-    esac
-
-           # run chromium in the background and mask job exit status
-           # ({ chromium-browser \
-               #        --incognito \
-               #        --user-data-dir="$data_dir" \
-               #        "$url" &
-           #    wait $!
-           #    rm -r "$data_dir"; } >/dev/null 2>&1 &) 
+    esac 
 }
