@@ -79,7 +79,7 @@ alias ddg='mpw -tx duckduckgo.com'
 alias macadmins.slack='mpw -tx macadmins.slack.com'
 alias christ='export HISTSIZE=0; export HISTSIZE=1000'
 alias pintrest='mpw -tx pintrest.com'
-
+alias amazon='mpw -tl amazon.com'
 alias meraki.vpn.carol='mpw -tx meraki.vpn.carol'
 
 # VirtualBox
@@ -92,3 +92,4 @@ alias vmclone='vmanage clonevm'
 alias vmimport='vmanage import'
 alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
+
