@@ -21,7 +21,7 @@ rain() {
     local opts="--no-video"
     local mpv="/usr/bin/mpv"
 
-    "$mpv" "$opts" "$path"/"$track" >/dev/null 2>&1 &
+    nohup "$mpv" "$opts" "$path"/"$track" >/dev/null 2>&1 &
     echo "$!" > /tmp/rain.$!
 }
 
@@ -111,7 +111,7 @@ mcalc() {
 incognito() {
     _default_url="https://images.google.com"
     _url="$1"
-    _data_dir="/tmp/incognito"
+    _data_dir="$(mktemp -dqp /tmp incognito.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX)"
     
     incog() {       
         chromium-browser \
