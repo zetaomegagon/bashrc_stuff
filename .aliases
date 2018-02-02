@@ -93,3 +93,4 @@ alias vmimport='vmanage import'
 alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
 
+alias mybackpack='mpw -tx mybackpack'
