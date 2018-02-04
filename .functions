@@ -67,9 +67,9 @@ mpw() {
 
     # for gpaste-client clear last password after 10 seconds
     if [[ "$_use" = "${_clips[2]}" ]]; then
-        ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))"; \
-           gpaste-client rename-password "" "$_name"; \
-           sleep 10; \
+        ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))";
+           gpaste-client rename-password "" "$_name";
+           sleep 10;
            gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
     fi
     
