@@ -47,7 +47,7 @@ mpw() {
             "${_clips[1]}")
                 hash "$_use" 2>/dev/null && "$_use" ;;
             "${_clips[2]}")
-                hash "$_use" 2>/dev/null && "$_use" add-password 'Master Password' ;;
+                hash "$_use" 2>/dev/null && "$_use" add-password "Master Password" ;;
             *)
                 cat; echo 2>/dev/null
                 return
@@ -67,7 +67,10 @@ mpw() {
 
     # for gpaste-client clear last password after 10 seconds
     if [[ "$_use" = "${_clips[2]}" ]]; then
-        ({ sleep 10; gpaste-client delete-password 'Master Password'; } >/dev/null 2>&1 &)
+        ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))"; \
+           gpaste-client rename-password "Master Password" "$_name"; \
+           sleep 10; \
+           gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
     fi
     
 }
@@ -98,6 +101,7 @@ port-open() {
 ## Add new alias
 new-alias() {
     echo "$@" >> ~/.aliases
+    (gitrc >/dev/null 2>&1 &)
 }
 
 ## Simple calculator
