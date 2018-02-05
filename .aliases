@@ -94,3 +94,4 @@ alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
 
 alias mybackpack='mpw -tx mybackpack'
+alias toby-tps='mpw -tx gettoby.com.tps'

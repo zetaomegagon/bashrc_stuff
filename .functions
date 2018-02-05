@@ -65,9 +65,10 @@ mpw() {
     # Start Master Password and copy the output.
     printf %s "$(MP_FULLNAME=$MP_FULLNAME command mpw "$@")" | _copy
 
-    # for gpaste-client clear last password after 10 seconds
+    # For gpaste-client: clear last password after 10 seconds
     if [[ "$_use" = "${_clips[2]}" ]]; then
         ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))";
+           # Race condition?
            gpaste-client rename-password "" "$_name";
            sleep 10;
            gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
