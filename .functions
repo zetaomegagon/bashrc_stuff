@@ -136,3 +136,13 @@ incognito() {
         *) (incog "$_url" &)
     esac 
 }
+
+kill-chromium() {
+    pid=$(psgrep chromium-profiles-manager \
+	      | grep $1 \
+	      | awk '{ print $1 }')
+    
+    for _pid in "$pid"; do
+	kill -HUP "$_pid"
+    done
+}

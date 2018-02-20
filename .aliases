@@ -95,3 +95,5 @@ alias vmstarth='vmanage startvm --type headless'
 
 alias mybackpack='mpw -tx mybackpack'
 alias toby-tps='mpw -tx gettoby.com.tps'
+alias classy='mpw -tx -c2 classy.org'
+alias devstderr.key='mpw -tx devstderr.key'
