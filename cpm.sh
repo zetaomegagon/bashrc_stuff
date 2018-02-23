@@ -53,6 +53,7 @@ cpm() {
     _chromium="/usr/bin/chromium-browser"
     _chrome="/usr/bin/google-chrome-stable"
     _default_url="https://www.netflix.com/"
+    _admin_url="https://admin.google.com/"
     
     cd "${HOME}/.config/chromium/"
 
@@ -60,12 +61,13 @@ cpm() {
         personal|tps)
             "$_chromium" \
 		--user-data-dir="$1" \
-                --disk-cache-dir=/tmp/chromium/cache-"$1"
+                --disk-cache-dir=/tmp/chromium/cache-"$1" \
             ;;
 	incognito)
 	    "$_chromium" \
 		--incognito \
 		--user-data-dir="$1" \
+		"$_admin_url" \
 		>/dev/null 2>&1 &
 	    wait "$!"
 	    sleep 3
