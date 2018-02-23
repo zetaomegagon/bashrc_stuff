@@ -1,5 +1,14 @@
 #!/bin/bash -xe
 
+#  !!! This script needs a lot of work. It doesn't do exactly
+#  !!! What it is supposed to do:
+#  !!! - error codes are not explained
+#  !!! - it does no syncing between disk and ram
+#  !!! - no archiving happens
+#  !!! - sometimes the chrome/chromium process stays running
+#  !!!   in the background
+#
+#
 #  A wrapper for the chromium-browser for managing profiles
 #  as separate chromium data directories and running them out
 #  of ram.

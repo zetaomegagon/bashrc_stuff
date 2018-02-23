@@ -44,8 +44,8 @@ gitrc() {
     done
 
     pushd "$_repo" >/dev/null 2>&1
-    #git commit -m "auto generated message."
-    #git push origin master
+    git commit -m "auto generated message."
+    git push origin master
     popd >/dev/null 2>&1
 }
 
