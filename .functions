@@ -27,7 +27,6 @@ rain() {
 
 ## Add, commit, push functions and aliases
 gitrc() {
-    set -x
     _repo="${HOME}/bashrc_stuff"
     _bin="${HOME}/bin"
     _files=('cpm' '.bashrc' '.aliases' '.functions')
@@ -48,7 +47,6 @@ gitrc() {
 
     git commit -m "auto generated message."
     git push origin master
-    set +x
 }
 
 ## mpw helper function
