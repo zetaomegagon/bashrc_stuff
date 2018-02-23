@@ -31,8 +31,6 @@ gitrc() {
     _bin="${HOME}/bin"
     _files=('cpm' '.bashrc' '.aliases' '.functions')
 
-    cd "$_repo"
-    
     for _file in "${_files[@]}"; do
 	if [[ -e "${_bin}/$_file" ]]; then
 	    cp -L "${_bin}/$_file" "${_repo}/$_file"
@@ -45,8 +43,9 @@ gitrc() {
 	git add "${_repo}/$_file"
     done
 
-    git commit -m "auto generated message."
-    git push origin master
+    (cd "$_repo"; \
+     git commit -m "auto generated message."; \
+     git push origin master)
 }
 
 ## mpw helper function
