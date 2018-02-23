@@ -1,12 +1,19 @@
-#!/bin/bash -xe
+#!/bin/bash
 
-#  !!! This script needs a lot of work. It doesn't do exactly
-#  !!! What it is supposed to do:
-#  !!! - error codes are not explained
-#  !!! - it does no syncing between disk and ram
-#  !!! - no archiving happens
-#  !!! - sometimes the chrome/chromium process stays running
-#  !!!   in the background
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#  !!!                                                        !!!
+#  !!!           This script needs a lot of work.             !!!
+#  !!!                                                        !!!
+#  !!! It doesn't do exactly what it is supposed to do:       !!! 
+#  !!! - error codes are not explained.                       !!!
+#  !!! - it does no syncing between disk and ram              !!!
+#  !!! - no archiving happens.                                !!!
+#  !!! - sometimes the chrome/chromium process stays running  !!!
+#  !!!   in the background.                                   !!!
+#  !!! - My solution for ensuring the process(es) die doesn't !!!
+#  !!!   work as expected.                                    !!!
+#  !!!                                                        !!!
+#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
 #
 #  A wrapper for the chromium-browser for managing profiles
