@@ -43,9 +43,10 @@ gitrc() {
 	git add "${_repo}/$_file"
     done
 
-    (cd "$_repo"; \
-     git commit -m "auto generated message."; \
-     git push origin master)
+    pushd "$_repo" >/dev/null 2>&1
+    #git commit -m "auto generated message."
+    #git push origin master
+    popd >/dev/null 2>&1
 }
 
 ## mpw helper function
