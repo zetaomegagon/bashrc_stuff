@@ -136,3 +136,8 @@ kill-chromium() {
 	kill -HUP "$_pid"
     done
 }
+
+gen-random() {
+    printf $(mktemp -u $(for n in {0..128}; do printf X; done))
+}
+
