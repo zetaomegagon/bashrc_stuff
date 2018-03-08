@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xe
 
 #   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #  !!!                                                        !!!
@@ -59,7 +59,7 @@
 pid=$(ps -ax \
           | grep -v grep \
           | grep "chromium-browser" \
-          | grep "$1" \
+          | grep -w "$1" \
           | head -1)
 
 [[ "$pid" != '' ]] && exit 2
