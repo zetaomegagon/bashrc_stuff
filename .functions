@@ -39,11 +39,10 @@ gitrc() {
 	if [[ -e "${HOME}/$_file" ]]; then
 	    cp -L "${HOME}/$_file" "${_repo}/$_file"
 	fi
-      
-	git add "${_repo}/$_file"
     done
 
     pushd "$_repo" >/dev/null 2>&1
+    git add "${_repo}/$_file"
     git commit -m "auto generated message."
     git push origin master
     popd >/dev/null 2>&1
