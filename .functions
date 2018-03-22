@@ -137,6 +137,16 @@ kill-chromium() {
 }
 
 gen-random() {
-    printf $(mktemp -u $(for n in {0..128}; do printf X; done))
-}
+    local N=$1
 
+    if [[ $N =~ [A-Za-z]*|[\\\!\@\#\$\%\^\&\*\(\)\_\+\|\~\<\>\.\,\[\]\{\}]* ]]; then
+       read -d '' usage <<-EOF
+	Valid inputs are 129 > N > 2.
+	N must be a whole number.
+	EOF
+       echo "$usage"
+       (exit 1)
+    fi
+
+    printf $(mktemp -u $(for n in {0..$N}; do printf X; done))
+}
