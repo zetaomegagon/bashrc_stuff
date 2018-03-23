@@ -84,7 +84,7 @@ mpw() {
         ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))";
            # Race condition?
            gpaste-client rename-password "" "$_name";
-           sleep 10;
+           sleep 30;
            gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
     fi
 
