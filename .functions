@@ -31,6 +31,8 @@ gitrc() {
     _bin="${HOME}/bin"
     _files=('cpm' '.bashrc' '.aliases' '.functions')
 
+    pushd "$_repo" >/dev/null 2>&1
+    
     for _file in "${_files[@]}"; do
 	if [[ -e "${_bin}/$_file" ]]; then
 	    cp -L "${_bin}/$_file" "${_repo}/$_file"
@@ -41,7 +43,6 @@ gitrc() {
 	fi
     done
 
-    pushd "$_repo" >/dev/null 2>&1
     git add "${_repo}/$_file"
     git commit -m "auto generated message."
     git push origin master
