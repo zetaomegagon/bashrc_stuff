@@ -31,8 +31,6 @@ gitrc() {
     _bin="${HOME}/bin"
     _files=('cpm' '.bashrc' '.aliases' '.functions')
 
-    set -x
-    
     pushd "$_repo" >/dev/null 2>&1
     
     for _file in "${_files[@]}"; do
@@ -50,8 +48,6 @@ gitrc() {
     git commit -m "auto generated message."
     git push origin master
     popd >/dev/null 2>&1
-
-    set +x
 }
 
 ## mpw helper function
