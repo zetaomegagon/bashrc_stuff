@@ -22,6 +22,10 @@ if [ -f "${HOME}/.aliases" ]; then
     source ~/.aliases
 fi
 
+if [ -f "${HOME}/.mpw" ]; then
+    source ~/.mpw
+fi
+
 # Startup commands
 tmux-start
 
