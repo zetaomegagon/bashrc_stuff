@@ -32,6 +32,8 @@ gitrc() {
     _files=('cpm' '.bashrc' '.aliases' '.functions' '.mpw')
 
     pushd "$_repo" >/dev/null 2>&1
+
+    git pull
     
     for _file in "${_files[@]}"; do
 	if [[ -e "${_bin}/$_file" ]]; then
