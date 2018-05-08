@@ -92,6 +92,7 @@ mpw() {
 
 }
 export MPW_FULLNAME=Elijah\ Thomas\ Beale
+export MP_FULLNAME=Elijah\ Thomas\ Beale
 export MPW_ASKPASS="${HOME}/bin/mpw_ask"
 
 ## Port open check
