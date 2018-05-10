@@ -155,3 +155,10 @@ gen-random() {
 
     printf $(mktemp -u $(for n in {0..$N}; do printf X; done))
 }
+
+google-chrome() {
+    ({ google-chrome --fullscreen >/dev/null & \
+       wait $!; \
+       rm .config/google-chrome/Default/{History*,Last*,'Local Storage'}; } \
+	 >/dev/null 2>&1 &)
+    }
