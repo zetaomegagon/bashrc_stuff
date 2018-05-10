@@ -52,4 +52,3 @@ alias vmstarth='vmanage startvm --type headless'
 
 alias gam='/home/ebeale/bin/gam/gam'
 alias vboxmanagehelp='vboxmanage --help | less'
-alias google-chrome='({ google-chrome --fullscreen >/dev/null & wait 19515; rm .config/google-chrome/Default/{History*,Last*,Local\ Storage}; } >/dev/null 2>&1 &)'
