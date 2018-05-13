@@ -157,7 +157,38 @@ gen-random() {
 }
 
 chrome() {
-    ({ google-chrome --fullscreen &
-       wait $!;
-       rm .config/google-chrome/Default/{History*,Last*,Local\ Storage}; } >/dev/null 2>&1 & )
+    base_dir="${HOME}/.config/google-chrome"
+    temp_dir="/tmp/google-chrome"
+    default_cache_dir="${HOME}/.cache/google-chrome"
+    
+    ({ if [[ ! -d "$temp_dir" ]]; then
+	   mkdir "$temp_dir"
+       fi
+
+       cache_dir="$(mktemp -d -p ${temp_dir} $(for i in {0..64}; do printf X; done))"
+       
+       google-chrome --fullscreen --disk-cache-dir="$cache_dir" &
+
+       wait $!
+
+       rm -rf ${base_dir}/Local\ State
+
+       FILES=( 'History' 'History-journal' 'History Provider Cache'
+	       'Cookies' 'Cookies-journal' 'Current Session' 'Current Tabs'
+	       'Top Sites' 'Top Sites-journal' 'Visited Links' 'Web Data'
+	       'Web Data-journal' 'Sync Data' 'Local Storage' 'Session Storage'
+	       'Storage' 'Last Session' 'Login Data' 'Login Data-journal' )
+       
+       for FILE in "${FILES[@]}"; do
+	   rm -rf ${base_dir}/Default/"$FILE"
+       done
+
+       if [[ -d "$default_cache_dir" ]]; then
+	   rm -rf "$default_cache_dir"
+       fi
+
+       rm -rf "$cache_dir"
+
+       sync
+      } >/dev/null 2>&1 &)
     }
