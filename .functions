@@ -162,7 +162,7 @@ chrome() {
 
        cache_dir="$(mktemp -d -p ${temp_dir} $(for i in {0..64}; do printf X; done))"
        
-       google-chrome --fullscreen --disk-cache-dir="$cache_dir" &
+       /usr/bin/google-chrome --fullscreen --disk-cache-dir="$cache_dir" &
 
        wait $!
 
