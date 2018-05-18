@@ -33,3 +33,4 @@ tmux-start
 if [ -f "{HOME}/bin/bashlib" ]; then
     source bashlib
 fi
+export MPW_ASKPASS=/home/ebeale/bin/mpw_ask
