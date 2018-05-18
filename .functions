@@ -143,13 +143,11 @@ mcalc() {
     echo "$expr" | bc
 }
 
-## Kill a set of chromium processes
-## Doesn't work
 kill-chromium() {
-    pid=$(psgrep cpm | grep $1 | awk '{ print $1 }')
+    local pids=$(psgrep chromium-browser | grep $1 | awk '{ print $1 }')
 
-    for _pid in "$pid"; do
-	kill -HUP "$_pid"
+    for pid in $pids; do
+	kill -HUP "$pid"
     done
 }
 
