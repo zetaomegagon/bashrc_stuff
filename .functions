@@ -73,23 +73,30 @@ mpw() {
         echo >&2 "Copied!"
     }
 
-    # Empty the clipboard
-    :| _copy 2>/dev/null
+    if [[ "$1" = "-h" ]]; then
+	# Is help being called? If so, call the binary directly
+	${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+	less /tmp/mpw_help
+	rm /tmp/mpw_help
+	(exit 0)
+    else
+	# Empty the clipboard
+	:| _copy 2>/dev/null
 
-    # Ask for the user's name and password if not yet known.
-    MPW_FULLNAME=${MPW_FULLNAME:-$(ask 'Your Full Name:')}
+	# Ask for the user's name and password if not yet known.
+	MPW_FULLNAME=${MPW_FULLNAME:-$(ask 'Your Full Name:')}
 
-    # Start Master Password and copy the output.
-    printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw "$@")" | _copy
+	# Start Master Password and copy the output.
+	printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw "$@")" | _copy
 
-    # For gpaste-client: clear last password after 30 seconds
-    if [[ "$_use" = "${_clips[2]}" ]]; then
-        ({ _name="$(basename $(mktemp -u XXXXXXXXXXXX))";
-           gpaste-client rename-password "" "$_name";
-           sleep 30;
-           gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
+	# For gpaste-client: clear last password after 30 seconds
+	if [[ "$_use" = "${_clips[2]}" ]]; then
+            ({ _name="$(mktemp -u XXXXXXXXXXXX)";
+               gpaste-client rename-password "" "$_name";
+               sleep 30;
+               gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
+	fi
     fi
-
 }
 export MPW_FULLNAME=Elijah\ Thomas\ Beale
 export MP_FULLNAME=Elijah\ Thomas\ Beale
