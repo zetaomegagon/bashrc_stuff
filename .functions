@@ -139,9 +139,7 @@ mcalc() {
 ## Kill a set of chromium processes
 ## Doesn't work
 kill-chromium() {
-    pid=$(psgrep chromium-profiles-manager \
-	      | grep $1 \
-	      | awk '{ print $1 }')
+    pid=$(psgrep cpm | grep $1 | awk '{ print $1 }')
 
     for _pid in "$pid"; do
 	kill -HUP "$_pid"
@@ -195,7 +193,6 @@ chrome() {
        fi
 
        rm -rf "$cache_dir"
-
-       sync
+       
       } >/dev/null 2>&1 &)
     }
