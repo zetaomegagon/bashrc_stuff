@@ -28,10 +28,9 @@ rain() {
 
 ## Add, commit, push functions and aliases
 gitrc() {
-    _repo="${HOME}/gits/bashrc_stuff"
-    _bin="${HOME}/bin"
-    _files=('cpm' '.bashrc' '.aliases' '.functions' '.mpw' 'mpw_ask')
-
+    REPO="${HOME}/gits/bashrc_stuff"
+    BIN="${HOME}/bin"
+    
     if [[ $(pwd) != "$_repo" ]]; then
        pushd "$_repo" >/dev/null 2>&1
     fi
@@ -41,19 +40,7 @@ gitrc() {
     #          pull and apply stashed after
 
     git pull
-    
-    for _file in "${_files[@]}"; do
-	if [[ -e "${_bin}/$_file" ]]; then
-	    cp -L "${_bin}/$_file" "${_repo}/$_file"
-	fi
-
-	if [[ -e "${HOME}/$_file" ]]; then
-	    cp -L "${HOME}/$_file" "${_repo}/$_file"
-	fi
-
-	git add "${_repo}/$_file"
-    done
-
+    git add -A
     git commit -m "auto generated message."
     git push origin master
 
