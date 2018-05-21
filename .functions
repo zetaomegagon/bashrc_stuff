@@ -29,10 +29,9 @@ rain() {
 ## Add, commit, push functions and aliases
 gitrc() {
     REPO="${HOME}/gits/bashrc_stuff"
-    BIN="${HOME}/bin"
     
-    if [[ $(pwd) != "$_repo" ]]; then
-       pushd "$_repo" >/dev/null 2>&1
+    if [[ $(pwd) != "$REPO" ]]; then
+       pushd "$REPO" >/dev/null 2>&1
     fi
        
     #!!! TODO: check for non-committed changes,
