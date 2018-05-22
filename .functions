@@ -172,3 +172,7 @@ chrome() {
        
       } >/dev/null 2>&1 &)
     }
+
+empty() {
+    gpaste-client empty && printf "" | gpaste-client
+}
