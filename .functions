@@ -98,8 +98,6 @@ mpw() {
     fi
 }
 
-}
-
 kill-chromium() {
     local pids=$(psgrep chromium-browser | grep $1 | awk '{ print $1 }')
 
