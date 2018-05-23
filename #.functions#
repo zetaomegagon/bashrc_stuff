@@ -39,7 +39,7 @@ gitrc() {
     [[ "$(git stash)" = "No local changes to save" ]] && git stash
     
     git pull
-    [[ "$(git stash list) !=git stash apply
+    [[ "$(git stash list)" != '' ]] && git stash apply
     git add -A
     git commit -m "auto generated message."
     git push origin master
