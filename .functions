@@ -38,11 +38,11 @@ gitrc() {
 
     [[ "$(git stash)" = "No local changes to save" ]] && git stash 
     git pull
-    [[ "$(git stash list)" != '' ]] && git stash apply
+    [[ "$(git stash list)" != '' ]] && git stash apply --index
     git add -A
-    git commit -m "auto generated message."
+    git commit -m "auto commited on: $(date -u +%F %T) [UTC]"
     git push origin master
-    git stash clear
+    git stash drop stash@{0}
 
     popd >/dev/null 2>&1
 
