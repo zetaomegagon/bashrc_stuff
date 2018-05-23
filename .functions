@@ -98,38 +98,6 @@ mpw() {
     fi
 }
 
-## Port open check
-port-open() {
-    local address="$1"
-    local port="$2"
-    local aregex="([0-9]{1,3}\.){3}[0-9]{1,3}"
-    local pregex="[0-9]{1,5}"
-
-    if [[ "$address" =~ $aregex ]]; then
-        if [[ "$port" =~ $pregex ]]; then
-            if [[ $(nc -w 5 -z "$address" "$port"; echo $?) = 0 ]]; then
-                echo "Port open!"
-            else
-                echo "Port closed or unreachable..."
-            fi
-        else
-            echo "Please enter a valid port number!"
-        fi
-    else
-        echo "Please enter a valid address!"
-    fi
-}
-
-## Add new alias
-new-alias() {
-    echo "$@" >> ~/.aliases
-    (gitrc >/dev/null 2>&1 &)
-}
-
-## Simple calculator
-mcalc() {
-    local expr="$*"
-    echo "$expr" | bc
 }
 
 kill-chromium() {
