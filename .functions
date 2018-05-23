@@ -36,16 +36,17 @@ gitrc() {
     #          stash them with a message, then
     #          pull and apply stashed after
 
-    [[ "$(git stash)" = "No local changes to save" ]] && git stash
-    
+    [[ "$(git stash)" = "No local changes to save" ]] && git stash 
     git pull
     [[ "$(git stash list)" != '' ]] && git stash apply
     git add -A
     git commit -m "auto generated message."
     git push origin master
-    
+    git stash clear
 
     popd >/dev/null 2>&1
+
+    . ${HOME}/.bashrc
 }
 
 ## mpw helper function
