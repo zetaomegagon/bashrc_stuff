@@ -40,7 +40,7 @@ gitrc() {
     git pull
     [[ "$(git stash list)" != '' ]] && git stash apply --index
     git add -A
-    git commit -m "auto commited on: $(date -u +%F %T) [UTC]"
+    git commit -m "auto commited on: $(date -u '+%F %T') [UTC]"
     git push origin master
     git stash drop stash@{0}
 
