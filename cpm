@@ -66,34 +66,34 @@ pid=$(ps -ax \
 
 # Main function
 cpm() {
-    _chromium="/usr/bin/chromium-browser"
-    _chrome="/usr/bin/google-chrome-stable"
-    _default_url="https://www.netflix.com/"
-    _admin_url="https://admin.google.com/"
+    local chromium="/usr/bin/chromium-browser"
+    local chrome="/usr/bin/google-chrome-stable"
+    local default_url="https://www.netflix.com/"
+    local admin_url="https://admin.google.com/"
     
     cd "${HOME}/.config/chromium/"
 
     case "$1" in
         personal|tps)
-            "$_chromium" \
+            "$chromium" \
 		--user-data-dir="$1" \
                 --disk-cache-dir=/tmp/chromium/cache-"$1" \
             ;;
 	incognito)
-	    "$_chromium" \
+	    "$chromium" \
 		--incognito \
 		--user-data-dir="$1" \
-		"$_admin_url" \
+		"$admin_url" \
 		>/dev/null 2>&1 &
 	    wait "$!"
 	    sleep 3
 	    rm -r "$1"
 	    ;;
 	chrome-stable)
-	    "$_chrome" \
+	    "$chrome" \
 		--user-data-dir="$1" \
 		--disk-cache-dir=/tmp/chromium/cache-"$1" \
-		"$_default_url"
+		"$default_url"
 	    ;;
         *)
             echo "Call with one of:"
@@ -112,9 +112,9 @@ pid=$(ps -ax \
           | head -1)
 
 kill-pid() {
-    for _pid in "$pid"; do
-	if [[ "$_pid" != '' ]]; then
-	    kill -HUP "$_pid"
+    for pid in $pids; do
+	if [[ "$pid" != '' ]]; then
+	    kill -HUP "$pid"
 	fi
     done
 }
