@@ -20,18 +20,24 @@ rain() {
     local track="rain.mp3"
     local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
-    if [[ -f "${music_dir}/$track" ]]; then
-	nohup mpv --no-video "${music_dir}/$track" >/dev/null 2>&1 & touch /tmp/rain.$!
-    else
-	nohup mpv --no-video "$track_url" >/dev/null 2>&1 & touch /tmp/rain.$!
-    fi
+    make-it-rain() {
+	(mpv --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
+    }
 
-    wait $!; rm /tmp/rain.$!
+    if [[ -f "${music_dir}/$track" ]]; then
+	make-it-rain "${music_dir}/$track"
+    else
+	make-it-rain "$track_url"
+    fi
 }
 
 ## Kill the rain
 kill-rain() {
-    kill -SIGTERM $(ls /tmp | grep rain | cut -d. -f2)
+    for file in $(echo /tmp/rain.*); do
+	local pid=$(basename $file | cut -d. -f2)
+	kill $pid 2>/dev/null
+	rm /tmp/rain.$pid
+    done
 }
 
 ## Add, commit, push functions and aliases
@@ -146,6 +152,6 @@ chrome() {
       } >/dev/null 2>&1 &)
     }
 
-empty() {
+clip() {
     gpaste-client empty && printf "" | gpaste-client
 }
