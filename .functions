@@ -36,7 +36,7 @@ gitrc() {
     #          stash them with a message, then
     #          pull and apply stashed after
 
-    [[ "$(git stash)" != "No local changes to save" ]] && git stash >/dev/null 2>&1
+    [[ $(git commit --dry-run | grep Untracked) ]] && git stash >/dev/null 2>&1
     git pull >/dev/null 2>&1
     [[ "$(git stash list)" != '' ]] && git stash apply --index >/dev/null 2>&1
     git add -A >/dev/null 2>&1
