@@ -4,12 +4,11 @@
 tmux-start() {
     if which tmux >/dev/null 2>&1; then
         if [[ -z "$TMUX" ]] ;then
-	    # get the id of a deattached session
-            ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )"
-            if [[ -z "$ID" ]] ;then # if not available create a new one
+            ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )"            
+	    if [[ -z "$ID" ]] ;then 
                 tmux new-session
             else
-                tmux attach-session -t "$ID" # if available attach to it
+                tmux attach-session -t "$ID"
             fi
         fi
     fi
@@ -17,25 +16,30 @@ tmux-start() {
 
 ## Start 9h of rain sleep sounds
 rain() {
-    local path="$HOME/Music"
+    local music_dir="$HOME/Music"
     local track="rain.mp3"
-    local opts="--no-video"
-    local mpv="/usr/bin/mpv"
+    local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
-    nohup "$mpv" "$opts" "$path"/"$track" >/dev/null 2>&1 &
-    echo "$!" > /tmp/rain.$!
+    if [[ -f "${music_dir}/$track" ]]; then
+	nohup mpv --no-video "${music_dir}/$track" >/dev/null 2>&1 & touch /tmp/rain.$!
+    else
+	nohup mpv --no-video "$track_url" >/dev/null 2>&1 & touch /tmp/rain.$!
+    fi
+
+    wait $!; rm /tmp/rain.$!
+}
+
+## Kill the rain
+kill-rain() {
+    kill -SIGTERM $(ls /tmp | grep rain | cut -d. -f2)
 }
 
 ## Add, commit, push functions and aliases
 gitrc() {
-    REPO="${HOME}/gits/bashrc_stuff"
+    local repo="${HOME}/gits/bashrc_stuff"
     
-    [[ $(pwd) != "$REPO" ]] && pushd "$REPO" >/dev/null 2>&1
+    [[ $(pwd) != "$repo" ]] && pushd "$REPO" >/dev/null 2>&1
        
-    #!!! TODO: check for non-committed changes,
-    #          stash them with a message, then
-    #          pull and apply stashed after
-
     git add -A >/dev/null 2>&1
     git stash >/dev/null 2>&1
     git pull >/dev/null 2>&1
