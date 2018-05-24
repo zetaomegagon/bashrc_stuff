@@ -44,7 +44,7 @@ kill-rain() {
 gitrc() {
     local repo="${HOME}/gits/bashrc_stuff"
     
-    [[ $(pwd) != "$repo" ]] && pushd "$REPO" >/dev/null 2>&1
+    [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
        
     git add -A >/dev/null 2>&1
     git stash >/dev/null 2>&1
@@ -152,6 +152,7 @@ chrome() {
       } >/dev/null 2>&1 &)
     }
 
-clip() {
+clipc() {
+    # Like 'history -c' for gpaste-client
     gpaste-client empty && printf "" | gpaste-client
 }

@@ -31,6 +31,7 @@ alias zfgrep='zfgrep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias sigrok='sigrok-cli'
 alias gam='/home/ebeale/bin/gam/gam'
+alias histc='history -c'
 
 # VirtualBox
 alias vmanage='VBoxManage'
