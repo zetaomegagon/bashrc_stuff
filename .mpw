@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias chrome-sync='mpw -tx chrome-sync'
 alias ephemere-admin='mpw -tx ephemere-admin'
 alias ephemere-root='mpw -tx ephemere-root'
@@ -74,4 +76,15 @@ alias technology.account='mpw -tx tps.technology.account'
 alias noip='mpw -tx noip.com'
 alias nsupdate='mpw -tx nsupdate.info'
 alias summer-work='mpw -tx tps.summer-work.accoutn'
-alias ebeale='mpw -tx ebeale.computezero.machine'
+
+ebeale() {
+    local hash=$(cat <<'EOF'
+f1ad159ef106ddfb9ba0fb9425465d9e\
+114a18eb870b83433d384dccf821f7a9\
+c07040c8edc921706b6beee5b5e64d13\
+e892b16d3cf4b053b5ec0139da005b73
+EOF
+)    
+    mpw -tx "$hash"
+}
+    
