@@ -154,5 +154,5 @@ chrome() {
 
 clipc() {
     # Like 'history -c' for gpaste-client
-    gpaste-client empty && printf "" | gpaste-client
+    gpaste-client empty && printf "Cleared!" | gpaste-client
 }

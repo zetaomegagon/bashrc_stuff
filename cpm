@@ -74,7 +74,7 @@ cpm() {
     cd "${HOME}/.config/chromium/"
 
     case "$1" in
-        personal|tps)
+        personal|work)
             "$chromium" \
 		--user-data-dir="$1" \
                 --disk-cache-dir=/tmp/chromium/cache-"$1" \
@@ -82,7 +82,7 @@ cpm() {
 	incognito)
 	    "$chromium" \
 		--incognito \
-		--user-data-dir="$1" \
+		--user-data-dir=/tmp/chromium/data-"$1" \
 		"$admin_url" \
 		>/dev/null 2>&1 &
 	    wait "$!"
@@ -98,8 +98,9 @@ cpm() {
         *)
             echo "Call with one of:"
             echo " - personal"
-            echo " - tps"
+            echo " - work"
             echo " - incognito"
+	    echo " - chrome-stable"
             exit 1
     esac
 }
