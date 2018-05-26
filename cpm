@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash
 
 #   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #  !!!                                                        !!!
@@ -103,7 +103,7 @@ cpm() {
 	    echo " - chrome-stable"
             exit 1
     esac
-}
+} >/dev/null 2>&1 
 
 # Make sure the process and spawn die
 pid=$(ps -ax \
