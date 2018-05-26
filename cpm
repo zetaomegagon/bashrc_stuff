@@ -87,7 +87,7 @@ cpm() {
 		>/dev/null 2>&1 &
 	    wait "$!"
 	    sleep 3
-	    rm -r "$1"
+	    rm -r "/tmp/chromium/data-$1"
 	    ;;
 	chrome-stable)
 	    "$chrome" \
