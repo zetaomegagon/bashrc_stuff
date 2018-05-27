@@ -30,7 +30,6 @@ alias zegrep='zegrep --color=auto'
 alias zfgrep='zfgrep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias sigrok='sigrok-cli'
-alias gam='/home/ebeale/bin/gam/gam'
 alias histc='history -c'
 
 # VirtualBox
@@ -44,3 +43,4 @@ alias vmimport='vmanage import'
 alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
 alias vboxmanagehelp='vboxmanage --help | less'
+alias gam='/home/ebeale/bin/gam/gam'

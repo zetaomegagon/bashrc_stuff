@@ -1,123 +1,62 @@
 #!/bin/bash
 
-#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#  !!!                                                        !!!
-#  !!!           This script needs a lot of work.             !!!
-#  !!!                                                        !!!
-#  !!! It doesn't do exactly what it is supposed to do:       !!! 
-#  !!! - error codes are not explained.                       !!!
-#  !!! - it does no syncing between disk and ram              !!!
-#  !!! - no archiving happens.                                !!!
-#  !!! - sometimes the chrome/chromium process stays running  !!!
-#  !!!   in the background.                                   !!!
-#  !!! - My solution for ensuring the process(es) die doesn't !!!
-#  !!!   work as expected.                                    !!!
-#  !!!                                                        !!!
-#   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#
-#
-#  A wrapper for the chromium-browser for managing profiles
-#  as separate chromium data directories and running them out
-#  of ram.
-#
-#  Functionality:
-#
-#    1. Copies data dir to a unique dir in tmpfs
-#    2. Executes chromium-browser
-#    2. Dates, archives, and compresses orig. data dir
-#    3. Upon exit copies data dir from tmpfs to base dir
-#
-#  Usage:
-#
-#    chromium <data_dir>
-#
-#  Example(s):
-#
-#    chromium personal
-#    chromium work
-#    chromium guest
-#
-#  TODO
-#
-#    1. Are all checks meaningful?
-#    2. Keep only last x archives
-#    3. Roll back to last archive (better: rollback to n archive via menu)
-#    4. Unqualified call to script uses guest account:
-#     a. Features
-#      1. Self-destructing (shred?)
-#      2. No backups
-#      3. Incognito by default
-#
-#    5. What do exit statuses mean?
-#    6. Raise exceptions for errors.
-#    7. Add debug/testing features.
-#    8. Better discovery of already running chromium pids (too much grepping)
-#    9. Refactor/restructure
-
-
-# Sanity check: already got a PID?
-pid=$(ps -ax \
-          | grep -v grep \
-          | grep "chromium-browser" \
-          | grep -w "$1" \
-          | head -1)
-
-[[ "$pid" != '' ]] && exit 2
-
 # Main function
 cpm() {
     local chromium="/usr/bin/chromium-browser"
-    local chrome="/usr/bin/google-chrome-stable"
-    local default_url="https://www.netflix.com/"
-    local admin_url="https://admin.google.com/"
+    local chromium_dir="${HOME}/.config/chromium"
+    local data_dir="--user-data-dir=$chromium_dir/$1"
+    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+    local grep=/bin/grep
+    local pids=$(ps -ax \
+		     | $grep -v grep \
+		     | $grep "chromium-browser" \
+		     | $grep "$1" \
+		     | awk '{ print $1 }')
+
+    kill-pid() {
+	# Ensure process and children die
+	for pid in $pids; do
+	    [[ "$pid" != '' ]] && kill "$pid"
+	done
+    }
+
+    # Check for already running process
+    [[ "$pid" != '' ]] && exit 1
     
-    cd "${HOME}/.config/chromium/"
+    cd "$chromium_dir" || exit 2
 
     case "$1" in
         personal|work)
-            "$chromium" \
-		--user-data-dir="$1" \
-                --disk-cache-dir=/tmp/chromium/cache-"$1" \
-            ;;
-	incognito)
-	    "$chromium" \
-		--incognito \
-		--user-data-dir=/tmp/chromium/data-"$1" \
-		"$admin_url" \
-		>/dev/null 2>&1 &
+            "$chromium" "$data_dir" "$cache_dir" &
 	    wait "$!"
-	    sleep 3
-	    rm -r "/tmp/chromium/data-$1"
+	    kill-pid
+	    exit 0
 	    ;;
-	chrome-stable)
-	    "$chrome" \
-		--user-data-dir="$1" \
-		--disk-cache-dir=/tmp/chromium/cache-"$1" \
-		"$default_url"
+	incognito)
+	    "$chromium" --"$1" "$data_dir" "$cache_dir" &
+	    wait "$!"
+	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+	    kill-pid
+	    exit 0
 	    ;;
-        *)
-            echo "Call with one of:"
-            echo " - personal"
-            echo " - work"
-            echo " - incognito"
-	    echo " - chrome-stable"
-            exit 1
+        ?|help)
+	    echo
+            echo "Usage: cpm <data_dir_name>"
+	    echo
+	    echo "<data_dir_name> is one of:"
+	    echo
+            echo "    personal"
+            echo "    work"
+            echo "    incognito"
+	    echo
+	    echo "Exit status is on of:"
+	    echo
+	    echo "    1: already running process"
+	    echo "    2: could not cd to chromium directory"
+	    echo "    3: exit status of this message"
+	    echo
+            exit 3
     esac
-} >/dev/null 2>&1 
-
-# Make sure the process and spawn die
-pid=$(ps -ax \
-          | grep -v grep \
-          | grep "chromium-browser" \
-          | grep "$1" \
-          | head -1)
-
-kill-pid() {
-    for pid in $pids; do
-	if [[ "$pid" != '' ]]; then
-	    kill -HUP "$pid"
-	fi
-    done
 }
 
-cpm "$1" & wait "$!"; kill-pid && exit 0
+cpm "$1"
