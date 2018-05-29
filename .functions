@@ -16,13 +16,16 @@ tmux-start() {
 
 ## Start 9h of rain sleep sounds
 rain() {
+    local mpv="/usr/bin/mpv"
     local music_dir="$HOME/Music"
     local track="rain.mp3"
     local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
     make-it-rain() {
-	(mpv --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
+	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
     }
+
+    [[ ! -e "$mpv" ]] && sudo dnf -qy install mpv
 
     if [[ -f "${music_dir}/$track" ]]; then
 	make-it-rain "${music_dir}/$track"
@@ -34,7 +37,7 @@ rain() {
 ## Kill the rain
 kill-rain() {
     for file in $(echo /tmp/rain.*); do
-	local pid=$(basename $file | cut -d. -f2)
+	local pid=${file#/tmp/rain\.}
 	kill $pid 2>/dev/null
 	rm /tmp/rain.$pid
     done
