@@ -6,7 +6,7 @@ cpm() {
     local chromium_dir="${HOME}/.config/chromium"
     local data_dir="--user-data-dir=$chromium_dir/$1"
     local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
-    local grep=/bin/grep
+    local grep=/usr/bin/grep
     local pids=$(ps -ax \
 		     | $grep -v grep \
 		     | $grep "chromium-browser" \
