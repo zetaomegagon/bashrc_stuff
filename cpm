@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Main
 cpm() {
@@ -16,21 +16,21 @@ cpm() {
     kill-pid() {
 	# Ensure process and children die
 	for pid in $pids; do
-	    [[ "${#pid}" -ne 0 ]] && kill "$pid" &
+	    [[ "${#pid}" -gt 0 ]] && kill "$pid" &
 	done
     }
 
     # Check for already running process
-    [[ "${#pids}" -ne 0 ]] && echo "$1 profile already runnin. Exiting." >&2; exit 1
+    [[ "${#pids}" -gt 0 ]] && { echo "$1 profile already runnin. Exiting." >&2; exit 1; }
 
     # If dir does not exist; create it. Then change to dir.
-    if [[ ! -d "$chromium_dir"]]; then
+    if [[ ! -d "$chromium_dir" ]]; then
 	echo "$chromium_dir: does not exist. Creating it." >&2
 	mkdir -p "$chromium_dir"
 	cd "$chromium_dir"
     fi
 
-    # Main function
+    # Launch a chromium instance
     case "$1" in
         personal|work)
             "$chromium" "$data_dir" "$cache_dir" & wait "$!"
@@ -56,10 +56,9 @@ cpm() {
 	    echo "Exit status is on of:"
 	    echo
 	    echo "    1: already running process"
-	    echo "    2: could not cd to chromium directory"
-	    echo "    3: exit status of this message"
+	    echo "    2: exit status of this message"
 	    echo
-            exit 3
+            exit 2
     esac
 }
 
