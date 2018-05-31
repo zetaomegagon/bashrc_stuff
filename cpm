@@ -2,6 +2,7 @@
 
 # Main
 cpm() {
+    local _debug=
     local chromium="/usr/bin/chromium-browser"
     local chromium_dir="${HOME}/.config/chromium"
     local data_dir="--user-data-dir=$chromium_dir/$1"
@@ -33,12 +34,12 @@ cpm() {
     # Launch a chromium instance
     case "$1" in
         personal|work)
-            "$chromium" "$data_dir" "$cache_dir" & wait "$!"
+$_debug     "$chromium" "$data_dir" "$cache_dir" & wait "$!"
 	    kill-pid
 	    exit 0
 	    ;;
 	incognito)
-	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
+$_debug     "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
 	    kill-pid
 	    exit 0
