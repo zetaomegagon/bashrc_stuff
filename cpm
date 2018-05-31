@@ -16,7 +16,7 @@ cpm() {
     kill-pid() {
 	# Ensure process and children die
 	for pid in $pids; do
-	    [[ "$pid" != '' ]] && kill "$pid" &
+	    [[ "${#pid}" -ne 0 ]] && kill "$pid" &
 	done
     }
 

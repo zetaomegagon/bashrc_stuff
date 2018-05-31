@@ -44,18 +44,20 @@ kill-rain() {
 }
 
 ## Add, commit, push functions and aliases
+export _DEBUG=
+
 gitrc() {
     local repo="${HOME}/gits/bashrc_stuff"
     
     [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
        
-    git add -A >/dev/null 2>&1
-    git stash >/dev/null 2>&1
-    git pull >/dev/null 2>&1
-    [[ "$(git stash list)" != '' ]] && git stash apply --index >/dev/null 2>&1
-    git commit -m "auto commited on: $(date -u '+%F %T') [UTC]" >/dev/null 2>&1
+    git add -A $(echo $_DEBUG) >/dev/null 2>&1
+    git stash $(echo $_DEBUG) >/dev/null 2>&1
+    git pull $(echo $_DEBUG) >/dev/null 2>&1
+    [[ "$(git stash list)" != '' ]] && git stash apply --index $(echo $_DEBUG) >/dev/null 2>&1
+    git commit -m "auto commited on: $(date -u '+%F %T') [UTC]" $(echo $_DEBUG) >/dev/null 2>&1
     git push origin master
-    git stash drop stash@{0} >/dev/null 2>&1
+    git stash drop stash@{0} $(echo $_DEBUG) >/dev/null 2>&1
 
     popd >/dev/null 2>&1
 
