@@ -44,7 +44,7 @@ kill-rain() {
 }
 
 ## Add, commit, push functions and aliases
-export _DEBUG=
+export _DEBUG=#
 
 gitrc() {
     local repo="${HOME}/gits/bashrc_stuff"

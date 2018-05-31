@@ -21,10 +21,16 @@ cpm() {
     }
 
     # Check for already running process
-    [[ "$pid" != '' ]] && exit 1
-    
-    cd "$chromium_dir" || exit 2
+    [[ "${#pids}" -ne 0 ]] && echo "$1 profile already runnin. Exiting." >&2; exit 1
 
+    # If dir does not exist; create it. Then change to dir.
+    if [[ ! -d "$chromium_dir"]]; then
+	echo "$chromium_dir: does not exist. Creating it." >&2
+	mkdir -p "$chromium_dir"
+	cd "$chromium_dir"
+    fi
+
+    # Main function
     case "$1" in
         personal|work)
             "$chromium" "$data_dir" "$cache_dir" & wait "$!"
