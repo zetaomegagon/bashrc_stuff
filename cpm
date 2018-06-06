@@ -3,13 +3,18 @@
 # Main
 cpm() {
     local _debug=
-    local chromium="/usr/bin/chromium-browser"
-    local chromium_dir="${HOME}/.config/chromium"
-    local data_dir="--user-data-dir=$chromium_dir/$1"
-    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+
+    if [[ "$1" != '?' ]]; then
+	local chromium="/usr/bin/chromium-browser"
+	local chromium_dir="${HOME}/.config/chromium"
+	local data_dir="--user-data-dir=$chromium_dir/$1"
+	local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+    fi
+    
     local grep=/usr/bin/grep
     local pids=$(ps -ax \
 		     | $grep -v grep \
+		     | $grep -v '?' \
 		     | $grep "chromium-browser" \
 		     | $grep "$1" \
 		     | awk '{ print $1 }')
