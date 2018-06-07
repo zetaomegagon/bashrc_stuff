@@ -53,14 +53,14 @@ cpm() {
     # Launch a chromium instance
     case "$1" in
         personal|work)
-$_debug     "$chromium" "$data_dir" "$cache_dir" & wait "$!"
-$_debug	    kill-pid
+	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
+	    kill-pid
 	    exit 0
 	    ;;
 	incognito)
-$_debug     "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
-$_debug     rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
-$_debug	    kill-pid
+	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
+	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+	    kill-pid
 	    exit 0
 	    ;;
         ?|help)
