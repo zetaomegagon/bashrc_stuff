@@ -2,32 +2,46 @@
 
 # Main
 cpm() {
-    local _debug=
-    local grep=/usr/bin/grep
-    local pids=$(ps -ax \
-		     | $grep -v grep \
-		     | $grep -v '?' \
-		     | $grep "chromium-browser" \
-		     | $grep "$1" \
-		     | awk '{ print $1 }')
+    local _debug="echo"
+    local grep="/usr/bin/grep"
+    local pids_to_kill=$(ps -ax \
+			     | $grep -v grep \
+			     | $grep "chromium-browser" \
+			     | $grep "$1" \
+			     | awk '{ print $1 }')
+    
+    local running_proc=$(for proc in \
+			     $(ps -ax \
+				   | $grep -v grep \
+				   | $grep "chromium-browser" \
+				   | awk '{ print $10 }' \
+				   | $grep "$1");
+			  do
+			      basename "${proc//'--user-data-dir='}"
+			  done)
+    
+    
+    # Check for already running process
+    [[ "${#running_proc}" -gt 0 ]] && { echo "Profile: $1: already running. Exiting." >&2; exit 1; }
 
+    
+    # Don't do unnecessary assignments for help
     if [[ "$1" != '?' && "$1" != "help" ]]; then
 	local chromium="/usr/bin/chromium-browser"
 	local chromium_dir="${HOME}/.config/chromium"
 	local data_dir="--user-data-dir=$chromium_dir/$1"
 	local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
     fi
-    
+
+
+    # Kill process and children
     kill-pid() {
-	# Ensure process and children die
-	for pid in $pids; do
-	    [[ "${#pid}" -gt 0 ]] && kill "$pid" &
+	for pid in $pids_to_kill; do
+	    [[ "${#pids_to_kill}" -gt 0 ]] && kill "$pid" &
 	done
     }
-
-    # Check for already running process
-    [[ "${#pids}" -gt 0 ]] && { echo "$1 profile already runnin. Exiting." >&2; exit 1; }
-
+    
+    
     # If dir does not exist; create it. Then change to dir.
     if [[ ! -d "$chromium_dir" ]]; then
 	echo "$chromium_dir: does not exist. Creating it." >&2
@@ -35,17 +49,18 @@ cpm() {
 	cd "$chromium_dir"
     fi
 
+    
     # Launch a chromium instance
     case "$1" in
         personal|work)
 $_debug     "$chromium" "$data_dir" "$cache_dir" & wait "$!"
-	    kill-pid
+$_debug	    kill-pid
 	    exit 0
 	    ;;
 	incognito)
 $_debug     "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
-	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
-	    kill-pid
+$_debug     rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+$_debug	    kill-pid
 	    exit 0
 	    ;;
         ?|help)
@@ -62,8 +77,9 @@ $_debug     "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 	    echo
 	    echo "    1: already running process"
 	    echo "    2: exit status of this message"
-	    echo
-            exit 2
+    	    echo
+	    echo "Printed help message." >&2
+          exit 2
     esac
 }
 
