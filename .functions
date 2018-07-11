@@ -60,10 +60,10 @@ gitrc() {
     function push() {
 	git push origin master
 
-	while [[ $! -ne 0 ]]; do
+	while [[ $? -ne 0 ]]; do
 	    git push origin master
 
-	    if [[ $! -eq 0 ]]; then
+	    if [[ $? -eq 0 ]]; then
 		git stash drop
 	    fi
 
