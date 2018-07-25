@@ -77,3 +77,4 @@ alias noip='mpw -tx noip.com'
 alias nsupdate='mpw -tx nsupdate.info'
 alias summer-work='mpw -tx tps.summer-work.accoutn'
 alias sans='mpw -tx sans.org'
+alias lml='mpw -tx personallearningcoach.com' ## ebeale+letmelearn@tpschool.org
