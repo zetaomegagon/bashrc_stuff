@@ -77,8 +77,5 @@ alias noip='mpw -tx noip.com'
 alias nsupdate='mpw -tx nsupdate.info'
 alias summer-work='mpw -tx tps.summer-work.accoutn'
 alias sans='mpw -tx sans.org'
-<<<<<<< Updated upstream
 alias lml='mpw -tx personallearningcoach.com' ## ebeale+letmelearn@tpschool.org
-=======
 alias jssproductiondbroot='mpw -tx -c1 jssproductiondbroot'
->>>>>>> Stashed changes
