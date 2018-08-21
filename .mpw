@@ -77,3 +77,4 @@ alias summer-work='mpw -tx tps.summer-work.accoutn'
 alias sans='mpw -tx sans.org'
 alias lml='mpw -tx personallearningcoach.com' ## ebeale+letmelearn@tpschool.org
 alias jssproductiondbroot='mpw -tx -c1 jssproductiondbroot'
+alias jamfcloud='mpw -tx jamfcloud.com'
