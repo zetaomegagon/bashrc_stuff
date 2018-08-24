@@ -78,3 +78,4 @@ alias sans='mpw -tx sans.org'
 alias lml='mpw -tx personallearningcoach.com' ## ebeale+letmelearn@tpschool.org
 alias jssproductiondbroot='mpw -tx -c1 jssproductiondbroot'
 alias jamfcloud='mpw -tx jamfcloud.com'
+alias mariadb-root='mpw -tx computezero.mariadb.root.password'
