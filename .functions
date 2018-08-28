@@ -160,6 +160,13 @@ chrome() {
     }
 
 clipc() {
-    # Like 'history -c' for gpaste-client
-    gpaste-client empty && printf "Cleared!" | gpaste-client
+    # Clear gpaste-client history
+    local date="$(date -u '+%F %T')"
+    
+    while :; do
+	gpaste-client empty && \
+	    printf "Automatically cleared on [%s] [UTC]" "$date" \
+		| gpaste-client
+	sleep 10m
+    done
 }

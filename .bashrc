@@ -36,5 +36,6 @@ fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
+clipc &
 
 #gam() { "/home/ebeale/bin/gam/gam" "$@" ; }
