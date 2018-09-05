@@ -50,23 +50,24 @@ gitrc() {
     [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
 
     [[ ! -z "$(git stash list)" ]] && git stash drop
+
     git stash >/dev/null 2>&1
     git pull
+
     [[ ! -z "$(git stash list)" ]] && git stash apply
+
     git add -A
     git commit -m "auto commited on: $(date -u '+%F %T') [UTC]"
     git push origin master
 
-    if [[ $? -eq 0 ]]; then
-	git stash drop
-    fi
+    [[ $? -eq 0 ]] && git stash drop
 
     popd >/dev/null 2>&1
 
     . ${HOME}/.bashrc
 }
 
-## mpw helper function
+## Mpw helper function
 mpw() {
     _copy() {
         _clips=('pbcopy' 'xclip' 'gpaste-client')
