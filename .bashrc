@@ -15,23 +15,23 @@ else
 fi
 
 # Source user specific aliases and functions
-if [ -f "${HOME}/.functions" ]; then
-    source ~/.functions
+if [ -f "~/.functions" ]; then
+    . ~/.functions
 fi
 
-if [ -f "${HOME}/.aliases" ]; then
-    source ~/.aliases
+if [ -f "~/.aliases" ]; then
+    . ~/.aliases
 fi
 
 ## MasterPassword
-if [ -f "${HOME}/.mpw" ]; then
-    source ~/.mpw
+if [ -f "~/.mpw" ]; then
+    . ~/.mpw
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
 fi
 
-if [ -f "{HOME}/bin/bashlib" ]; then
-    source bashlib
+if [ -f "~/bin/bashlib" ]; then
+    . bashlib
 fi
 
 # Startup commands in ${HOME}/.functions

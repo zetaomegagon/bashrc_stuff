@@ -167,6 +167,6 @@ clipc() {
 	gpaste-client empty && \
 	    printf "Automatically cleared on [%s] [UTC]" "$date" \
 		| gpaste-client
-	sleep 10m
+	sleep 1h
     done
 }
