@@ -15,19 +15,20 @@ else
 fi
 
 # Source user specific aliases and functions
-if [ -f "~/.functions" ]; then
+if [ -f ~/.functions ]; then
     . ~/.functions
 fi
 
-if [ -f "~/.aliases" ]; then
+if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
 ## MasterPassword
-if [ -f "~/.mpw" ]; then
+if [ -f ~/.mpw ]; then
     . ~/.mpw
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
+    export MPW_FORMAT=none
 fi
 
 if [ -f "~/bin/bashlib" ]; then
