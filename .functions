@@ -4,7 +4,7 @@
 tmux-start() {
     if which tmux >/dev/null 2>&1; then
         if [[ -z "$TMUX" ]] ;then
-            ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )"            
+            ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
 	    if [[ -z "$ID" ]] ;then 
                 tmux new-session
             else
