@@ -31,12 +31,11 @@ if [ -f ~/.mpw ]; then
     export MPW_FORMAT=none
 fi
 
-if [ -f "~/bin/bashlib" ]; then
+if [ -f ~/bin/bashlib ]; then
     . bashlib
 fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
-clipc &
 
 #gam() { "/home/ebeale/bin/gam/gam" "$@" ; }
