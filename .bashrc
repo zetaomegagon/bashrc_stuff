@@ -31,7 +31,7 @@ if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
     export MPW_FORMAT=none
 
     if [ -d ~/.mpw.d ]; then
-	rm -r ~/.mpw.d/* || return 1
+	rm -r ~/.mpw.d/* >/dev/null 2>&1
     fi
 
 fi
