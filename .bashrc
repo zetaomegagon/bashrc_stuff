@@ -29,6 +29,11 @@ if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
     export MPW_FORMAT=none
+
+    if [ -d ~/.mpw.d ]; then
+	rm -r ~/.mpw.d/* || return 1
+    fi
+
 fi
 
 if [ -f ~/bin/bashlib ]; then
