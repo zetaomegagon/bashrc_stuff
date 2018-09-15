@@ -32,6 +32,8 @@ alias zfgrep='zfgrep --color=auto'
 alias zgrep='zgrep --color=auto'
 alias sigrok='sigrok-cli'
 alias histc='history -c'
+alias clip='/usr/bin/gpaste-client'
+alias emacs='emacsclient -nw'
 
 # VirtualBox
 alias vmanage='VBoxManage'
@@ -43,6 +45,7 @@ alias vmclone='vmanage clonevm'
 alias vmimport='vmanage import'
 alias vmstart='vmanage startvm --type gui'
 alias vmstarth='vmanage startvm --type headless'
-alias vboxmanagehelp='vboxmanage --help | less'
+alias vmanagehelp='vboxmanage --help | less'
+
 alias gam='/home/ebeale/bin/gam/gam'
-alias clip='/usr/bin/gpaste-client'
+

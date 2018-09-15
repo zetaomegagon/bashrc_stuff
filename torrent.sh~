@@ -1,0 +1,13 @@
+#!/bin/bash
+
+torrent() {
+    local torrent_dir="~/Downloads/torrents"
+    local log_file="$torrent_dir/aria2c.log"
+
+    [[ ! -d "$torrent_dir" ]] && mkdir "$torrent_dir" || :
+    
+    aria2c --dir="$torrent_dir" \
+	   --log="$log_file" \
+	   --check-integrity true \
+	   --bt-detach-seed-only true \
+	   
