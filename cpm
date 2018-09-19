@@ -1,86 +1,86 @@
-#!/bin/bash -x
+#!/bin/bash
+
+# Wrapper function around Google Chromium. Allows custom "profiles" by way of individual
+# data directories in ~/.config/chromium. Useful for binding keyboard shortcuts to a Work
+# or Personal profile:
+#
+#  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito|debug}
+#  - creates cache dir in /tmp/chromium/
+#  - Incognito destroys both data and cache dir on close
+#  - Debug is run at CLI. It prints to stdout and appends to ~/.config/chromium/cpm.log
 
 # Main
 cpm() {
-    local _debug="echo"
-    local grep="/usr/bin/grep"
-    local pids_to_kill=$(ps -ax \
-			     | $grep -v grep \
-			     | $grep "chromium-browser" \
-			     | $grep "$1" \
-			     | awk '{ print $1 }')
-    
-    local running_proc=$(for proc in \
-			     $(ps -ax \
-				   | $grep -v grep \
-				   | $grep "chromium-browser" \
-				   | awk '{ print $10 }' \
-				   | $grep "$1");
-			  do
-			      basename "${proc//'--user-data-dir='}"
-			  done)
-    
-    
-    # Check for already running process
-    [[ "${#running_proc}" -gt 0 ]] && { echo "Profile: $1: already running. Exiting." >&2; exit 1; }
-
-    
-    # Don't do unnecessary assignments for help
-    if [[ "$1" != '?' && "$1" != "help" ]]; then
-	local chromium="/usr/bin/chromium-browser"
-	local chromium_dir="${HOME}/.config/chromium"
-	local data_dir="--user-data-dir=$chromium_dir/$1"
-	local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
-    fi
-
-
-    # Kill process and children
-    kill-pid() {
-	for pid in $pids_to_kill; do
-	    [[ "${#pids_to_kill}" -gt 0 ]] && kill "$pid" &
-	done
+    # string --> side effect: many    
+    grep() {
+	# string --> strings
+	/usr/bin/grep "$@"
     }
     
-    
-    # If dir does not exist; create it. Then change to dir.
-    if [[ ! -d "$chromium_dir" ]]; then
-	echo "$chromium_dir: does not exist. Creating it." >&2
-	mkdir -p "$chromium_dir"
-	cd "$chromium_dir"
-    fi
+    running_pids() {
+	# profile --> list of pids
+	ps -ax | grep -v grep | grep "chromium-browser" \
+	    | grep "$1" \
+	    | awk '{ print $1 }'
+    }
 
+    kill_pid() {
+	# profile --> side effect: kill pids
+	for pid in $(running_pids "$1"); do
+	    [[ ! -z "$pid" ]] && kill "$pid" &
+	done
+	exit 0
+    }
+
+    usage() {
+	# empty --> side effect: print help message
+	printf "\nUsage: cpm {personal|work|incognito|debug}\n\n"
+	printf "Exits are one of:\n\n"
+	printf "    1: This help message.\n"
+	printf "    2: Profile is already running.\n"
+	printf "    3: Profile directory could not be created.\n\n"
+	printf "[EXIT: 1] - Printed Usage Message\n\n" >$2 && exit 1
+    }
+
+    case "$1" in
+	personal|work|incognito)
+	    local chromium="/usr/bin/chromium-browser"
+	    local chromium_dir="${HOME}/.config/chromium"
+	    local data_dir="--user-data-dir=$chromium_dir/$1"
+	    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+
+	    # Check for already running process
+	    if [[ ! -z $(running_pids "$1") ]]; then
+		printf "[EXIT: 2] - PID already running. Good Bye!\n\n" >&2 && exit 2
+	    fi
+	    
+	    # If dir does not exist; create it. Then change to dir.
+	    if [[ ! -d "$chromium_dir" ]]; then
+		mkdir -p "$chromium_dir" || \
+		    printf "[EXIT: 3] - Cannot create ${chromium_dir}! Sayonara!\n\n" >&2 && exit 3
+		cd "$chromium_dir"
+	    fi
+    esac
     
     # Launch a chromium instance
     case "$1" in
         personal|work)
 	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
-	    kill-pid
-	    exit 0
+	    kill_pid "$1"
 	    ;;
 	incognito)
 	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
-	    kill-pid
-	    exit 0
+	    kill_pid "$1"
 	    ;;
-        ?|help)
-	    echo
-            echo "Usage: cpm <data_dir_name>"
-	    echo
-	    echo "<data_dir_name> is one of:"
-	    echo
-            echo "    personal"
-            echo "    work"
-            echo "    incognito"
-	    echo
-	    echo "Exit status is on of:"
-	    echo
-	    echo "    1: already running process"
-	    echo "    2: exit status of this message"
-    	    echo
-	    echo "Printed help message." >&2
-          exit 2
+	debug)
+	    set -x
+	    cpm incognito
+	    set +x
+	    ;;
+	*)
+	    usage
     esac
 }
 
-cpm "$1"
+(cpm "$1" &)
