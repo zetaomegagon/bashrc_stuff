@@ -44,7 +44,7 @@ kill-rain() {
 }
 
 ## Add, commit, push functions and aliases
-gitrc() {
+git-sync() {
     local repo="${HOME}/gits/bashrc_stuff"
     
     [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
