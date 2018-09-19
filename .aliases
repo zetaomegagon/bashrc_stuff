@@ -49,3 +49,5 @@ alias vmanagehelp='vboxmanage --help | less'
 
 alias gam='/home/ebeale/bin/gam/gam'
 
+alias behemoth.root='mpw -tx behemoth.root'
+alias behemoth.admin='mpw -tl behemoth.admin'
