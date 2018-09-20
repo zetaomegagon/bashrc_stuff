@@ -171,3 +171,13 @@ clipc() {
 	sleep 1h
     done
 }
+
+notify() {
+    previous_volume=$(amixer get Master | tail -1 | awk '{ print $4 }' | tr -d \[ | tr -d \])
+
+    amixer set Master 100% >/dev/null 2>&1; sleep .5
+
+    espeak "Task complete."; sleep .5
+
+    amixer set Master "$previous_volume" >/dev/null 2>&1
+}
