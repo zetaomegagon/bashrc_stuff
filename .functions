@@ -172,7 +172,6 @@ clipc() {
     done
 }
 
-<<<<<<< Updated upstream
 notify() {
     previous_volume=$(amixer get Master | tail -1 | awk '{ print $4 }' | tr -d \[ | tr -d \])
 
