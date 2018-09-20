@@ -43,7 +43,7 @@ cpm() {
 	exit 1
     }
 
-    # Only create variable bindings if launching a profile
+    # Only create variable bindings if launching a profiled
     case "$1" in
 	personal|work|incognito)
 	    local chromium="/usr/bin/chromium-browser"
