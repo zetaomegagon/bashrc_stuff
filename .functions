@@ -183,5 +183,4 @@ notify() {
 =======
 aria2-start() {
     [[ ! $(pgrep aria2c) ]] && (aria2c --enable-rpc --rpc-listen-all >/dev/null 2>&1 &)
->>>>>>> Stashed changes
 }
