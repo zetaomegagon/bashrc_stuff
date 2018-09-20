@@ -34,12 +34,13 @@ cpm() {
 
     usage() {
 	# empty --> side effect: print help message
-	printf "\nUsage: cpm {personal|work|incognito|debug}\n\n"
+	printf "\nUsage: cpm [kill] {personal|work|incognito|debug}\n\n"
 	printf "Exits are one of:\n\n"
 	printf "    1: This help message.\n"
 	printf "    2: Profile is already running.\n"
 	printf "    3: Profile directory could not be created.\n\n"
-	printf "[EXIT: 1] - Printed Usage Message\n\n" >$2 && exit 1
+
+	exit 1
     }
 
     case "$1" in
@@ -51,13 +52,12 @@ cpm() {
 
 	    # Check for already running process
 	    if [[ ! -z $(running_pids "$1") ]]; then
-		printf "[EXIT: 2] - PID already running. Good Bye!\n\n" >&2 && exit 2
+		exit 2
 	    fi
 	    
 	    # If dir does not exist; create it. Then change to dir.
 	    if [[ ! -d "$chromium_dir" ]]; then
-		mkdir -p "$chromium_dir" || \
-		    printf "[EXIT: 3] - Cannot create ${chromium_dir}! Sayonara!\n\n" >&2 && exit 3
+		mkdir -p "$chromium_dir" || exit 3
 		cd "$chromium_dir"
 	    fi
     esac
@@ -78,9 +78,12 @@ cpm() {
 	    cpm incognito
 	    set +x
 	    ;;
+	kill)
+	    kill_pid "$2"
+	    ;;
 	*)
 	    usage
     esac
 }
 
-(cpm "$1" &)
+(cpm "$1" >/dev/null 2>&1 &)
