@@ -172,6 +172,7 @@ clipc() {
     done
 }
 
+<<<<<<< Updated upstream
 notify() {
     previous_volume=$(amixer get Master | tail -1 | awk '{ print $4 }' | tr -d \[ | tr -d \])
 
@@ -180,4 +181,8 @@ notify() {
     espeak "Task complete."; sleep .5
 
     amixer set Master "$previous_volume" >/dev/null 2>&1
+=======
+aria2-start() {
+    [[ ! $(pgrep aria2c) ]] && (aria2c --enable-rpc --rpc-listen-all >/dev/null 2>&1 &)
+>>>>>>> Stashed changes
 }
