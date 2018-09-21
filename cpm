@@ -31,14 +31,15 @@ cpm() {
 	done
 	exit 0
     }
-
+    
     usage() {
 	# empty --> side effect: print help message
-	printf "\nUsage: cpm [kill] {personal|work|incognito|debug}\n\n"
+	printf "\nUsage: cpm {personal|work|incognito|debug}\n\n"
 	printf "Exits are one of:\n\n"
 	printf "    1: This help message.\n"
 	printf "    2: Profile is already running.\n"
-	printf "    3: Profile directory could not be created.\n\n"
+	printf "    3: Profile directory could not be created.\n"
+	printf "    4: Could not switch to chromium directory.\n\n"
 
 	exit 1
     }
@@ -59,7 +60,7 @@ cpm() {
 	    # If dir does not exist; create it. Then change to dir.
 	    if [[ ! -d "$chromium_dir" ]]; then
 		mkdir -p "$chromium_dir" || exit 3
-		cd "$chromium_dir"
+		cd "$chromium_dir" || exit 4
 	    fi
     esac
     
@@ -78,9 +79,6 @@ cpm() {
 	    set -x
 	    cpm incognito
 	    set +x
-	    ;;
-	kill)
-	    kill_pid "$2"
 	    ;;
 	*)
 	    usage

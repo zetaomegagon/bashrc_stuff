@@ -180,7 +180,8 @@ notify() {
     espeak "Task complete."; sleep .5
 
     amixer set Master "$previous_volume" >/dev/null 2>&1
-=======
+}
+
 aria2-start() {
     [[ ! $(pgrep aria2c) ]] && (aria2c --enable-rpc --rpc-listen-all >/dev/null 2>&1 &)
 }
