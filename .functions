@@ -173,7 +173,11 @@ clipc() {
 }
 
 notify() {
-    previous_volume=$(amixer get Master | tail -1 | awk '{ print $4 }' | tr -d \[ | tr -d \])
+    previous_volume=$(amixer get Master \
+			  | tail -1 \
+			  | awk '{ print $4 }' \
+			  | tr -d \[ \
+			  | tr -d \])
 
     amixer set Master 100% >/dev/null 2>&1; sleep .5
 
@@ -183,5 +187,11 @@ notify() {
 }
 
 aria2-start() {
-    [[ ! $(pgrep aria2c) ]] && (aria2c --enable-rpc --rpc-listen-all >/dev/null 2>&1 &)
+    if [[ ! $(pgrep aria2c) ]]; then
+	(aria2c \
+	     --enable-rpc \
+	     --rpc-listen-all=true \
+	     --rpc-allow-origin-all=true \
+	     >/dev/null 2>&1 &)
+    fi
 }

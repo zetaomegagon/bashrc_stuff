@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Wrapper function around Google Chromium. Allows custom "profiles" by way of individual
 # data directories in ~/.config/chromium. Useful for binding keyboard shortcuts to a Work
@@ -7,13 +7,13 @@
 #  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito|debug}
 #  - creates cache dir in /tmp/chromium/
 #  - Incognito destroys both data and cache dir on close
-#  - Debug is run at CLI. It prints to stdout and appends to ~/.config/chromium/cpm.log
+#  - Debug is run at CLI. It prints to stdout.
 
 # Main
 cpm() {
-    # string --> side effect: many    
+    # string --> side effect: many
     grep() {
-	# string --> strings
+	# string --> string || strings
 	/usr/bin/grep "$@"
     }
     
@@ -44,28 +44,31 @@ cpm() {
 	exit 1
     }
 
-    # Only create variable bindings if launching a profiled
     case "$1" in
 	personal|work|incognito)
-	    local chromium="/usr/bin/chromium-browser"
-	    local chromium_dir="${HOME}/.config/chromium"
-	    local data_dir="--user-data-dir=$chromium_dir/$1"
-	    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
-
 	    # Check for already running process
 	    if [[ ! -z $(running_pids "$1") ]]; then
 		exit 2
 	    fi
 	    
-	    # If dir does not exist; create it. Then change to dir.
+	    # Only create variable bindings if launching a profiled
+	    local chromium="/usr/bin/chromium-browser"
+	    local chromium_dir="${HOME}/.config/chromium"
+	    local data_dir="--user-data-dir=$chromium_dir/$1"
+	    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+
+      	    # If dir does not exist; create it. Then change to dir.
 	    if [[ ! -d "$chromium_dir" ]]; then
 		mkdir -p "$chromium_dir" || exit 3
 		cd "$chromium_dir" || exit 4
 	    fi
+	    ;;
+	*)
+	    :
     esac
     
-    # Launch a chromium instance
     case "$1" in
+	# Launch a chromium instance
         personal|work)
 	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
 	    kill_pid "$1"
@@ -85,4 +88,4 @@ cpm() {
     esac
 }
 
-(cpm "$1" >/dev/null 2>&1 &)
+cpm "$1"
