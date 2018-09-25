@@ -7,7 +7,7 @@
 #  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito|debug}
 #  - creates cache dir in /tmp/chromium/
 #  - Incognito destroys both data and cache dir on close
-#  - Debug is run at CLI. It prints to stdout.
+#  - Debug is run at CLI. It prints to stdout and executes an Incognito session.
 
 # Main
 cpm() {
@@ -29,6 +29,7 @@ cpm() {
 	for pid in $(running_pids "$1"); do
 	    [[ ! -z "$pid" ]] && kill "$pid" &
 	done
+	
 	exit 0
     }
     
@@ -56,6 +57,8 @@ cpm() {
 	    local chromium_dir="${HOME}/.config/chromium"
 	    local data_dir="--user-data-dir=$chromium_dir/$1"
 	    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+	    local log_dir="${chromium_dir}/$1"
+	    local log_file="chromium-$1.log"
 
       	    # If dir does not exist; create it. Then change to dir.
 	    if [[ ! -d "$chromium_dir" ]]; then
