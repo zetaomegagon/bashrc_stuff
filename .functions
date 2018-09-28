@@ -187,11 +187,16 @@ notify() {
 }
 
 aria2-start() {
+    local conf_path="/home/ebeale/.config/aria2/aria2.conf"
+    
     if [[ ! $(pgrep aria2c) ]]; then
 	(aria2c \
 	     --enable-rpc \
 	     --rpc-listen-all=true \
 	     --rpc-allow-origin-all=true \
+	     --conf-path="$conf_path" \
 	     >/dev/null 2>&1 &)
+
     fi
 }
+
