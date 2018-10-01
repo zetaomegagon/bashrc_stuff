@@ -44,6 +44,11 @@ if [ -f ~/bin/bashlib ]; then
     . bashlib
 fi
 
+## emacs-read-stdin
+if [[ -d "${HOME}/gits/emacs-read-stdin" ]]; then
+    . "${HOME}/gits/emacs-read-stdin/emacs-read-stdin.sh"
+fi
+
 # Startup commands in ${HOME}/.functions
 tmux-start
 aria2-start
