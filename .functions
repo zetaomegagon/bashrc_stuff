@@ -100,12 +100,13 @@ mpw() {
 	# Call the binary directly when passing help flag so we
 	# don't get ugly output and double output with pager
 	
-	${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+	if [[ ! -f /tmp/mpw_help ]]; then
+	    ${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+	fi
+	
 	less /tmp/mpw_help
-	rm /tmp/mpw_help
-	(exit 0)
     else
-	# Empty the clipboard
+ 	# Empty the clipboard
 	:| _copy 2>/dev/null
 
 	# Ask for the user's name and password if not yet known.
@@ -131,42 +132,6 @@ kill-chromium() {
 	kill -HUP "$pid"
     done
 }
-
-chrome() {
-    base_dir="${HOME}/.config/google-chrome"
-    temp_dir="/tmp/google-chrome"
-    default_cache_dir="${HOME}/.cache/google-chrome"
-    
-    ({ if [[ ! -d "$temp_dir" ]]; then
-	   mkdir "$temp_dir"
-       fi
-
-       cache_dir="$(mktemp -d -p ${temp_dir} $(for i in {0..64}; do printf X; done))"
-       
-       /usr/bin/google-chrome --fullscreen --disk-cache-dir="$cache_dir" &
-
-       wait $!
-
-       rm -rf ${base_dir}/Local\ State
-
-       FILES=( 'History' 'History-journal' 'History Provider Cache'
-	       'Cookies' 'Cookies-journal' 'Current Session' 'Current Tabs'
-	       'Top Sites' 'Top Sites-journal' 'Visited Links' 'Web Data'
-	       'Web Data-journal' 'Sync Data' 'Local Storage' 'Session Storage'
-	       'Storage' 'Last Session' 'Login Data' 'Login Data-journal' )
-       
-       for FILE in "${FILES[@]}"; do
-	   rm -rf ${base_dir}/Default/"$FILE"
-       done
-
-       if [[ -d "$default_cache_dir" ]]; then
-	   rm -rf "$default_cache_dir"
-       fi
-
-       rm -rf "$cache_dir"
-       
-      } >/dev/null 2>&1 &)
-    }
 
 clipc() {
     # Clear gpaste-client history
@@ -208,3 +173,31 @@ aria2-start() {
     fi
 }
 
+dirspike() {
+    # because fuckit
+
+    # Know your state
+    cd
+    
+    # Clean the screen
+    clear
+    sleep .5
+    
+    # Top half
+    printf "~\\n"
+    
+    for dir in $(echo "*"); do
+	pushd "${HOME}/$dir"
+    done
+
+    # bottom half
+    for dir in $(popd 2>/dev/null); do
+	popd 2>/dev/null
+    done
+}
+
+debug() {
+    set -x
+    "$@"
+    set +x
+}
