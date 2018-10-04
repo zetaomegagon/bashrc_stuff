@@ -159,10 +159,17 @@ notify() {
     amixer set Master "$previous_volume" >/dev/null 2>&1
 }
 
+timer() {
+    ## Display time in HH:MM:SS descending
+    ## at zero play a sound
+
+    
+}
+
 aria2-start() {
     local conf_path="/home/ebeale/.config/aria2/aria2.conf"
     
-    if [[ ! $(pgrep aria2c) ]]; then
+    if [[ -z $(pgrep aria2c) ]]; then
 	(aria2c \
 	     --enable-rpc \
 	     --rpc-listen-all=true \
@@ -174,9 +181,10 @@ aria2-start() {
 }
 
 dirspike() {
-    # because fuckit
+    ## because fuckit
 
     # Know your state
+    currentDir="$(pwd)"
     cd
     
     # Clean the screen
@@ -194,6 +202,9 @@ dirspike() {
     for dir in $(popd 2>/dev/null); do
 	popd 2>/dev/null
     done
+
+    # Back in time!
+    cd "$currentDir"
 }
 
 debug() {
