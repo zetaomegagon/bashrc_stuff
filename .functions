@@ -162,8 +162,7 @@ notify() {
 timer() {
     ## Display time in HH:MM:SS descending
     ## at zero play a sound
-
-    
+    :
 }
 
 aria2-start() {
