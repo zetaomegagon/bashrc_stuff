@@ -12,6 +12,7 @@
 #
 #  - Better functionalization
 #  - Add debuggin & error handling
+#  - Generally sloppy and inelegant
 #  - ...
 
 # Main
@@ -71,8 +72,6 @@ cpm() {
 		cd "$chromium_dir" || exit 4
 	    fi
 	    ;;
-	*)
-	    :
     esac
     
     case "$1" in
