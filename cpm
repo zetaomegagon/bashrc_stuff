@@ -4,10 +4,15 @@
 # data directories in ~/.config/chromium. Useful for binding keyboard shortcuts to a Work
 # or Personal profile:
 #
-#  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito|debug}
+#  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito}
 #  - creates cache dir in /tmp/chromium/
 #  - Incognito destroys both data and cache dir on close
-#  - Debug is run at CLI. It prints to stdout and executes an Incognito session.
+#
+#  TODO:
+#
+#  - Better functionalization
+#  - Add debuggin & error handling
+#  - ...
 
 # Main
 cpm() {
