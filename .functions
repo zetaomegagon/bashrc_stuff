@@ -223,18 +223,19 @@ mpv() {
     
     play() {
 	# if nvidia optimus graphics card exists, use it
+
+	inhibit-lid-switch() {
+	     # syntactic sugar
+	     systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
+	 }
+	 
 	if [[ -z "$optimus" ]]; then
-	    /usr/bin/mpv "$@"
+	    inhibit-lid-switch "$@"
 	else
-	    DRI_PRIME=1 /usr/bin/mpv "$@"
+	    DRI_PRIME=1 inhibit-lid-switch "$@"
 	fi
     }
-
-    inhibit-lid-switch() {
-	# syntactic sugar
-	systemd-inhibit --what=handle-lid-switch "$@"
-    }
-    
-    
-    inhibit-lid-switch play "$@" 
+   
+    play "$@" 
 }
+
