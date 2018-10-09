@@ -184,13 +184,7 @@ aria2-start() {
 }
 
 dirspike() {
-    ## because fuckit
-
-<<<<<<< Updated upstream
-    # Know your state
-=======
     # Set clean state
->>>>>>> Stashed changes
     currentDir="$(pwd)"
     cd
     
