@@ -168,8 +168,6 @@ timer() {
 aria2-start() {
     local aria2_path="/home/ebeale/.config/aria2/aria2.conf"
     local conf_path="$aria2_path/aria2.conf"
-    local log_path="$aria2_path/aria2.log"
-    local session_path="$aria2_path/aria2.session"
     
     if [[ -z $(pgrep aria2c) ]]; then
 	(aria2c \
@@ -177,8 +175,6 @@ aria2-start() {
 	     --rpc-listen-all=true \
 	     --rpc-allow-origin-all=true \
 	     --conf-path="$conf_path" \
-	     --log="$log_path" \
-	     --save-session="$session_path" \
 	     >/dev/null 2>&1 &)
     fi
 }
