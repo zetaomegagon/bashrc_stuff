@@ -166,16 +166,28 @@ timer() {
 }
 
 aria2-start() {
-    local aria2_path="/home/ebeale/.config/aria2/aria2.conf"
+    local aria2_path="/home/ebeale/.config/aria2"
     local conf_path="$aria2_path/aria2.conf"
+    local session_path="$aria2_path/aria2.session"
     
-    if [[ -z $(pgrep aria2c) ]]; then
-	(aria2c \
-	     --enable-rpc \
-	     --rpc-listen-all=true \
-	     --rpc-allow-origin-all=true \
-	     --conf-path="$conf_path" \
-	     >/dev/null 2>&1 &)
+    if [[ -z "$(pgrep aria2c)" ]]; then
+	if [[ -z "$(cat "$session_path")" ]]; then
+	    # don't repeat yourself...
+	    (aria2c \
+		 --enable-rpc \
+		 --rpc-listen-all=true \
+		 --rpc-allow-origin-all=true \
+		 --conf-path="$conf_path" \
+		 >/dev/null 2>&1 &)
+	else
+	    (aria2c \
+		 --enable-rpc \
+		 --rpc-listen-all=true \
+		 --rpc-allow-origin-all=true \
+		 --conf-path="$conf_path" \
+		 --input-file="$session_path" \
+		 >/dev/null 2>&1 &)
+	fi
     fi
 }
 
