@@ -169,25 +169,34 @@ aria2-start() {
     local aria2_path="/home/ebeale/.config/aria2"
     local conf_path="$aria2_path/aria2.conf"
     local session_path="$aria2_path/aria2.session"
+
+    aria2-call() {
+	(aria2c \
+	     --enable-rpc \
+	     --rpc-listen-all=true \
+	     --rpc-allow-origin-all=true \
+	     --conf-path="$conf_path" \
+	     --input-file="$session_path" \
+	     >/dev/null 2>&1 &)
+	}
     
     if [[ -z "$(pgrep aria2c)" ]]; then
-	if [[ -z "$(cat "$session_path")" ]]; then
-	    # don't repeat yourself...
-	    (aria2c \
-		 --enable-rpc \
-		 --rpc-listen-all=true \
-		 --rpc-allow-origin-all=true \
-		 --conf-path="$conf_path" \
-		 >/dev/null 2>&1 &)
+	if [[ ! -f "$session_path" ]]; then
+	    touch "$session_path"
+	    aria2-call
 	else
-	    (aria2c \
-		 --enable-rpc \
-		 --rpc-listen-all=true \
-		 --rpc-allow-origin-all=true \
-		 --conf-path="$conf_path" \
-		 --input-file="$session_path" \
-		 >/dev/null 2>&1 &)
+	    aria2-call
 	fi
+    fi
+}
+
+aria2-restart() {
+    if [[ -z "$(pgrep aria2c)" ]]; then
+	aria2-start
+    else
+	pkill aria2c
+	sleep 1
+	aria2-start
     fi
 }
 
@@ -224,12 +233,10 @@ debug() {
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
-    
     local optimus="$(lspci | grep -E 'VGA|3D' | grep -E 'nvidia|Nvidia|NVIDIA')"
     
     play() {
 	# if nvidia optimus graphics card exists, use it
-
 	inhibit-lid-switch() {
 	     # syntactic sugar
 	     systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
