@@ -160,9 +160,15 @@ notify() {
 }
 
 timer() {
-    ## Display time in HH:MM:SS descending
-    ## at zero play a sound
-    :
+    if [[ "$1" =~ [0-9]+ ]]; then
+	(sleep "$1" &)
+	wait $!
+	for ((c=0;c<60;c++)); do
+	    ({ notify; sleep 1; } &)
+	done
+    else
+	printf "Usage: timer <number_with_units>\\n"
+    fi
 }
 
 aria2-start() {
