@@ -88,4 +88,9 @@ alias internet.archive='mpw -tx archive.org'
 alias coursera='mpw -tx coursera.org'
 alias edx='mpw -tx edx.org'
 alias wikipedia='mpw -tx wikipedia.org'
+<<<<<<< HEAD
 alias ar300m16='mpw -tl login.ar300m16'
+=======
+alias tps.slack='mpw -tx tpstechdepartment.slack.com'
+alias tps.zoom='mpw -tx tps.zoom.us'
+>>>>>>> e7085a7cfc02b3f19ab7229fe22132ac4c327a9f
