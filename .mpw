@@ -92,3 +92,6 @@ alias ar300m16='mpw -tl login.ar300m16'
 alias tps.slack='mpw -tx tpstechdepartment.slack.com'
 alias tps.zoom='mpw -tx tps.zoom.us'
 
+alias wrt32x.root='mpw -tx openwrt.wrt32x.root'
+alias wrt32x.eVector='mpw -tx openwrt.wrt32x.eVector'
+alias virtualwrt.root='mpw -tx openwrt.openwrtvbox.root'
