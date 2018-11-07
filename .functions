@@ -135,14 +135,7 @@ kill-chromium() {
 
 clipc() {
     # Clear gpaste-client history
-    local date="$(date -u '+%F %T')"
-    
-    while :; do
-	gpaste-client empty && \
-	    printf "Automatically cleared on [%s] [UTC]" "$date" \
-		| gpaste-client
-	sleep 1h
-    done
+    gpaste-client empty
 }
 
 notify() {
