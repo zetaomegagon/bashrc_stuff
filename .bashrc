@@ -27,6 +27,10 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
+if [ -f ~/.ssh-key-pw ]; then
+    . ~/.ssh-key-pw
+fi
+
 ## MasterPassword
 if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
     . ~/.mpw
