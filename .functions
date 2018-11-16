@@ -250,3 +250,28 @@ mpv() {
    
     play "$@" 
 }
+
+is-up()
+{
+    local address="$1"
+    local port="$2"
+    local aregex="[0-9]{1,3}"
+    local pregex="[0-9]{1,10000}"
+
+    usage()
+    {
+	printf "Usage:\\n"
+	printf "  is-up <address> <port>"
+	printf "\\n"
+    }
+
+    if [[ "$address" =~ ${aregex}\.${aregex}\.${aregex}\.${aregex} ]] && \
+	   [[ "$port" =~ $pgregex ]]; then
+
+	watch -n1 "nc -z $address $port; echo $?"
+
+    else
+
+	usage
+    fi
+}
