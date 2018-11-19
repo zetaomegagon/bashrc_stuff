@@ -11,9 +11,16 @@ EDITOR='emacsclient -nw'
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-# Source path to SML/NJ bingary
+# Source path to SML/NJ binary
 if [ -d "${HOME}/bin/smlnj/bin" ]; then
     export PATH="${HOME}/bin:${HOME}/bin/smlnj/bin:$PATH"
+else
+    export PATH="${HOME}/bin:$PATH"
+fi
+
+# Source path to GAM binary
+if [ -d "${HOME}/bin/gam" ]; then
+    export PATH="${HOME}/bin:${HOME}/bin/gam:$PATH"
 else
     export PATH="${HOME}/bin:$PATH"
 fi
