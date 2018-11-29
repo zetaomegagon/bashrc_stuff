@@ -58,7 +58,7 @@ cpm() {
 		exit 2
 	    fi
 	    
-	    # Only create variable bindings if launching a profiled
+	    # Only create variable bindings if launching a profile
 	    local chromium="/usr/bin/chromium-browser"
 	    local chromium_dir="${HOME}/.config/chromium"
 	    local data_dir="--user-data-dir=$chromium_dir/$1"
