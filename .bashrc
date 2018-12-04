@@ -34,12 +34,12 @@ if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
 
-if [ -f ~/.ssh-key-pw ]; then
-    . ~/.ssh-key-pw
+if [ -f ~/.keypass ]; then
+    . ~/.keypass
 fi
 
 ## MasterPassword
-if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
+if [ -f ~/.mpw && -e ~/bin/mpw ]; then
     . ~/.mpw
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
