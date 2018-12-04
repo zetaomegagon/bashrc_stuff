@@ -39,7 +39,7 @@ if [ -f ~/.keypass ]; then
 fi
 
 ## MasterPassword
-if [ -f ~/.mpw && -e ~/bin/mpw ]; then
+if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
     . ~/.mpw
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
