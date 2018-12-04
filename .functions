@@ -277,17 +277,20 @@ is-up()
 }
 
 mkrandom() {
-    local N=$1
-
-    if [[ "$N" -lt 8 ]]; then
-	printf "MIN must be >= 8"
-	printf "\n"
-	exit 1
-    elif [[ "$N" -gt 254 ]]; then
-	printf "MAX must be <= 254"
-	printf "\n"
-	exit 2
+    local N="$1"
+    
+    if [[ "$N" =~ [0-9]{1,3} ]]; then
+	if [[ "$N" -lt 8 ]]; then
+	    printf "MIN must be >= 8."
+	    printf "\n"
+	elif [[ "$N" -gt 254 ]]; then
+	    printf "MAX must be <= 254."
+	    printf "\n"
+	else
+	    mktemp -u "$(for ((c=0;c<="$N";c++)); do printf X; done)"
+	fi
     else
-	mktemp -u $(for i in {0.."$N"}; do printf "X"; done)
+	printf "Input must be a number between 8 and 254."
+	printf "\n"
     fi
 }
