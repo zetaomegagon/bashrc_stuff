@@ -164,6 +164,7 @@ timer() {
     fi
 }
 
+############# Migrate to systemd unit ################
 aria2-start() {
     local aria2_path="/home/ebeale/.config/aria2"
     local conf_path="$aria2_path/aria2.conf"
@@ -188,6 +189,7 @@ aria2-start() {
 	fi
     fi
 }
+############# Migrate to systemd unit ################
 
 aria2-restart() {
     if [[ -z "$(pgrep aria2c)" ]]; then
