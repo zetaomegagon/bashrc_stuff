@@ -21,13 +21,17 @@ dnf install -y "flash-player-ppapi"
 
 link-pepper-flash() {
     # Symlink required files into Chromium dirs
-    ln -s \
-       /usr/lib64/flash-plugin/libpepflashplayer.so \
-       /usr/lib64/chromium-browser/PepperFlash/libpepflashplayer.so
 
-    ln -s \
-       /usr/lib64/flash-plugin/manifest.json \
-       /usr/lib64/chromium-browser/PepperFlash/manifest.json
+    local pepper_link="/usr/lib64/chromium-browser/PepperFlash/libpepflashplayer.so"
+    local manifest_link="/usr/lib64/chromium-browser/PepperFlash/manifest.json"
+
+    if [[ ! -h "$pepper_link" ]]; then
+	ln -s /usr/lib64/flash-plugin/libpepflashplayer.so "$pepper_link"
+    fi
+    
+    if [[ ! -h "$manifest_link" ]]; then
+	ln -s /usr/lib64/flash-plugin/manifest.json "$manifest_link"
+    fi 
 }
 
 # Install Chromium if not installed
