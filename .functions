@@ -171,13 +171,13 @@ aria2-start() {
     local session_path="$aria2_path/aria2.session"
 
     aria2-call() {
-	(aria2c \
-	     --enable-rpc \
-	     --rpc-listen-all=true \
-	     --rpc-allow-origin-all=true \
-	     --conf-path="$conf_path" \
-	     --input-file="$session_path" \
-	     >/dev/null 2>&1 &)
+	(nohup aria2c \
+	       --enable-rpc \
+	       --rpc-listen-all=true \
+	       --rpc-allow-origin-all=true \
+	       --conf-path="$conf_path" \
+	       --input-file="$session_path" \
+	       >/dev/null 2>&1 &)
 	}
     
     if [[ -z "$(pgrep aria2c)" ]]; then
@@ -189,7 +189,6 @@ aria2-start() {
 	fi
     fi
 }
-############# Migrate to systemd unit ################
 
 aria2-restart() {
     if [[ -z "$(pgrep aria2c)" ]]; then
@@ -200,6 +199,7 @@ aria2-restart() {
 	aria2-start
     fi
 }
+############# Migrate to systemd unit ################
 
 dirspike() {
     # Set clean state

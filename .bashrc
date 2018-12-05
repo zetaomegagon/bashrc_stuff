@@ -62,6 +62,6 @@ fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
-(aria2-restart >/dev/null 2>&1 &)
+aria2-restart
 
 #gam() { "/home/ebeale/bin/gam/gam" "$@" ; }
