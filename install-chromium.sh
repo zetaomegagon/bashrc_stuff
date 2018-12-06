@@ -42,3 +42,5 @@ fi
 # Provide Pepper Flash to Chromium
 link-pepper-flash
     
+# Chromium H.264 support
+dnf install -y chromium-libs-media-freeworld
