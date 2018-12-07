@@ -105,5 +105,13 @@ alias plume='mpw -tx plumelabs'
 alias redhat='mpw -tx redhat.com'
 alias jamf='mpw -tx jamf.com'
 alias thinkful='mpw -tx thinkful.com'
+<<<<<<< Updated upstream
 alias slack.thinkful='mpw -tx thinkful.slack.com'
 alias trustwave='mpw -tx trustwave.com'
+=======
+alias jamf='mpw -tx jamfcloud.com'
+alias trustwave='mpw -tx trustwave.com'
+alias trustwave.grandfather='mpw -tx trustwave.com.grandfather'
+alias trustwave.grandmother='mpw -tx trustwave.com.grandmother'
+alias trustwave.town='mpw -tx trustwave.com.town'
+>>>>>>> Stashed changes
