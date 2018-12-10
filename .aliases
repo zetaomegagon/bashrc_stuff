@@ -33,10 +33,6 @@ alias sigrok='sigrok-cli'
 alias histc='history -c'
 alias gpastec='/usr/bin/gpaste-client empty'
 alias gpaste='/usr/bin/gpaste-client'
-alias e='emacsclient -nw'
-
-# VirtualBox
-alias vmanage='VBoxManage'
 alias vmlist='vmanage list vms'
 alias vmlistl='vmanage list --long vms | less'
 alias vminfo='vmanage showvminfo --machinereadable'
