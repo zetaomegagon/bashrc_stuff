@@ -104,3 +104,4 @@ alias jamfnation='mpw -tx jamf.com'
 alias ar300m.root='mpw -tx gl-ar300m-ext.root'
 alias purism='mpw -tx -c2 puri.sm'
 
+alias flowcrypt='mpw -tx flowcrypt.com'
