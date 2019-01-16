@@ -17,21 +17,18 @@
 
 # Main
 cpm() {
-    # string --> side effect: many
     grep() {
-	# string --> string || strings
 	/usr/bin/grep "$@"
     }
     
     running_pids() {
-	# profile --> list of pids
-	ps -ax | grep -v grep | grep "chromium-browser" \
+	ps -ax | grep -v grep \
+	    | grep "chromium-browser" \
 	    | grep "$1" \
 	    | awk '{ print $1 }'
     }
 
     kill_pid() {
-	# profile --> side effect: kill pids
 	for pid in $(running_pids "$1"); do
 	    [[ ! -z "$pid" ]] && kill "$pid" &
 	done
@@ -40,39 +37,38 @@ cpm() {
     }
     
     usage() {
-	# empty --> side effect: print help message
-	printf "\nUsage: cpm {personal|work|incognito|debug}\n\n"
-	printf "Exits are one of:\n\n"
-	printf "    1: This help message.\n"
-	printf "    2: Profile is already running.\n"
-	printf "    3: Profile directory could not be created.\n"
-	printf "    4: Could not switch to chromium directory.\n\n"
+	printf "\n"
+	printf "%s\n" "Usage: cpm {personal|work|incognito|debug}"
+	printf "\n"
+	printf "%s\n" "Exits are one of:"
+	printf "\n"
+	printf "%s\n" "    1: This help message."
+	printf "%s\n" "    2: Profile is already running."
+	printf "%s\n" "    3: Profile directory could not be created."
+	printf "%s\n" "    4: Could not switch to chromium directory."
+	printf "\n"
 
 	exit 1
     }
 
-    case "$1" in
-	personal|work|incognito)
-	    # Check for already running process
-	    if [[ ! -z $(running_pids "$1") ]]; then
-		exit 2
-	    fi
-	    
-	    # Only create variable bindings if launching a profile
-	    local chromium="/usr/bin/chromium-browser"
-	    local chromium_dir="${HOME}/.config/chromium"
-	    local data_dir="--user-data-dir=$chromium_dir/$1"
-	    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
-	    local log_dir="${chromium_dir}/$1"
-	    local log_file="chromium-$1.log"
+    # Check for already running process
+    if [[ ! -z $(running_pids "$1") ]]; then
+	exit 2
+    fi
+    
+    # Create variable bindings
+    local chromium="/usr/bin/chromium-browser"
+    local chromium_dir="${HOME}/.config/chromium"
+    local data_dir="--user-data-dir=$chromium_dir/$1"
+    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+    local log_dir="${chromium_dir}/$1"
+    local log_file="chromium-$1.log"
 
-      	    # If dir does not exist; create it. Then change to dir.
-	    if [[ ! -d "$chromium_dir" ]]; then
-		mkdir -p "$chromium_dir" || exit 3
-		cd "$chromium_dir" || exit 4
-	    fi
-	    ;;
-    esac
+    # If dir does not exist; create it. Then change to dir.
+    if [[ ! -d "$chromium_dir" ]]; then
+	mkdir -p "$chromium_dir" || exit 3
+	cd "$chromium_dir" || exit 4
+    fi
     
     case "$1" in
 	# Launch a chromium instance
@@ -84,11 +80,6 @@ cpm() {
 	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
 	    kill_pid "$1"
-	    ;;
-	debug)
-	    set -x
-	    cpm incognito
-	    set +x
 	    ;;
 	*)
 	    usage
