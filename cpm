@@ -72,7 +72,11 @@ cpm() {
     
     case "$1" in
 	# Launch a chromium instance
+<<<<<<< Updated upstream
         personal|work|*test*)
+=======
+        personal|work|*user)
+>>>>>>> Stashed changes
 	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
 	    kill_pid "$1"
 	    ;;
