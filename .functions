@@ -310,4 +310,5 @@ emacsctl() {
 		     sytemctl --user "$1" emacs ;;
 		 *)
 		     usage
+    esac
 }
