@@ -26,32 +26,32 @@ else
 fi
 
 # Source user specific aliases and functions
-if [ -f ~/.functions ]; then
-    . ~/.functions
+if [ -f ${HOME}/.functions ]; then
+    . ${HOME}/.functions
 fi
 
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
+if [ -f ${HOME}/.aliases ]; then
+    . ${HOME}/.aliases
 fi
 
-if [ -f ~/.keypass ]; then
-    . ~/.keypass
+if [ -f ${HOME}/.keypass ]; then
+    . ${HOME}/.keypass
 fi
 
 ## MasterPassword
-if [ -f ~/.mpw ] && [ -e ~/bin/mpw ]; then
-    . ~/.mpw
+if [ -f ${HOME}/.mpw ] && [ -e ${HOME}/bin/mpw ]; then
+    . ${HOME}/.mpw
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
     export MPW_ASKPASS=${HOME}/bin/mpw_ask
     export MPW_FORMAT=none
 
-    if [ -d ~/.mpw.d ]; then
-	rm -r ~/.mpw.d/* >/dev/null 2>&1
+    if [ -d ${HOME}/.mpw.d ]; then
+	rm -r ${HOME}/.mpw.d/* >/dev/null 2>&1
     fi
 
 fi
 
-if [ -f ~/bin/bashlib ]; then
+if [ -f ${HOME}/bin/bashlib ]; then
     . bashlib
 fi
 

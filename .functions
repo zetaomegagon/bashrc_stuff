@@ -297,4 +297,4 @@ mkrandom() {
     fi
 }
 
-e () { /usr/bin/emacsclient -nw "$@"; }
+emacs() { /usr/bin/emacsclient -nw "$@"; }
