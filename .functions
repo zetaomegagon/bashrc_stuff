@@ -307,7 +307,7 @@ emacsctl() {
     
     case "$1" in
 		 stop|start|restart)
-		     sytemctl --user "$1" emacs ;;
+		     systemctl --user "$1" emacs ;;
 		 *)
 		     usage
     esac
