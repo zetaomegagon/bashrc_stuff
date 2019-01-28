@@ -296,3 +296,5 @@ mkrandom() {
 	printf "\n"
     fi
 }
+
+e () { /usr/bin/emacsclient -nw "$@"; }
