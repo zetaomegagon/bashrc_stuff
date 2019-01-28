@@ -298,3 +298,16 @@ mkrandom() {
 }
 
 emacs() { /usr/bin/emacsclient -nw "$@"; }
+
+emacsctl() {
+    # syntactic sugar for controlling emacs daemon.
+    usage () {
+	printf "%s\n" Usage: emacsctl {start|stop|restart}
+    }
+    
+    case "$1" in
+		 stop|start|restart)
+		     sytemctl --user "$1" emacs ;;
+		 *)
+		     usage
+}
