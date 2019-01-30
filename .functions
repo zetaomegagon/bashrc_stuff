@@ -126,7 +126,7 @@ mpw() {
 }
 
 kill-chromium() {
-    local pids=$(psgrep chromium-browser | grep $1 | awk '{ print $1 }')
+    local pids=$(psgrep -E '(chromium|iridium)'-browser | grep $1 | awk '{ print $1 }')
 
     for pid in $pids; do
 	kill -HUP "$pid"
