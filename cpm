@@ -38,7 +38,7 @@ cpm() {
     
     usage() {
 	printf "\n"
-	printf "%s\n" "Usage: cpm {personal|work|incognito|debug}"
+	printf "%s\n" "Usage: cpm {personal|work|*test*|*user*|incognito}"
 	printf "\n"
 	printf "%s\n" "Exits are one of:"
 	printf "\n"
