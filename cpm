@@ -4,8 +4,8 @@
 # data directories in ~/.config/chromium. Useful for binding keyboard shortcuts to a Work
 # or Personal profile:
 #
-#  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito}
-#  - creates cache dir in /tmp/chromium/
+#  - creates data dir in ~/.config/(chromium|iridium) based on passed arg {personal|work|incognito}
+#  - creates cache dir in /tmp/(chromium|iridium)/
 #  - Incognito destroys both data and cache dir on close
 #
 #  TODO:
@@ -17,20 +17,28 @@
 
 # Main
 cpm() {
+    local browser
+
+    if [[ -z "$2" ]]; then
+	browser=chromium
+    else
+	browser=iridium
+    fi
+    
     grep() {
 	/usr/bin/grep "$@"
     }
     
     running_pids() {
 	ps -ax | grep -v grep \
-	    | grep "chromium-browser" \
+	    | grep "${browser}-browser" \
 	    | grep "$1" \
 	    | awk '{ print $1 }'
     }
 
     kill_pid() {
 	for pid in $(running_pids "$1"); do
-	    [[ ! -z "$pid" ]] && kill "$pid" &
+	    [[ -n "$pid" ]] && kill "$pid" &
 	done
 	
 	exit 0
@@ -52,32 +60,32 @@ cpm() {
     }
 
     # Check for already running process
-    if [[ ! -z $(running_pids "$1") ]]; then
+    if [[ -n $(running_pids "$1") ]]; then
 	exit 2
     fi
     
     # Create variable bindings
-    local chromium="/usr/bin/chromium-browser"
-    local chromium_dir="${HOME}/.config/chromium"
-    local data_dir="--user-data-dir=$chromium_dir/$1"
-    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
-    local log_dir="${chromium_dir}/$1"
-    local log_file="chromium-$1.log"
+    local browser_bin="/usr/bin/${browser}-browser"
+    local browser_dir="${HOME}/.config/${browser}"
+    local data_dir="--user-data-dir=$browser_dir/$1"
+    local cache_dir="--disk-cache-dir=/tmp/${browser}/cache-$1"
+    local log_dir="$browser_dir/$1"
+    local log_file="${browser}-$1.log"
 
     # If dir does not exist; create it. Then change to dir.
-    if [[ ! -d "$chromium_dir" ]]; then
-	mkdir -p "$chromium_dir" || exit 3
-	cd "$chromium_dir" || exit 4
+    if [[ ! -d "$browser_dir" ]]; then
+	mkdir -p "$browser_dir" || exit 3
+	cd "$browser_dir" || exit 4
     fi
     
     case "$1" in
-	# Launch a chromium instance
+	# Launch a browser instance
         personal|work|*test*|*user*)
-	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
+	    "$browser_bin" "$data_dir" "$cache_dir" & wait "$!"
 	    kill_pid "$1"
 	    ;;
 	incognito)
-	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
+	    "$browser_bin" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
 	    kill_pid "$1"
 	    ;;
@@ -86,4 +94,4 @@ cpm() {
     esac
 }
 
-cpm "$1"
+cpm "$1" "$2"
