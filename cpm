@@ -19,7 +19,7 @@
 cpm() {
     local browser
 
-    if [[ -z "$2" ]]; then
+    if [[ "$2" != iridium ]]; then
 	browser=chromium
     else
 	browser=iridium
