@@ -1,0 +1,89 @@
+#!/bin/bash -x
+
+# Wrapper function around Google Chromium. Allows custom "profiles" by way of individual
+# data directories in ~/.config/chromium. Useful for binding keyboard shortcuts to a Work
+# or Personal profile:
+#
+#  - creates data dir in ~/.config/chromium based on passed arg {personal|work|incognito}
+#  - creates cache dir in /tmp/chromium/
+#  - Incognito destroys both data and cache dir on close
+#
+#  TODO:
+#
+#  - Better functionalization
+#  - Add debuggin & error handling
+#  - Generally sloppy and inelegant
+#  - ...
+
+# Main
+cpm() {
+    grep() {
+	/usr/bin/grep "$@"
+    }
+    
+    running_pids() {
+	ps -ax | grep -v grep \
+	    | grep "chromium-browser" \
+	    | grep "$1" \
+	    | awk '{ print $1 }'
+    }
+
+    kill_pid() {
+	for pid in $(running_pids "$1"); do
+	    [[ ! -z "$pid" ]] && kill "$pid" &
+	done
+	
+	exit 0
+    }
+    
+    usage() {
+	printf "\n"
+	printf "%s\n" "Usage: cpm {personal|work|*test*|*user*|incognito}"
+	printf "\n"
+	printf "%s\n" "Exits are one of:"
+	printf "\n"
+	printf "%s\n" "    1: This help message."
+	printf "%s\n" "    2: Profile is already running."
+	printf "%s\n" "    3: Profile directory could not be created."
+	printf "%s\n" "    4: Could not switch to chromium directory."
+	printf "\n"
+
+	exit 1
+    }
+
+    # Check for already running process
+    if [[ ! -z $(running_pids "$1") ]]; then
+	exit 2
+    fi
+    
+    # Create variable bindings
+    local chromium="/usr/bin/chromium-browser"
+    local chromium_dir="${HOME}/.config/chromium"
+    local data_dir="--user-data-dir=$chromium_dir/$1"
+    local cache_dir="--disk-cache-dir=/tmp/chromium/cache-$1"
+    local log_dir="${chromium_dir}/$1"
+    local log_file="chromium-$1.log"
+
+    # If dir does not exist; create it. Then change to dir.
+    if [[ ! -d "$chromium_dir" ]]; then
+	mkdir -p "$chromium_dir" || exit 3
+	cd "$chromium_dir" || exit 4
+    fi
+    
+    case "$1" in
+	# Launch a chromium instance
+        personal|work|*test*|*user*)
+	    "$chromium" "$data_dir" "$cache_dir" & wait "$!"
+	    kill_pid "$1"
+	    ;;
+	incognito)
+	    "$chromium" --"$1" "$data_dir" "$cache_dir" & wait "$!"
+	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+	    kill_pid "$1"
+	    ;;
+	*)
+	    usage
+    esac
+}
+
+cpm "$1"

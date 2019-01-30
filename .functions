@@ -313,7 +313,7 @@ emacsctl() {
     esac
 }
 
-ayudar() {
+ayudame() {
     # To help
     "$@" --help | less -R
 }
