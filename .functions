@@ -226,11 +226,7 @@ dirspike() {
     cd "$currentDir"
 }
 
-debug() {
-    set -x
-    "$@"
-    set +x
-}
+debug() { set -x; "$@"; set +x; }
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
