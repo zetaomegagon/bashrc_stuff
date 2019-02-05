@@ -6,7 +6,10 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Set $EDITOR to Emacs
-EDITOR='emacsclient -nw'
+export EDITOR='emacsclient -nw'
+
+# Make sure user D-bus is accessible
+export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
