@@ -71,7 +71,8 @@ cpm() {
     local cache_dir="--disk-cache-dir=/tmp/${browser}/cache-$1"
     local log_dir="$browser_dir/$1"
     local log_file="${browser}-$1.log"
-
+    local proxy="--proxy-server=socks5://127.0.0.1:8080"
+    
     # If dir does not exist; create it. Then change to dir.
     if [[ ! -d "$browser_dir" ]]; then
 	mkdir -p "$browser_dir" || exit 3
@@ -81,11 +82,11 @@ cpm() {
     case "$1" in
 	# Launch a browser instance
         personal|work|*test*|*user*)
-	    "$browser_bin" "$data_dir" "$cache_dir" & wait "$!"
+	    "$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
 	    kill_pid "$1"
 	    ;;
 	incognito)
-	    "$browser_bin" --"$1" "$data_dir" "$cache_dir" & wait "$!"
+	    "$browser_bin" --"$1" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
 	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
 	    kill_pid "$1"
 	    ;;
