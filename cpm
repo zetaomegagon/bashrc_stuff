@@ -79,20 +79,29 @@ cpm() {
 	cd "$browser_dir" || exit 4
     fi
     
-    case "$1" in
-	# Launch a browser instance
-        personal|work|*test*|*user*)
-	    "$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
-	    kill_pid "$1"
-	    ;;
-	incognito)
-	    "$browser_bin" --"$1" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
-	    rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
-	    kill_pid "$1"
-	    ;;
-	*)
-	    usage
-    esac
+    exec_chromium() {
+	case "$1" in
+	    # Launch a browser instance
+            personal|work|*test*|*user*)
+		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
+		kill_pid "$1"
+		;;
+	    incognito)
+		"$browser_bin" --"$1" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
+		rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+		kill_pid "$1"
+		;;
+	    *)
+		usage
+	esac
+    }
+
+    if [[ -z $(ps -ax | grep -v grep | grep zomegagon) ]]; then
+	(~/gits/bashrc_stuff/sshproxy.sh >/dev/null 2>&1 &)
+	exec_chromium "$1"
+    else
+	exec_chromium "$1"
+    fi
 }
 
 cpm "$1" "$2"
