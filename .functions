@@ -133,9 +133,11 @@ kill-chromium() {
     done
 }
 
+gpaste() { printf "%s\n" "$(/usr/bin/gpaste-client "$@")"; }
+
 clipc() {
     # Clear gpaste-client history
-    gpaste-client empty
+    gpaste empty
 }
 
 notify() {

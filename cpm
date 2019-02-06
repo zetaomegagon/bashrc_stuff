@@ -98,9 +98,11 @@ cpm() {
     }
 
     if pgrep -a ssh | grep -q zomegagon; then
-	(~/gits/bashrc_stuff/sshproxy.sh >/dev/null 2>&1 &)
+	echo "ECHOING SEARCH STATUS: $?"
 	exec_chromium "$1"
     else
+	echo "ECHOING SEARCH STATUS: $?"
+	(~/gits/bashrc_stuff/sshproxy.sh >/dev/null 2>&1 &)
 	exec_chromium "$1"
     fi
 }
