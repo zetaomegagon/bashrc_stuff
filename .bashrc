@@ -1,5 +1,18 @@
 # .bashrc
 
+# Nice to haves
+export HISTCONTROL=ignoredups
+export IGNOREEOF=1000000000
+shopt -s autocd
+shopt -s checkwinsize
+
+if which most >/dev/null 2>&1; then
+    export MANPAGER="/usr/bin/most -s"
+else
+    sudo dnf install -y most
+    export MANPAGER="/usr/bin/most -s"
+fi
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -12,7 +25,9 @@ export EDITOR='emacsclient -nw'
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
+# export SYSTEMD_PAGER="$_pager"
+
+
 
 # Source path to SML/NJ binary
 if [ -d "${HOME}/bin/smlnj/bin" ]; then
