@@ -14,28 +14,28 @@ tmux-start() {
     fi
 }
 
-## Start 9h of rain sleep sounds
-rain() {
+## Start sleep sounds
+sleep-sounds() {
     local mpv="/usr/bin/mpv"
     local music_dir="$HOME/Music"
     local track="rain.mp3"
     local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
-    make-it-rain() {
+    start-track() {
 	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
     }
 
     [[ ! -e "$mpv" ]] && sudo dnf -qy install mpv
 
     if [[ -f "${music_dir}/$track" ]]; then
-	make-it-rain "${music_dir}/$track"
+	start-track "${music_dir}/$track"
     else
-	make-it-rain "$track_url"
+	start-track "$track_url"
     fi
 }
 
-## Kill the rain
-kill-rain() {
+## Kill sleep sounds
+kill-sleep-sound() {
     for file in $(echo /tmp/rain.*); do
 	local pid=${file#/tmp/rain\.}
 	kill $pid 2>/dev/null
@@ -165,43 +165,6 @@ timer() {
 	printf "Usage: timer <number_with_units>\\n"
     fi
 }
-
-############# Migrate to systemd unit ################
-aria2-start() {
-    local aria2_path="/home/ebeale/.config/aria2"
-    local conf_path="$aria2_path/aria2.conf"
-    local session_path="$aria2_path/aria2.session"
-
-    aria2-call() {
-	(nohup aria2c \
-	       --enable-rpc \
-	       --rpc-listen-all=true \
-	       --rpc-allow-origin-all=true \
-	       --conf-path="$conf_path" \
-	       --input-file="$session_path" \
-	       >/dev/null 2>&1 &)
-	}
-    
-    if [[ -z "$(pgrep aria2c)" ]]; then
-	if [[ ! -f "$session_path" ]]; then
-	    touch "$session_path"
-	    aria2-call
-	else
-	    aria2-call
-	fi
-    fi
-}
-
-aria2-restart() {
-    if [[ -z "$(pgrep aria2c)" ]]; then
-	aria2-start
-    else
-	pkill aria2c
-	sleep 1
-	aria2-start
-    fi
-}
-############# Migrate to systemd unit ################
 
 dirspike() {
     # Set clean state
