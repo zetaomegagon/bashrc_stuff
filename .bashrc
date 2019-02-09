@@ -1,8 +1,15 @@
 # .bashrc
 
-# Nice to haves
+export HISTFILESIZE=20000
+export HISTSIZE=10000
 export HISTCONTROL=ignoredups
+export HISTIGNORE="&:l[lsa]:[bf]g:exit"
+
+shopt -s histappend
+shopt -s cmdhist
+
 export IGNOREEOF=1000000000
+
 shopt -s autocd
 shopt -s checkwinsize
 
@@ -80,6 +87,6 @@ fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
-#aria2-restart
+
 
 #gam() { "/home/ebeale/bin/gam/gam" "$@" ; }

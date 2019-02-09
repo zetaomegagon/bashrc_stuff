@@ -7,8 +7,9 @@ start_proxy(){
     while : ; do
 	if pgrep -a ssh | grep -q zomegagon; then
 	    continue
+	    sleep 5
 	else
-	    /usr/bin/ssh -o "ServerAliveInterval 10" \
+	    /usr/bin/ssh -o "ServerAliveInterval 5" \
 			 -o "ServerAliveCountMax 3" \
 			 -D 8080 -qCN zomegagon@50.116.63.65
 	fi

@@ -96,7 +96,7 @@ mpw() {
         echo >&2 "Copied!"
     }
 
-    if [[ "$1" = "-h" ]]; then
+    if [[ "$1" =~ '(-h|--help)' ]]; then
 	# Call the binary directly when passing help flag so we
 	# don't get ugly output and double output with pager
 	
@@ -129,7 +129,7 @@ kill-chromium() {
     local pids=$(pgrep -a '(chromium|iridium)'-browser | grep $1 | awk '{ print $1 }')
 
     for pid in $pids; do
-	kill -HUP "$pid"
+	kill -HUP "$pid" &
     done
 }
 
@@ -147,9 +147,9 @@ notify() {
 			  | tr -d \[ \
 			  | tr -d \])
 
-    amixer set Master 100% >/dev/null 2>&1; sleep .5
+    amixer set Master 100% >/dev/null 2>&1
 
-    espeak "Task complete."; sleep .5
+    sleep .5; espeak "Task complete."; sleep .5
 
     amixer set Master "$previous_volume" >/dev/null 2>&1
 }
@@ -234,7 +234,6 @@ is-up()
 	watch -n1 "nc -z $address $port; echo $?"
 
     else
-
 	usage
     fi
 }
@@ -262,7 +261,7 @@ emacs() { /usr/bin/emacsclient -nw "$@"; }
 
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
-    usage () {
+    usage() {
 	printf "%s\n" Usage: emacsctl {status|start|stop|restart}
     }
     
@@ -274,4 +273,36 @@ emacsctl() {
     esac
 }
 
-ayudame() { "$@" --help | less -R; }
+ayudame() {
+    local progname="$(whereis "$@" | awk '{ print $2 }')"
+    local exitstat="$($progname --help >/dev/null 2>&1; echo $?)"
+    local helpfile="/tmp/$(basename $prog)_help"
+    local pagers=( "$(which most)" "$(which less)" "$(which more)")
+    local pager
+    
+    if hash "${pagers[0]}"; then
+	pager="${pagers[0]}"
+    elif hash "${pagers[1]}"; then
+	pager="${pagers[1]}"
+    else
+	pager="${pagers[2]}"
+    fi
+        
+    ayudar() {
+	local switch="$1"
+	
+	if [[ ! -f $helpfile ]]; then
+	    $progname $switch > $helpfile 2>&1
+	fi
+
+	$pager $helpfile
+    }
+    
+    if [[ $exitstat -eq 0 ]]; then
+	ayudar --help
+    else
+	ayudar -h
+    fi	
+}
+
+
