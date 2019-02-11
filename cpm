@@ -44,6 +44,15 @@ cpm() {
 	
 	exit 0
     }
+
+    cleanup(){
+	cd $browser_dir || exit 4
+	for dir in *; do
+	    if [[ ! "$dir" =~ (personal|work) ]]; then
+		rm -rf "$dir" &
+	    fi
+	done
+    }
     
     usage() {
 	printf "\n"
@@ -61,36 +70,48 @@ cpm() {
     }
 
     # Check for already running process
-    if [[ -n $(running_pids "$1") ]]; then
-	exit 2
-    fi
-    
-    # Create variable bindings
-    local browser_bin="/usr/bin/${browser}-browser"
-    local browser_dir="${HOME}/.config/${browser}"
-    local data_dir="--user-data-dir=$browser_dir/$1"
-    local cache_dir="--disk-cache-dir=/tmp/${browser}/cache-$1"
-    local log_dir="$browser_dir/$1"
-    local log_file="${browser}-$1.log"
-    local proxy="--proxy-server=socks5://127.0.0.1:8080"
-    
+    checkpid() {
+	if [[ -n $(running_pids "$1") ]]; then
+	    exit 2
+	else
+	    # Create variable bindings
+	    browser_bin="/usr/bin/${browser}-browser"
+	    browser_dir="${HOME}/.config/${browser}"
+	    data_dir="--user-data-dir=$browser_dir/$1"
+	    cache_dir="--disk-cache-dir=/tmp/${browser}/cache-$1"
+	    log_dir="$browser_dir/$1"
+	    log_file="${browser}-$1.log"
+	    proxy="--proxy-server=socks5://127.0.0.1:8080"
+	fi
+    }
+            
     # If dir does not exist; create it. Then change to dir.
-    if [[ ! -d "$browser_dir" ]]; then
-	mkdir -p "$browser_dir" || exit 3
-	cd "$browser_dir" || exit 4
-    fi
+    checkdir() {
+	if [[ ! -d "$browser_dir" ]]; then
+	    mkdir -p "$browser_dir" || exit 3
+	    cd "$browser_dir" || exit 4
+	fi
+    }
     
     exec_chromium() {
+	checkpid "$1"
+	checkdir
+	
 	case "$1" in
 	    # Launch a browser instance
             personal|work|*test*|*user*)
 		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
-		(kill-chromium "$1" &)
+		(cleanup && kill-chromium "$1" &)
 		;;
 	    incognito)
 		"$browser_bin" --"$1" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
 		rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
-		(kill-chromium "$1" &)
+		(cleanup && kill-chromium "$1" &)
+		;;
+	    noproxy)
+		"$browser_bin" --"incognito" "$data_dir" "$cache_dir" & wait "$!"
+		rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
+		(cleanup && kill-chromium "$1" &)
 		;;
 	    *)
 		usage
