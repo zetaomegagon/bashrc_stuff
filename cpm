@@ -48,7 +48,7 @@ cpm() {
     cleanup(){
 	cd $browser_dir || exit 4
 	for dir in *; do
-	    if [[ ! "$dir" =~ (personal|work|*technology*) ]]; then
+	    if [[ ! "$dir" =~ (personal|work) ]]; then
 		rm -rf "$dir" &
 	    fi
 	done

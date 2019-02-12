@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 ## Start tmux on every shell login
@@ -304,3 +305,5 @@ ayudame() {
 	ayudar -h
     fi	
 }
+
+mkpass() { echo "$(mktemp -u $(for i in {0..64}; do printf "%s" "X"; done))"; }
