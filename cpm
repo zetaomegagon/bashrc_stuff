@@ -48,7 +48,7 @@ cpm() {
     cleanup(){
 	cd $browser_dir || exit 4
 	for dir in *; do
-	    if [[ ! "$dir" =~ (personal|work) ]]; then
+	    if [[ ! "$dir" =~ (personal|work|*technology*) ]]; then
 		rm -rf "$dir" &
 	    fi
 	done
@@ -99,7 +99,7 @@ cpm() {
 	
 	case "$1" in
 	    # Launch a browser instance
-            personal|work|*test*|*user*)
+            personal|work|technology|*test*|*user*)
 		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
 		(cleanup && kill-chromium "$1" &)
 		;;
