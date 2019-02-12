@@ -307,3 +307,7 @@ ayudame() {
 }
 
 mkpass() { echo "$(mktemp -u $(for i in {0..64}; do printf "%s" "X"; done))"; }
+drive-compare ()
+{ 
+    echo "All objects: $_all, Grep'd objects: $_grep, Difference: $_diff"
+}
