@@ -338,3 +338,18 @@ print_gam_url_field_numbers() {
 	    | tee -a "$3"
     done
 }
+
+backup() {
+    local user="$(whoami)"
+    local backup_dir="/run/media/$user/backup"
+    local source="/home/$user"
+    local dest="$backup_dir/$user"
+    
+    (while : ; do
+	  if [[ -d "$backup_dir" ]]; then
+	      rsync -qa "$source" "$dest" 2>/dev/null
+	  fi
+
+	  sleep 5m
+    done &)
+}

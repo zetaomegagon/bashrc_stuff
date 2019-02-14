@@ -87,6 +87,6 @@ fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
-
+backup
 
 #gam() { "/home/ebeale/bin/gam/gam" "$@" ; }
