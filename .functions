@@ -326,3 +326,4 @@ mmtail() {
     fi
 }
 
+print_gam_url_field_column_numbers() { gam user "$1" show filelist | tee all-tech-files.txt | /usr/bin/grep -o https://.* | sort | uniq | while read -r URL; do echo : 0 | column -t | tee -a fields.txt ; done; }
