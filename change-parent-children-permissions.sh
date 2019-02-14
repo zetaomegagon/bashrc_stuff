@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # Goal: Make all objects in "Data Center Drive rclone" unsearcheable
 
@@ -29,19 +29,17 @@ tee="tee -a"
 
 #@ functions
 grep() { /usr/bin/grep "$@"; }
-
 get_line_count() { wc -l "$@" | awk '{ print $2 }'; }
 
 #@ main
 mkdir -p "$_dir" || :
-cd "$_dir" || exit
+{ cd "$_dir" && parallel 'echo "" > {}' ::: *; } || exit
 
-parallel echo "" > {} ::: *
 
 { printf   "%s\n" "Working Dir:     $_dir"\
   ; printf "%s\n" "Current Dir:     $(pwd)"\
   ; printf "%s\n" "Drive File list: $_filelist"\
-  ; printf "%s\n" "Object URLS:     $_urllist"; } >> $_dir/vars.txt
+  ; printf "%s\n" "Object URLS:     $_urllist"; } >> "$_dir/vars.txt"
 
 declare -a _types
 _types=( 'folders' 'forms' 'document' 'drawings' 'presentation' 'spreadsheets' 'file')
@@ -58,33 +56,11 @@ if [[ -f "$_filelist" ]]; then
 		| $tee "${_type}".txt \
 		| case "$_type" in ### How to get the ID? We have (3) cases. Do I write a case for each?
 		document|drawings|presentation|spreadsheets)
-		    awk -F '/' '{ print $6 }' <(echo "$_url") | $tee "${_type}".id ;;
+		    echo "$_url" | awk -F '/' '{ print $4 }' | $tee "${_type}".id ;;
 		file|folders)
-		    awk -F '/' '{ print $4 }' <(echo "$_url") | $tee "${_type}".id ;;
+		    echo "$_url" | awk -F '/' '{ print $4 }' | $tee "${_type}".id ;;
 		forms)
-		    awk -F '/' '{ print $7 }' <(echo "$_url") | $tee "${_type}".id ;;
-		*)
-		    echo "${_type}: ${_url}: invalid type or malformed url, possibly unaccounted for."
-	    esac
-	done
-    done
-else
-    gam user technology show filelist \
-    	| $tee "$_filelist" \
-	| grep -o "https://.*" \
-	| $tee "$_urllist" \
-	| while read -r _url; do
-	for _type in "${_types[@]}"; do
-	    echo "$_url" \
-		| grep "$_type" \
-		| $tee "${_type}".txt \
-		| case "$_type" in ### How to get the ID? We have (3) cases. Do I write a case for each?
-		document|drawings|presentation|spreadsheets)
-		    awk -F '/' '{ print $5 }' <(echo "$_url") | $tee "${_type}".id ;;
-		file|folders)
-		    awk -F '/' '{ print $4 }' <(echo "$_url") | $tee "${_type}".id ;;
-		forms)
-		    awk -F '/' '{ print $7 }' <(echo "$_url") | $tee "${_type}".id ;;
+		    echo "$_url" | awk -F '/' '{ print $4 }' | $tee "${_type}".id ;;
 		*)
 		    echo "${_type}: ${_url}: invalid type or malformed url, possibly unaccounted for."
 	    esac
