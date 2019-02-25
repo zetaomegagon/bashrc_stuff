@@ -347,9 +347,16 @@ backup() {
     
     (while : ; do
 	  if [[ -d "$backup_dir" ]]; then
-	      rsync -qa "$source" "$dest" 2>/dev/null
+	      rsync -qa "$source"/ "$dest"/ 2>/dev/null
 	  fi
 
 	  sleep 5m
     done &)
+}
+miotop() {
+    for pid in $(pgrep "$1"); do
+	pids+=( "--pid $pid" )
+    done
+
+    sudo iotop $(echo "${pids[@]}")
 }
