@@ -346,13 +346,14 @@ backup() {
     local dest="$backup_dir/$user"
     
     (while : ; do
-	  if [[ -d "$backup_dir" ]]; then
+	  if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
 	      rsync -qa "$source"/ "$dest"/ 2>/dev/null
 	  fi
 
 	  sleep 5m
     done &)
 }
+
 miotop() {
     for pid in $(pgrep "$1"); do
 	pids+=( "--pid $pid" )
