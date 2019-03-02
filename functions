@@ -1,0 +1,371 @@
+#!/bin/bash
+
+## Start tmux on every shell login
+tmux-start() {
+    if which tmux >/dev/null 2>&1; then
+        if [[ -z "$TMUX" ]]; then
+            ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
+	    if [[ -z "$ID" ]]; then 
+                tmux new-session
+            else
+                tmux attach-session -t "$ID"
+            fi
+        fi
+    fi
+}
+
+## Start sleep sounds
+sleep-sounds() {
+    local mpv="/usr/bin/mpv"
+    local music_dir="$HOME/Music"
+    local track="rain.mp3"
+    local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
+
+    start-track() {
+	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
+    }
+
+    [[ ! -e "$mpv" ]] && sudo dnf -qy install mpv
+
+    if [[ -f "${music_dir}/$track" ]]; then
+	start-track "${music_dir}/$track"
+    else
+	start-track "$track_url"
+    fi
+}
+
+## Kill sleep sounds
+kill-sleep-sound() {
+    for file in $(echo /tmp/rain.*); do
+	local pid=${file#/tmp/rain\.}
+	kill $pid 2>/dev/null
+	rm /tmp/rain.$pid
+    done
+}
+
+## Add, commit, push functions and aliases
+git-sync() {
+    local repo="${HOME}/gits/bashrc_stuff"
+
+    # move to working dir 
+    [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
+
+    # ensure stash is clean
+    [[ ! -z "$(git stash list)" ]] && git stash drop
+
+    # stash changes (if any) & sync with github repo
+    git stash >/dev/null 2>&1
+    git pull
+
+    # apply stash (if any)
+    [[ ! -z "$(git stash list)" ]] && git stash apply
+
+    # Add all, commit, push
+    git add -A
+    git commit -m "auto commited on: $(date -u '+%F %T') [UTC]"
+    git push origin master
+
+    # Good push? Drop the stash
+    [[ $? -eq 0 ]] && git stash drop
+
+    # Return to origin dir
+    popd >/dev/null 2>&1
+
+    # Source updated .bashrc
+    unalias -a && . ${HOME}/.bashrc
+}
+
+## Mpw helper function
+mpw() {
+    _copy() {
+        _clips=('pbcopy' 'xclip' 'gpaste-client')
+        _use="${_clips[2]}"
+
+        case "$_use" in
+            "${_clips[0]}")
+                hash "$_use" 2>/dev/null && "$_use" ;;
+            "${_clips[1]}")
+                hash "$_use" 2>/dev/null && "$_use" ;;
+            "${_clips[2]}")
+                hash "$_use" 2>/dev/null && "$_use" add-password "" ;;
+            *)
+                cat; echo 2>/dev/null
+                return
+        esac
+
+        echo >&2 "Copied!"
+    }
+
+    if [[ "$1" =~ '(-h|--help)' ]]; then
+	# Call the binary directly when passing help flag so we
+	# don't get ugly output and double output with pager
+	
+	if [[ ! -f /tmp/mpw_help ]]; then
+	    ${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+	fi
+	
+	less /tmp/mpw_help
+    else
+ 	# Empty the clipboard
+	:| _copy 2>/dev/null
+
+	# Ask for the user's name and password if not yet known.
+	MPW_FULLNAME=${MPW_FULLNAME:-$(ask 'Your Full Name:')}
+
+	# Start Master Password and copy the output.
+	printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw "$@")" | _copy
+
+	# For gpaste-client: clear last password after 30 seconds
+	if [[ "$_use" = "${_clips[2]}" ]]; then
+            ({ _name="$(mktemp -u XXXXXXXXXXXX)";
+               gpaste-client rename-password "" "$_name";
+               sleep 30;
+               gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
+	fi
+    fi
+}
+
+kill-chromium() {
+    local pids=$(pgrep -a '(chromium|iridium)'-browser | grep $1 | awk '{ print $1 }')
+
+    for pid in $pids; do
+	kill -HUP "$pid" &
+    done
+}
+
+gpaste() { printf "%s\n" "$(/usr/bin/gpaste-client "$@")"; }
+
+clipc() {
+    # Clear gpaste-client history
+    gpaste empty
+}
+
+notify() {
+    previous_volume=$(amixer get Master \
+			  | tail -1 \
+			  | awk '{ print $4 }' \
+			  | tr -d \[ \
+			  | tr -d \])
+
+    amixer set Master 100% >/dev/null 2>&1
+
+    sleep .5; espeak "Task complete."; sleep .5
+
+    amixer set Master "$previous_volume" >/dev/null 2>&1
+}
+
+timer() {
+    if [[ "$1" =~ [0-9]+ ]]; then
+	(sleep "$1" &)
+	wait $!
+	for ((c=0;c<60;c++)); do
+	    ({ notify; sleep 1; } &)
+	done
+    else
+	printf "Usage: timer <number_with_units>\\n"
+    fi
+}
+
+dirspike() {
+    # Set clean state
+    currentDir="$(pwd)"
+    cd
+    
+    # Clean the screen
+    clear
+    sleep .5
+    
+    # Top half
+    printf "~\\n"
+    
+    for dir in $(echo "*"); do
+	pushd "${HOME}/$dir"
+    done
+
+    # bottom half
+    for dir in $(popd 2>/dev/null); do
+	popd 2>/dev/null
+    done
+
+    # Back in time!
+    cd "$currentDir"
+}
+
+debug() { set -x; "$@"; set +x; }
+
+mpv() {
+    # call mpv on a file and keep the display from sleeping
+    local optimus="$(lspci | grep -E 'VGA|3D' | grep -E 'nvidia|Nvidia|NVIDIA')"
+    
+    play() {
+	# if nvidia optimus graphics card exists, use it
+	inhibit-lid-switch() {
+	     # syntactic sugar
+	     systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
+	 }
+	 
+	if [[ -z "$optimus" ]]; then
+	    inhibit-lid-switch "$@"
+	else
+	    DRI_PRIME=1 inhibit-lid-switch "$@"
+	fi
+    }
+   
+    play "$@" 
+}
+
+is-up()
+{
+    local address="$1"
+    local port="$2"
+    local aregex="[0-9]{1,3}"
+    local pregex="[0-9]{1,10000}"
+
+    usage()
+    {
+	printf "Usage:\\n"
+	printf "  is-up <address> <port>"
+	printf "\\n"
+    }
+
+    if [[ "$address" =~ ${aregex}\.${aregex}\.${aregex}\.${aregex} ]] && \
+	   [[ "$port" =~ $pgregex ]]; then
+
+	watch -n1 "nc -z $address $port; echo $?"
+
+    else
+	usage
+    fi
+}
+
+mkrandom() {
+    local N="$1"
+    
+    if [[ "$N" =~ [0-9]{1,3} ]]; then
+	if [[ "$N" -lt 8 ]]; then
+	    printf "MIN must be >= 8."
+	    printf "\n"
+	elif [[ "$N" -gt 254 ]]; then
+	    printf "MAX must be <= 254."
+	    printf "\n"
+	else
+	    mktemp -u "$(for ((c=0;c<="$N";c++)); do printf X; done)"
+	fi
+    else
+	printf "Input must be a number between 8 and 254."
+	printf "\n"
+    fi
+}
+
+emacs() { /usr/bin/emacsclient -nw "$@"; }
+
+emacsctl() {
+    # syntactic sugar for controlling emacs daemon.
+    usage() {
+	printf "%s\n" Usage: emacsctl {status|start|stop|restart}
+    }
+    
+    case "$1" in
+		 status|stop|start|restart)
+		     systemctl --user "$1" emacs ;;
+		 *)
+		     usage
+    esac
+}
+
+ayudame() {
+    local progname="$(whereis "$@" | awk '{ print $2 }')"
+    local exitstat="$($progname --help >/dev/null 2>&1; echo $?)"
+    local helpfile="/tmp/$(basename $prog)_help"
+    local pagers=( "$(which most)" "$(which less)" "$(which more)")
+    local pager
+    
+    if hash "${pagers[0]}"; then
+	pager="${pagers[0]}"
+    elif hash "${pagers[1]}"; then
+	pager="${pagers[1]}"
+    else
+	pager="${pagers[2]}"
+    fi
+        
+    ayudar() {
+	local switch="$1"
+	
+	if [[ ! -f $helpfile ]]; then
+	    $progname $switch > $helpfile 2>&1
+	fi
+
+	$pager $helpfile
+    }
+    
+    if [[ $exitstat -eq 0 ]]; then
+	ayudar --help
+    else
+	ayudar -h
+    fi	
+}
+
+mkpass() { echo "$(mktemp -u $(for i in {0..64}; do printf "%s" "X"; done))"; }
+
+mmtail() {
+    mt() {
+	declare -a objects
+	for object in "$@"; do
+	    if [[ -f "$object" ]]; then
+		objects+=("$object")
+	    fi
+	done
+
+	multitail $(printf "%s " "${objects[@]}")
+    }
+
+    if [[ -z "$@" ]]; then
+	mt *
+    else
+	mt "$@"
+    fi
+}
+
+print_gam_url_field_numbers() {
+    gam user "$1" show filelist \
+	| tee "$2" \
+	| /usr/bin/grep -o https://.* \
+	| sort \
+	| uniq \
+	| while read -r URL;
+    do echo "$URL: $(awk -F '/' '{ print NF }' <(echo "$URL"))" \
+	    | column -t \
+	    | tee -a "$3"
+    done
+}
+
+backup() {
+    local user="$(whoami)"
+    local backup_dir="/run/media/$user/backup"
+    local source="/home/$user"
+    local dest="$backup_dir/$user"
+    
+    (while : ; do
+	  if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
+	      rsync -qa "$source"/ "$dest"/ 2>/dev/null
+	  fi
+
+	  sleep 5m
+    done &)
+}
+
+miotop() {
+    for pid in $(pgrep "$1"); do
+	pids+=( "--pid $pid" )
+    done
+
+    sudo iotop $(echo "${pids[@]}")
+}
+
+rm() {
+    now="$(date +'%m-%m-%Y_%T')"
+    
+    for file in "$@"; do
+	rm -v "$file"
+    done > /home/ebeale/gits/bashrc_stuff/removed_${now}.log
+}

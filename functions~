@@ -361,3 +361,9 @@ miotop() {
 
     sudo iotop $(echo "${pids[@]}")
 }
+
+rm() {
+    now="$(date +'%m-%m-%Y_%T')"
+    
+    rm -v "$@" > /home/ebeale/gits/bashrc_stuff/removed_${now}.log
+}
