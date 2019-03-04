@@ -1,0 +1,2 @@
+alias computezero.ssh='mpw -tx computezero.ssh.pw'
+alias hummingbird.ssh='mpw -tx hummingbird.ssh.pw'
