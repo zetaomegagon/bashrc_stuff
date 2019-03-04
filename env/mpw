@@ -117,10 +117,10 @@ alias linode.zomegagon='mpw -tx zomegagon.linode12667489'
 alias statusgator='mpw -tx statusgator.com'
 alias 1pass.tps='mpw -tx 1password.com.tps'
 alias data.center.account='mpw -tx data.center.archive'
-<<<<<<< Updated upstream
 alias meetup='mpw -tx meetup.com'
 alias indeed='mpw -tx indeed.com'
 alias glassdoor='mpw -tx glassdoor.com'
-=======
 alias amazon.jobs='mpw -tl amazon.jobs'
->>>>>>> Stashed changes
+
+alias protonmail='mpw -tx protonmail.com'
+alias indeed='mpw -tx indeed.com'
