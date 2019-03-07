@@ -32,7 +32,7 @@ cpm() {
     }
     
     running_pids() {
-	pgrep -a "${browser}-browser" \
+	pgrep -a "${browser}" \
 	    | grep "$1" \
 	    | awk '{ print $1 }'
     }
