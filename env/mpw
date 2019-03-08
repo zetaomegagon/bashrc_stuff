@@ -124,4 +124,8 @@ alias amazon.jobs='mpw -tl amazon.jobs'
 alias protonmail='mpw -tx protonmail.com'
 alias indeed='mpw -tx indeed.com'
 alias hummingbird.ebeale='mpw -tl hummingbird.ebeale'
+<<<<<<< Updated upstream
 alias resumegenius='mpw -tx resumegenius.com'
+=======
+alias gitlab='mpw -tx gitlab.com'
+>>>>>>> Stashed changes
