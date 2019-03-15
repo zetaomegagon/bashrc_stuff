@@ -308,8 +308,9 @@ ayudame() {
 mkpass() { echo "$(mktemp -u $(for i in {0..64}; do printf "%s" "X"; done))"; }
 
 mmtail() {
-    mt() {
+    mt() {	
 	declare -a objects
+	
 	for object in "$@"; do
 	    if [[ -f "$object" ]]; then
 		objects+=("$object")
@@ -361,4 +362,3 @@ miotop() {
 
     sudo iotop $(echo "${pids[@]}")
 }
-
