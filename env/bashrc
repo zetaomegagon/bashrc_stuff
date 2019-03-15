@@ -13,12 +13,8 @@ export IGNOREEOF=1000000000
 shopt -s autocd
 shopt -s checkwinsize
 
-if which most >/dev/null 2>&1; then
-    export MANPAGER="/usr/bin/most -s"
-else
-    sudo dnf install -y most
-    export MANPAGER="/usr/bin/most -s"
-fi
+export LESS='-R'
+export PAGER='/usr/bin/less'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
