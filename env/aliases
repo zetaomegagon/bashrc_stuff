@@ -7,11 +7,8 @@ alias grep='grep --color=always'
 alias l='ls -CF --color=always --group-directories-first'
 alias l.='ls -ldF.* --color=auto --group-directories-first'
 alias la='ls -AlF --color=always --group-directories-first'
-<<<<<<< Updated upstream
 alias lal='ls -AlF --color=always --group-directories-first | less'
-=======
 alias lal='ls -AlF --color=always --group-directories-first | less -R'
->>>>>>> Stashed changes
 alias ll='ls -lF --color=always --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias lz='ls -AlFZ --color=always --group-directories-first'
