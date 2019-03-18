@@ -28,7 +28,7 @@ export EDITOR='emacsclient -nw'
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER="$_pager"
+# export SYSTEMD_PAGER=""
 
 
 
