@@ -100,7 +100,7 @@ cpm() {
 	case "$1" in
 	    # Launch a browser instance
             personal|work|technology|*test*|*user*)
-		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
+		"$browser_bin" "$data_dir" "$cache_dir" & wait "$!"
 		(cleanup && kill-chromium "$1" &)
 		;;
 	    incognito)
@@ -119,10 +119,10 @@ cpm() {
     }
 
     if pgrep -a ssh | grep -q zomegagon; then
-	echo "ECHOING SEARCH STATUS: $?"
+	echo "SEARCH STATUS: $?"
 	exec_chromium "$1"
     else
-	echo "ECHOING SEARCH STATUS: $?"
+	echo "SEARCH STATUS: $?"
 	(sshproxy >/dev/null 2>&1 &)
 	exec_chromium "$1"
     fi
