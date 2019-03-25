@@ -6,16 +6,18 @@
 
 ##====================== functions and variables =========================================##
 vmanage() { vboxmanage "$@"; }
+grep() { /usr/bin/grep "$@"; }
+
 _vmname="fedora-28-jss"
-_uuid="$(vmanage list vms | grep "$_vmname" | awk '{ print $2 }' | tr -d \{ | tr -d \})"
+_uuid="$(vmanage list vms | grep "$_vmname" | awk '{ print $2 }' | sed 's/\{//;s/\}//')"
 _runningvms="$(vmanage list runningvms | grep -q "$_vmname")"
-_now=$(date +'%F_%T')
-_snapshotname="fedora_28_jss-$_now"
+_now="$(date +'%F_%T')"
+_snapshotname="${_vmname}-$_now"
 _snapshotdesc="Snapshot taken on: $_now"
 ##=============================== main ===================================================##
 
 # Stop the vm if running
-if [[ -z "$_runningvms" ]]; then
+if [[ -n "$_runningvms" ]]; then
     vmanage controlvm "$_uuid" poweroff
 fi
 
