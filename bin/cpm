@@ -100,7 +100,7 @@ cpm() {
 	case "$1" in
 	    # Launch a browser instance
             personal|work|technology|*test*|*user*)
-		"$browser_bin" "$data_dir" "$cache_dir" & wait "$!"
+		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
 		(cleanup && kill-chromium "$1" &)
 		;;
 	    incognito)
