@@ -347,10 +347,10 @@ backup() {
     
     (while : ; do
 	  if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
-	      rsync -qa "$source"/ "$dest"/ 2>/dev/null
+	      rsync -qa "$source"/ "$dest"/ 1>"$backup_dir"/backup.log 2>"$backup_dir"/backup.err
 	  fi
 
-	  sleep 5m
+	  sleep 30s
     done &)
 }
 

@@ -127,3 +127,4 @@ alias resumegenius='mpw -tx resumegenius.com'
 alias gitlab='mpw -tx gitlab.com'
 
 alias stackexchange='mpw -tx stackexchange.com'
+alias kwadsworth='mpw -tx kwadsworth@tpschool.org'
