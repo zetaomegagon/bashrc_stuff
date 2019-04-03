@@ -5,9 +5,10 @@ get_install_stat() {
     # example: get_install_stat 6
     # returns: install|cache
     
-    _user="ebeale"
-    _pass='z)RjWJRc*5U^6!X)s72['
-    _baseUrl="https://tpschool.jamfcloud.com/JSSResource"
+    _user=''
+    _pass=''
+    _org=''
+    _baseUrl="https://${_org}.jamfcloud.com/JSSResource"
     _getStat=$(curl -su $_user:$_pass "$_baseUrl"/policies/id/"$1"/subset/Packages \
 		   | xmllint --format - \
 		   | grep --color=always -E '(Cache|Install)' \

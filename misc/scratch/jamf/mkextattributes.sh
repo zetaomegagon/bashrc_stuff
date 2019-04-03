@@ -2,8 +2,9 @@
 
 _password=''
 _user=''
+_org=''
 _credentials="$(printf "$_user:$_password" | iconv -t ISO-8859-1 | base64 -i -)"
-_urlPrefix="https://tpschool.jamfcloud.com/JSSResource"
+_urlPrefix="https://${_org}.jamfcloud.com/JSSResource"
 _urlInclude="$(echo ComputerExtensionAttributes | tr 'A-Z' 'a-z')/id"
 _xmlPath="${HOME}/.tps/Scratch/JAMF/extAttributes"
 
