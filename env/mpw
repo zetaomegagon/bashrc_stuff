@@ -128,3 +128,4 @@ alias gitlab='mpw -tx gitlab.com'
 
 alias stackexchange='mpw -tx stackexchange.com'
 alias kwadsworth='mpw -tx kwadsworth@tpschool.org'
+alias linkedin='mpw -tx -c2 linkedin.com'
