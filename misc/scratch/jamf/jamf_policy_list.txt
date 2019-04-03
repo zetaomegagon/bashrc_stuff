@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<policies>
+  <size>51</size>
+  <policy>
+    <id>39</id>
+    <name>!!! [Prestage Testing] - &lt;appName&gt;</name>
+  </policy>
+  <policy>
+    <id>49</id>
+    <name>!!! [Prestage Testing] [Enrollment Complete]- &lt;appName&gt;</name>
+  </policy>
+  <policy>
+    <id>51</id>
+    <name>!!! [Prestage Testing] [Enrollment Complete]- DEPNotify</name>
+  </policy>
+  <policy>
+    <id>19</id>
+    <name>!!! [Test] [Cache] - &lt;appName&gt;</name>
+  </policy>
+  <policy>
+    <id>6</id>
+    <name>[Cache] - Comic Life</name>
+  </policy>
+  <policy>
+    <id>7</id>
+    <name>[Install Cached] - Comic Life</name>
+  </policy>
+  <policy>
+    <id>8</id>
+    <name>[Install] - Citrix Receiver</name>
+  </policy>
+  <policy>
+    <id>22</id>
+    <name>[Prestage Testing] - BBEdit</name>
+  </policy>
+  <policy>
+    <id>36</id>
+    <name>[Prestage Testing] - Citrix Receiver</name>
+  </policy>
+  <policy>
+    <id>43</id>
+    <name>[Prestage Testing] - Citrix Receiver Updater Cert</name>
+  </policy>
+  <policy>
+    <id>18</id>
+    <name>[Prestage Testing] - Comic Life</name>
+  </policy>
+  <policy>
+    <id>16</id>
+    <name>[Prestage Testing] - Firefox</name>
+  </policy>
+  <policy>
+    <id>15</id>
+    <name>[Prestage Testing] - Firefox ESR</name>
+  </policy>
+  <policy>
+    <id>17</id>
+    <name>[Prestage Testing] - Flash NPAPI</name>
+  </policy>
+  <policy>
+    <id>25</id>
+    <name>[Prestage Testing] - Flash PPAPI</name>
+  </policy>
+  <policy>
+    <id>26</id>
+    <name>[Prestage Testing] - Geogebra Classic</name>
+  </policy>
+  <policy>
+    <id>27</id>
+    <name>[Prestage Testing] - Google Chrome</name>
+  </policy>
+  <policy>
+    <id>20</id>
+    <name>[Prestage Testing] - Google Chrome Dev Channel</name>
+  </policy>
+  <policy>
+    <id>34</id>
+    <name>[Prestage Testing] - Google Drive File Stream</name>
+  </policy>
+  <policy>
+    <id>38</id>
+    <name>[Prestage Testing] - Google Earth Pro</name>
+  </policy>
+  <policy>
+    <id>47</id>
+    <name>[Prestage Testing] - HP Easy Share</name>
+  </policy>
+  <policy>
+    <id>35</id>
+    <name>[Prestage Testing] - HP Printer Drivers</name>
+  </policy>
+  <policy>
+    <id>45</id>
+    <name>[Prestage Testing] - HP Printer Essentials</name>
+  </policy>
+  <policy>
+    <id>21</id>
+    <name>[Prestage Testing] - Inspiration 9</name>
+  </policy>
+  <policy>
+    <id>28</id>
+    <name>[Prestage Testing] - Jamf Pro 10.10</name>
+  </policy>
+  <policy>
+    <id>46</id>
+    <name>[Prestage Testing] - MS Office</name>
+  </policy>
+  <policy>
+    <id>29</id>
+    <name>[Prestage Testing] - OmniDisk Sweeper</name>
+  </policy>
+  <policy>
+    <id>30</id>
+    <name>[Prestage Testing] - Packages</name>
+  </policy>
+  <policy>
+    <id>44</id>
+    <name>[Prestage Testing] - PDFSam Basic</name>
+  </policy>
+  <policy>
+    <id>41</id>
+    <name>[Prestage Testing] - Ricoh Drivers NRG</name>
+  </policy>
+  <policy>
+    <id>42</id>
+    <name>[Prestage Testing] - Ricoh Drivers PS</name>
+  </policy>
+  <policy>
+    <id>31</id>
+    <name>[Prestage Testing] - Skype</name>
+  </policy>
+  <policy>
+    <id>32</id>
+    <name>[Prestage Testing] - The MUTT</name>
+  </policy>
+  <policy>
+    <id>48</id>
+    <name>[Test] [Cache] - Firefox</name>
+  </policy>
+  <policy>
+    <id>52</id>
+    <name>[Test] [Cache] - Geogebra Classic 6</name>
+  </policy>
+  <policy>
+    <id>33</id>
+    <name>[Testing] [Cache] - Google Chrome</name>
+  </policy>
+  <policy>
+    <id>23</id>
+    <name>[Testing] [Cache] - Inspiration 9</name>
+  </policy>
+  <policy>
+    <id>9</id>
+    <name>[Testing] [Cache] - Skype</name>
+  </policy>
+  <policy>
+    <id>11</id>
+    <name>[Testing] [Cache] - The Mut</name>
+  </policy>
+  <policy>
+    <id>50</id>
+    <name>[Testing] [Install Cached] - Firefox</name>
+  </policy>
+  <policy>
+    <id>54</id>
+    <name>[Testing] [Install Cached] - Geogebra Classic 6</name>
+  </policy>
+  <policy>
+    <id>14</id>
+    <name>[Testing] [Install Cached] - Google Chrome</name>
+  </policy>
+  <policy>
+    <id>10</id>
+    <name>[Testing] [Install Cached] - Inspiration 9</name>
+  </policy>
+  <policy>
+    <id>37</id>
+    <name>[Testing] [Install Cached] - Skype</name>
+  </policy>
+  <policy>
+    <id>12</id>
+    <name>[Testing] [Install Cached] - The Mut</name>
+  </policy>
+  <policy>
+    <id>2</id>
+    <name>[Users] [Delete] - tadmin</name>
+  </policy>
+  <policy>
+    <id>24</id>
+    <name>### [Prestage Testing] - MacPorts Mojave</name>
+  </policy>
+  <policy>
+    <id>4</id>
+    <name>Make Me an Admin</name>
+  </policy>
+  <policy>
+    <id>5</id>
+    <name>Make Me and Admin Remove</name>
+  </policy>
+  <policy>
+    <id>1</id>
+    <name>Update Inventory</name>
+  </policy>
+  <policy>
+    <id>3</id>
+    <name>Weekly Maintanence</name>
+  </policy>
+</policies>

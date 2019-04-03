@@ -1,0 +1,12 @@
+Working Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Current Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Drive File list: /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-files.txt
+Object URLS:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-urls.txt
+Working Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Current Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Drive File list: /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-files.txt
+Object URLS:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-urls.txt
+Working Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Current Dir:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive
+Drive File list: /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-files.txt
+Object URLS:     /home/ebeale/TPS-Scratch/GAM-Scripts/ebeale_drive/ebeale-urls.txt

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><computer_extension_attribute><id>1</id><name>Group File Test?</name><description>looks for /usr/local/TPS/.test</description><data_type>String</data_type><input_type><type>script</type><platform>Mac</platform><script>#!/bin/bash&#13;
+&#13;
+id_path='/usr/local/TPS'&#13;
+id_file='.test'&#13;
+&#13;
+if [[ -f "$id_path"/"$id_file" ]]; then&#13;
+  &#13;
+  echo "&lt;result&gt;true&lt;/result&gt;"&#13;
+&#13;
+fi&#13;
+  &#13;
+	</script></input_type><inventory_display>Extension Attributes</inventory_display><recon_display>Extension Attributes</recon_display></computer_extension_attribute>
