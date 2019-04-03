@@ -1,9 +1,3 @@
-get_jamf_records.sh
-get_pkgconf_info.sh
-mkextattributes.sh
-mkidscritps.sh
-mkpolicies.sh
-mkpolicy_xml.sh
-mksmartgroups.sh
+sensetive.sh
 *~
 \#*\#
