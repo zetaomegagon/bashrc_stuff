@@ -1,7 +1,19 @@
-#!/bin/bash                                    
+#!/bin/bash
+
+createERBDockScript() {
+    ## Create ERB dockutil kicker script
+
+    #-- variables
+
+    #-- functions
+
+    #-- body
+}
 
 createERBDockAgent() {
-    # variables
+    ## Create ERB dockutil kicker for ERB docutil script
+    
+    #-- variables
     local label="org.tpschool.ebeale.erb-dock-item.plist"
     local dockutil="/usr/local/bin/dockutil"
     local verb="--add"
@@ -9,10 +21,14 @@ createERBDockAgent() {
     local user="/Users/erb"
     local service="/Library/LaunchAgents/$label"
     
-    # functions
+    #-- functions
+
+    # Syntactic sugar for PlistBuddy
     plistbuddy() { /usr/libexec/PlistBuddy "$@"; }
     
-    # body
+    #-- body
+
+    # Create LaunchAgent
     plistbuddy -c "add :Label string $label" \
 	       -c "add :ProgramArguments array" \
 	       -c "add :ProgramArguments:0 string $dockutil" \
@@ -23,9 +39,12 @@ createERBDockAgent() {
 	       -c "add :RunAtLoad string true" \
 	       $service
 
+    # Set LaunchAgent Permissions
+    # and ownership
     chown root:wheel "$service"
     chmod 644 "$service"
 
+    # Enable and start LaunchAgent
     launchctl enable user/"$label" "$service"
     launchctl bootstrap user "$service"
 }

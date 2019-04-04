@@ -305,7 +305,13 @@ ayudame() {
     fi	
 }
 
-mkpass() { echo "$(mktemp -u $(for i in {0..64}; do printf "%s" "X"; done))"; }
+mkpass() {
+    printf "%s" "$(mktemp -u $(for i in {0..64}; do 
+                                   printf "%s" "X"; 
+                               done))" | gpaste-client
+
+    printf "%s\n" "Password copied to clipboard"
+}
 
 mmtail() {
     mt() {
