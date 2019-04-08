@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit org-bullets which-key use-package try atomic-chrome))))
+    (markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try atomic-chrome))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
