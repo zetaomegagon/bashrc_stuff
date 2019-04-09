@@ -43,8 +43,11 @@ kill-sleep-sound() {
     done
 }
 
-## Add, commit, push functions and aliases
+
 git-sync() {
+    # Add, commit, push functions and aliases.
+    # Hopefully safely
+    
     local repo="${HOME}/gits/bashrc_stuff"
 
     # move to working dir 
@@ -75,8 +78,8 @@ git-sync() {
     unalias -a && . ${HOME}/.bashrc
 }
 
-## Mpw helper function
 mpw() {
+    # Modified mpw wrapper
     _copy() {
         _clips=('pbcopy' 'xclip' 'gpaste-client')
         _use="${_clips[2]}"
@@ -126,14 +129,24 @@ mpw() {
 }
 
 kill-chromium() {
-    local pids=$(pgrep -a '(chromium|iridium)'-browser | grep $1 | awk '{ print $1 }')
+    # kill instances of chromium|iridium based on profile:
+    # - personale
+    # - work
+    # - etc
+    
+    local pids=$(pgrep -a '(chromium|iridium)'-browser \
+		     | grep $1 \
+		     | awk '{ print $1 }')
 
     for pid in $pids; do
 	kill -HUP "$pid" &
     done
 }
 
-gpaste() { printf "%s\n" "$(/usr/bin/gpaste-client "$@")"; }
+gpaste() {
+    # syntactic sugar for Gpaste Client
+    printf "%s\n" "$(/usr/bin/gpaste-client "$@")"
+}
 
 clipc() {
     # Clear gpaste-client history
@@ -141,6 +154,9 @@ clipc() {
 }
 
 notify() {
+    # Audible notification. Useful for end of
+    # execution of process
+    
     previous_volume=$(amixer get Master \
 			  | tail -1 \
 			  | awk '{ print $4 }' \
@@ -155,6 +171,9 @@ notify() {
 }
 
 timer() {
+    # A crappy timer...I don't even know what I'm
+    # trying to do here
+    
     if [[ "$1" =~ [0-9]+ ]]; then
 	(sleep "$1" &)
 	wait $!
@@ -191,7 +210,11 @@ dirspike() {
     cd "$currentDir"
 }
 
-debug() { set -x; "$@"; set +x; }
+debug() {
+    # crappy debug function
+
+    set -x; "$@"; set +x
+}
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
@@ -214,8 +237,9 @@ mpv() {
     play "$@" 
 }
 
-is-up()
-{
+is-up() {
+    # see if a server port is open
+    
     local address="$1"
     local port="$2"
     local aregex="[0-9]{1,3}"
@@ -238,26 +262,10 @@ is-up()
     fi
 }
 
-mkrandom() {
-    local N="$1"
-    
-    if [[ "$N" =~ [0-9]{1,3} ]]; then
-	if [[ "$N" -lt 8 ]]; then
-	    printf "MIN must be >= 8."
-	    printf "\n"
-	elif [[ "$N" -gt 254 ]]; then
-	    printf "MAX must be <= 254."
-	    printf "\n"
-	else
-	    mktemp -u "$(for ((c=0;c<="$N";c++)); do printf X; done)"
-	fi
-    else
-	printf "Input must be a number between 8 and 254."
-	printf "\n"
-    fi
+emacs() {
+    # start emacs client
+    /usr/bin/emacsclient -nw "$@";
 }
-
-emacs() { /usr/bin/emacsclient -nw "$@"; }
 
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
@@ -274,6 +282,8 @@ emacsctl() {
 }
 
 ayudame() {
+    # redirect long program help into a file and
+    # read with a pager.
     local progname="$(which "$@")"
     local exitstat="$($progname --help >/dev/null 2>&1; echo $?)"
     local helpfile="/tmp/$(basename $progname)_help"
@@ -306,7 +316,9 @@ ayudame() {
 }
 
 mkpass() {
-    printf "%s" "$(mktemp -u $(for i in {0..64}; do 
+    # generate a 64 character random password
+    
+    printf "%s" "$(mktemp -u $(for i in {0..63}; do 
                                    printf "%s" "X"; 
                                done))" | gpaste-client
 
@@ -314,11 +326,14 @@ mkpass() {
 }
 
 mmtail() {
+    # pass arbitrary number of files to multitail or
+    # all files in a directory
+    
     mt() {
-	declare -a objects
+	declare -a file
 	for object in "$@"; do
-	    if [[ -f "$object" ]]; then
-		objects+=("$object")
+	    if [[ -f "$file" ]]; then
+		files+=("$file")
 	    fi
 	done
 
@@ -332,20 +347,10 @@ mmtail() {
     fi
 }
 
-print_gam_url_field_numbers() {
-    gam user "$1" show filelist \
-	| tee "$2" \
-	| /usr/bin/grep -o https://.* \
-	| sort \
-	| uniq \
-	| while read -r URL;
-    do echo "$URL: $(awk -F '/' '{ print NF }' <(echo "$URL"))" \
-	    | column -t \
-	    | tee -a "$3"
-    done
-}
-
 backup() {
+    # a crappy backup function that needs to become it's
+    # own script and launched by systemd
+    
     local user="$(whoami)"
     local backup_dir="/run/media/$user/backup"
     local source="/home/$user"
@@ -361,6 +366,8 @@ backup() {
 }
 
 miotop() {
+    # pass arbitrary amount of PIDs to iotop
+    
     for pid in $(pgrep "$1"); do
 	pids+=( "--pid $pid" )
     done
