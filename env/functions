@@ -51,17 +51,17 @@ git-sync() {
     local repo="${HOME}/gits/bashrc_stuff"
 
     # move to working dir 
-    [[ $(pwd) != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
+    [[ "$(pwd)" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
 
     # ensure stash is clean
-    [[ ! -z "$(git stash list)" ]] && git stash drop
+    [[ -n "$(git stash list)" ]] && git stash drop
 
     # stash changes (if any) & sync with github repo
     git stash >/dev/null 2>&1
     git pull
 
     # apply stash (if any)
-    [[ ! -z "$(git stash list)" ]] && git stash apply
+    [[ -n "$(git stash list)" ]] && git stash apply
 
     # Add all, commit, push
     git add -A
@@ -69,7 +69,7 @@ git-sync() {
     git push origin master
 
     # Good push? Drop the stash
-    [[ $? -eq 0 ]] && git stash drop
+    [[ "$?" -eq 0 ]] && git stash drop
 
     # Return to origin dir
     popd >/dev/null 2>&1
