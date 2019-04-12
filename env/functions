@@ -375,3 +375,17 @@ miotop() {
     sudo iotop $(echo "${pids[@]}")
 }
 
+cpw() {
+    # copy mpw expression to ~/.mpw, password to clipboard
+    # and make alias to expression available
+    
+    mpw_args="$@"
+    domain_name="$(echo "$mpw_args" | awk '{ print $3 }')"
+    alias_name="${domain_name%.*}"
+    
+    echo alias "$alias_name"="'""$mpw_args""'" >> ~/.mpw
+
+    $mpw_args
+
+    source ~/.mpw
+}
