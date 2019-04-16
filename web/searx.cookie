@@ -1,7 +1,7 @@
 [
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999394,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "autocomplete",
@@ -15,7 +15,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999099,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "categories",
@@ -24,12 +24,12 @@
     "secure": false,
     "session": false,
     "storeId": "0",
-    "value": "",
+    "value": "general",
     "id": 2
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.9996,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "disabled_engines",
@@ -43,7 +43,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999768,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "disabled_plugins",
@@ -57,7 +57,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.998845,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "doi_resolver",
@@ -71,7 +71,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999684,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "enabled_engines",
@@ -85,7 +85,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999845,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "enabled_plugins",
@@ -99,7 +99,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999316,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "image_proxy",
@@ -113,7 +113,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999246,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "language",
@@ -127,7 +127,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.998933,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "locale",
@@ -141,7 +141,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999527,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "method",
@@ -155,7 +155,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999175,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "oscar-style",
@@ -169,7 +169,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.998707,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "results_on_new_tab",
@@ -183,7 +183,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999013,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "safesearch",
@@ -197,7 +197,7 @@
 },
 {
     "domain": "searx.me",
-    "expirationDate": 1713119336.999462,
+    "expirationDate": 1713119803,
     "hostOnly": true,
     "httpOnly": false,
     "name": "theme",
@@ -206,8 +206,7 @@
     "secure": false,
     "session": false,
     "storeId": "0",
-    "value": "pix-art",
-    "isProtected": false,
+    "value": "oscar",
     "id": 15
 }
 ]
