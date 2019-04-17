@@ -6,7 +6,6 @@ script_name="addERBDockItem.sh"
 plist_dir="/Library/LaunchAgents"
 plist_name="org.tps.ebeale.addERBDockItem.plist"
 
-plistbuddy() { /usr/libexec/PlistBuddy "$@"; }
 
 # test for directories
 mkdir -p "$script_dir" || :
@@ -45,6 +44,7 @@ chmod +x "$script_dir"/"$script_name"
 
 
 # Create LaunchAgent
+plistbuddy() { /usr/libexec/PlistBuddy "$@"; }
 
 plistbuddy -c "add :Label string $plist_name" \
 	       -c "add :ProgramArguments array" \
@@ -53,13 +53,6 @@ plistbuddy -c "add :Label string $plist_name" \
 	       "$plist_dir"/"$plist_name"
 
 # set LaunchAgent permissions and ownership
-chown erb:staff "$plist_dir"/"$plist_name"
+chown root:wheel "$plist_dir"/"$plist_name"
 chmod 644 "$plist_dir"/"$plist_name"
 
-# enable and start LaunchAgent. reload if already running.
-if ! launchctl load -w "$plist_dir"/"$plist_name" >/dev/null 2>&1; then
-    launchctl unload -w "$plist_dir"/"$plist_name"
-    launchctl load -w "$plist_dir"/"$plist_name"
-else
-    launchctl load -w "$plist_dir"/"$plist_name"
-fi
