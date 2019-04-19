@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-dot_files=( 'finanace' 'development' \
+id_files=( 'finanace' 'development' \
 			 'facilities' 'front_office' \
 			 'technology' 'faculty' 'staff' \
 			 'student' 'blt' 'admissions' \

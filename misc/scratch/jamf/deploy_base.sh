@@ -1,4 +1,38 @@
 #!/bin/bash
+
+# Create custom scripts by Department.
+# Scripts will deploy ID files and depNotifyStarter scripts
+
+# Global variables and arrays
+
+id_names=('finanace' 'development' 'facilities'
+	  'front_office' 'technology' 'faculty'
+	  'staff' 'student' 'blt' 'admissions'
+	  'communications' 'heads' 'humanresources'
+	  'art' 'spanish' 'physed' 'pka' 'pkb' 'ka'
+	  'kb' 'pa' 'pb' 'pc' 'pd' '3a' '3b' 'jua'
+	  'jub' 'jud' 'juc' 'ms6' 'ms7' 'ms8' 'test')
+
+
+# Make Script
+
+for ID in "${id_names[@]}"; do
+    cat <<EOF>> /tmp/$ID_deploy.sh
+#!/bin/bash
+parent_dir="/usr/local/TPS"
+script_dir="$parent_dir/scripts"
+id_dir="$parent_dir/id"
+
+# Create directories if they do not exist
+mkdir -p "script_dir" || :
+mkdir -p "id_dir" || :
+
+# Create ID file
+touch "$id_dir/$ID"
+EOF
+
+cat <<EOF> /tmp/depnotifystarter.sh
+#!/bin/bash
 # Version 2.0.1
 
 #########################################################################################
@@ -813,3 +847,4 @@
     fi
 
 exit 0
+EOF
