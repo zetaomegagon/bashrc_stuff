@@ -2,11 +2,15 @@
 
 #@ Functions
 getName() {
-    read \
-	FirstName \
-	LastName <<< $(osascript -e 'set varName to display dialog "Enter Your Name" default answer "FirstName LastName"' \
-						| awk -F ':' '{ print $3 }' \
-						| tr '[A-Z]' '[a-z]')
+    # Get UserName & PrintUserName
+
+    osaGetName() {
+	osascript -e 'set varName to display dialog "Enter Your Name" default answer "FirstName LastName"' \
+			  | awk -F ':' '{ print $3 }' \
+			  | tr '[A-Z]' '[a-z]'
+    }
+
+    read FirstName LastName <<< $(osaGetName)
 
     while : ; do
 	if [[ ! "$FirstName" =~ [a-z]+|[-]+ ]] && [[ ! "$LastName" =~ [a-z]+|[-]+ ]]; then
@@ -47,12 +51,13 @@ plistbuddy() {
 
 mkDelUserLaunchDaemon() {
     # Delete default user
-    plistbuddy -c ""
+    plistbuddy -c "add :Lable:"
     
 }
 
 mkPrintPresetsLaunchAgent() {
     # Create Preset LaunchAgent
+    plistbuddy -c ""
 }
 
 mkComuterAsset() {
