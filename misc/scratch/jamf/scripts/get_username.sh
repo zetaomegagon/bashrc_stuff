@@ -5,6 +5,7 @@ getName() {
     # Get UserName & PrintUserName
 
     osaGetName() {
+	# osascript helper function
 	osascript -e 'set varName to display dialog "Enter Your Name" default answer "FirstName LastName"' \
 			  | awk -F ':' '{ print $3 }' \
 			  | tr '[A-Z]' '[a-z]'
@@ -51,8 +52,7 @@ plistbuddy() {
 
 mkDelUserLaunchDaemon() {
     # Delete default user
-    plistbuddy -c "add :Lable:"
-    
+    plistbuddy -c "add :Lable:"    
 }
 
 mkPrintPresetsLaunchAgent() {
