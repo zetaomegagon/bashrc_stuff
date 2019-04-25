@@ -8,7 +8,7 @@ getName() {
 	# osascript helper function
 	osascript -e 'set varName to display dialog "Enter Your Name" default answer "FirstName LastName"' \
 			  | awk -F ':' '{ print $3 }' \
-			  | tr '[A-Z]' '[a-z]'
+			  | tr 'A-Z' 'a-z'
     }
 
     read FirstName LastName <<< $(osaGetName)
@@ -30,8 +30,27 @@ getName() {
 
 getPassword() {
     # Get user inputted password
-    printf "%s" "$UserName"
+
+    osaGetPassword() {
+	# osascript helper function
+        osascript -e 'set init_pass to display dialog "Please enter your password:" default answer "" with hidden answer' | awk -F ':' '{ print $3 }'
+        osascript -e 'set final_pass to display dialog "Please verify your password below:" default answer "" with hidden answer' | awk -F ':' '{ print $3 }'
+    }
+    
+    read InitPass CheckPass <<< $(osaGetPassword)
+
+    while : ; do
+	if [[ "$InitPass" != "$CheckPass" ]]; then
+	    getPassword
+	else
+	    break
+	fi
+    done
+
+    printf "%s" "$CheckPass"
 }
+
+set -x; getPassword; set +x
 
 mkUser() {
     # Create permanent user
@@ -62,6 +81,7 @@ mkPrintPresetsLaunchAgent() {
 
 mkComuterAsset() {
     # Create asset tag id file
+    :
 }
 
 mkComputerName() {
