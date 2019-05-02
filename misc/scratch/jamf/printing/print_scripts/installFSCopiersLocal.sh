@@ -1,67 +1,52 @@
 #!/bin/bash
 
-## Vars for installing drivers from pkgs
-workPath="."
-
-copierDrivers=('Ricoh_PS_Printers_Vol4_EXP_LIO_Driver.pkg' \
-		       'NRG_PS_Printers_Vol4_EXP_LIO_Driver.pkg' \
-		       'hp-printer-essentials-S-5_10_5.pkg' \
-		       'hp-easy-scan-1_9_2.pkg')
-
-pkgPath="$workPath/pkg"
-
-## Vars for adding copiers
-cupsName=('bw_copier_tps' \
-	      'fo_copier_tps' \
-	      'co_copier_tps' \
-	      'ec_copier_tps' \
-	      'hr_mfp_printer_tps')
-
-
-address=('10.0.3.1' \
-	     '10.0.3.2' \
-	     '10.0.3.3' \
-	     '10.2.0.251' \
-	     '10.0.3.33') ## <---- hr printer
-
+## Variables and Arrays
 
 ppdPath="/Library/Printers/PPDs/Contents/Resources"
 
-ppd=('RICOH MP 9003' \
-	 'RICOH MP 5055' \
-	 'RICOH MP C6004ex' \
-	 'RICOH MP C3004ex' \
-	 'HP Color LaserJet Pro MFP M477.gz') ## <---- hr printer
+copierDrivers=(
+    'Ricoh_PS_Printers_Vol4_EXP_LIO_Driver.pkg'
+    'NRG_PS_Printers_Vol4_EXP_LIO_Driver.pkg'
+    'hp-printer-essentials-S-5_10_5.pkg'
+    'hp-easy-scan-1_9_2.pkg'
+)
 
-humanName=('Black and White Copier' \
-	       'Front Office Copier' \
-	       'Color Copier'\
-	       'ECEC Copier' \
-	       'HR Office MFP') ## <---- hr printer
+cupsName=(
+    'bw_copier_tps'
+    'fo_copier_tps'
+    'co_copier_tps'
+    'ec_copier_tps'
+)
 
-location=('1st Floor, Room 154' \
-	      '1st Floor, Front Office' \
-	      'Lower Level, Patagonia' \
-	      'ECEC Front Office' \
-	      'HR Office, Room B106')
+address=(
+    '10.0.3.1'
+    '10.0.3.2'
+    '10.0.3.3'
+    '10.2.0.251'
+    '10.0.3.33'
+)
 
+ppd=(
+    'RICOH MP 9003'
+    'RICOH MP 5055'
+    'RICOH MP C6004ex'
+    'RICOH MP C3004ex'
+)
 
-## Functions
-install-drivers() {
-    # Install copier drivers
-    for driver in "${copierDrivers[@]}"; do
+humanName=(
+    'Black and White Copier'
+    'Front Office Copier'
+    'Color Copier'
+    'ECEC Copier'
+    'HR Office MFP'
+)
 
-	  if [[ ! -e "$ppdPath"/"${ppd[0]}" ]] || \
-	     [[ ! -e "$ppdPath"/"${ppd[1]}" ]] || \
-	     [[ ! -e "$ppdPath"/"${ppd[2]}" ]] || \
-	     [[ ! -e "$ppdPath"/"${ppd[3]}" ]]; then
-	   	    
-	      installer -target / -pkg "$pkgPath"/"$driver"
-	    
-	  fi
-	
-    done
-}
+location=(
+    '1st Floor, Room 154'
+    '1st Floor, Front Office'
+    'Lower Level, Patagonia' 
+    'ECEC Front Office'
+)
 
 rem-copiers() {
     for copier in $(lpstat -p 2>/dev/null | awk '{ print $2 }'); do
@@ -94,35 +79,6 @@ map-copiers() {
 	      count=$((count + 1))
 	  fi
     
-    done
-}
-
-assoc-presets() {
-    # Associate printer presets if they exist.
-    # This will associate presets with new copiers...IIRC...?
-    local userName="$(stat -f%Su /dev/console)"
-    
-    cd "/Users/$userName/Library/Preferences/" || exit
-
-    for preset in ./*; do
-
-	  if [[ "$preset" = *"forprinter"* ]]; then
-
-	    case "$preset" in
-		  *bw_copier*)
-		    mv "$preset" ${preset/"bw_copier"*/"${cupsName[0]}".plist} ;;
-		  *fo_copier*)
-		    mv "$preset" ${preset/"fo_copier"*/"${cupsName[1]}".plist} ;;
-		  *co_copier*)
-		    mv "$preset" ${preset/"co_copier"*/"${cupsName[2]}".plist} ;;
-		  *ec_copier*)
-		    mv "$preset" ${preset/"ec_copier"*/"${cupsName[3]}".plist} ;;
-		  *)
-		    printf "" >&2
-	    esac
-
-	  fi
-	
     done
 }
 
