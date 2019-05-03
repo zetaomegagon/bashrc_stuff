@@ -7,7 +7,7 @@ logged_in_user="$(stat -f%Su /dev/console)"
 make_tps_directories() {
     dirs=(
 	"tps"
-	"tps/id"
+	"tps/group"
 	"tps/asset"
 	"tps/name"
 	"tps/print"
@@ -19,7 +19,7 @@ make_tps_directories() {
     done
 
     base_dir="/usr/local/tps"
-    id_dir="$base_dir/id"
+    group_dir="$base_dir/group"
     asset_dir="$base_dir/asset"
     name_dir="$base_dir/name"
     print_dir="$base_dir/print"
@@ -109,8 +109,9 @@ get_name() {
     rem_dash_name="${user_name//[-]/}"
     print_user_name="${rem_dash_name:0:8}"
 
-    printf "%s" "$user_name" > "$name_dir"/user_name
-    printf "%s" "$print_user_name" > "$name_dir"/print_user_name
+    printf "%s\n" "$user_name" > "$name_dir"/user_name
+    printf "%s\n" "$full_name" > "$name_dir"/full_name
+    printf "%s\n" "$print_user_name" > "$name_dir"/print_user_name
 }
 
 get_password() {
@@ -275,6 +276,8 @@ copy_presets_on_login() {
 
     # Generate user_code
     user_code="$(gen_random_four)"
+
+    printf "%s\n" "$user_code" > "$print_dir"/user_code
 
 #com.apple.print.custompresets.forprinter.bw_copier_tps.plist
 cat <<-EOF > "$print_dir"/com.apple.print.custompresets.forprinter.bw_copier_tps.plist
@@ -1436,14 +1439,37 @@ EOF
 
 make_asset_tag() {
     # Create asset tag id file
-    # osascript...
-    :
+    osa_get_asseth() {
+	# osascript helper function
+	osascript -e 'set asset_tag to display dialog "Enter Asset Tag" default answer "[0-9][0-9]-[0-9][0-9]"' \
+	    | awk -F ':' '{ print $3 }'
+    }
+
+    read init_asset check_asset <<<$(osa_get_asseth)
+
+    while :; do
+	if [[ ! "$check_asset" =~ [0-9]{,2}\-[0-9]{,2} ]]; then
+	    osascript -e 'set invalid_asset to display dialog "Must be in the form of: [0-9][0-9]-[0-9][0-9]"'
+	    make_asset_tag
+	elif [[ "$init_asset" != "$check_asset" ]]; then
+	    osascript -e 'set invalid_asset to display dialog "Tags do not match"'
+	    make_asset_tag
+	else
+	    break
+	fi
+    done
+
+    printf "%s" "$check_asset" > "$name_dir"/asset_tag
 }
 
 set_computer_name() {
-    # Create ComputerName id file
+    # Create computer name file
+    #
+    # computer_name="$asset_tag$group_id$first_name$last_name"
+    #
     # for name in {Computer,Host,LocalHost}Name; do
-    #     scutil --set "$name" "$asset_tag$group_id$first_name$last_name"
+    #     scutil --set "$name" "$computer_name" 
+    #     printf "%s\n" "${name}: $computer_name" >> "$name_dir"/computer_name
     # done
     :
 } 
