@@ -1459,19 +1459,22 @@ make_asset_tag() {
 	fi
     done
 
-    printf "%s" "$check_asset" > "$name_dir"/asset_tag
+    printf "%s" "$check_asset" > "$asset_dir"/asset_tag
 }
 
 set_computer_name() {
-    # Create computer name file
-    #
-    # computer_name="$asset_tag$group_id$first_name$last_name"
-    #
-    # for name in {Computer,Host,LocalHost}Name; do
-    #     scutil --set "$name" "$computer_name" 
-    #     printf "%s\n" "${name}: $computer_name" >> "$name_dir"/computer_name
-    # done
-    :
+    Create computer name file
+    
+    asset="$(cat "$asset_dir"/asset_tag)"
+    group="$(grep -E '(Faculty|Staff|Student)' "$group_dir"/groups)"
+    name="$(cat "$name_dir"/full_name)"
+    
+    computer_name="$asset$group$name"
+    
+    for name in {Computer,Host,LocalHost}Name; do
+        scutil --set "$name" "$computer_name" 
+        printf "%s\n" "${name}: $computer_name" >> "$name_dir"/computer_name
+    done
 } 
 
 #@ Main
