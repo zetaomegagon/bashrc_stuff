@@ -109,9 +109,10 @@ get_name() {
     rem_dash_name="${user_name//[-]/}"
     print_user_name="${rem_dash_name:0:8}"
 
-    printf "%s\n" "$user_name" > "$name_dir"/user_name
-    printf "%s\n" "$full_name" > "$name_dir"/full_name
-    printf "%s\n" "$print_user_name" > "$name_dir"/print_user_name
+    { printf "%s%s%s" \
+	     "user_name: $user_name\n" \
+	     "full_name: $full_name\n" \
+	     "print_user_name: $print_user_name"; } >> "$name_dir"/names
 }
 
 get_password() {
@@ -1467,7 +1468,7 @@ set_computer_name() {
     
     asset="$(cat "$asset_dir"/asset_tag)"
     group="$(grep -E '(Faculty|Staff|Student)' "$group_dir"/groups)"
-    name="$(cat "$name_dir"/full_name)"
+    name="$(grep  full_name "$name_dir"/names | awk '{ print $2 }')"
     
     computer_name="$asset$group$name"
     
