@@ -270,12 +270,14 @@ emacs() {
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
     usage() {
-	printf "%s\n" "Usage: emacsctl {status|start|stop|restart}"
+	printf "%s\n" "Usage: emacsctl {status|start|stop|restart|reload}"
     }
     
     case "$1" in
 		 status|stop|start|restart)
 		     systemctl --user "$1" emacs ;;
+		 reload)
+		     emacsctl restart ;;
 		 *)
 		     usage
     esac
