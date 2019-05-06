@@ -270,7 +270,7 @@ emacs() {
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
     usage() {
-	printf "%s\n" Usage: emacsctl {status|start|stop|restart}
+	printf "%s\n" "Usage: emacsctl {status|start|stop|restart}"
     }
     
     case "$1" in
