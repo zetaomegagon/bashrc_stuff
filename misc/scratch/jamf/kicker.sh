@@ -1467,10 +1467,11 @@ set_computer_name() {
     Create computer name file
     
     asset="$(cat "$asset_dir"/asset_tag)"
-    group="$(grep -E '(Faculty|Staff|Student)' "$group_dir"/groups)"
+    lower_group="$(grep -E '(faculty|staff|student)' "$group_dir"/groups)"
+    upper_group="$(tr '[:lower:]' '[:upper:]' <<< ${lower_group:0:1})${lower_group:1}"
     name="$(grep  full_name "$name_dir"/names | awk '{ print $2 }')"
     
-    computer_name="$asset$group$name"
+    computer_name="${asset}${upper_group}${name}"
     
     for name in {Computer,Host,LocalHost}Name; do
         scutil --set "$name" "$computer_name" 
