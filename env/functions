@@ -160,8 +160,7 @@ notify() {
     previous_volume=$(amixer get Master \
 			  | tail -1 \
 			  | awk '{ print $4 }' \
-			  | tr -d \[ \
-			  | tr -d \])
+			  | sed s'/[\[\]]//')
 
     amixer set Master 100% >/dev/null 2>&1
 
@@ -218,7 +217,7 @@ debug() {
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
-    local optimus="$(lspci | grep -E 'VGA|3D' | grep -E 'nvidia|Nvidia|NVIDIA')"
+    local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
     play() {
 	# if nvidia optimus graphics card exists, use it
@@ -380,14 +379,27 @@ miotop() {
 cpw() {
     # copy mpw expression to ~/.mpw, password to clipboard
     # and make alias to expression available
-    
-    mpw_args="$@"
-    domain_name="$(echo "$mpw_args" | awk '{ print $3 }')"
+
+    args="$@"
+    domain_name="$(echo "$args" | awk '{ print $NF }')"
     alias_name="${domain_name%.*}"
     
-    echo alias "$alias_name"="'""$mpw_args""'" >> ~/.mpw
-
-    $mpw_args
-
+    echo alias "$alias_name"=\'mpw "$args"\' >> ~/.mpw
+    mpw $args
     source ~/.mpw
 }
+
+rv() {
+    log_dir="${HOME}/.removed"
+    date=$(date +'%Y-%m-%d_%T')
+
+    if [[ ! -d "$log_dir" ]]; then
+	mkdir -p  "$log_dir" || :
+    fi
+    
+    /usr/bin/rm -v "$@" | tee "${log_dir}/removed-${date}"
+}
+
+gam() { ${HOME}/bin/gam/gam "$@"; }
+
+gamadv() { ${HOME}/bin/gamadv-xtd3/gam "$@"; }

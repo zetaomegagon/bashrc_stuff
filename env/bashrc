@@ -30,20 +30,12 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=""
 
+# export user binary directory
+export PATH="${HOME}/bin:$PATH"
 
-
-# Source path to SML/NJ binary
+# export path to SML/NJ binary
 if [ -d "${HOME}/bin/smlnj/bin" ]; then
     export PATH="${HOME}/bin:${HOME}/bin/smlnj/bin:$PATH"
-else
-    export PATH="${HOME}/bin:$PATH"
-fi
-
-# Source path to GAM binary
-if [ -d "${HOME}/bin/gam" ]; then
-    export PATH="${HOME}/bin:${HOME}/bin/gam:$PATH"
-else
-    export PATH="${HOME}/bin:$PATH"
 fi
 
 # Source user specific aliases and functions
@@ -84,5 +76,3 @@ fi
 # Startup commands in ${HOME}/.functions
 tmux-start
 backup
-
-#gam() { "/home/ebeale/bin/gam/gam" "$@" ; }
