@@ -134,3 +134,5 @@ alias 23andme.pet='mpw -va 23andme.com.pet'
 alias 23andme='mpw -tx 23andme.com'
 alias 1pass.tps='mpw -tx 1password.com.tps'
 
+alias xfinitywifi.honeymoon='mpw -tx xfinitywifi.honeymoon'
+alias xfinity='mpw -tl xfinity.com'
