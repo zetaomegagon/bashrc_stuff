@@ -403,3 +403,9 @@ rv() {
 gam() { ${HOME}/bin/gam/gam "$@"; }
 
 gamadv() { ${HOME}/bin/gamadv-xtd3/gam "$@"; }
+
+artemis_macaddr() {
+    echo android.ebeale.artemis \
+	| md5sum \
+	| sed s/^(..)(..)(..)(..)(..).*$/02:1:2:3:4:5/
+}

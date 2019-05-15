@@ -136,3 +136,4 @@ alias 1pass.tps='mpw -tx 1password.com.tps'
 
 alias xfinitywifi.honeymoon='mpw -tx xfinitywifi.honeymoon'
 alias xfinity='mpw -tl xfinity.com'
+alias verizon='mpw -tx verizon.com'
