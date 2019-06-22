@@ -134,12 +134,12 @@ kill-chromium() {
     # - work
     # - etc
     
-    local pids=$(pgrep -a '(chromium|iridium)'-browser \
+    local pids=$(pgrep -a '(chromium|iridium)' \
 		     | grep $1 \
 		     | awk '{ print $1 }')
 
     for pid in $pids; do
-	kill -HUP "$pid" &
+	(kill -HUP "$pid" >/dev/null 2>&1 &)
     done
 }
 
