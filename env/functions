@@ -48,7 +48,7 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     
-    local repo="${HOME}/gits/bashrc_stuff"
+    local repo="${HOME}/development/gits/bashrc_stuff"
 
     # move to working dir 
     [[ "$(pwd)" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
@@ -334,11 +334,11 @@ mmtail() {
 	declare -a file
 	for object in "$@"; do
 	    if [[ -f "$file" ]]; then
-		files+=("$file")
+		files+=("$file ")
 	    fi
 	done
 
-	multitail $(printf "%s " "${objects[@]}")
+	multitail "${objects[@]}"
     }
 
     if [[ -z "$@" ]]; then
@@ -370,10 +370,10 @@ miotop() {
     # pass arbitrary amount of PIDs to iotop
     
     for pid in $(pgrep "$1"); do
-	pids+=( "--pid $pid" )
+	pids+=( "--pid $pid " )
     done
 
-    sudo iotop $(echo "${pids[@]}")
+    sudo iotop "${pids[@]}"
 }
 
 cpw() {
@@ -391,7 +391,7 @@ cpw() {
 
 rv() {
     log_dir="${HOME}/.removed"
-    date=$(date +'%Y-%m-%d_%T')
+    date=$(date +'%Y-%m-%d_%TZ')
 
     if [[ ! -d "$log_dir" ]]; then
 	mkdir -p  "$log_dir" || :
@@ -399,10 +399,6 @@ rv() {
     
     /usr/bin/rm -v "$@" | tee "${log_dir}/removed-${date}"
 }
-
-gam() { ${HOME}/bin/gam/gam "$@"; }
-
-gamx() { ${HOME}/bin/gamadv-xtd3/gam "$@"; }
 
 whatsmyip() {
     curl -s http://ipinfo.io \
