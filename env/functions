@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## Start tmux on every shell login
 tmux-start() {
@@ -99,15 +99,19 @@ mpw() {
         echo >&2 "Copied!"
     }
 
-    if [[ "$1" =~ '(-h|--help)' ]]; then
+    if [[ "$1" =~ (-h|--help) ]]; then
 	# Call the binary directly when passing help flag so we
 	# don't get ugly output and double output with pager
-	
 	if [[ ! -f /tmp/mpw_help ]]; then
 	    ${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
 	fi
 	
 	less /tmp/mpw_help
+
+    elif [[ "$1" =~ (-e|--edit) ]]; then
+	# edit mpw aliases
+	emacs -nw "${HOME}/.mpw"
+	source "${HOME}/.mpw"
     else
  	# Empty the clipboard
 	:| _copy 2>/dev/null
@@ -120,10 +124,14 @@ mpw() {
 
 	# For gpaste-client: clear last password after 30 seconds
 	if [[ "$_use" = "${_clips[2]}" ]]; then
-            ({ _name="$(mktemp -u XXXXXXXXXXXX)";
-               gpaste-client rename-password "" "$_name";
-               sleep 30;
-               gpaste-client delete-password "$_name"; } >/dev/null 2>&1 &)
+            (
+		{
+		    _name="$(mktemp -u XXXXXXXXXXXX)"
+		    gpaste-client rename-password "" "$_name"
+		    sleep 30
+		    gpaste-client delete-password "$_name"
+		} >/dev/null 2>&1 &
+	    )
 	fi
     fi
 }
@@ -222,17 +230,17 @@ mpv() {
     play() {
 	# if nvidia optimus graphics card exists, use it
 	inhibit-lid-switch() {
-	     # syntactic sugar
-	     systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
-	 }
-	 
+	    # syntactic sugar
+	    systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
+	}
+	
 	if [[ -z "$optimus" ]]; then
 	    inhibit-lid-switch "$@"
 	else
 	    DRI_PRIME=1 inhibit-lid-switch "$@"
 	fi
     }
-   
+    
     play "$@" 
 }
 
@@ -273,12 +281,12 @@ emacsctl() {
     }
     
     case "$1" in
-		 status|stop|start|restart)
-		     systemctl --user "$1" emacs ;;
-		 reload)
-		     emacsctl restart ;;
-		 *)
-		     usage
+	status|stop|start|restart)
+	    systemctl --user "$1" emacs ;;
+	reload)
+	    emacsctl restart ;;
+	*)
+	    usage
     esac
 }
 
@@ -298,7 +306,7 @@ ayudame() {
     else
 	pager="${pagers[2]}"
     fi
-        
+    
     ayudar() {
 	local switch="$1"
 	
@@ -358,12 +366,12 @@ backup() {
     local dest="$backup_dir/$user"
     
     (while : ; do
-	  if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
-	      rsync -qa "$source"/ "$dest"/ 1>"$backup_dir"/backup.log 2>"$backup_dir"/backup.err
-	  fi
+	 if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
+	     rsync -qa "$source"/ "$dest"/ 1>"$backup_dir"/backup.log 2>"$backup_dir"/backup.err
+	 fi
 
-	  sleep 30s
-    done &)
+	 sleep 30s
+     done &)
 }
 
 miotop() {
@@ -390,14 +398,14 @@ cpw() {
 }
 
 rv() {
-    log_dir="${HOME}/.removed"
-    date=$(date +'%Y-%m-%d_%TZ')
+    removed_dir="${HOME}/.removed"
+    date=$(date -I'seconds')
 
-    if [[ ! -d "$log_dir" ]]; then
-	mkdir -p  "$log_dir" || :
+    if [[ ! -d "$removed_dir" ]]; then
+	mkdir -p  "$removed_dir" || :
     fi
     
-    /usr/bin/rm -v "$@" | tee "${log_dir}/removed-${date}"
+    /usr/bin/rm -v "$@" | tee "${removed_dir}/removed_${date}"
 }
 
 whatsmyip() {
@@ -406,3 +414,42 @@ whatsmyip() {
 	| awk '{ print $2 }' \
 	| sed 's/[",]//g'
 }
+
+# generalize this to a goto-dir function:
+#
+# specification:
+# - takes user input in the name of a directory
+# - can `cd` directly into any directory the user has permissions for
+# - facility for determining correct directory name if none by name is found
+#
+# Implementation thoughts:
+# - possibly works by using `grep` over a NoSQL database created using `find`
+# - database updated periodically by systemd unit, or function itself
+# - ???
+#
+############################################################################
+
+lfce() {
+    parent_path="${HOME}/development"
+    child_path="linuxfoundation/lfce"
+    lfce_path="${parent_path}/${child_path}"
+
+    if ! echo "$PWD" | grep lfce; then
+	cd "${lfce_path}" ||
+	    {
+		printf "%s" "could not swith to ${lfce_path}"
+		exit
+	    }
+    fi
+}
+
+lfce-dl() {
+    user="LFtraining"
+    pass="Penguin2014"
+    url="$1"
+    resource_name="$(basename "$url")"
+
+    curl -su "${user}:${pass}" "$url" -o "$resource_name"
+    printf "%s\n" "Download complete: $resource_name"
+}
+

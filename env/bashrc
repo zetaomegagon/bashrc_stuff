@@ -18,7 +18,7 @@ export PAGER='/usr/bin/less'
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+    source /etc/bashrc
 fi
 
 # Set $EDITOR to Emacs
@@ -40,39 +40,41 @@ fi
 
 # Source user specific aliases and functions
 if [ -f ${HOME}/.functions ]; then
-    . ${HOME}/.functions
+    source "${HOME}/.functions"
 fi
 
 if [ -f ${HOME}/.aliases ]; then
-    . ${HOME}/.aliases
+    source "${HOME}/.aliases"
 fi
 
-if [ -f ${HOME}/.keypass ]; then
-    . ${HOME}/.keypass
+if [ -f "${HOME}/.keypass" ]; then
+    source "${HOME}/.keypass"
 fi
 
 ## MasterPassword
-if [ -f ${HOME}/.mpw ] && [ -e ${HOME}/bin/mpw ]; then
-    . ${HOME}/.mpw
+if [ -f "${HOME}/.mpw" ] && [ -e "${HOME}/bin/mpw" ]; then
+    source "${HOME}/.mpw"
+    
     export MPW_FULLNAME=Elijah\ Thomas\ Beale
-    export MPW_ASKPASS=${HOME}/bin/mpw_ask
+    export MPW_ASKPASS="${HOME}/bin/mpw_ask"
     export MPW_FORMAT=none
 
-    if [ -d ${HOME}/.mpw.d ]; then
-	rm -r ${HOME}/.mpw.d/* >/dev/null 2>&1
+    # why am I doing this???
+    if [ -d "${HOME}/.mpw.d" ]; then
+	rm -r "${HOME}/.mpw.d/"* >/dev/null 2>&1
     fi
 
 fi
 
 if [ -f ${HOME}/bin/bashlib ]; then
-    . bashlib
+    source bashlib
 fi
 
 ## emacs-read-stdin
 if [[ -d "${HOME}/gits/emacs-read-stdin" ]]; then
-    . "${HOME}/gits/emacs-read-stdin/emacs-read-stdin.sh"
+    source "${HOME}/gits/emacs-read-stdin/emacs-read-stdin.sh"
 fi
 
 # Startup commands in ${HOME}/.functions
 tmux-start
-backup
+
