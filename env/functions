@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## Start tmux on every shell login
-tmux-start() {
+tmux-start(){
     if which tmux >/dev/null 2>&1; then
         if [[ -z "$TMUX" ]]; then
             ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
@@ -15,13 +15,13 @@ tmux-start() {
 }
 
 ## Start sleep sounds
-sleep-sounds() {
+sleep-sounds(){
     local mpv="/usr/bin/mpv"
     local music_dir="$HOME/Music"
     local track="rain.mp3"
     local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
-    start-track() {
+    start-track(){
 	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
     }
 
@@ -35,7 +35,7 @@ sleep-sounds() {
 }
 
 ## Kill sleep sounds
-kill-sleep-sound() {
+kill-sleep-sound(){
     for file in $(echo /tmp/rain.*); do
 	local pid=${file#/tmp/rain\.}
 	kill $pid 2>/dev/null
@@ -44,7 +44,7 @@ kill-sleep-sound() {
 }
 
 
-git-sync() {
+git-sync(){
     # Add, commit, push functions and aliases.
     # Hopefully safely
     
@@ -78,9 +78,9 @@ git-sync() {
     unalias -a && . ${HOME}/.bashrc
 }
 
-mpw() {
+mpw(){
     # Modified mpw wrapper
-    _copy() {
+    _copy(){
         _clips=('pbcopy' 'xclip' 'gpaste-client')
         _use="${_clips[2]}"
 
@@ -136,7 +136,7 @@ mpw() {
     fi
 }
 
-kill-chromium() {
+kill-chromium(){
     # kill instances of chromium|iridium based on profile:
     # - personale
     # - work
@@ -151,17 +151,17 @@ kill-chromium() {
     done
 }
 
-gpaste() {
+gpaste(){
     # syntactic sugar for Gpaste Client
     printf "%s\n" "$(/usr/bin/gpaste-client "$@")"
 }
 
-clipc() {
+clipc(){
     # Clear gpaste-client history
     gpaste empty
 }
 
-notify() {
+notify(){
     # Audible notification. Useful for end of
     # execution of process
     
@@ -177,7 +177,7 @@ notify() {
     amixer set Master "$previous_volume" >/dev/null 2>&1
 }
 
-timer() {
+timer(){
     # A crappy timer...I don't even know what I'm
     # trying to do here
     
@@ -192,7 +192,7 @@ timer() {
     fi
 }
 
-dirspike() {
+dirspike(){
     # Set clean state
     currentDir="$(pwd)"
     cd
@@ -217,19 +217,19 @@ dirspike() {
     cd "$currentDir"
 }
 
-debug() {
+debug(){
     # crappy debug function
 
     set -x; "$@"; set +x
 }
 
-mpv() {
+mpv(){
     # call mpv on a file and keep the display from sleeping
     local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
-    play() {
+    play(){
 	# if nvidia optimus graphics card exists, use it
-	inhibit-lid-switch() {
+	inhibit-lid-switch(){
 	    # syntactic sugar
 	    systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
 	}
@@ -244,7 +244,7 @@ mpv() {
     play "$@" 
 }
 
-is-up() {
+is-up(){
     # see if a server port is open
     
     local address="$1"
@@ -269,14 +269,14 @@ is-up() {
     fi
 }
 
-emacs() {
+emacs(){
     # start emacs client
     /usr/bin/emacsclient -nw "$@";
 }
 
-emacsctl() {
+emacsctl(){
     # syntactic sugar for controlling emacs daemon.
-    usage() {
+    usage(){
 	printf "%s\n" "Usage: emacsctl {status|start|stop|restart|reload}"
     }
     
@@ -290,7 +290,7 @@ emacsctl() {
     esac
 }
 
-ayudame() {
+ayudame(){
     # redirect long program help into a file and
     # read with a pager.
     local progname="$(which "$@")"
@@ -307,7 +307,7 @@ ayudame() {
 	pager="${pagers[2]}"
     fi
     
-    ayudar() {
+    ayudar(){
 	local switch="$1"
 	
 	if [[ ! -f $helpfile ]]; then
@@ -324,7 +324,7 @@ ayudame() {
     fi	
 }
 
-mkpass() {
+mkpass(){
     # generate a 64 character random password
     
     printf "%s" "$(mktemp -u $(for i in {0..63}; do 
@@ -334,11 +334,11 @@ mkpass() {
     printf "%s\n" "Password copied to clipboard"
 }
 
-mmtail() {
+mmtail(){
     # pass arbitrary number of files to multitail or
     # all files in a directory
     
-    mt() {
+    mt(){
 	declare -a file
 	for object in "$@"; do
 	    if [[ -f "$file" ]]; then
@@ -356,7 +356,7 @@ mmtail() {
     fi
 }
 
-backup() {
+backup(){
     # a crappy backup function that needs to become it's
     # own script and launched by systemd
     
@@ -374,7 +374,7 @@ backup() {
      done &)
 }
 
-miotop() {
+miotop(){
     # pass arbitrary amount of PIDs to iotop
     
     for pid in $(pgrep "$1"); do
@@ -384,7 +384,7 @@ miotop() {
     sudo iotop "${pids[@]}"
 }
 
-cpw() {
+cpw(){
     # copy mpw expression to ~/.mpw, password to clipboard
     # and make alias to expression available
 
@@ -397,7 +397,7 @@ cpw() {
     source ~/.mpw
 }
 
-rv() {
+rv(){
     removed_dir="${HOME}/.removed"
     date=$(date -I'seconds')
 
@@ -408,7 +408,7 @@ rv() {
     /usr/bin/rm -v "$@" | tee "${removed_dir}/removed_${date}"
 }
 
-whatsmyip() {
+whatsmyip(){
     curl -s http://ipinfo.io \
 	| grep ip \
 	| awk '{ print $2 }' \
@@ -429,7 +429,7 @@ whatsmyip() {
 #
 ############################################################################
 
-lfce() {
+lfce(){
     parent_path="${HOME}/development"
     child_path="linuxfoundation/lfce"
     lfce_path="${parent_path}/${child_path}"
@@ -443,7 +443,7 @@ lfce() {
     fi
 }
 
-lfce-dl() {
+lfce-dl(){
     user="LFtraining"
     pass="Penguin2014"
     url="$1"
@@ -452,4 +452,9 @@ lfce-dl() {
     curl -su "${user}:${pass}" "$url" -o "$resource_name"
     printf "%s\n" "Download complete: $resource_name"
 }
+
+add-sh-idea(){
+    printf "%s\n\n" "$@" >> "${HOME}/development/scripts/ideas.sh"
+}
+
 
