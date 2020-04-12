@@ -3,36 +3,48 @@
 ## Vars for installing drivers from pkgs
 cachePath="."
 
-copierDrivers=('Ricoh_PS_Printers_Vol4_EXP_LIO_Driver.pkg' \
-		   'NRG_PS_Printers_Vol4_EXP_LIO_Driver.pkg')
+copierDrivers=(
+    'Ricoh_PS_Printers_Vol4_EXP_LIO_Driver.pkg'
+    'NRG_PS_Printers_Vol4_EXP_LIO_Driver.pkg'
+)
 
 ## Vars for adding copiers
-cupsName=('bw_copier_tps' \
-	      'fo_copier_tps' \
-	      'co_copier_tps' \
-	      'ec_copier_tps')
+cupsName=(
+    'bw_copier_tps'
+    'fo_copier_tps'
+    'co_copier_tps'
+    'ec_copier_tps'
+)
 
-address=('10.0.3.1' \
-	     '10.0.3.2' \
-	     '10.0.3.3' \
-	     '10.2.0.251')
+address=(
+    '10.0.3.1'
+    '10.0.3.2'
+    '10.0.3.3'
+    '10.2.0.251'
+)
 
 ppdPath="/Library/Printers/PPDs/Contents/Resources"
 
-ppd=('RICOH MP 9003' \
-	 'RICOH MP 5055' \
-	 'RICOH MP C6004ex' \
-	 'RICOH MP C3004ex')
+ppd=(
+    'RICOH MP 9003'
+    'RICOH MP 5055'
+    'RICOH MP C6004ex'
+    'RICOH MP C3004ex'
+)
 
-humanName=('Black and White Copier' \
-	       'Front Office Copier' \
-	       'Color Copier'\
-	       'ECEC Copier')
+humanName=(
+    'Black and White Copier'
+    'Front Office Copier'
+    'Color Copier'
+    'ECEC Copier'
+)
 
-location=('1st Floor, Room 154' \
-	      '1st Floor, Front Office' \
-	      'Lower Level, Patagonia' \
-	      'ECEC Front Office')
+location=(
+    '1st Floor, Room 154'
+    '1st Floor, Front Office'
+    'Lower Level, Patagonia'
+    'ECEC Front Office'
+)
 
 
 ## Functions
@@ -85,8 +97,7 @@ map-copiers() {
 }
 
 assoc-presets() {
-    # Associate printer presets
-    # If they exist
+    # Associate printer presets if they exist
     local userName="$(stat -f%Su /dev/console)"
 
     reload-cups() {

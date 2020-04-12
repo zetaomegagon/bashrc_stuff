@@ -415,6 +415,10 @@ whatsmyip(){
 	| sed 's/[",]//g'
 }
 
+vmanage(){
+    /usr/bin/vboxmanage "$@"
+}
+
 # generalize this to a goto-dir function:
 #
 # specification:
@@ -457,4 +461,55 @@ add-sh-idea(){
     printf "%s\n\n" "$@" >> "${HOME}/development/scripts/ideas.sh"
 }
 
+lflogin(){
+    local user="student"
+    local address="192.168.1.214"
+    
+    mosh "${user}"@"${address}" ||
+    ssh "${user}"@"${address}"
+}
 
+get_vm_uuid(){
+    # get a vm uuid
+    #
+    # usage: get_vm_uuid <vm_name>
+    
+    local vm_name="$1"
+    
+    vmanage list vms |
+	/usr/bin/grep "$vm_name" |
+	awk '{ print $2 }' |
+	sed -e 's:{::' -e 's:}::'
+}
+
+lfvmctl(){
+    # start / stop the lfce lab vm
+    #
+    # usage: lfvmctl [vm_name | list]
+
+    usage(){
+	cat <<-EOF
+	    usage: lfcectl [vm_name | list]
+	EOF
+    }
+    
+    local vm_arg="$1"
+    local vm_uuid="$(get_vm_uuid "$vm_name")"
+
+    case "$vm_arg" in
+	list)
+	    vmanage "$vm_arg" runningvms ;;
+	*)
+	    local vm_name="$vm_arg"
+	    
+	    if [[ -z "$vm_arg" ]]; then
+		usage
+		retrun 1
+	    elif [[ -z $(vmanage list runningvms) ]]; then
+		vmanage startvm "$vm_uuid" --type headless
+	    else
+		vmanage controlvm "$vm_uuid" poweroff
+	    fi
+    esac
+    
+}

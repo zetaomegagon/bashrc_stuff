@@ -4,14 +4,33 @@ _urlInclude="$(echo ComputerGroups | tr 'A-Z' 'a-z')/id"
 _xmlPath="${HOME}/.tps/Scratch/JAMF/extAttributes"
 
 
-attribute_names=( 'finanace' 'development' \
-			     'facilities' 'front_office' \
-			     'technology' 'faculty' 'staff' \
-			     'student' 'blt' 'admissions' \
-			     'communications' 'heads' 'humanresources' \
-			     'art' 'spanish' 'physed' 'pka' 'pkb' 'ka' 'kb' \
-			     'pa' 'pb' 'pc' 'pd' '3a' '3b' 'jua' 'jub' 'jud' \
-			     'juc' 'ms6' 'ms7' 'ms8' )
+attribute_names=(
+    'finanace'
+    'development'
+    'facilities'
+    'front_office'
+    'technology'
+    'faculty'
+    'staff'
+    'student'
+    'blt'
+    'admissions'
+    'communications'
+    'heads'
+    'humanresources'
+    'art'
+    'spanish'
+    'physed'
+    'pka' 'pkb'
+    'ka' 'kb'
+    'pa' 'pb'
+    'pc' 'pd'
+    '3a' '3b'
+    'jua' 'jub'
+    'jud' 'juc'
+    'ms6' 'ms7'
+    'ms8'
+)
 
 
 for _name in "${attribute_names[@]}"; do

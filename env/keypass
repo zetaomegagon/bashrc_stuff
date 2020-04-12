@@ -1,2 +1,5 @@
-alias computezero.ssh='mpw -tx computezero.ssh.pw'
-alias hummingbird.ssh='mpw -tx hummingbird.ssh.pw'
+# mpw password gen file
+# alias hostname.user.sshkey='mpw -tx ...'
+
+alias bigmac.ebeale.sshkey='mpw -tx bigmac.ebeale.sshkey'
+
