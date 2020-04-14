@@ -101,35 +101,41 @@ mpw(){
 
     if [[ "$1" =~ (-h|--help) ]]; then
 	# Call the binary directly when passing help flag so we
-	# don't get ugly output and double output with pager
+	# don't get ugly output and duplicate output with pager
 	if [[ ! -f /tmp/mpw_help ]]; then
+
 	    ${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+
 	fi
 	
 	less /tmp/mpw_help
-
-    elif [[ "$1" =~ (-e|--edit) ]]; then
-	# edit mpw aliases
-	emacs -nw "${HOME}/.mpw"
-	source "${HOME}/.mpw"
     else
- 	# Empty the clipboard
+ 	# Empty the clipboard.
 	:| _copy 2>/dev/null
 
 	# Ask for the user's name and password if not yet known.
 	MPW_FULLNAME=${MPW_FULLNAME:-$(ask 'Your Full Name:')}
 
-	# Start Master Password and copy the output.
-	printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw "$@")" | _copy
+	# restart the gpaste-client daemon  because it has
+	# trouble keeping up with clipboard changes.
+	{
+	    gpaste-client daemon-reexec
+
+	} >/dev/null 2>&1
+
+	# Start Master Password and copy the output. This is where the
+	# magic begins.
+	printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw -F n "$@")" | _copy
 
 	# For gpaste-client: clear last password after 30 seconds
 	if [[ "$_use" = "${_clips[2]}" ]]; then
             (
 		{
-		    _name="$(mktemp -u XXXXXXXXXXXX)"
+		    _name="mpw_$(mktemp -u XXXXXXXXXXXX)"
 		    gpaste-client rename-password "" "$_name"
 		    sleep 30
 		    gpaste-client delete-password "$_name"
+
 		} >/dev/null 2>&1 &
 	    )
 	fi
@@ -152,13 +158,18 @@ kill-chromium(){
 }
 
 gpaste(){
-    # syntactic sugar for Gpaste Client
-    printf "%s\n" "$(/usr/bin/gpaste-client "$@")"
+    # syntactic sugar for gpaste-client
+    #
+    # usage: see gpaste-client man page
+    #/usr/bin/gpaste-client daemon-reexec >/dev/null 2>&1
+
+    /usr/bin/gpaste-client "$@"
+    
 }
 
 clipc(){
     # Clear gpaste-client history
-    gpaste empty
+    gpaste-client empty
 }
 
 notify(){
@@ -433,7 +444,7 @@ vmanage(){
 #
 ############################################################################
 
-lfce(){
+lfcd(){
     parent_path="${HOME}/development"
     child_path="linuxfoundation/lfce"
     lfce_path="${parent_path}/${child_path}"
@@ -447,7 +458,7 @@ lfce(){
     fi
 }
 
-lfce-dl(){
+lfdl(){
     user="LFtraining"
     pass="Penguin2014"
     url="$1"
@@ -512,4 +523,38 @@ lfvmctl(){
 	    fi
     esac
     
+}
+
+.f() {
+    source "${HOME}/.functions"
+}
+
+dnf(){
+    local git_path="${HOME}/development/gits"
+    local git_dir="bashrc_stuff"
+    local package_list="packages.list"
+    local command="$1"
+
+    list_update(){
+	/usr/bin/dnf repoquery --userinstalled |
+	    sed -E 's:\-[0-9]\:[0-9].*::' > "${git_path}/${git_dir}/${package_list}" ||
+	    return 1
+    }
+
+    unset -f dnf
+            
+    case "$command" in
+	install)
+	    /usr/bin/dnf "$@" || return 1
+	    list_update
+	    ;;
+	remove)
+	    /usr/bin/dnf "$@"|| return 1
+	    list_update 
+	    ;;
+	*)
+	    dnf "$@"
+    esac
+
+    source ~/.functions
 }

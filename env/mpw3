@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias chrome-sync='mpw -tx chrome-sync'
 alias ephemere-admin='mpw -tx ephemere-admin'

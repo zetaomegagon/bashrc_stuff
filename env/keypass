@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # mpw password gen file
 # alias hostname.user.sshkey='mpw -tx ...'
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 alias wrt32x2.root='mpw -tx openwrt.wrt32x.6038E0C69100.root'
 alias wrt32x2.eVector='mpw -tx openwrt.wrt32x.6038E0C69100.eVector'
