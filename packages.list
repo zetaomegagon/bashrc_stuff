@@ -46,6 +46,7 @@ libsodium
 libsodium-devel
 liquidio-firmware
 lulzbot-marlin-firmware
+lxc
 lxd
 make
 midisport-firmware

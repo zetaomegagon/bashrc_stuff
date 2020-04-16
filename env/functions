@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 ## Start tmux on every shell login
-tmux-start(){
-    if which tmux >/dev/null 2>&1; then
+tmux-start() {
+    if command -v tmux >/dev/null 2>&1; then
         if [[ -z "$TMUX" ]]; then
             ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
 	    if [[ -z "$ID" ]]; then 
@@ -15,36 +15,41 @@ tmux-start(){
 }
 
 ## Start sleep sounds
-sleep-sounds(){
+rain() {
     local mpv="/usr/bin/mpv"
     local music_dir="$HOME/Music"
     local track="rain.mp3"
     local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
 
-    start-track(){
+    start-rain() {
 	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
     }
 
-    [[ ! -e "$mpv" ]] && sudo dnf -qy install mpv
-
-    if [[ -f "${music_dir}/$track" ]]; then
-	start-track "${music_dir}/$track"
-    else
-	start-track "$track_url"
-    fi
-}
-
-## Kill sleep sounds
-kill-sleep-sound(){
+    kill-rain() {
     for file in $(echo /tmp/rain.*); do
 	local pid=${file#/tmp/rain\.}
 	kill $pid 2>/dev/null
 	rm /tmp/rain.$pid
     done
+    }
+
+    case "$1" in
+	-k)
+	    kill-rain ;;
+	*)
+	    if [[ -f "${music_dir}/$track" ]]; then
+		start-rain "${music_dir}/$track"
+	    else
+		start-rain "$track_url"
+	    fi
+    esac
 }
 
+## Kill sleep sounds
 
-git-sync(){
+
+
+git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     
@@ -78,9 +83,9 @@ git-sync(){
     unalias -a && . ${HOME}/.bashrc
 }
 
-mpw(){
+mpw() {
     # Modified mpw wrapper
-    _copy(){
+    _copy() {
         _clips=('pbcopy' 'xclip' 'gpaste-client')
         _use="${_clips[2]}"
 
@@ -142,7 +147,7 @@ mpw(){
     fi
 }
 
-kill-chromium(){
+kill-chromium() {
     # kill instances of chromium|iridium based on profile:
     # - personale
     # - work
@@ -157,7 +162,7 @@ kill-chromium(){
     done
 }
 
-gpaste(){
+gpaste() {
     # syntactic sugar for gpaste-client
     #
     # usage: see gpaste-client man page
@@ -167,12 +172,12 @@ gpaste(){
     
 }
 
-clipc(){
+clipc() {
     # Clear gpaste-client history
     gpaste-client empty
 }
 
-notify(){
+notify() {
     # Audible notification. Useful for end of
     # execution of process
     
@@ -188,7 +193,7 @@ notify(){
     amixer set Master "$previous_volume" >/dev/null 2>&1
 }
 
-timer(){
+timer() {
     # A crappy timer...I don't even know what I'm
     # trying to do here
     
@@ -203,7 +208,7 @@ timer(){
     fi
 }
 
-dirspike(){
+dirspike() {
     # Set clean state
     currentDir="$(pwd)"
     cd
@@ -228,19 +233,19 @@ dirspike(){
     cd "$currentDir"
 }
 
-debug(){
+debug() {
     # crappy debug function
 
     set -x; "$@"; set +x
 }
 
-mpv(){
+mpv() {
     # call mpv on a file and keep the display from sleeping
     local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
-    play(){
+    play() {
 	# if nvidia optimus graphics card exists, use it
-	inhibit-lid-switch(){
+	inhibit-lid-switch() {
 	    # syntactic sugar
 	    systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
 	}
@@ -255,7 +260,7 @@ mpv(){
     play "$@" 
 }
 
-is-up(){
+is-up() {
     # see if a server port is open
     
     local address="$1"
@@ -280,14 +285,14 @@ is-up(){
     fi
 }
 
-emacs(){
+emacs() {
     # start emacs client
     /usr/bin/emacsclient -nw "$@";
 }
 
-emacsctl(){
+emacsctl() {
     # syntactic sugar for controlling emacs daemon.
-    usage(){
+    usage() {
 	printf "%s\n" "Usage: emacsctl {status|start|stop|restart|reload}"
     }
     
@@ -301,7 +306,7 @@ emacsctl(){
     esac
 }
 
-ayudame(){
+ayudame() {
     # redirect long program help into a file and
     # read with a pager.
     local progname="$(which "$@")"
@@ -318,7 +323,7 @@ ayudame(){
 	pager="${pagers[2]}"
     fi
     
-    ayudar(){
+    ayudar() {
 	local switch="$1"
 	
 	if [[ ! -f $helpfile ]]; then
@@ -335,7 +340,7 @@ ayudame(){
     fi	
 }
 
-mkpass(){
+mkpass() {
     # generate a 64 character random password
     
     printf "%s" "$(mktemp -u $(for i in {0..63}; do 
@@ -345,11 +350,11 @@ mkpass(){
     printf "%s\n" "Password copied to clipboard"
 }
 
-mmtail(){
+mmtail() {
     # pass arbitrary number of files to multitail or
     # all files in a directory
     
-    mt(){
+    mt() {
 	declare -a file
 	for object in "$@"; do
 	    if [[ -f "$file" ]]; then
@@ -367,7 +372,7 @@ mmtail(){
     fi
 }
 
-backup(){
+backup() {
     # a crappy backup function that needs to become it's
     # own script and launched by systemd
     
@@ -385,7 +390,7 @@ backup(){
      done &)
 }
 
-miotop(){
+miotop() {
     # pass arbitrary amount of PIDs to iotop
     
     for pid in $(pgrep "$1"); do
@@ -395,7 +400,7 @@ miotop(){
     sudo iotop "${pids[@]}"
 }
 
-cpw(){
+cpw() {
     # copy mpw expression to ~/.mpw, password to clipboard
     # and make alias to expression available
 
@@ -408,7 +413,7 @@ cpw(){
     source ~/.mpw
 }
 
-rv(){
+rv() {
     removed_dir="${HOME}/.removed"
     date=$(date -I'seconds')
 
@@ -419,14 +424,14 @@ rv(){
     /usr/bin/rm -v "$@" | tee "${removed_dir}/removed_${date}"
 }
 
-whatsmyip(){
+whatsmyip() {
     curl -s http://ipinfo.io \
 	| grep ip \
 	| awk '{ print $2 }' \
 	| sed 's/[",]//g'
 }
 
-vmanage(){
+vmanage() {
     /usr/bin/vboxmanage "$@"
 }
 
@@ -444,7 +449,7 @@ vmanage(){
 #
 ############################################################################
 
-lfcd(){
+lfcd() {
     parent_path="${HOME}/development"
     child_path="linuxfoundation/lfce"
     lfce_path="${parent_path}/${child_path}"
@@ -458,7 +463,7 @@ lfcd(){
     fi
 }
 
-lfdl(){
+lfdl() {
     user="LFtraining"
     pass="Penguin2014"
     url="$1"
@@ -468,11 +473,11 @@ lfdl(){
     printf "%s\n" "Download complete: $resource_name"
 }
 
-add-sh-idea(){
+add-sh-idea() {
     printf "%s\n\n" "$@" >> "${HOME}/development/scripts/ideas.sh"
 }
 
-lflogin(){
+lflogin() {
     local user="student"
     local address="192.168.1.214"
     
@@ -480,7 +485,7 @@ lflogin(){
     ssh "${user}"@"${address}"
 }
 
-get_vm_uuid(){
+get_vm_uuid() {
     # get a vm uuid
     #
     # usage: get_vm_uuid <vm_name>
@@ -493,12 +498,12 @@ get_vm_uuid(){
 	sed -e 's:{::' -e 's:}::'
 }
 
-lfvmctl(){
+lfvmctl() {
     # start / stop the lfce lab vm
     #
     # usage: lfvmctl [vm_name | list]
 
-    usage(){
+    usage() {
 	cat <<-EOF
 	    usage: lfcectl [vm_name | list]
 	EOF
@@ -525,36 +530,91 @@ lfvmctl(){
     
 }
 
-.f() {
-    source "${HOME}/.functions"
-}
-
-dnf(){
+dnf() {
+    # Wrapper for the dnf command
+    #
+    # For the install and remove sub-commands the list of user installed
+    # packages are written to a file with version info stripped from the
+    # individual package names. All other commands are executed normally.
+    #
+    # usage: see 'man dnf' or 'dnf --help'.
+    
     local git_path="${HOME}/development/gits"
     local git_dir="bashrc_stuff"
     local package_list="packages.list"
-    local command="$1"
-
-    list_update(){
-	/usr/bin/dnf repoquery --userinstalled |
-	    sed -E 's:\-[0-9]\:[0-9].*::' > "${git_path}/${git_dir}/${package_list}" ||
+    local list_path="${git_path}/${git_dir}/${package_list}"
+    local dnf="/usr/bin/dnf"
+    local command="${1}"
+    local args="${@:2}"
+    
+    list_update() {
+	# lists user installed packages and writes them out to a file.
+	#
+	# usage: list_update
+	
+	if [[ -f "$list_path" ]]; then
+	    "$dnf" repoquery --userinstalled |
+		sed -E 's:\-[0-9]\:[0-9].*::' > "$list_path"
+	else
+	    printf "%s\n" "[ ${list_path} ] does not exist."
 	    return 1
+	fi
     }
 
+    #### main ####
+
+    # unset the this function from the environment so that we don't get
+    # caught in an infinite call loop ;)
     unset -f dnf
-            
+
+    # the logic-- three cases: install, remove, other commands
     case "$command" in
 	install)
-	    /usr/bin/dnf "$@" || return 1
+	    sudo "$dnf" "$command" "$args"
 	    list_update
 	    ;;
 	remove)
-	    /usr/bin/dnf "$@"|| return 1
-	    list_update 
+	    sudo "$dnf" "$command" "$args"
+	    list_update
 	    ;;
 	*)
-	    dnf "$@"
+	    # since calling 'sudo dnf' would call the binary at
+	    # /usr/bin/dnf and not this function, we set a trap
+	    # to call 'sudo dnf' for any sub-command that needs
+	    # it.
+	    trap "sudo $dnf $command $args" ERR
+
+	    "$dnf" "$command" "$args"
     esac
 
     source ~/.functions
+}
+
+src() {
+
+    usage() {
+	cat <<-EOF
+	usage: $0 [-abfkm]
+	   -a ~/.aliases
+	   -b ~/.bashrc
+	   -f ~/.functions
+	   -k ~/.keypass
+	   -m ~/.mpw
+	EOF
+    }
+    
+    case "$1" in
+	-a)
+	    source ~/.aliases ;;
+	-b)
+	    source ~/.bashrc ;;
+	-f)
+	    source ~/.functions ;;
+	-k)
+	    source ~/.keypass ;;
+	-m)
+	    source ~/.mpw ;;
+	*)
+	    usage
+    esac
 }
