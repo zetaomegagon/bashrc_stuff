@@ -52,16 +52,16 @@ if [ -f "${HOME}/.keypass" ]; then
 fi
 
 ## MasterPassword
-if [ -f "${HOME}/.mpw" ] && [ -e "${HOME}/bin/mpw" ]; then
-    source "${HOME}/.mpw"
+if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
+    source "${HOME}/.spectre"
     
-    export MPW_FULLNAME=Elijah\ Thomas\ Beale
-    export MPW_ASKPASS="${HOME}/bin/mpw_ask"
-    export MPW_FORMAT=none
+    export SPECTRE_FULLNAME=Elijah\ Thomas\ Beale
+    export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
+    export SPECTRE_FORMAT=none
 
     # why am I doing this???
-    if [ -d "${HOME}/.mpw.d" ]; then
-	rm -r "${HOME}/.mpw.d/"* >/dev/null 2>&1
+    if [ -d "${HOME}/.spectre.d" ]; then
+	rm -r "${HOME}/.spectre.d/"* >/dev/null 2>&1
     fi
 
 fi

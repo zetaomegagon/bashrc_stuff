@@ -83,8 +83,8 @@ git-sync() {
     unalias -a && . ${HOME}/.bashrc
 }
 
-mpw() {
-    # Modified mpw wrapper
+spectre() {
+    # Modified spectre wrapper
     _copy() {
         _clips=('pbcopy' 'xclip' 'gpaste-client')
         _use="${_clips[2]}"
@@ -107,19 +107,19 @@ mpw() {
     if [[ "$1" =~ (-h|--help) ]]; then
 	# Call the binary directly when passing help flag so we
 	# don't get ugly output and duplicate output with pager
-	if [[ ! -f /tmp/mpw_help ]]; then
+	if [[ ! -f /tmp/spectre_help ]]; then
 
-	    ${HOME}/bin/mpw -h > /tmp/mpw_help 2>&1
+	    ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
 
 	fi
 	
-	less /tmp/mpw_help
+	less /tmp/spectre_help
     else
  	# Empty the clipboard.
 	:| _copy 2>/dev/null
 
 	# Ask for the user's name and password if not yet known.
-	MPW_FULLNAME=${MPW_FULLNAME:-$(ask 'Your Full Name:')}
+	SPECTRE_FULLNAME=${SPECTRE_FULLNAME:-$(ask 'Your Full Name:')}
 
 	# restart the gpaste-client daemon  because it has
 	# trouble keeping up with clipboard changes.
@@ -130,13 +130,13 @@ mpw() {
 
 	# Start Master Password and copy the output. This is where the
 	# magic begins.
-	printf %s "$(MPW_FULLNAME=$MPW_FULLNAME command mpw -F n "$@")" | _copy
+	printf %s "$(SPECTRE_FULLNAME=$SPECTRE_FULLNAME command spectre -F n "$@")" | _copy
 
 	# For gpaste-client: clear last password after 30 seconds
 	if [[ "$_use" = "${_clips[2]}" ]]; then
             (
 		{
-		    _name="mpw_$(mktemp -u XXXXXXXXXXXX)"
+		    _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
 		    gpaste-client rename-password "" "$_name"
 		    sleep 30
 		    gpaste-client delete-password "$_name"
@@ -401,16 +401,16 @@ miotop() {
 }
 
 cpw() {
-    # copy mpw expression to ~/.mpw, password to clipboard
+    # copy spectre expression to ~/.spectre, password to clipboard
     # and make alias to expression available
 
     args="$@"
     domain_name="$(echo "$args" | awk '{ print $NF }')"
     alias_name="${domain_name%.*}"
     
-    echo alias "$alias_name"=\'mpw "$args"\' >> ~/.mpw
-    mpw $args
-    source ~/.mpw
+    echo alias "$alias_name"=\'spectre "$args"\' >> ~/.spectre
+    spectre $args
+    source ~/.spectre
 }
 
 rv() {
@@ -599,7 +599,7 @@ src() {
 	   -b ~/.bashrc
 	   -f ~/.functions
 	   -k ~/.keypass
-	   -m ~/.mpw
+	   -m ~/.spectre
 	EOF
     }
     
@@ -613,7 +613,7 @@ src() {
 	-k)
 	    source ~/.keypass ;;
 	-m)
-	    source ~/.mpw ;;
+	    source ~/.spectre ;;
 	*)
 	    usage
     esac
