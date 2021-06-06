@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# mpw password gen file
-# alias hostname.user.sshkey='mpw -tx ...'
-
-alias bigmac.ebeale.sshkey='mpw -tx bigmac.ebeale.sshkey'
-
