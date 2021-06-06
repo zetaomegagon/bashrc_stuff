@@ -5,6 +5,8 @@ for file in "${PWD}/env/"*; do
     if [[ -f ~/."$(basename "$file")" ]]; then
 	rm ~/."$(basename "$file")"
 	ln -s "$file" ~/."$(basename "$file")"
+    else
+	ln -s "$file" ~/."$(basename "$file")"
     fi
 done
 
@@ -16,6 +18,8 @@ fi
 for file in "${PWD}/bin/"*; do
     if [[ -e ~/bin/"$(basename "$file")" ]]; then
 	rm ~/bin/"$(basename "$file")"
+	ln -s "$file" ~/bin/"$(basename "$file")"
+    else
 	ln -s "$file" ~/bin/"$(basename "$file")"
     fi
 done

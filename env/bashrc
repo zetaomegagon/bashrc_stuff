@@ -55,15 +55,10 @@ fi
 if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
     source "${HOME}/.spectre"
     
-    export SPECTRE_FULLNAME=Elijah\ Thomas\ Beale
+    export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
+    export SPECTRE_ALGORITHM=3
     export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
-    export SPECTRE_FORMAT=none
-
-    # why am I doing this???
-    if [ -d "${HOME}/.spectre.d" ]; then
-	rm -r "${HOME}/.spectre.d/"* >/dev/null 2>&1
-    fi
-
+    export SPECTRE_FORMAT=json
 fi
 
 if [ -f ${HOME}/bin/bashlib ]; then
