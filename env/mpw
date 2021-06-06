@@ -153,4 +153,4 @@ alias successfactors='mpw -tx successfactors.com'
 alias successfactors.mother='mpw -tp successfactors.com'
 alias successfactors.father='mpw -tp -c2 successfactors.com'
 alias google.personal='mpw -tx google.com.personal'
-
+alias git.personal.ssh='mpw -tx git.com.personal.ssh'
