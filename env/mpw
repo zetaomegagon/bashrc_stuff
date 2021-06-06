@@ -155,3 +155,9 @@ alias successfactors.father='mpw -tp -c2 successfactors.com'
 alias google.personal='mpw -tx google.com.personal'
 alias github.personal.ssh='mpw -tx github.com.personal.ssh'
 alias github.personal.gpg='mpw -tx github.com.personal.gpg'
+
+
+
+alias indeed='mpw -tx indeed.com'
+alias pintrest='mpw -tx pintrest.com'
+alias tdbank='mpw -tl -c2 tdbank.com'
