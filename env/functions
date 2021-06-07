@@ -559,6 +559,9 @@ dnf() {
     }
 
     local_dnf() {
+	# since we don't know what commands will need
+	# sudo, we use this logic to automatically
+	# call dnf with sudo if needed
 	"$dnf" "$command" "${args[@]}" ||
 	    sudo "$dnf" "$command" "${args[@]}"
     }
@@ -575,10 +578,6 @@ dnf() {
 	    local_dnf && write_installed
 	    ;;
 	*)
-	    # since calling 'sudo dnf' would call the binary at
-	    # /usr/bin/dnf and not this function (and the binary
-	    #path is no longer in our env), we set a trap to call
-            #'sudo dnf' for any sub-command that needs it.
 	    local_dnf
 
 	    
