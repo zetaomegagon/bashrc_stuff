@@ -53,7 +53,7 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     
-    local repo="${HOME}/development/gits/bashrc_stuff"
+    local repo="${HOME}/gits/bashrc_stuff"
 
     # move to working dir 
     [[ "$(pwd)" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
