@@ -70,7 +70,7 @@ git-sync() {
 
     # Add all, commit, push
     git add -A
-    git commit -m "auto commited on: $(date -u '+%F %T') [UTC]"
+    git commit -m "auto commited on: $(date -I'ns')"
     git push origin master
 
     # Good push? Drop the stash
