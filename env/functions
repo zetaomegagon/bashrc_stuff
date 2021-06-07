@@ -542,15 +542,23 @@ dnf() {
     #
     # usage: see 'man dnf' or 'dnf --help'.
     
-    local git_path="${HOME}/gits"
-    local git_dir="bashrc_stuff"
-    local git_installed="installed"
+    local repo_base="${HOME}/gits"
+    local repo_dir="bashrc_stuff"
+    local repo_installed="installed"
     local package_list="installed-packages-$(date --iso-8601='ns').list"
-    local list_path="${git_path}/${git_dir}/${git_installed}/${package_list}"
+    local list_path="${repo_base}/${repo_dir}/${repo_installed}/${package_list}"
     local dnf="/usr/bin/dnf"
+
+    # collect all arguments into an array
     local all_args=("$@")
+
+    # get the number of array arg elements
     local arg_end="${#all_args[@]}"
+
+    # this represents the dnf subcommand, like "install" or "remove"
     local command="$1"
+
+    # collect args indexed 1 - N, after the subcommand
     local args=("${all_args[@]:1:$arg_end}")
     
     write_installed() {
