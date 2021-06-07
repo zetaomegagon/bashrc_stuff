@@ -70,10 +70,21 @@ if [[ -d "${HOME}/gits/emacs-read-stdin" ]]; then
     source "${HOME}/gits/emacs-read-stdin/emacs-read-stdin.sh"
 fi
 
-# Startup commands in ${HOME}/.functions
-tmux-start
-
-
+## NVM / node
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# make sure nvm and bash_complete are executable
+if [[ ! -x "$NVM_DIR/nvm.sh" ]] && [[ ! -x "$NVM_DIR/bash_complete" ]]; then
+    for file in "$NVM_DIR"/{nvm.sh,bash_complete}; do
+	chmod +x "$file"
+    done
+
+    # This loads nvm
+    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+
+    # This loads nvm bash_completion
+    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+fi
+
+## Startup commands in ${HOME}/.functions
+tmux-start
