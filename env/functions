@@ -542,8 +542,9 @@ dnf() {
     
     local git_path="${HOME}/gits"
     local git_dir="bashrc_stuff"
+    local git_installed="installed"
     local package_list="installed-packages-$(date --iso-8601='ns').list"
-    local list_path="${git_path}/${git_dir}/${package_list}"
+    local list_path="${git_path}/${git_dir}/${git_installed}/${package_list}"
     local dnf="/usr/bin/dnf"
     local all_args=("$@")
     local arg_end="${#all_args[@]}"
