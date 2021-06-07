@@ -130,7 +130,7 @@ spectre() {
 
 	# Start Master Password and copy the output. This is where the
 	# magic begins.
-	printf %s "$(SPECTRE_FULLNAME=$SPECTRE_FULLNAME command spectre -F n "$@")" | _copy
+	printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
 
 	# For gpaste-client: clear last password after 30 seconds
 	if [[ "$_use" = "${_clips[2]}" ]]; then
@@ -414,14 +414,15 @@ cpw() {
 }
 
 rv() {
-    removed_dir="${HOME}/.removed"
-    date=$(date -I'seconds')
+    local removed_home="${HOME}/.removed"
+    local date=$(date -I'seconds')
+    local removed_git="${HOME}/gits/bashrc_stuff/env/removed"
 
-    if [[ ! -d "$removed_dir" ]]; then
-	mkdir -p  "$removed_dir" || :
+    if [[ ! -e "$removed_home" ]]; then
+       ln -s "$removed_git" "$removed_home" || exit
     fi
     
-    /usr/bin/rm -v "$@" | tee "${removed_dir}/removed_${date}"
+    { /usr/bin/rm -v "$@" | tee "${removed_home}/removed_${date}"; } >/dev/null
 }
 
 whatsmyip() {
@@ -572,9 +573,10 @@ dnf() {
             #'sudo dnf' for any sub-command that needs it.
 	    trap "sudo $dnf $command $args" ERR
 
-	    "$dnf" "$command" "$args"
+	    #"$dnf" "$command" "$args"
     esac
 
     source ~/.functions
 }
+
 

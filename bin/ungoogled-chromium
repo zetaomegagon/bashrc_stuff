@@ -1,0 +1,4 @@
+#!/bin/env bash
+
+(flatpak run com.github.Eloston.UngoogledChromium >/dev/null 2>&1) &
+
