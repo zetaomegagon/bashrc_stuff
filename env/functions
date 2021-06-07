@@ -571,13 +571,10 @@ dnf() {
 	    # /usr/bin/dnf and not this function (and the binary
 	    #path is no longer in our env), we set a trap to call
             #'sudo dnf' for any sub-command that needs it.
-	    trap "sudo $dnf $command $args" ERR
+	    "$dnf" "$command" "$args" || sudo "$dnf" "$command" "$args"
 
-	    #"$dnf" "$command" "$args"
+	    
     esac
 
     source ~/.functions
 }
-
-
-#comment
