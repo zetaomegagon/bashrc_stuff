@@ -538,6 +538,8 @@ dnf() {
     # packages are written to a file with version info stripped from the
     # individual package names. All other commands are executed normally.
     #
+    # NOTE: using 'sudo dnf' will call '/usr/sbin/dnf'; not this function.
+    #
     # usage: see 'man dnf' or 'dnf --help'.
     
     local git_path="${HOME}/gits"
