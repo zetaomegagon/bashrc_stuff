@@ -1,8 +1,11 @@
 #!/usr/bin/env /bin/bash
 
+# switch to git dir
+cd $HOME/gits/bashrc_stuff
+
 # add symlinks for shell env
 for file in "${PWD}/env/"*; do
-    if [[ -f ~/."$(basename "$file")" ]]; then
+    if [[ -e ~/."$(basename "$file")" ]]; then
 	rm ~/."$(basename "$file")"
 	ln -s "$file" ~/."$(basename "$file")"
     else
@@ -25,10 +28,9 @@ for file in "${PWD}/bin/"*; do
 done
 
 # add symlink for init.el
-if [[ ! -d ~/bin/.emacs.d ]]; then
+if [[ ! -d ~/bin/.emacs.d ]] && [[ ! ~/bin/emacs.d/init.el ]]; then
     mkdir ~/bin/.emacs.d
+    ln -s "${PWD}/emacs/init.el" ~/bin/.emacs.d/init.el
 fi
-
-ln -s "${PWD}/emacs/init.el" ~/bin/.emacs.d/init.el
 
 source ~/.bashrc

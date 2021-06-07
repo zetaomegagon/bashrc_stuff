@@ -1,0 +1,6 @@
+removed 'bin/*'
+removed 'bin/bashlib'
+removed 'bin/cpm'
+removed 'bin/spectre'
+removed 'bin/spectre_ask'
+removed 'bin/sshproxy'
