@@ -119,7 +119,7 @@ spectre() {
 	:| _copy 2>/dev/null
 
 	# Ask for the user's name and password if not yet known.
-	SPECTRE_FULLNAME=${SPECTRE_FULLNAME:-$(ask 'Your Full Name:')}
+	SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
 
 	# restart the gpaste-client daemon  because it has
 	# trouble keeping up with clipboard changes.

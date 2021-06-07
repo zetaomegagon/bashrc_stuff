@@ -100,11 +100,11 @@ cpm() {
 	case "$1" in
 	    # Launch a browser instance
             personal|work|technology|*test*|*user*)
-		"$browser_bin" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
+		"$browser_bin" "$data_dir" "$cache_dir" & wait "$!"
 		(cleanup && kill-chromium "$1" &)
 		;;
 	    incognito)
-		"$browser_bin" --"$1" "$data_dir" "$cache_dir" "$proxy" & wait "$!"
+		"$browser_bin" --"$1" "$data_dir" "$cache_dir" & wait "$!"
 		rm -r "${data_dir#'--user-data-dir='}" "${cache_dir#'--disk-cache-dir='}"
 		(cleanup && kill-chromium "$1" &)
 		;;
@@ -118,14 +118,14 @@ cpm() {
 	esac
     }
 
-    if pgrep -a ssh | grep -q zomegagon; then
-	echo "SEARCH STATUS: $?"
+ #  if pgrep -a ssh | grep -q zomegagon; then
+#	echo "SEARCH STATUS: $?"
 	exec_chromium "$1"
-    else
-	echo "SEARCH STATUS: $?"
-	(sshproxy >/dev/null 2>&1 &)
-	exec_chromium "$1"
-    fi
+#   else
+#	echo "SEARCH STATUS: $?"
+#	(sshproxy >/dev/null 2>&1 &)
+#	exec_chromium "$1"
+#   fi
 }
 
 cpm "$1" "$2"
