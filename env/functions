@@ -531,50 +531,50 @@ lfvmctl() {
     
 }
 
-dnf() {
-    # Wrapper for the dnf command
-    #
-    # For the install and remove sub-commands the list of user installed
-    # packages are written to a file with version info stripped from the
-    # individual package names. All other commands are executed normally.
-    #
-    # usage: see 'man dnf' or 'dnf --help'.
+# dnf() {
+#     # Wrapper for the dnf command
+#     #
+#     # For the install and remove sub-commands the list of user installed
+#     # packages are written to a file with version info stripped from the
+#     # individual package names. All other commands are executed normally.
+#     #
+#     # usage: see 'man dnf' or 'dnf --help'.
     
-    local git_path="${HOME}/gits"
-    local git_dir="bashrc_stuff"
-    local package_list="installed-packages-$(date --iso-8601='ns').list"
-    local list_path="${git_path}/${git_dir}/${package_list}"
-    local dnf="/usr/bin/dnf"
-    local command="${1}"
-    local args="${@:2}"
+#     local git_path="${HOME}/gits"
+#     local git_dir="bashrc_stuff"
+#     local package_list="installed-packages-$(date --iso-8601='ns').list"
+#     local list_path="${git_path}/${git_dir}/${package_list}"
+#     local dnf="/usr/bin/dnf"
+#     local command="${1}"
+#     local args="${@:2}"
     
-    write_installed() {
-	# lists user installed packages and writes them out to a unique file.
-	#
-	# usage: write_installed
-	"$dnf" repoquery --userinstalled | sed -E 's:\-[0-9]\:[0-9].*::' > "$list_path"
-    }
+#     write_installed() {
+# 	# lists user installed packages and writes them out to a unique file.
+# 	#
+# 	# usage: write_installed
+# 	"$dnf" repoquery --userinstalled | sed -E 's:\-[0-9]\:[0-9].*::' > "$list_path"
+#     }
 
-    #### main ####
+#     #### main ####
 
-    # unset the actual dnf function from the environment so that we don't get
-    # caught in an infinite call loop ;)
-    unset -f dnf
+#     # unset the actual dnf function from the environment so that we don't get
+#     # caught in an infinite call loop ;)
+#     unset -f dnf
 
-    # the logic-- three cases: install, remove, other commands
-    case "$command" in
-	install|remove)
-	    sudo "$dnf" "$command" "$args" && write_installed
-	    ;;
-	*)
-	    # since calling 'sudo dnf' would call the binary at
-	    # /usr/bin/dnf and not this function (and the binary
-	    #path is no longer in our env), we set a trap to call
-            #'sudo dnf' for any sub-command that needs it.
-	    "$dnf" "$command" "$args" || sudo "$dnf" "$command" "$args"
+#     # the logic-- three cases: install, remove, other commands
+#     case "$command" in
+# 	install|remove)
+# 	    sudo "$dnf" "$command" "$args" && write_installed"
+# 	    ;;
+# 	*)
+# 	    # since calling 'sudo dnf' would call the binary at
+# 	    # /usr/bin/dnf and not this function (and the binary
+# 	    #path is no longer in our env), we set a trap to call
+#             #'sudo dnf' for any sub-command that needs it.
+# 	    "$dnf" "$command" "$args" || sudo "$dnf" "$command" "$args"
 
 	    
-    esac
+#     esac
 
-    source ~/.functions
-}
+#     #source ~/.functions
+# }
