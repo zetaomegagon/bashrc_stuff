@@ -39,4 +39,4 @@ alias p='popd'
 alias xbox='spectre -tx -c2 xbox.com'
 alias incognito='(cpm incognito >/dev/null 2>&1 &)'
 alias noproxy='(cpm noproxy >/dev/null 2>&1 &)'
-nvm alias default node
+
