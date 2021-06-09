@@ -1,8 +1,0 @@
-#!/bin/bash
-
-while read -r _package_name; do
-    _name=${package_name//*_id_file.pkg}
-    _upcase_name=${_name^}
-
-    sed 's/\{\}//install${_upcase_name}ID' < "$(pwd)/depNotifyTemplate.sh" > "$(pwd)/depNotify_.sh"
-done
