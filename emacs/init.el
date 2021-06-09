@@ -3,9 +3,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
+ '(custom-enabled-themes '(manoj-dark))
  '(package-selected-packages
-   (quote
-    (exwm EXWM electric-pair auto-complete-config auto-complete markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try atomic-chrome))))
+   '(abyss-theme fantom-theme electric-pair auto-complete-config auto-complete markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try atomic-chrome)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -14,8 +18,19 @@
  )
 
 (setq inhibit-startup-message t)
-(setq line-number-mode t)
-(setq column-number-mode t)
+(global-display-line-numbers-mode)
+(column-number-mode 1)
+
+(if (not (file-exists-p "~/.emacs.d/backups"))
+    (make-directory "~/.emacs.d/backups"))
+
+(if (not (file-exists-p "~/.emacs.d/autosaves"))
+    (make-directory "~/.emacs.d/autosaves"))
+
+(setq backup-directory-alist
+      `((".*" . ,~/.emacs.d/backups)))
+(setq auto-save-file-name-transforms
+      `((".*" ,~/.emacs.d/backups t)))
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -62,8 +77,7 @@
   :config
   (ac-config-default))
 
-;;;; EXWM
-(use-package exwm
+(use-package fantom-theme
   :ensure t
   :config
-  (exwm-enable))
+  (load-theme 'fantom-theme t))
