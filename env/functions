@@ -572,7 +572,7 @@ dnf() {
 	# since we don't know what commands will need
 	# sudo, we use this logic to automatically
 	# call dnf with sudo if needed
-	"$dnf" "$command" "${args[@]}" ||
+	"$dnf" "$command" "${args[@]}" 2>/dev/null ||
 	    sudo "$dnf" "$command" "${args[@]}"
     }
     
