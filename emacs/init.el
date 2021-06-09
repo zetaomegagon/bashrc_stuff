@@ -14,6 +14,8 @@
  )
 
 (setq inhibit-startup-message t)
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 (require 'package)
 (setq package-enable-at-startup nil)
