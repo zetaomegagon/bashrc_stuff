@@ -28,9 +28,9 @@
     (make-directory "~/.emacs.d/autosaves"))
 
 (setq backup-directory-alist
-      `((".*" . ,~/.emacs.d/backups)))
+      `((".*" . ,"~/.emacs.d/backups")))
 (setq auto-save-file-name-transforms
-      `((".*" ,~/.emacs.d/backups t)))
+      `((".*" ,"~/.emacs.d/backups" t)))
 
 (require 'package)
 (setq package-enable-at-startup nil)
