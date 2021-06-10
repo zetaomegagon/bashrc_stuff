@@ -65,4 +65,4 @@ if [ -f "${HOME}/bin/bashlib" ]; then
 fi
 
 ## Startup commands in ${HOME}/.functions
-#tmux-start
+tmux-start

@@ -209,8 +209,10 @@ timer() {
 }
 
 dirspike() {
+    # because: fuck it.
+    
     # Set clean state
-    currentDir="$(pwd)"
+    currentDir="$PWD"
     cd
     
     # Clean the screen
@@ -220,7 +222,7 @@ dirspike() {
     # Top half
     printf "~\\n"
     
-    for dir in $(echo "*"); do
+    for dir in *; do
 	pushd "${HOME}/$dir"
     done
 
