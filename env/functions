@@ -1,21 +1,8 @@
 #!/usr/bin/env bash
 
-## Start tmux on every shell login
-tmux-start() {
-    if command -v tmux >/dev/null 2>&1; then
-        if [[ -z "$TMUX" ]]; then
-            ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
-	    if [[ -z "$ID" ]]; then 
-                tmux new-session
-            else
-                tmux attach-session -t "$ID"
-            fi
-        fi
-    fi
-}
 
-## Start sleep sounds
 rain() {
+    ## Start sleep sounds
     local mpv="/usr/bin/mpv"
     local music_dir="$HOME/Music"
     local track="rain.mp3"
@@ -44,10 +31,6 @@ rain() {
 	    fi
     esac
 }
-
-## Kill sleep sounds
-
-
 
 git-sync() {
     # Add, commit, push functions and aliases.
@@ -191,21 +174,6 @@ notify() {
     sleep .5; espeak "Task complete."; sleep .5
 
     amixer set Master "$previous_volume" >/dev/null 2>&1
-}
-
-timer() {
-    # A crappy timer...I don't even know what I'm
-    # trying to do here
-    
-    if [[ "$1" =~ [0-9]+ ]]; then
-	(sleep "$1" &)
-	wait $!
-	for ((c=0;c<60;c++)); do
-	    ({ notify; sleep 1; } &)
-	done
-    else
-	printf "Usage: timer <number_with_units>\\n"
-    fi
 }
 
 dirspike() {
@@ -574,8 +542,12 @@ dnf() {
 	# since we don't know what commands will need
 	# sudo, we use this logic to automatically
 	# call dnf with sudo if needed
-	"$dnf" "$command" "${args[@]}" 2>/dev/null ||
-	    sudo "$dnf" "$command" "${args[@]}"
+	if [[ -z "$command" ]]; then
+	    echo "A command must be given to dnf."
+	    exit
+	else
+	    "$dnf" "$command" "${args[@]}" 2>/dev/null || sudo "$dnf" "$command" "${args[@]}"
+	fi
     }
     
     #### main ####
@@ -584,7 +556,7 @@ dnf() {
     # caught in an infinite call loop ;)
     unset -f dnf
 
-    # the logic-- three cases: install, remove, other commands
+    # the logic-- two cases: install or remove, and other commands
     case "$command" in
 	install|remove)
 	    local_dnf && write_installed
