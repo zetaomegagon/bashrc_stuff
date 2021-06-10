@@ -30,6 +30,7 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=""
 
+# nvm stuff
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -58,11 +59,9 @@ if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
     export SPECTRE_ALGORITHM=3
     export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
     export SPECTRE_FORMAT=json
-fi
 
-if [ -f "${HOME}/bin/bashlib" ]; then
-    source bashlib
-fi
+    [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
+
 
 ## Startup commands in ${HOME}/.functions
-tmux-start
+# tmux-start

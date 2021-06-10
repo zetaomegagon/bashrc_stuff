@@ -20,6 +20,8 @@
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode)
 (column-number-mode 1)
+(x-select-enable-primary t)
+(x-select-enable-clipboard t)
 
 (if (not (file-exists-p "~/.emacs.d/backups"))
     (make-directory "~/.emacs.d/backups"))
