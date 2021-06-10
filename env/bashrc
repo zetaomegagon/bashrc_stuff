@@ -61,7 +61,7 @@ if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
     export SPECTRE_FORMAT=json
 
     [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
-
+fi
 
 ## Startup commands in ${HOME}/.functions
 # tmux-start
