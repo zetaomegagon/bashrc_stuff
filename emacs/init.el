@@ -9,21 +9,31 @@
    ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
  '(custom-enabled-themes '(manoj-dark))
  '(package-selected-packages
-   '(abyss-theme fantom-theme electric-pair auto-complete-config auto-complete markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try atomic-chrome)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+   '(ace-window browse-kill-ring atomic-chrome zygospore abyss-theme electric-pair auto-complete-config auto-complete markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try)))
 
-;;(setq inhibit-startup-message t)
+;;;; user set stuff
+(setq inhibit-startup-message t)
 (global-display-line-numbers-mode)
 (column-number-mode 1)
+(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+(global-set-key (kbd "\C-cy") 'browse-kill-ring)
 
+;; movemet key rebinds
+;; (global-set-key (kbd "C-k") 'next-line)
+;; (global-set-key (kbd "C-j") 'previous-line)
+;; (global-set-key (kbd "C-l") 'forward-char)
+;; (global-set-key (kbd "C-h") 'backward-char)
+;; (global-set-key (kbd "M-h") 'backward-word)
+;; (global-set-key (kbd "M-l") 'forward-word)
+
+;; ace-window
+(global-set-key (kbd "\C-co") 'ace-window)
+(setq aw-keys '(?j ?k ?l ?\;))
+(setq aw-background nil)
+
+;; backup and autosave custom paths
 (if (not (file-exists-p "~/.emacs.d/backups"))
     (make-directory "~/.emacs.d/backups"))
-
 (if (not (file-exists-p "~/.emacs.d/autosaves"))
     (make-directory "~/.emacs.d/autosaves"))
 
@@ -32,6 +42,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,"~/.emacs.d/backups" t)))
 
+;; package management
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("gnu"          . "https://elpa.gnu.org/packages/")
@@ -53,7 +64,7 @@
   :config
   (which-key-mode)) 
 
-;;;; org-mode stuff
+; org-mode stuff
 (use-package org
   :ensure t)
 
@@ -62,7 +73,7 @@
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;;;; chromium interface
+; chromium interface
 (use-package atomic-chrome
   :ensure t
   :config
@@ -71,13 +82,11 @@
 (use-package magit
   :ensure t)
 
-;;;; auto-complete
+; auto-complete
 (use-package auto-complete
   :ensure t
   :config
   (ac-config-default))
 
-(use-package fantom-theme
-  :ensure t
-  :config
-  (load-theme 'fantom-theme t))
+;; disable the menu-bar
+(menu-bar-mode -1)
