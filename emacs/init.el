@@ -15,8 +15,6 @@
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode)
 (column-number-mode 1)
-(global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
-(global-set-key (kbd "\C-cy") 'browse-kill-ring)
 
 ;; movemet key rebinds
 ;; (global-set-key (kbd "C-k") 'next-line)
@@ -25,11 +23,6 @@
 ;; (global-set-key (kbd "C-h") 'backward-char)
 ;; (global-set-key (kbd "M-h") 'backward-word)
 ;; (global-set-key (kbd "M-l") 'forward-word)
-
-;; ace-window
-(global-set-key (kbd "\C-co") 'ace-window)
-(setq aw-keys '(?j ?k ?l ?\;))
-(setq aw-background nil)
 
 ;; backup and autosave custom paths
 (if (not (file-exists-p "~/.emacs.d/backups"))
@@ -55,6 +48,24 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
+(use-package ace-window
+  :ensure t
+  :config
+  (global-unset-key (kbd "\C-xo"))
+  (global-set-key (kbd "\C-xo") 'ace-window)
+  (setq aw-keys '(?j ?k ?l ?\;))
+  (setq aw-background nil))
+
+(use-package browse-kill-ring
+  :ensure t
+  :config
+  (global-set-key (kbd "\C-cy") 'browse-kill-ring))
+
+(use-package zygospore
+  :ensure t
+  :config
+  (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
 
 (use-package try
   :ensure t)

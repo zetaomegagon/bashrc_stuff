@@ -22,7 +22,13 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Set $EDITOR to Emacs
-export EDITOR='emacsclient -nw'
+case "$INSIDE_EMACS" in
+    *term*|*comint*)
+	export EDITOR='emacsclient'
+	;;
+    *)
+	export EDITOR='emacsclient -nw'
+esac
 
 # Make sure user D-bus is accessible
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
