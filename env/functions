@@ -257,7 +257,13 @@ is-up() {
 
 emacs() {
     # start emacs client
-    /usr/bin/emacsclient -nw "$@";
+    case "$INSIDE_EMACS" in
+	*term*|*comint*)
+	    /usr/bin/emacsclient "$@"
+	    ;;
+	*)
+	    /usr/bin/emacsclient -nw "$@"
+    esac
 }
 
 emacsctl() {
