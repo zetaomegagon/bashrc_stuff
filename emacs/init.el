@@ -11,46 +11,36 @@
  '(package-selected-packages
    '(ace-window browse-kill-ring atomic-chrome zygospore abyss-theme electric-pair auto-complete-config auto-complete markdown-mode markdown-mode+ markdown-preview-mode magit org-bullets which-key use-package try)))
 
-;;;; user set stuff
+;; user set stuff
 (setq inhibit-startup-message t)
 (global-display-line-numbers-mode)
 (column-number-mode 1)
+(electric-pair-mode 1)
+(put 'narrow-to-region 'disabled nil)
 
-;; movemet key rebinds
-;; (global-set-key (kbd "C-k") 'next-line)
-;; (global-set-key (kbd "C-j") 'previous-line)
-;; (global-set-key (kbd "C-l") 'forward-char)
-;; (global-set-key (kbd "C-h") 'backward-char)
-;; (global-set-key (kbd "M-h") 'backward-word)
-;; (global-set-key (kbd "M-l") 'forward-word)
+;; straight.el
+(setq straight-use-package-by-default t)
 
-;; backup and autosave custom paths
-(if (not (file-exists-p "~/.emacs.d/backups"))
-    (make-directory "~/.emacs.d/backups"))
-(if (not (file-exists-p "~/.emacs.d/autosaves"))
-    (make-directory "~/.emacs.d/autosaves"))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-(setq backup-directory-alist
-      `((".*" . ,"~/.emacs.d/backups")))
-(setq auto-save-file-name-transforms
-      `((".*" ,"~/.emacs.d/backups" t)))
+;; use-package
 
-;; package management
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("gnu"          . "https://elpa.gnu.org/packages/")
-			 ("melpa"        . "https://melpa.org/packages/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")
-			 ("marmalade"    . "https://marmalade-repo.org/packages/")))
+;;; make sure use-package is installed
+(straight-use-package 'use-package)
 
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
+;;; installed packages
 (use-package ace-window
-  :ensure t
   :config
   (global-unset-key (kbd "\C-xo"))
   (global-set-key (kbd "\C-xo") 'ace-window)
@@ -58,46 +48,47 @@
   (setq aw-background nil))
 
 (use-package browse-kill-ring
-  :ensure t
   :config
   (global-set-key (kbd "\C-cy") 'browse-kill-ring))
 
 (use-package zygospore
-  :ensure t
   :config
   (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows))
 
-(use-package try
-  :ensure t)
-
 (use-package which-key
-  :ensure t
   :config
   (which-key-mode)) 
 
-; org-mode stuff
-(use-package org
-  :ensure t)
+(use-package magit)
 
-(use-package org-bullets
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
-; chromium interface
-(use-package atomic-chrome
-  :ensure t
-  :config
-  (atomic-chrome-start-server))
-
-(use-package magit
-  :ensure t)
-
-; auto-complete
 (use-package auto-complete
-  :ensure t
   :config
   (ac-config-default))
 
+(use-package markdown-mode
+  :commands
+  (markdown-mode gfm-mode)
+  :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md\\'" . markdown-mode)
+   ("\\.markdown\\'" . markdown-mode))
+  :init
+  (setq markdown-command "multimarkdown"))
+
+(use-package helm
+  :config
+  (global-set-key (kbd "M-x") #'helm-M-x)
+  (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-x C-f") #'helm-find-files)
+  (helm-mode 1))
+  
 ;; disable the menu-bar
 (menu-bar-mode -1)
+
+;; browse various package repos using "M-x package-list"
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/")
+	     '("melpa-stable" . "https://stable.melpa.org/packages/"))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
