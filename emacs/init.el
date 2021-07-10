@@ -42,14 +42,14 @@
 ;;; installed packages
 (use-package ace-window
   :config
-  (global-unset-key (kbd "\C-xo"))
-  (global-set-key (kbd "\C-xo") 'ace-window)
+  (global-unset-key (kbd "C-x o"))
+  (global-set-key (kbd "C-x o") 'ace-window)
   (setq aw-keys '(?j ?k ?l ?\;))
   (setq aw-background nil))
 
 (use-package browse-kill-ring
   :config
-  (global-set-key (kbd "\C-cy") 'browse-kill-ring))
+  (global-set-key (kbd "C-c y") 'browse-kill-ring))
 
 (use-package zygospore
   :config
@@ -89,7 +89,7 @@
   (global-set-key (kbd "C-c k") 'buf-move-up)
   (global-set-key (kbd "C-c l") 'buf-move-down)
   (global-set-key (kbd "C-c ;") 'buf-move-right))
-  
+
 ;; disable the menu-bar
 (menu-bar-mode -1)
 
