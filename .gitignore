@@ -1,2 +1,6 @@
 *~
 \#*\#
+/elpa
+/straight
+/url
+*.lock
