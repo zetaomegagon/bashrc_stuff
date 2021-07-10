@@ -81,6 +81,14 @@
   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
   (global-set-key (kbd "C-x C-f") #'helm-find-files)
   (helm-mode 1))
+
+(use-package buffer-move
+  :config
+  (setq buffer-move-stay-after-swap t)
+  (global-set-key (kbd "C-c j") 'buf-move-left)
+  (global-set-key (kbd "C-c k") 'buf-move-up)
+  (global-set-key (kbd "C-c l") 'buf-move-down)
+  (global-set-key (kbd "C-c ;") 'buf-move-right))
   
 ;; disable the menu-bar
 (menu-bar-mode -1)
