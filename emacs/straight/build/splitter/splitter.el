@@ -1,1 +1,0 @@
-/home/ebeale/.emacs.d/straight/repos/chumpy-windows/splitter.el
