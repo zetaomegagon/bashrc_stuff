@@ -1,1 +1,0 @@
-/home/ebeale/.emacs.d/straight/repos/mag-menu/mag-menu.el
