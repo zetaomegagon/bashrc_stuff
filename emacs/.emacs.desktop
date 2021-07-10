@@ -1,0 +1,55 @@
+;; -*- mode: emacs-lisp; lexical-binding:t; coding: utf-8-emacs; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Fri Jul  9 21:49:30 2021
+;; Desktop file format version 208
+;; Emacs version 27.2
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (24808 64682 461106 566000) (desktop . "208") "ebeale@nekko" nil nil ((((minibuffer . t) (tty-type . "xterm-256color") (tty . "/dev/tty") (display-type . color) (background-mode . dark) (background-color . "black") (foreground-color . "WhiteSmoke") (menu-bar-lines . 0) (font . "tty") (height . 65) (width . 238) (modeline . t) (unsplittable) (tab-bar-lines . 0) (frameset--id . "9BDD-E08C-90DF-A198") (frameset--mini t)) ((min-height . 4) (min-width . 10) (min-height-ignore . 2) (min-width-ignore . 2) (min-height-safe . 1) (min-width-safe . 2) (min-pixel-height . 4) (min-pixel-width . 10) (min-pixel-height-ignore . 2) (min-pixel-width-ignore . 2) (min-pixel-height-safe . 1) (min-pixel-width-safe . 2)) leaf (pixel-width . 238) (pixel-height . 64) (total-width . 238) (total-height . 64) (normal-height . 1.0) (normal-width . 1.0) (buffer "*terminal*" (selected . t) (hscroll . 0) (fringes 0 0 nil nil) (margins nil) (scroll-bars nil 0 t nil 0 t nil) (vscroll . 0) (dedicated) (point . 147687) (start . 146365)) (prev-buffers ("*terminal*" 1 1) ("*ansi-term*" 439168 439208) ("README.md" 1725 3751) ("*eww*" 1 1))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name nil)
+(setq tags-table-list nil)
+(setq search-ring '(#("_parse" 0 6 (isearch-regexp-function nil isearch-case-fold-search t)) #("parseNumber" 0 11 (isearch-regexp-function nil isearch-case-fold-search nil)) #("try" 0 3 (isearch-regexp-function nil isearch-case-fold-search t))))
+(setq regexp-search-ring nil)
+(setq register-alist (list (list "zygospore-windows-time-machine" "Unprintable entity" (let ((mk (make-marker))) (add-hook 'desktop-delay-hook (lambda nil (set-marker mk 3623 (get-buffer "README.md")))) mk))))
+(setq file-name-history '("~/thinkful/week4/assessments/Project_Decoder_Ring_1/.gitignore" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/README.md" "~/.spectre" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/scripts/polybius.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/test/polybius.test.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/my_substitution.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/test/substitution.test.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/test/caesar.test.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/my_polybius.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/substitution.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/my_caesar.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/caesar.js" "~/thinkful/week4/assessments/Project_Decoder_Ring_1/src/polybius.js" "~/.emacs.d/init.el"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/home/ebeale/thinkful/week4/assessments/Project_Decoder_Ring_1/README.md"
+  "README.md"
+  'markdown-mode
+  '(eldoc-mode which-key-mode auto-revert-mode helm-mode markdown-live-preview-mode)
+  3751
+  '(3643 nil)
+  nil
+  nil
+  '((tab-width . 4) (buffer-display-time 24808 61076 440920 86000) (buffer-file-coding-system . utf-8-unix))
+  '((mark-ring (2446 2472 2402 2377 688 1423 843 2858 3353 2919 2690 2637 2553 1))))
+
+(desktop-create-buffer 208
+  nil
+  "*eww*"
+  'eww-mode
+  '(which-key-mode helm-mode)
+  1
+  '(nil nil)
+  t
+  '(:history ((:point 1 :url "file:///home/ebeale/thinkful/week4/assessments/Project_Decoder_Ring_1/README.html" :title "README.html")))
+  '((buffer-display-time 24808 60549 343225 273000) (buffer-file-coding-system . utf-8-unix) (truncate-lines . t) (eww-history-position . 0))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/home/ebeale/gits/bashrc_stuff/emacs/init.el"
+  "init.el"
+  'emacs-lisp-mode
+  '(eldoc-mode which-key-mode auto-revert-mode auto-complete-mode helm-mode)
+  2855
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time) (buffer-file-coding-system . prefer-utf-8-unix))
+  '((mark-ring nil)))
+
