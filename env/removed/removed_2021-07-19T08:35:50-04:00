@@ -1,0 +1,5 @@
+removed 'public/logo192.png'
+removed 'public/logo512.png'
+removed 'src/logo.svg'
+removed 'src/App.test.js'
+removed 'src/reportWebVitals.js'
