@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 rain() {
     ## Start sleep sounds
     local mpv="/usr/bin/mpv"
@@ -259,10 +258,10 @@ emacs() {
     # start emacs client
     case "$INSIDE_EMACS" in
 	*term*|*comint*)
-	    /usr/bin/emacsclient "$@"
+	    /usr/bin/emacsclient "$@" 2>/dev/null || command emacs
 	    ;;
 	*)
-	    /usr/bin/emacsclient -nw "$@"
+	    /usr/bin/emacsclient -nw "$@" 2>/dev/null || command emacs
     esac
 }
 
@@ -575,3 +574,52 @@ dnf() {
 
     source ~/.functions
 }
+
+vterm_printf() {
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ] ); then
+        # Tell tmux to pass the escape sequences through
+        printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+        # GNU screen (screen, screen-256color, screen-256color-bce)
+        printf "\eP\e]%s\007\e\\" "$1"
+    else
+        printf "\e]%s\e\\" "$1"
+    fi
+}
+
+npc() {
+    #############################################
+    # create react app project and ...
+    # - switch into it's directory,
+    # - remove uneeded files,
+    # - empties contents of css files.
+    #
+    # TODO:
+    # replace contents of:
+    #  - src/index.js  | remove optimization test.
+    #  - src/App.js    | remove App() contents.
+    #  - manifest.json | empty logo array.
+    ##############################################
+    #local index_js=""
+    #local app_js=""
+    #local manifest_json=""
+    local npx_dir=("$@")
+    
+    npx create-react-app "${npx_dir[0]}"
+    cd "${npx_dir[0]}" || exit 1
+    rm public/{logo*,*ico} src/{logo*,*[tT]est*,report*}
+    for file in src/*; do [[ "$file" =~ .+\.css ]] && echo > "$file"; done
+}
+
+c() {
+    if [[ -z "$1" ]]; then
+        pushd ~/
+    else
+        pushd $@ 2>/dev/null
+    fi 
+} 
+
+cc() {
+    popd 2>/dev/null || :
+} 
+

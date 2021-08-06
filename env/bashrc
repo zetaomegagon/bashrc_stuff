@@ -21,15 +21,6 @@ if [ -f /etc/bashrc ]; then
     source /etc/bashrc
 fi
 
-# Set $EDITOR to Emacs
-case "$INSIDE_EMACS" in
-    *term*|*comint*)
-	export EDITOR='emacsclient'
-	;;
-    *)
-	export EDITOR='emacsclient -nw'
-esac
-
 # Make sure user D-bus is accessible
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
@@ -69,3 +60,24 @@ if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
     [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
 fi
 
+## Emacs Stuff
+# vterm
+if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+    function clear(){
+        vterm_printf "51;Evterm-clear-scrollback";
+        tput clear;
+    }
+fi
+
+export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}:${PWD}\007"'
+
+# If emacs is called inside of emacs via terminal emulator;
+# open the file in emacs in the current buffer. Otherwise
+# open the file in emacs inside an external terminal
+case "$INSIDE_EMACS" in
+    *term*|*comint*)
+	export EDITOR='emacsclient'
+	;;
+    *)
+	export EDITOR='emacsclient -nw'
+esac

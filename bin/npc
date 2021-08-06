@@ -1,0 +1,22 @@
+#############################################
+# create react app project and ...
+# - switch into it's directory,
+# - remove uneeded files,
+# - empties contents of css files.
+#
+# TODO:
+# replace contents of:
+#  - src/index.js  | remove optimization test.
+#  - src/App.js    | remove App() contents.
+#  - manifest.json | empty logo array.
+##############################################
+#index_js=""
+#app_js=""
+#manifest_json=""
+npx_dir=("$@")
+
+npx create-react-app "${npx_dir[0]}"
+cd "${npx_dir[0]}" || exit 1
+rm public/{logo*,*ico} src/{logo*,*[tT]est*,report*}
+for file in src/*; do [[ "$file" =~ .+\.css ]] && echo > "$file"; done
+

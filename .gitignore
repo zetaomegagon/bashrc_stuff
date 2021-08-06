@@ -1,6 +1,6 @@
-*~
-\#*\#
-/elpa
-/straight
-/url
-*.lock
+**/*~
+**/\#*#
+emacs/elpa
+emacs/straight
+emaca/url
+emacs/*.lock
