@@ -1,4 +1,12 @@
-((("package-archives" .
+((("shareworks" .
+   [0 0 0 0 0 1 0 0 0 0])
+  ("solium" .
+   [1 0 0 0 0 0])
+  ("print" .
+   [1 0 0 0 0])
+  ("awk" .
+   [2 0 0])
+  ("package-archives" .
    [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
   ("add-to-list" .
    [1 0 0 0 0 0 0 0 0 0 0])
