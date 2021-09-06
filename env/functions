@@ -1,36 +1,5 @@
 #!/usr/bin/env bash
 
-rain() {
-    ## Start sleep sounds
-    local mpv="/usr/bin/mpv"
-    local music_dir="$HOME/Music"
-    local track="rain.mp3"
-    local track_url="https://www.youtube.com/watch?v=xoirXUhEpIo"
-
-    start-rain() {
-	("$mpv" --no-video "$1" >/dev/null 2>&1 & touch /tmp/rain.$!)
-    }
-
-    kill-rain() {
-    for file in $(echo /tmp/rain.*); do
-	local pid=${file#/tmp/rain\.}
-	kill $pid 2>/dev/null
-	rm /tmp/rain.$pid
-    done
-    }
-
-    case "$1" in
-	-k)
-	    kill-rain ;;
-	*)
-	    if [[ -f "${music_dir}/$track" ]]; then
-		start-rain "${music_dir}/$track"
-	    else
-		start-rain "$track_url"
-	    fi
-    esac
-}
-
 git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
@@ -129,21 +98,6 @@ spectre() {
     fi
 }
 
-kill-chromium() {
-    # kill instances of chromium|iridium based on profile:
-    # - personale
-    # - work
-    # - etc
-    
-    local pids=$(pgrep -a '(chromium|iridium)' \
-		     | grep $1 \
-		     | awk '{ print $1 }')
-
-    for pid in $pids; do
-	(kill -HUP "$pid" >/dev/null 2>&1 &)
-    done
-}
-
 gpaste() {
     # syntactic sugar for gpaste-client
     #
@@ -157,49 +111,6 @@ gpaste() {
 clipc() {
     # Clear gpaste-client history
     gpaste-client empty
-}
-
-notify() {
-    # Audible notification. Useful for end of
-    # execution of process
-    
-    previous_volume=$(amixer get Master \
-			  | tail -1 \
-			  | awk '{ print $4 }' \
-			  | sed s'/[\[\]]//')
-
-    amixer set Master 100% >/dev/null 2>&1
-
-    sleep .5; espeak "Task complete."; sleep .5
-
-    amixer set Master "$previous_volume" >/dev/null 2>&1
-}
-
-dirspike() {
-    # because: fuck it.
-    
-    # Set clean state
-    currentDir="$PWD"
-    cd
-    
-    # Clean the screen
-    clear
-    sleep .5
-    
-    # Top half
-    printf "~\\n"
-    
-    for dir in *; do
-	pushd "${HOME}/$dir"
-    done
-
-    # bottom half
-    for dir in $(popd 2>/dev/null); do
-	popd 2>/dev/null
-    done
-
-    # Back in time!
-    cd "$currentDir"
 }
 
 debug() {
@@ -229,42 +140,6 @@ mpv() {
     play "$@" 
 }
 
-is-up() {
-    # see if a server port is open
-    
-    local address="$1"
-    local port="$2"
-    local aregex="[0-9]{1,3}"
-    local pregex="[0-9]{1,10000}"
-
-    usage()
-    {
-	printf "Usage:\\n"
-	printf "  is-up <address> <port>"
-	printf "\\n"
-    }
-
-    if [[ "$address" =~ ${aregex}\.${aregex}\.${aregex}\.${aregex} ]] && \
-	   [[ "$port" =~ $pgregex ]]; then
-
-	watch -n1 "nc -z $address $port; echo $?"
-
-    else
-	usage
-    fi
-}
-
-emacs() {
-    # start emacs client
-    case "$INSIDE_EMACS" in
-	*term*|*comint*)
-	    /usr/bin/emacsclient "$@" 2>/dev/null || command emacs
-	    ;;
-	*)
-	    /usr/bin/emacsclient -nw "$@" 2>/dev/null || command emacs
-    esac
-}
-
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
     usage() {
@@ -279,40 +154,6 @@ emacsctl() {
 	*)
 	    usage
     esac
-}
-
-ayudame() {
-    # redirect long program help into a file and
-    # read with a pager.
-    local progname="$(which "$@")"
-    local exitstat="$($progname --help >/dev/null 2>&1; echo $?)"
-    local helpfile="/tmp/$(basename $progname)_help"
-    local pagers=( "$(which most)" "$(which less)" "$(which more)")
-    local pager
-    
-    if hash "${pagers[0]}"; then
-	pager="${pagers[0]}"
-    elif hash "${pagers[1]}"; then
-	pager="${pagers[1]}"
-    else
-	pager="${pagers[2]}"
-    fi
-    
-    ayudar() {
-	local switch="$1"
-	
-	if [[ ! -f $helpfile ]]; then
-	    $progname $switch > $helpfile 2>&1
-	fi
-
-	$pager $helpfile
-    }
-    
-    if [[ $exitstat -eq 0 ]]; then
-	ayudar --help
-    else
-	ayudar -h
-    fi	
 }
 
 mkpass() {
@@ -347,24 +188,6 @@ mmtail() {
     fi
 }
 
-backup() {
-    # a crappy backup function that needs to become it's
-    # own script and launched by systemd
-    
-    local user="$(whoami)"
-    local backup_dir="/run/media/$user/backup"
-    local source="/home/$user"
-    local dest="$backup_dir/$user"
-    
-    (while : ; do
-	 if [[ -d "$backup_dir" ]] && [[ -n $(pgrep rsync) ]]; then
-	     rsync -qa "$source"/ "$dest"/ 1>"$backup_dir"/backup.log 2>"$backup_dir"/backup.err
-	 fi
-
-	 sleep 30s
-     done &)
-}
-
 miotop() {
     # pass arbitrary amount of PIDs to iotop
     
@@ -375,204 +198,8 @@ miotop() {
     sudo iotop "${pids[@]}"
 }
 
-cpw() {
-    # copy spectre expression to ~/.spectre, password to clipboard
-    # and make alias to expression available
-
-    args="$@"
-    domain_name="$(echo "$args" | awk '{ print $NF }')"
-    alias_name="${domain_name%.*}"
-    
-    echo alias "$alias_name"=\'spectre "$args"\' >> ~/.spectre
-    spectre $args
-    source ~/.spectre
-}
-
-rv() {
-    local removed_home="${HOME}/.removed"
-    local date=$(date -I'seconds')
-    local removed_git="${HOME}/gits/bashrc_stuff/env/removed"
-
-    if [[ ! -e "$removed_home" ]]; then
-       ln -s "$removed_git" "$removed_home" || exit
-    fi
-    
-    { /usr/bin/rm -v "$@" | tee "${removed_home}/removed_${date}"; } >/dev/null
-}
-
-whatsmyip() {
-    curl -s http://ipinfo.io \
-	| grep ip \
-	| awk '{ print $2 }' \
-	| sed 's/[",]//g'
-}
-
 vmanage() {
     /usr/bin/vboxmanage "$@"
-}
-
-# generalize this to a goto-dir function:
-#
-# specification:
-# - takes user input in the name of a directory
-# - can `cd` directly into any directory the user has permissions for
-# - facility for determining correct directory name if none by name is found
-#
-# Implementation thoughts:
-# - possibly works by using `grep` over a NoSQL database created using `find`
-# - database updated periodically by systemd unit, or function itself
-# - ???
-#
-############################################################################
-
-lfcd() {
-    parent_path="${HOME}/development"
-    child_path="linuxfoundation/lfce"
-    lfce_path="${parent_path}/${child_path}"
-
-    if ! echo "$PWD" | grep lfce; then
-	cd "${lfce_path}" ||
-	    {
-		printf "%s" "could not swith to ${lfce_path}"
-		exit
-	    }
-    fi
-}
-
-lfdl() {
-    user="LFtraining"
-    pass="Penguin2014"
-    url="$1"
-    resource_name="$(basename "$url")"
-
-    curl -su "${user}:${pass}" "$url" -o "$resource_name"
-    printf "%s\n" "Download complete: $resource_name"
-}
-
-add-sh-idea() {
-    printf "%s\n\n" "$@" >> "${HOME}/development/scripts/ideas.sh"
-}
-
-lflogin() {
-    local user="student"
-    local address="192.168.1.214"
-    
-    mosh "${user}"@"${address}" ||
-    ssh "${user}"@"${address}"
-}
-
-get_vm_uuid() {
-    # get a vm uuid
-    #
-    # usage: get_vm_uuid <vm_name>
-    
-    local vm_name="$1"
-    
-    vmanage list vms |
-	/usr/bin/grep "$vm_name" |
-	awk '{ print $2 }' |
-	sed -e 's:{::' -e 's:}::'
-}
-
-lfvmctl() {
-    # start / stop the lfce lab vm
-    #
-    # usage: lfvmctl [vm_name | list]
-
-    usage() {
-	cat <<-EOF
-	    usage: lfcectl [vm_name | list]
-	EOF
-    }
-    
-    local vm_arg="$1"
-    local vm_uuid="$(get_vm_uuid "$vm_name")"
-
-    case "$vm_arg" in
-	list)
-	    vmanage "$vm_arg" runningvms ;;
-	*)
-	    local vm_name="$vm_arg"
-	    
-	    if [[ -z "$vm_arg" ]]; then
-		usage
-		retrun 1
-	    elif [[ -z $(vmanage list runningvms) ]]; then
-		vmanage startvm "$vm_uuid" --type headless
-	    else
-		vmanage controlvm "$vm_uuid" poweroff
-	    fi
-    esac
-    
-}
-
-dnf() {
-    # Wrapper for the dnf command
-    #
-    # For the install and remove sub-commands the list of user installed
-    # packages are written to a file with version info stripped from the
-    # individual package names. All other commands are executed normally.
-    #
-    # NOTE: using 'sudo dnf' will call '/usr/sbin/dnf'; not this function.
-    #
-    # usage: see 'man dnf' or 'dnf --help'.
-    
-    local repo_base="${HOME}/gits"
-    local repo_dir="bashrc_stuff"
-    local repo_installed="installed"
-    local package_list="installed-packages-$(date --iso-8601='ns').list"
-    local list_path="${repo_base}/${repo_dir}/${repo_installed}/${package_list}"
-    local dnf="/usr/bin/dnf"
-
-    # collect all arguments into an array
-    local all_args=("$@")
-
-    # get the number of array arg elements
-    local arg_end="${#all_args[@]}"
-
-    # this represents the dnf subcommand, like "install" or "remove"
-    local command="$1"
-
-    # collect args indexed 1 - N, after the subcommand
-    local args=("${all_args[@]:1:$arg_end}")
-    
-    write_installed() {
-	# lists user installed packages and writes them out to a unique file.
-	#
-	# usage: write_installed
-	"$dnf" repoquery --userinstalled | sed -E 's:\-[0-9]\:[0-9].*::' > "$list_path"
-    }
-
-    local_dnf() {
-	# since we don't know what commands will need
-	# sudo, we use this logic to automatically
-	# call dnf with sudo if needed
-	if [[ -z "$command" ]]; then
-	    echo "A command must be given to dnf."
-	    exit
-	else
-	    "$dnf" "$command" "${args[@]}" 2>/dev/null || sudo "$dnf" "$command" "${args[@]}"
-	fi
-    }
-    
-    #### main ####
-
-    # unset the actual dnf function from the environment so that we don't get
-    # caught in an infinite call loop ;)
-    unset -f dnf
-
-    # the logic-- two cases: install or remove, and other commands
-    case "$command" in
-	install|remove)
-	    local_dnf && write_installed
-	    ;;
-	*)
-	    local_dnf
-
-	    
-    esac
-
-    source ~/.functions
 }
 
 vterm_printf() {
@@ -586,40 +213,4 @@ vterm_printf() {
         printf "\e]%s\e\\" "$1"
     fi
 }
-
-npc() {
-    #############################################
-    # create react app project and ...
-    # - switch into it's directory,
-    # - remove uneeded files,
-    # - empties contents of css files.
-    #
-    # TODO:
-    # replace contents of:
-    #  - src/index.js  | remove optimization test.
-    #  - src/App.js    | remove App() contents.
-    #  - manifest.json | empty logo array.
-    ##############################################
-    #local index_js=""
-    #local app_js=""
-    #local manifest_json=""
-    local npx_dir=("$@")
-    
-    npx create-react-app "${npx_dir[0]}"
-    cd "${npx_dir[0]}" || exit 1
-    rm public/{logo*,*ico} src/{logo*,*[tT]est*,report*}
-    for file in src/*; do [[ "$file" =~ .+\.css ]] && echo > "$file"; done
-}
-
-c() {
-    if [[ -z "$1" ]]; then
-        pushd ~/
-    else
-        pushd $@ 2>/dev/null
-    fi 
-} 
-
-cc() {
-    popd 2>/dev/null || :
-} 
 
