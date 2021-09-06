@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ((("shareworks" .
    [0 0 0 0 0 1 0 0 0 0])
   ("solium" .
@@ -7,6 +8,9 @@
   ("awk" .
    [2 0 0])
   ("package-archives" .
+=======
+((("package-archives" .
+>>>>>>> origin/master
    [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0])
   ("add-to-list" .
    [1 0 0 0 0 0 0 0 0 0 0])
