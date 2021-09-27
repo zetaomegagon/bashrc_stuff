@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-Pulls
-Issues
-Marketplace
-Explore
- 
-@zetaomegagon 
-zetaomegagon
-/
-bashrc_stuff
-0
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-More
-bashrc_stuff/emacs/init.el
-@zetaomegagon
-zetaomegagon auto commited on: 2021-08-06T19:43:11,425152547-04:00
-Latest commit 04bbd42 on Aug 6
- History
- 1 contributor
-355 lines (307 sloc)  11.8 KB
- 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,9 +34,6 @@ Latest commit 04bbd42 on Aug 6
 (global-set-key (kbd "<f7>") 'recentf-open-files)
 (save-place-local-mode)
 (setq-default fill-column 80)
-
-;;;; save buffers
-(desktop-save-mode)
 
 ;;;; line number mode
 (global-display-line-numbers-mode)
@@ -109,7 +76,6 @@ Latest commit 04bbd42 on Aug 6
 (use-package browse-kill-ring
   :config
   (global-set-key (kbd "C-c y") 'browse-kill-ring))
-
 
 (use-package magit)
 
@@ -160,6 +126,10 @@ Latest commit 04bbd42 on Aug 6
   (global-set-key (kbd "C-c l") 'buf-move-down)
   (global-set-key (kbd "C-c ;") 'buf-move-right)
   (setq buffer-move-stay-after-swap t))
+
+;; delete windows
+(global-set-key (kbd "C-c <delete>") 'ace-delete-window)
+(global-set-key (kbd "C-x <delete>") 'ace-delete-other-windows)
 
 (defun toggle-window-split ()
   "Toggle between horizontal / vertical window split for two windows.
@@ -369,9 +339,9 @@ This needs to be added to a repo and installed via straight / use-package."
 
 ;; disable the menu-bar in cli and toolbar in gui.
 ;; disable scrollbar in both
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(toggle-scroll-bar -1)
+(menu-bar-mode nil)
+(tool-bar-mode nil)
+(scroll-bar-mode nil)
 
 ;; browse various package repos using "M-x package-list"
 (require 'package)
