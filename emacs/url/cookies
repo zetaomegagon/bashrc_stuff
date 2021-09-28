@@ -4,9 +4,13 @@
 (setq url-cookie-storage
  'nil)
 (setq url-cookie-secure-storage
- '(("github.com"
-  [url-cookie "_octo" "GH1.1.868114766.1626918745" "Fri, 22 Jul 2022 01:52:25 GMT" "/" "github.com" t]
-  [url-cookie "logged_in" "no" "Fri, 22 Jul 2022 01:52:25 GMT" "/" "github.com" t]))
+ '(("en.wikipedia.org"
+  [url-cookie "WMF-Last-Access" "27-Sep-2021" "Fri, 29 Oct 2021 00:00:00 GMT" "/" "en.wikipedia.org" t])
+ (".wikipedia.org"
+  [url-cookie "WMF-Last-Access-Global" "27-Sep-2021" "Fri, 29 Oct 2021 00:00:00 GMT" "/" ".wikipedia.org" t])
+ ("github.com"
+  [url-cookie "logged_in" "no" "Fri, 22 Jul 2022 01:52:25 GMT" "/" "github.com" t]
+  [url-cookie "_octo" "GH1.1.868114766.1626918745" "Fri, 22 Jul 2022 01:52:25 GMT" "/" "github.com" t]))
 )
 
 ;; Local Variables:
