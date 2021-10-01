@@ -56,45 +56,45 @@ spectre() {
     }
 
     if [[ "$1" =~ (-h|--help) ]]; then
-	# Call the binary directly when passing help flag so we
-	# don't get ugly output and duplicate output with pager
-	if [[ ! -f /tmp/spectre_help ]]; then
+	      # Call the binary directly when passing help flag so we
+	      # don't get ugly output and duplicate output with pager
+	      if [[ ! -f /tmp/spectre_help ]]; then
 
-	    ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
+	          ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
 
-	fi
-	
-	less /tmp/spectre_help
+	      fi
+	      
+	      less /tmp/spectre_help
     else
- 	# Empty the clipboard.
-	:| _copy 2>/dev/null
+ 	      # Empty the clipboard.
+	      :| _copy 2>/dev/null
 
-	# Ask for the user's name and password if not yet known.
-	SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
+	      # Ask for the user's name and password if not yet known.
+	      SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
 
-	# restart the gpaste-client daemon  because it has
-	# trouble keeping up with clipboard changes.
-	{
-	    gpaste-client daemon-reexec
+	      # restart the gpaste-client daemon  because it has
+	      # trouble keeping up with clipboard changes.
+	      {
+	          gpaste-client daemon-reexec
 
-	} >/dev/null 2>&1
+	      } >/dev/null 2>&1
 
-	# Start Master Password and copy the output. This is where the
-	# magic begins.
-	printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
+	      # Start Master Password and copy the output. This is where the
+	      # magic begins.
+	      printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
 
-	# For gpaste-client: clear last password after 30 seconds
-	if [[ "$_use" = "${_clips[2]}" ]]; then
+	      # For gpaste-client: clear last password after 30 seconds
+	      if [[ "$_use" = "${_clips[2]}" ]]; then
             (
-		{
-		    _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
-		    gpaste-client rename-password "" "$_name"
-		    sleep 30
-		    gpaste-client delete-password "$_name"
+		            {
+		                _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
+		                gpaste-client rename-password "" "$_name"
+		                sleep 30
+		                gpaste-client delete-password "$_name"
 
-		} >/dev/null 2>&1 &
-	    )
-	fi
+		            } >/dev/null 2>&1 &
+	          )
+	      fi
     fi
 }
 
@@ -124,17 +124,17 @@ mpv() {
     local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
     play() {
-	# if nvidia optimus graphics card exists, use it
-	inhibit-lid-switch() {
-	    # syntactic sugar
-	    systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
-	}
-	
-	if [[ -z "$optimus" ]]; then
-	    inhibit-lid-switch "$@"
-	else
-	    DRI_PRIME=1 inhibit-lid-switch "$@"
-	fi
+	      # if nvidia optimus graphics card exists, use it
+	      inhibit-lid-switch() {
+	          # syntactic sugar
+	          systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
+	      }
+	      
+	      if [[ -z "$optimus" ]]; then
+	          inhibit-lid-switch "$@"
+	      else
+	          DRI_PRIME=1 inhibit-lid-switch "$@"
+	      fi
     }
     
     play "$@" 
@@ -143,16 +143,16 @@ mpv() {
 emacsctl() {
     # syntactic sugar for controlling emacs daemon.
     usage() {
-	printf "%s\n" "Usage: emacsctl {status|start|stop|restart|reload}"
+	      printf "%s\n" "Usage: emacsctl {status|start|stop|restart|reload}"
     }
     
     case "$1" in
-	status|stop|start|restart)
-	    systemctl --user "$1" emacs ;;
-	reload)
-	    emacsctl restart ;;
-	*)
-	    usage
+	      status|stop|start|restart)
+	          systemctl --user "$1" emacs ;;
+	      reload)
+	          emacsctl restart ;;
+	      *)
+	          usage
     esac
 }
 
@@ -171,20 +171,20 @@ mmtail() {
     # all files in a directory
     
     mt() {
-	declare -a file
-	for object in "$@"; do
-	    if [[ -f "$file" ]]; then
-		files+=("$file ")
-	    fi
-	done
+	      declare -a file
+	      for object in "$@"; do
+	          if [[ -f "$file" ]]; then
+		            files+=("$file ")
+	          fi
+	      done
 
-	multitail "${objects[@]}"
+	      multitail "${objects[@]}"
     }
 
     if [[ -z "$@" ]]; then
-	mt *
+	      mt *
     else
-	mt "$@"
+	      mt "$@"
     fi
 }
 
@@ -192,7 +192,7 @@ miotop() {
     # pass arbitrary amount of PIDs to iotop
     
     for pid in $(pgrep "$1"); do
-	pids+=( "--pid $pid " )
+	      pids+=( "--pid $pid " )
     done
 
     sudo iotop "${pids[@]}"
