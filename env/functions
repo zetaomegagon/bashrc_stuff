@@ -214,3 +214,10 @@ vterm_printf() {
     fi
 }
 
+pkg-search () {
+	version="$(uname -a | cut -d ' ' -f 3 | cut -d '.' -f 4 | tr -d 'a-z')"
+
+	sudo podman run --rm fedora:"$version" dnf search "$@"
+
+}
+

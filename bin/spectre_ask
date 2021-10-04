@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Ask script for MasterPassword
 # Defined in MPW_ASKPASS

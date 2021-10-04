@@ -27,11 +27,6 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=""
 
-# nvm stuff
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # export user binary directory
 export PATH="${HOME}/bin:$PATH"
 
@@ -44,8 +39,8 @@ if [ -f ${HOME}/.aliases ]; then
     source "${HOME}/.aliases"
 fi
 
-if [ -f "${HOME}/.keypass" ]; then
-    source "${HOME}/.keypass"
+if [ -f "${HOME}/.sshpw" ]; then
+    source "${HOME}/.sshpw"
 fi
 
 ## MasterPassword
