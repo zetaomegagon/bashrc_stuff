@@ -39,11 +39,7 @@ if [ -f ${HOME}/.aliases ]; then
     source "${HOME}/.aliases"
 fi
 
-<<<<<<< Updated upstream
 if [ -f "${HOME}/.sshpw" ]; then
-=======
-if [ -f "${HOME}/.keypass" ]; then
->>>>>>> Stashed changes
     source "${HOME}/.sshpw"
 fi
 
