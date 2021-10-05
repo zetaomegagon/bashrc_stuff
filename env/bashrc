@@ -39,7 +39,11 @@ if [ -f ${HOME}/.aliases ]; then
     source "${HOME}/.aliases"
 fi
 
+<<<<<<< Updated upstream
 if [ -f "${HOME}/.sshpw" ]; then
+=======
+if [ -f "${HOME}/.keypass" ]; then
+>>>>>>> Stashed changes
     source "${HOME}/.sshpw"
 fi
 
@@ -65,14 +69,3 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
 fi
 
 export PROMPT_COMMAND='echo -ne "\033]0;${HOSTNAME}:${PWD}\007"'
-
-# If emacs is called inside of emacs via terminal emulator;
-# open the file in emacs in the current buffer. Otherwise
-# open the file in emacs inside an external terminal
-case "$INSIDE_EMACS" in
-    *term*|*comint*)
-	export EDITOR='emacsclient'
-	;;
-    *)
-	export EDITOR='emacsclient -nw'
-esac
