@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+  # Create image for qemu to use as a disk image on btrfs backed storage
+  # disables CoW
+
+  create-image() {
+    local file="$(read -p "Enter the disk image name: " img)"
+    local directory="$(read -p "Enter the directory to create the image: " dir)"
+  
+    cd "$directory" || exit 1
+    truncate -s 0 "$file"
+    chattr +C "$file"
+    btrfs property set "$file" compression none
+    dd if=/dev/zero of="$file" bs=1MiB count=65536 status=progress
+  }
+
+create-image
