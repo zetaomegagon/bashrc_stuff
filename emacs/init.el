@@ -244,9 +244,9 @@ This needs to be added to a repo and installed via straight / use-package."
 
 ;; disable the menu-bar in cli and toolbar in gui.
 ;; disable scrollbar in both
-(menu-bar-mode nil)
-(tool-bar-mode nil)
-(scroll-bar-mode nil)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; browse various package repos using "M-x package-list"
 (require 'package)

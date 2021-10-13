@@ -221,3 +221,6 @@ pkg-search () {
 
 }
 
+ostree-status () {
+    ostree admin status | sed -e 's:\(\*\|Version\:\):\x1B[31m&\x1B[0m:' -e 's:\(origin.*$\):\1\n:'
+}
