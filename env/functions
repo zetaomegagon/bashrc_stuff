@@ -214,13 +214,34 @@ vterm_printf() {
     fi
 }
 
-pkg-search () {
-	version="$(uname -a | cut -d ' ' -f 3 | cut -d '.' -f 4 | tr -d 'a-z')"
+# dnf() {
+#     args="$@"
+#     distro=fedora
+#     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
 
-	sudo podman run --rm fedora:"$version" dnf search "$@"
+#     podman run --rm "$distro":"$release" sudo dnf "$args"
+# }
 
-}
+cpu_profile() {
+    arg="$1"
 
-ostree-status () {
-    ostree admin status | sed -e 's:\(\*\|Version\:\):\x1B[31m&\x1B[0m:' -e 's:\(origin.*$\):\1\n:'
+    case "$arg" in
+        performance|powersave)
+            sudo su -c "echo "$arg" | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor"
+            ;;
+        --available|available)
+            cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors
+            ;;
+        --help|help)
+            echo "Print or modifies the current cpu governor profile"
+            echo ""
+            echo "--available|available         lists the available profiles"
+            echo "--help|help                   prints this help message"
+            echo ""
+            echo "Passing no argument prints the current profile"
+            ;;
+        *)
+            cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor
+    esac
+
 }
