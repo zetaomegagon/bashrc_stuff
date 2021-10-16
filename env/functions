@@ -226,7 +226,7 @@ dnf() {
     fi
 }
 
-cpu_profile() {
+cpu_profiles() {
     arg="$1"
 
     case "$arg" in
@@ -251,9 +251,20 @@ cpu_profile() {
 }
 
 cpu_temps() {
-    # $(( ($temp / 1000) * 9/5 + 32 ))F
-    for temp in $(cat /sys/class/thermal/thermal_zone*/temp); do
-        echo $((($temp / 1000) * 9/5 + 32))F
+    tempm=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
+    tempf=()
+    
+    for temp in ${tempm[@]}; do
+        tempf+=" $((($temp / 1000) * 9/5 + 32))F"
     done
+
+    echo ${tempf[@]}
 }
                 
+search() {
+    baseurl="https://duckduckgo.com/&q="
+    query="$*"
+    
+    /usr/bin/firefox --new-tab "${baseurl}${query}"
+}
+
