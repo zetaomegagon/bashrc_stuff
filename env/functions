@@ -214,13 +214,17 @@ vterm_printf() {
     fi
 }
 
-# dnf() {
-#     args="$@"
-#     distro=fedora
-#     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
-
-#     podman run --rm "$distro":"$release" sudo dnf "$args"
-# }
+dnf() {
+    cgroup="$(cat /proc/self/cgroup)"
+    distro=fedora
+    release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    
+    if [[ "$cgroup" = 0::/ ]]; then
+        /usr/bin/dnf $(echo $@)
+    else
+        podman run --rm "$distro":"$release" sudo dnf $@
+    fi
+}
 
 cpu_profile() {
     arg="$1"
@@ -245,3 +249,11 @@ cpu_profile() {
     esac
 
 }
+
+cpu_temps() {
+    # $(( ($temp / 1000) * 9/5 + 32 ))F
+    for temp in $(cat /sys/class/thermal/thermal_zone*/temp); do
+        echo $((($temp / 1000) * 9/5 + 32))F
+    done
+}
+                

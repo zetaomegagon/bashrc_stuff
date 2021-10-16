@@ -36,3 +36,13 @@ alias ytdl='/usr/bin/youtube-dl'
 alias qemu='/usr/bin/qemu-kvm'
 alias emacs='/usr/bin/emacsclient -nw'
 
+alias tb='/usr/bin/toolbox'
+alias fedoraproject='spectre -tx -c1 fedoraproject.org'
+alias cpu_temps=for temp in 20000
+37050
+37050
+37050
+34050
+38050
+38050
+37000; do echo 98F; done
