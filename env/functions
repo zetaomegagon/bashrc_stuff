@@ -245,7 +245,14 @@ cpu_profiles() {
             echo "Passing no argument prints the current profile"
             ;;
         *)
-            cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor
+            current_scaling=( $(cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor) )
+            pretty_print=()
+            
+            for scaling in ${current_scaling[@]}; do
+                pretty_print+="$scaling "
+            done
+
+            echo "${pretty_print[@]}"
     esac
 
 }
@@ -255,7 +262,7 @@ cpu_temps() {
     tempf=()
     
     for temp in ${tempm[@]}; do
-        tempf+=" $((($temp / 1000) * 9/5 + 32))F"
+        tempf+="$((($temp / 1000) * 9/5 + 32))F "
     done
 
     echo ${tempf[@]}

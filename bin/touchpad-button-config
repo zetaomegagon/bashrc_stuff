@@ -15,10 +15,10 @@
 #
 # - https://mywiki.wooledge.org/BashPitfalls#set_-euo_pipefail
 # - http://mywiki.wooledge.org/BashGuide/Practices#Activate_Bash.27s_Debug_Mode
-
+#
 ################################################################################################################
 ##
-##                                       touchpad-button-config
+##                                        touchpad-button-config
 ##
 ## Set the emulated middle mouse button on a DELL XPS touchpad to a dummy value
 ## this has the effect of sending a no-op for the emulated middle touchpad button.
@@ -38,21 +38,25 @@
 ##
 ## 3. Finally set the desired button mapping (you will need to determine what mapping is right for you)
 ##    I arbitrarily subbed out "1 2 3 4 5 6 7" for "1 0 3 4 5 6 7", and that worked for me.
+##  
+##    Note that "1 2 3 ..." represents buttons in the order of "left middle right ...". No idea what the
+##    buttons "4 5 6 7" represent :shrug:
+##
+## [SEE ALSO] https://wiki.archlinux.org/title/Libinput#Manual_button_re-mapping
 ##
 ## To debug...
 ##
 ##       - interactively run this script from the command line.
 ##       - interactively run steps A - E on the command line outside the script.
 ##       - BashGuide: http://mywiki.wooledge.org/BashGuide/Practices#Debugging
-##
+##  
 ##       [OPTIONAL] use shellcheck
 ##         + ubuntu: https://packages.ubuntu.com/search?keywords=shellcheck&searchon=names
 ##         + github: https://github.com/koalaman/shellcheck
-##         + web:    https://www.shellcheck.net/
-##
-## See also: https://wiki.archlinux.org/title/Libinput#Manual_button_re-mapping
+##         + web:    https://www.shellcheck.net/       
 ##
 ################################################################################################################
+
 grep() { /usr/bin/grep -i "$@"; }
 
 ptrn1="dll"
