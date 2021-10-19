@@ -58,11 +58,7 @@ spectre() {
     if [[ "$1" =~ (-h|--help) ]]; then
 	      # Call the binary directly when passing help flag so we
 	      # don't get ugly output and duplicate output with pager
-	      if [[ ! -f /tmp/spectre_help ]]; then
-
-	          ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
-
-	      fi
+	      [[ ! -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
 	      
 	      less /tmp/spectre_help
     else
@@ -74,11 +70,8 @@ spectre() {
 
 	      # restart the gpaste-client daemon  because it has
 	      # trouble keeping up with clipboard changes.
-	      {
-	          gpaste-client daemon-reexec
-
-	      } >/dev/null 2>&1
-
+	      gpaste-client daemon-reexec >/dev/null 2>&1
+        
 	      # Start Master Password and copy the output. This is where the
 	      # magic begins.
 	      printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
@@ -86,24 +79,19 @@ spectre() {
 	      # For gpaste-client: clear last password after 30 seconds
 	      if [[ "$_use" = "${_clips[2]}" ]]; then
             (
-		            {
-		                _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
-		                gpaste-client rename-password "" "$_name"
-		                sleep 30
-		                gpaste-client delete-password "$_name"
-
-		            } >/dev/null 2>&1 &
-	          )
+                {
+                    _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
+                    gpaste-client rename-password "" "$_name"
+                    sleep 30
+                    gpaste-client delete-password "$_name"
+                } >/dev/null 2>&1 &
+            )
 	      fi
     fi
 }
 
 gpaste() {
     # syntactic sugar for gpaste-client
-    #
-    # usage: see gpaste-client man page
-    #/usr/bin/gpaste-client daemon-reexec >/dev/null 2>&1
-
     /usr/bin/gpaste-client "$@"
     
 }
@@ -115,7 +103,6 @@ clipc() {
 
 debug() {
     # crappy debug function
-
     set -x; "$@"; set +x
 }
 
@@ -125,15 +112,15 @@ mpv() {
     
     play() {
 	      # if nvidia optimus graphics card exists, use it
-	      inhibit-lid-switch() {
+	      inhibit-and-play() {
 	          # syntactic sugar
 	          systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
 	      }
 	      
 	      if [[ -z "$optimus" ]]; then
-	          inhibit-lid-switch "$@"
+	          inhibit-and-play "$@"
 	      else
-	          DRI_PRIME=1 inhibit-lid-switch "$@"
+	          DRI_PRIME=1 inhibit-and-play "$@"
 	      fi
     }
     
@@ -158,39 +145,38 @@ emacsctl() {
 
 mkpass() {
     # generate a 64 character random password
+    passwd="$(mktemp -u "$(for i in {0..63}; do printf "%s" "X"; done)")"
     
-    printf "%s" "$(mktemp -u $(for i in {0..63}; do 
-                                   printf "%s" "X"; 
-                               done))" | gpaste-client
-
+    printf "%s" "$passwd" | gpaste-client
     printf "%s\n" "Password copied to clipboard"
 }
 
 mmtail() {
     # pass arbitrary number of files to multitail or
     # all files in a directory
-    
     mt() {
 	      declare -a file
+        
 	      for object in "$@"; do
 	          if [[ -f "$file" ]]; then
-		            files+=("$file ")
-	          fi
-	      done
+                files+=("$file ")
+            fi
+        done
 
 	      multitail "${objects[@]}"
     }
 
+    # if called w/o args, process all files; otherwise
+    # process specified files
     if [[ -z "$@" ]]; then
-	      mt *
+        mt *
     else
-	      mt "$@"
+        mt "$@"
     fi
 }
 
 miotop() {
     # pass arbitrary amount of PIDs to iotop
-    
     for pid in $(pgrep "$1"); do
 	      pids+=( "--pid $pid " )
     done
@@ -227,37 +213,42 @@ dnf() {
 }
 
 cpu_profiles() {
+    # Get, set, or show current cpu scalings
     arg="$1"
 
     case "$arg" in
         performance|powersave)
-            sudo su -c "echo "$arg" | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor"
-            ;;
-        --available|available)
-            cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors
-            ;;
-        --help|help)
+            # set scaling
+            sudo su -c "echo "$arg" | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
+        --available|-a)
+            # show available scalings
+            cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors ;;
+        --help|-h)
             echo "Print or modifies the current cpu governor profile"
-            echo ""
-            echo "--available|available         lists the available profiles"
-            echo "--help|help                   prints this help message"
-            echo ""
+            echo
+            echo "Useage: cpu_profiles [performance|powersave|--available|-a|--help|-h]"
+            echo 
+            echo "    --available|available         lists the available profiles"
+            echo "    --help|help                   prints this help message"
+            echo
             echo "Passing no argument prints the current profile"
             ;;
         *)
-            current_scaling=( $(cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor) )
-            pretty_print=()
+            # Get currnet scalings per cpu and pretty print them on one line
+            scalingc=( $(cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor) )
+            scalingp+=()
             
-            for scaling in ${current_scaling[@]}; do
-                pretty_print+="$scaling "
+            for scaling in ${scalingc[@]}; do
+                scalingp+="$scaling "
             done
 
-            echo "${pretty_print[@]}"
+            echo "${scalingp[@]}"
     esac
 
 }
 
 cpu_temps() {
+    # Show cpu temps in degrees F, and them print on a single line
     tempm=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
     tempf=()
     
@@ -267,7 +258,7 @@ cpu_temps() {
 
     echo ${tempf[@]}
 }
-                
+
 search() {
     baseurl="https://duckduckgo.com/&q="
     query="$*"

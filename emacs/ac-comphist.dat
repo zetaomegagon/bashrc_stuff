@@ -1,4 +1,6 @@
-((("pretty_print" .
+((("inhibit-and-play" .
+   [0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0])
+  ("pretty_print" .
    [0 0 0 0 0 0 1 0 0 0 0 0])
   ("scaling" .
    [1 0 0 0 0 0 0])
