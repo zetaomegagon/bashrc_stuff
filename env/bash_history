@@ -1,0 +1,325 @@
+
+dnf install f3
+sudo dnf install f3
+f3fix --help
+lsblk
+f3read /dev/mmcblk0 
+f3probe --destructive --time-ops /dev/mmcblk0 
+sudo f3probe --destructive --time-ops /dev/mmcblk0 
+dnf info wget
+tail -n 30 .functions 
+less .functions 
+tb list
+tb rmi < (for id in $(tb list | tail -2 | cut -d' ' -f1)
+tb rmi < <(for id in $(tb list | tail -2 | cut -d' ' -f1)
+for id in $(tb list | tail -2 | cut -d' ' -f1); do tb rmi $id; done
+tb list
+toolbox --help
+man toolbox
+date --iso-8601
+date -Idate
+date -IdateThours:minutes:seconds
+date -Idatehours:minutes:seconds
+date -Ihours:minutes:seconds
+date -I'date'T'hours':'minutes':'seconds':'ns'
+date -I'date''hours':'minutes':'seconds':'ns'
+date -I'date''hours''minutes''seconds''ns'
+date -I'ns'
+man firefox
+mv backup/ gits/bashrc_stuff/
+ln -s $PWD/gits/bashrc_stuff/backup $PWD/backup
+man date
+temp=( $(cat /sys/class/thermal/thermal_zone*/temp) )
+echo $temp
+echo ${temp[@]}
+. .functions 
+cpu_temps
+. .functions 
+cpu_temps
+. .functions 
+cpu_temps
+. .functions 
+cpu_temps 
+. .functions 
+search +fedora +silverblue add grub entries
+. .functions 
+search +fedora +silverblue add grub entries
+. .functions 
+search +fedora +silverblue add grub entries
+. .functions 
+search +fedora +silverblue add grub entries
+search foobar
+. .functions
+search +fedora +silverblue add grub entries
+. .functions
+which ddg
+which ddg | less
+github.elijahthomasbeale
+git-sync
+github.elijahthomasbeale
+git-sync
+search shell scripting books +free +(pdf OR ebook OR epub)
+OLD_PS1=$PS1
+echo $PS!
+echo $PS1
+PS1="[\u@\h::\$(date -uI'seconds')]"
+PS1="[\u@\h::\$(date +%H:%M:%S)]"
+PS1="[\u@\h] [\$(date +%H:%M:%S)]"
+PS1="[\u@\h] [\$(date +%H:%M:%S)] >"
+PS1="[\u@\h] [\$(date +%H:%M:%S)] "
+PS1="[\u@\h] [\$(date +%H:%M:%S)] \W"
+PS1="[\u@\h] [\$(date +%H:%M:%S)] \W "
+PS1="[\u@\h] [\$(date +%H:%M:%S)] [\W]$ "
+PS1="[\u@\h] [\$(date +%H:%M:%S)] \W$ "
+PS1="[\u@\h] <\$(date +%H:%M:%S)> \W $ "
+PS1="[\u@\h] |\$(date +%H:%M:%S)| \W $ "
+PS1=$OLD_PS1
+PS1="|\u@\h ][ \$(date +%H:%M:%S) ][ \W $ ] "
+PS1="|\u@\h ][ \$(date +%H:%M:%S) ][ \W$ ] "
+PS1="|\u@\h ][ \$(date +%H:%M:%S) ][ \W ][ $ ] "
+PS1="[ \$(date +%H:%M:%S) ][ \u@\h ][ \W ][ $ ] "
+PS1="[ \$(date +%H:%M:%S) ][ \u@\h ][ $ ][ $ ]: "
+echo '"[ \$(date +%H:%M:%S) ][ \u@\h ][ \W ][ $ ]: "' >> .bashrc
+emacs .bashrc
+sudo su
+PS1="[ \$(date +%H:%M:%S) ][ \u@\h ][ $(pwd) ][ $ ]: "
+cd ..
+cd
+cd documents/
+PS1="[ \$(date +%H:%M:%S) ][ \u@\h ][ $PWD ][ $ ]: "
+cd
+PS1="[ \$(date +%H:%M:%S) ][ \u@\h ][ \W ][ $ ]: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $ |: "
+
+PS1="\$(date +%H:%M:%S) | \u@\h | \W$: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $: "
+hostnameclt set-hostname nekko
+hostnamectl set-hostname nekko
+man hostnamectl
+hostnamectl hostname
+hostnamectl hostname nekko
+man date
+pwd
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $ |: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $ >: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $ <> "
+PS1="\$(date +%H:%M:%S) <> \u@\h <> \W <> $>"
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $>"
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $ |:"
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $:"
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $: "
+PS1="[ \$(date +%H:%M:%S) | \u@\h | \W | $ ]: "
+PS1="\$(date +%H:%M:%S) | \u@\h | \W | $: "
+PS1="| \$(date +%H:%M:%S) | \u@\h | \W | $: "
+foo |
+foo \
+OLD_PS4=$PS4
+PS4=<>
+PS4="<>"
+ll bin/
+set -x; cat ./bin/touchpad-button-config; set -x
+PS4="+"
+set -x
+emacs bin/touchpad-button-config 
+emacs bin/npc 
+emacs bin/cpm
+rm bin/{cpm,npc,sshproxy}
+github.elijahthomasbeale
+git-sync
+sudo su
+echo $PS1
+PS1="| $(date +%H:%M:%S) | \u@\h | \$(pwd) | $: "
+cd bin
+cd
+echo ~/
+PS1="| $(date +%H:%M:%S) | \u@\h | \$([[ $PWD = ~/ ]] && echo ~ || echo $PWD) | $: "
+cd
+PS1="| $(date +%H:%M:%S) | \u@\h | \$(if [[ $PWD = ~/ ]]; then echo ~; else echo $PWD; fi) | $: "
+cd bin
+PS1="| $(date +%H:%M:%S) | \u@\h | \$(pwd) | $: "
+cd
+systemclt suspend
+systemctl suspend
+PS1="| \T | \u@\h | \$(pwd) | $: "
+PS1="| \t | \u@\h | \$(pwd) | $: "
+PS1="| \t | \u@\h | \w | $: "
+cd bin
+emacs .bashrc
+cd
+emacs .bashrc
+echo $PS1
+OLD_PS1=$PS1
+PS1="| \t | \u@\h | \w | $: "
+sed -i "s,$OLD_PS1,$PS1,g"
+sed -i "s,$OLD_PS1,$PS1,g" .bashrc
+set -x; sed -i "s,$OLD_PS1,$PS1,g" .bashrc; set +x
+set -x; sed -i "s,\$OLD_PS1,\$PS1,g" .bashrc; set +x
+sudo du
+sudo su
+echo $EUID
+apropos prompt
+apropos PS1
+apropos PS
+man -k escape
+man -k prompt
+man -k firewall
+man -k http
+man -k network
+man -k dig
+man -k man
+man man
+echo $OLD_PS1
+OLD_PS1=PS1
+PS1="| \t | \u@\h | \w\$ "
+cd bin
+PS1="| \t | \u@\h | \w | \$ "
+PS1="| \t | \u@\h | \w | $:"
+PS1="| \t | \u@\h | \w | $: "
+cd
+echo $ENV
+echo $BASH_ENV
+echo $PATH
+emacs .bashrc
+echo $PATH
+man grep
+echo $PATH
+echo $PATH | grep ${HOME}/bin
+echo $PATH | /usr/bin/grep ${HOME}/bin
+echo $PATH | ! grep ${HOME}/bin 
+echo $PATH | grep ${HOME}/bin 
+github.elijahthomasbeale
+echo $PATH
+id -u
+sudo su
+cd bin
+ssh-add --help
+cd
+ssh-add .ssh/elijahthomasbeale+github@gmail.com-id_ed25519
+git-sync
+search +bash hacks
+help() { { help $@ | less || $@ --help | less || $@ -h | less } 2>/dev/null; }
+help() { (help $@ | less || $@ --help | less || $@ -h | less) 2>/dev/null; }
+help toolbox
+help() { \help $@ | less || $@ --help | less || $@ -h | less 2>/dev/null; }
+help toolbox
+elp() { \help $@ | less || $@ --help | less he $@ -h | less 2>/dev/null; }
+help toolbox
+help toolbox 2>/dev/null
+help toolbox 2>/dev/null && echo error
+which help
+less .functions 
+emacs .functions
+mkdir backup/ubo
+mv downloads/my-ublock-backup_2021-10-17_15.43.51.txt backup/ubo/
+mkdir -p documents/books/pdf && mv downloads/*.pdf documents/books/pdf/
+rm -rf .mozilla/
+ll .config/
+la .config/
+la .config/xsettingsd/
+cat .config/xsettingsd/xsettingsd.conf 
+la .config/xsettingsd/
+la .config/xsettingsd
+la .config
+echo .config/*
+for file in .config/*; if [[ "$file" =~ 'plasma.*|kde.* ]] && echo "$file"; done
+for file in .config/*; if [[ "$file" =~ 'plasma.*|kde.* ]] && echo "$file"; fi; done
+for file in .config/*; [[ "$file" =~ 'plasma.*|kde.* ]] && echo "$file"; done
+for file in .config/*; do  [[ "$file" =~ 'plasma.*|kde.* ]] && echo "$file"; done
+for file in .config/*; do  fi [[ "$file" =~ 'plasma.*|kde.* ]]; then echo "$file"; fi; done
+for file in .config/*; do if [[ "$file" =~ 'plasma.*|kde.* ]]; then
+echo "$file"
+fi
+done
+for file in .config/*; do if [[ "$file" =~ 'plasma.*|kde.* ]]; then
+echo "$file"
+fi
+done
+for file in .config/*; do if [[ "$file" =~ 'plasma.*|kde.*' ]]; then echo "$file"; fi; done
+for file in .config/*; do if [[ "$file" =~ 'plasma*|kde*' ]]; then echo "$file"; fi; done
+for file in .config/*; do if [[ "$file" =~ plasma.*|kde.* ]]; then echo "$file"; fi; done
+to_delete=$(for file in .config/*; do if [[ "$file" =~ plasma.*|kde.* ]]; then echo "$file"; fi; done)
+la .config
+la .config 
+la .config | less
+rm -rf .config/*
+echo * | grep -E [A-Z].*
+echo * | /usr/bin/grep -E [A-Z].*
+echo * | /usr/bin/grep -E [A-Z]
+for file in *; if $(ehco $file | /usr/bin/grep -E [A-Z]); then echo $file; fi; done
+for file in *; if $(echo $file | /usr/bin/grep -qE [A-Z]); then echo $file; fi; done
+for file in *; if echo $file | /usr/bin/grep -qE [A-Z]; then echo $file; fi; done
+for file in *; echo $file | /usr/bin/grep -E [A-Z]; done
+for file in *; do echo $file | /usr/bin/grep -E [A-Z]; done
+for file in *; do echo $file | /usr/bin/grep -E [A-Z] | rm ; done
+for file in *; do rm $(echo $file | /usr/bin/grep -E [A-Z]); done
+for file in *; do rm -r $(echo $file | /usr/bin/grep -E [A-Z]); done
+rm *~
+echo *~
+ls | grep -E .*~
+la| grep -E .*~
+la| grep -E '.*~'
+la| /usr/bin/grep -E '.*~'
+/usr/bin/grep -E '.*~' < <(echo *)
+echo * | /usr/bin/grep -E '.*~'
+la | /usr/bin/grep -E '.*~' | awk '{ print ($NF -1) }'
+la | /usr/bin/grep -E '.*~' | awk '{ print $NF -1 }'
+la | /usr/bin/grep -E '.*~' | awk '{ print $NF }'
+rm "$(la | /usr/bin/grep -E '.*~' | awk '{ print $NF }')"
+for file in $(la | /usr/bin/grep -E '.*~' | awk '{ print $NF }'); rm $file; done
+for file in $(la | /usr/bin/grep -E '.*~' | awk '{ print $NF }'); do rm $file; done
+cat .bashrc
+emacs .functions 
+systemctl --user --enable --now emacs
+systemctl --user enable --now emacs
+emacs .functions 
+rpm-ostree upgrade
+which shellcheck
+rpm-ostree remove gnome-tweaks
+tb list
+tb create gnome-tweaks && tb --container gnome-tweaks run sudo su -c "dnf upgrade -y && dnf install gnome-tweaks gnome-shell*"
+tb create gnome-tweaks && tb --container gnome-tweaks run sudo su -c "dnf install gnome-tweaks gnome-shell"
+tb --container gnome-tweaks run sudo su -c "dnf install gnome-tweaks gnome-shell"
+tb --container gnome-tweaks run sudo su -c "dnf install gnome-tweaks"
+tb --container gnome-tweaks run gnome-tweaks
+cd gits/
+git clone https://github.com/arkenfox/user.js.git
+ll user.js/
+rm -rf /var/home/ebeale/.mozilla/firefox/gm15iqn0.elijah-arkenfox
+pwd
+ln -s $PWD/user.js/ /var/home/ebeale/.mozilla/firefox/gm15iqn0.elijah-arkenfox
+rm -rf /var/home/ebeale/.mozilla/firefox/dowzwv6j.default-release
+rm -rf /var/home/ebeale/.cache/mozilla/firefox/dowzwv6j.default-release
+xbrowsersync
+cd && emacs .functions
+. .functions
+xbrowsersync 
+. .functions
+emacs .functions 
+. .functions 
+emacs .functions 
+. .functions 
+emacs .functions 
+. .functions
+emacs .functions 
+. .functions
+emacs .functions 
+. .functions
+emacs .functions 
+. .functions
+emacs .functions 
+. .functions
+emacs .functions 
+tb --container gnome-tweaks run gnome-tweaks
+google.personal
+xbrowsersync
+which xbrowsersync
+xbrowsersync
+rm \#*\#
+lz4 --help
+lz4 --help | less
+lz4 --help
+lz4 -d search.json.mozlz4 search.json
+emacs .mozilla/firefox/gm15iqn0.elijah-arkenfox/user.js 
+ps -e | grep firefox
+xbrowsersync

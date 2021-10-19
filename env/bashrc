@@ -7,7 +7,7 @@ export HISTIGNORE="&:l[lsa]:[bf]g:exit:history"
 export IGNOREEOF=1000000000
 export LESS='-R'
 export PAGER='/usr/bin/less'
-export PS1="| \$(date +%H:%M:%S) | \u@\h | \W | $: "
+export PS1="| \t | \u@\h | \w | $: "
 
 shopt -s histappend
 shopt -s cmdhist
@@ -25,8 +25,10 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u)
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=""
 
-# export user binary directory
-export PATH="${HOME}/bin:$PATH"
+# Path
+if ! $(echo $PATH | grep -q ${HOME}/bin); then
+    PATH=${HOME}/bin:$PATH
+fi
 
 # Source user specific aliases and functions
 if [ -f ${HOME}/.functions ]; then
