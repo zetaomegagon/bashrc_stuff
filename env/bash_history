@@ -323,3 +323,129 @@ lz4 -d search.json.mozlz4 search.json
 emacs .mozilla/firefox/gm15iqn0.elijah-arkenfox/user.js 
 ps -e | grep firefox
 xbrowsersync
+tb enter mozlz4
+la --group-directories-first
+la --group-directories-first --sort=extension
+la --group-directories-first --sort=extension -F always
+la --group-directories-first --sort=extension --classify=always
+la --group-directories-first --sort=extension --classify=never
+la --group-directories-first --sort=extension --classify=always
+l --group-directories-first --sort=extension --classify=always
+ll --group-directories-first --sort=extension --classify=always
+ll --group-directories-first --sort=extension
+la --group-directories-first --sort=extension
+la --group-directories-first --sort=extension -D
+man fgrep
+PS=\u@\H \W
+PS="\u@\H \W"
+export PS="\u@\H \W"
+OLD_PS1=$PS1
+PS1="\u@\H \W"
+tb list
+PS1="\u@\H \W "
+tb list
+tb enter mozlz4
+emacs .bashrc
+emacs .mozilla/firefox/gm15iqn0.elijah-arkenfox/user.js 
+ps -e | grep firefox
+xbrowsersync
+rm downloads/AdNauseam_Settings_and_Ads_Export_10.17.2021.12.19.26PM.json 
+mv downloads/xbs_* backup/bookmarks/xbrowsersync/
+github.elijahthomasbeale
+git-sync
+mv .bash_history gits/bashrc_stuff/env
+la .bash_history gits/bashrc_stuff/env
+basename $PWDmv gits/bashrc_stuff/env/.bash_history $(basename $1)
+mv gits/bashrc_stuff/env/.bash_history "$(dirname "$1")"/bash_history
+ll gits/bashrc_stuff/env/
+la gits/bashrc_stuff/env/
+echo "gits/bashrc_stuff/env/.bash_history" "$(dirname "$1")/bash_history"
+mv bash_history gits/bashrc_stuff/env/
+ln -s $PWD/gits/bashrc_stuff/env/bash_history $PWD/.bash_history
+mv ./.bashrc gits/bashrc_stuff/env/bashrc
+ln -s $PWD/gits/bashrc_stuff/env/bashrc $PWD/.bashrc
+github.elijahthomasbeale
+git-sync
+rm -rf .npm
+la .var
+la .var/app
+la -R .var/app/
+la -R .var/app/ | less
+rm -rf .var/app/*
+rm *kde4
+rm *-kde4
+rm .gtkrc-2.0-kde4 
+rm .linphonerc 
+rm -rf .zoom/
+la .cache/
+rm -rf .cache/*
+la .cache/
+la .cache/ | sort
+la | sort
+man ls
+emacs .aliases
+emacs
+github.elijahthomasbeale
+git-sync
+. .aliases
+fsrc
+emacs .aliases
+git-sync
+emacs .aliases
+git-sync
+bsrc
+asrc
+fsrc
+emacs .functions
+ps -e | rpm-ostree
+ps -e | grep rpm-ostree
+pgrep rpm-ostree
+for pid in $(pgrep rpm-ostree); do sudo kill $pid; done
+rpm-ostree upgrade --check || echo "no upgrades available"
+rpm-ostree cancel
+rpm-ostree upgrade --check || echo "no upgrades available"
+tb list
+podman rm --help
+podman rm $(tb list | tail -1 | cut -d' ' -f1)
+tb list
+
+tb --container firefox run /usr/bin/firefox
+which firefox
+which dnf
+tb --container firefox run firefox
+tb --container firefox run sudo su -c "dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm && dnf install -y rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted && dnf groupupdate multimedia -y --setop="install_weak_deps=False""
+tb --container firefox run sudo dnf groupupdate sound-and-video
+tb --container firefox run sudo dnf upgrade
+tb --container firefox run sudo dnf install chromium-freeworld
+which chromium-freeworld
+
+tb --container firefox run which chromium-freeworld
+tb --container firefox run ls -al /usr/bin
+tb --container firefox run ls -al /usr/bin | less
+tb --container firefox run for file in /usr/bin/*; echo $file; done | less
+tb --container firefox run $(for file in /usr/bin/*; do echo $file; done) | less
+tb --container firefox run for file in /usr/bin/*; do echo $file; done | less
+tb --container firefox run sudo su -c "for file in /usr/bin/*; do echo $file; done | less"
+tb --container firefox run sudo su -c "for file in /usr/bin/*; do echo $file; done" | less
+ps -e
+ps -e | less
+tb create cockpit
+tb --container cockpit run sudo su -c "dnf upgrade -y && dnf install -y cockpit{,-podman}"
+tb --container cockpit run sudo systemctl enable --now cockpit.socket
+podman --version
+podman run --help
+podman run --help | less
+tb list
+tb kill --force cockpit firefox
+tb rm --force cockpit firefox
+tb list
+netflix
+ip a
+emacs
+ps -e | grep rpm-ostree
+rpm-ostree --cancel
+rpm-ostree clenup
+rpm-ostree cleanup
+rpm-ostree cleanup --help
+rpm-ostree cancel --help
+rpm-ostree cancel

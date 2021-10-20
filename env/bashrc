@@ -7,7 +7,7 @@ export HISTIGNORE="&:l[lsa]:[bf]g:exit:history"
 export IGNOREEOF=1000000000
 export LESS='-R'
 export PAGER='/usr/bin/less'
-export PS1="| \t | \u@\h | \w | $: "
+#export PS1="| \t | \u@\h | \w | $: "
 
 shopt -s histappend
 shopt -s cmdhist

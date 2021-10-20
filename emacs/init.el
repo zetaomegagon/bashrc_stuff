@@ -242,6 +242,22 @@ This needs to be added to a repo and installed via straight / use-package."
   :config
   (global-set-key (kbd "C-c t") #'multi-vterm))
 
+(use-package edit-server
+  :commands edit-server-start
+  :init (if after-init-time
+              (edit-server-start)
+            (add-hook 'after-init-hook
+                      #'(lambda() (edit-server-start))))
+  :config (setq edit-server-new-frame-alist
+                '((name . "Edit with Emacs FRAME")
+                  (top . 200)
+                  (left . 200)
+                  (width . 80)
+                  (height . 25)
+                  (minibuffer . t)
+                  (menu-bar-lines . t)
+                  (window-system . x))))
+
 ;; disable the menu-bar in cli and toolbar in gui.
 ;; disable scrollbar in both
 (menu-bar-mode -1)
