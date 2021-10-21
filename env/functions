@@ -208,9 +208,39 @@ dnf() {
     if [[ "$cgroup" = 0::/ ]]; then
         /usr/bin/dnf $(echo $@)
     else
-        podman run --rm "$distro":"$release" sudo dnf $@
+        podman run --rm "$distro":"$release" dnf $@
     fi
 }
+
+gnome-tweaks() {
+    cgroup="$(cat /proc/self/cgroup)"
+    distro=fedora
+    release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    name=\gnome-tweaks
+    
+    if [[ "$cgroup" = 0::/ ]]; then
+        printf "\n%s\n" "You're in a container..."
+    elif ! toolbox list | /usr/bin/grep -q gnome-tweaks; then
+        (
+            {
+                toolbox --distro "$distro" --release  "$release" create "$name" &&
+                    toolbox --container "$name" run \
+                            sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks" &&
+                    toolbox --container "$name" run "$name"
+                podman kill "$name"
+            } >/dev/null 2>&1 &
+        )
+    else
+        (
+            {
+                toolbox --container "$name" run sudo dnf upgrade -yq &&
+                    toolbox --container "$name" run "$name"
+                podman kill "$name"
+            } >/dev/null 2>&1 &
+        ) 
+    fi              
+}
+
 
 cpu_profiles() {
     # Get, set, or show current cpu scalings
@@ -259,9 +289,30 @@ cpu_temps() {
 }
 
 search() {
-    baseurl="https://duckduckgo.com/&q="
-    query="$*"
+    baseurl="https://searx.tiekoetter.com/search?preferences="
     
-    /usr/bin/firefox --new-tab "${baseurl}${query}"
+    substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMXENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lh"
+    substr2="qHybfanOqLrUVtu_N_3kxO4oCDU2PqfTlvs0bNEqK6ijKQSuISC16Bw9n-ABF3DOViQacLqGQweuSZ3rzqIzqaDOOXIDU6HBmrnoJmgRGzCdtHWJwucyVg"
+    substr3="sKRfz9nmFoiFsFn_8-t2MsVtW4mdWFKoOi6MncnX6dncqIayn8VPu0aqn3CAveIaWX7qdc0nP-J7wZo6ty7IvKRWmx2UOy6vsh5GBRqPELzZvxw0dc7nkk"
+    substr4="hWDxMp0d_ASb1m0QI_2qANBxF0CQ1jf_FqtzS5sFkPL2uEsX9q-VyJIl2ByeK8BpN2KdjGtEDusYaxkGnq2se9y1sEufyWuf3W2WRNGdcodmpD_WzgPbw=="
+    
+    preferences="$(echo $substr{1..4})"
+    query="&q=$*"
+    range="&time_rage=year"
+    
+    /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}${range}"
 }
 
+decode64() {
+    bpath="$PWD"
+    fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
+    fpath="$bpath/$fname"
+    success="File written to $fpath"
+    extension="$(echo $@ | base64 -d --ignore-garbage - | tee "$fpath" | file --brief --extension -)"
+
+    mv "$fpath" "${fpath}.${extension}"
+}
+
+psgrep() {
+    ps aux | grep -v grep | grep $@
+}
