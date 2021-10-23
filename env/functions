@@ -102,7 +102,7 @@ clipc() {
 }
 
 debug() {
-    # crappy debug function
+    # naive debug function
     set -x; "$@"; set +x
 }
 
@@ -185,6 +185,8 @@ miotop() {
 }
 
 vmanage() {
+    # syntactic sugar for the
+    # virtual box admin tool
     /usr/bin/vboxmanage "$@"
 }
 
@@ -201,11 +203,12 @@ vterm_printf() {
 }
 
 dnf() {
-    cgroup="$(cat /proc/self/cgroup)"
+    # run dnf from a layered package or
+    # from a container
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     
-    if [[ "$cgroup" = 0::/ ]]; then
+    if [[ -e /usr/bin/dnf ]]; then
         /usr/bin/dnf $(echo $@)
     else
         podman run --rm "$distro":"$release" dnf $@
@@ -213,14 +216,17 @@ dnf() {
 }
 
 gnome-tweaks() {
-    cgroup="$(cat /proc/self/cgroup)"
+    # run gnome-tweaks from a toolbox container, or
+    # create the toolbox, install gnome-tweaks, and
+    # run it.
+    #
+    # In either case update the container before
+    # running gnome-tweaks
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     name=\gnome-tweaks
     
-    if [[ "$cgroup" = 0::/ ]]; then
-        printf "\n%s\n" "You're in a container..."
-    elif ! toolbox list | /usr/bin/grep -q gnome-tweaks; then
+    if ! toolbox list | /usr/bin/grep -q gnome-tweaks; then
         (
             {
                 toolbox --distro "$distro" --release  "$release" create "$name" &&
@@ -240,7 +246,6 @@ gnome-tweaks() {
         ) 
     fi              
 }
-
 
 cpu_profiles() {
     # Get, set, or show current cpu scalings
@@ -273,6 +278,11 @@ cpu_profiles() {
             done
             
             echo "${scalingp[@]}"
+
+            # protects agains accumulating more values
+            # beyond the number of cpu cores if being
+            # called in a compound command
+            scalingp=
     esac
 }
 
@@ -286,9 +296,20 @@ cpu_temps() {
     done
 
     echo ${tempf[@]}
+
+    # protects agains accumulating more values
+    # beyond the number of cpu cores if being
+    # called in a compound command
+    tempm=
 }
 
 search() {
+    # simple search with firefox and searx
+    # opens a new tab in an existing instance of
+    # firefox
+    #
+    # NOTE: expand to open a new window if FF isn't
+    #       running
     baseurl="https://searx.tiekoetter.com/search?preferences="
     
     substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMXENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lh"
@@ -304,6 +325,9 @@ search() {
 }
 
 decode64() {
+    # decodes a base64 input string
+    #
+    # NOTE: needs error handling
     bpath="$PWD"
     fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
     fpath="$bpath/$fname"
@@ -314,5 +338,17 @@ decode64() {
 }
 
 psgrep() {
+    # print bsd style processes of
+    # of the given input string
     ps aux | grep -v grep | grep $@
+}
+
+which() {
+    # correctly calls which, but don't
+    # know why yet :shrug:
+    /usr/bin/which --tty-only \
+                   --read-alias \
+                   --read-functions \
+                   --show-tilde \
+                   --show-dot "$@" < <(alias; declare -f)
 }

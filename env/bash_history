@@ -897,3 +897,159 @@ tmux list-keys | /usr/bin/grep prefix | less
 . .tmux.conf 
 emacs .tmux.conf 
 ps -e | grep tmux
+man tmux
+emacs .tmux.conf 
+sourc .tmux.conf 
+source .tmux.conf 
+emacs .tmux.conf 
+emacs .tmux.conf
+emacs .tmux.conf 
+emacs .tmux.conf
+rm decoded-kzfQ2yQAt7Zlf2XD 
+mkdir projects/toolbox-prompt && mv tb_prompt.txt projects/toolbox-prompt/
+emacs .tmux.conf 
+search use semi-colon as tmux prefix key
+chsh --hlep
+chsh --help
+chsh
+chsh
+cat /etc/shells
+man grep
+xinput list --long | grep "$ptrn1" | grep "$ptrn2" | awk '{ print $6 }' | sed 's/[=di]*//'
+echo * | grep -e videos -e public
+grep -E -e '^flags.*vmx' -e '^flags.*svm' /proc/cpuinfo
+grep -E -e '^flags.*svm' /proc/cpuinfo
+man grep
+systemctl status dbus
+systemctl status dbus-broker
+systemctl status dbus
+systemctl status dbus-broker
+gnome-tweaks
+xev
+ls bin
+rm bin/\#*\#
+ls bin
+emacs bin/touchpad-button-config 
+sudo dnf search xinput
+sudo dnf upgrade -yq && sudo dnf install xinput -yq
+xinput list --long | grep "$ptrn1" | grep "$ptrn2" | awk '{ print $6 }' | sed 's/[=di]*//'
+xinput list --long | grep -i dll | grep -i touchpad | awk '{ print $6 }' | sed 's/[=di]*//'
+xinput list --long | grep -i -e dll -e touchpad | awk '{ print $6 }' | sed 's/[=di]*//'
+xinput list --long | grep -i -e dll -e touchpad
+xinput list --long | /usr/bin/grep -i -e dll -e touchpad
+xinput list --long | grep "$ptrn1" | grep "$ptrn2" | awk '{ print $6 }' | sed 's/[=di]*//'
+dnf search xinput
+tb list
+tb create xinput
+tb enter xinput
+tb rm --force xinput
+sudo su
+sudo su
+tmux list-keys
+tmux list-keys | grep copy
+tmux list-keys | grep copy-mode
+tmux list-keys | grep copy-mode | less
+tmux list-keys | grep prefix | less
+which firefox
+sudo dnf upgrade && clear && dnf search firejail
+sudo dnf install -y firejail
+which firfox
+which firefox
+dnf search ungoogled-chrome
+dnf search chromium
+sudo dnf install chromium -y
+sudo dnf install firefox -y
+which chromium-browser
+firejail $(which chromium-browser)
+chromium-browser
+la .config/
+la .config/chromium/
+rm -r .config/chromium/
+la .config/chromium/
+la .config/
+la .config/yelp/
+cat .config/yelp/yelp.cfg 
+la .config/toolbox/
+cat .config/toolbox/podman-system-migrate 
+cat .config/toolbox/host-welcome-shown 
+cat .config/toolbox/toolbox-welcome-shown 
+echo $ENV
+echo $BASH_ENV
+env
+env | les
+env | less
+less /usr/bin/lesspipe.sh 
+emacs $(less /usr/bin/lesspipe.sh  | cut -f2)
+which dnf
+which which
+fsrc
+which dnf
+which which
+fsrc
+which which
+man which
+fsrc
+which which
+which dnf
+/usr/bin/which dnf
+/usr/bin/which --read-functions dnf
+which dnf
+which which
+which dnf
+which which
+which vmanage
+less .
+less ./*
+which ll
+which la
+which lz
+which l{s,l,a,z}
+which l{s,l,a,z,}
+l
+emacs .aliases
+asrc
+l
+emacs .aliases
+. .aliases
+l
+emacs .aliases
+cpu_temps 
+fsrc
+cup_temps && cpu_profiles 
+cpu_temps && cpu_profiles 
+man ps
+which dnf
+man test
+manfilter
+less /usr/bin/lesspipe.sh 
+emacs .bashrc
+emacs /usr/bin/lesspipe.sh 
+less .bashrc
+emacs .bashrc
+man ps
+which dnf
+man test
+manfilter
+less /usr/bin/lesspipe.sh 
+emacs .bashrc
+
+foobar
+emacsctl stop
+
+emacsctl start
+emacs .emacs.d/init.el
+emacsctl stop
+
+foobar
+emacsctl start
+for i in {0..63}; do 
+emacs .bashrc
+printenv | less
+tb list
+tb enter firejail
+tb enter firejail
+emacsctl restart
+for i in {0..63}; do
+emacsctl stop
+emacsctl start
+emacs .bashrc
