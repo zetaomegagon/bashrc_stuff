@@ -653,7 +653,7 @@ user_pref("media.peerconnection.ice.proxy_only_if_behind_proxy", true); // [FF70
    // user_pref("media.gmp-provider.enabled", false);
 /* 2021: disable widevine CDM (Content Decryption Module)
  * [NOTE] This is covered by the EME master switch (2022) ***/
-user_pref("media.gmp-widevinecdm.enabled", false);
+user_pref("media.gmp-widevinecdm.enabled", true);
 /* 2022: disable all DRM content (EME: Encryption Media Extension)
  * [SETUP-WEB] e.g. Netflix, Amazon Prime, Hulu, HBO, Disney+, Showtime, Starz, DirectTV
  * [SETTING] General>DRM Content>Play DRM-controlled content
@@ -1353,6 +1353,10 @@ user_pref("media.navigator.enabled", false);
 /*** [SECTION 9000]: PERSONAL
    Non-project related but useful. If any interest you, add them to your overrides
 ***/
+user_pref("network.trr.uri", "https://www.jabber-germany.de/dns-query");
+user_pref("network.trr.mode", 3);
+user_pref("network.security.esni.enabled", true);
+
 user_pref("_user.js.parrot", "9000 syntax error: the parrot's cashed in 'is chips!");
 /* WELCOME & WHAT'S NEW NOTICES ***/
 user_pref("browser.startup.homepage_override.mstone", "ignore"); // master switch
@@ -1475,8 +1479,3 @@ user_pref("browser.cache.offline.storage.enable", false); // [DEFAULT: false FF8
 
 /* END: internal custom pref to test for syntax errors ***/
 user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!");
-
-/* Custom prefs */
-user_pref("network.trr.uri", "https://www.jabber-germany.de/dns-query");
-user_pref("network.trr.mode", 3);
-user_pref("network.security.esni.enabled", true);
