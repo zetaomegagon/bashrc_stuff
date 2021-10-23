@@ -247,7 +247,7 @@ gnome-tweaks() {
     fi              
 }
 
-cpu_profiles() {
+cpu-profiles() {
     # Get, set, or show current cpu scalings
     arg="$1"
 
@@ -259,14 +259,17 @@ cpu_profiles() {
             # show available scalings
             cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors ;;
         --help|-h)
-            echo "Print or modifies the current cpu governor profile"
-            echo
-            echo "Useage: cpu_profiles [performance|powersave|--available|-a|--help|-h]"
-            echo 
-            echo "    --available|available         lists the available profiles"
-            echo "    --help|help                   prints this help message"
-            echo
-            echo "Passing no argument prints the current profile"
+
+            cat <<EOF
+Print or modifies the current cpu governor profile
+            
+Useage: cpu_profiles [performance|powersave|--available|-a|--help|-h]
+            
+    --available|available         lists the available profiles
+    --help|help                   prints this help message
+            
+Passing no argument prints the current profile
+EOF
             ;;
         *)
             # Get currnet scalings per cpu and pretty print them on one line
@@ -286,7 +289,7 @@ cpu_profiles() {
     esac
 }
 
-cpu_temps() {
+cpu-temps() {
     # Show cpu temps in degrees F, and them print on a single line
     tempm=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
     tempf=()
