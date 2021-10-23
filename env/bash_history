@@ -1058,3 +1058,4 @@ pkill 2530
 kill 2530
 watch -n1 "ps -e | grep GeckoMain"
 pgrep GeckoMain
+man test

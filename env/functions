@@ -344,10 +344,22 @@ decode64() {
     bpath="$PWD"
     fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
     fpath="$bpath/$fname"
-    success="File written to $fpath"
-    extension="$(echo $@ | base64 -d --ignore-garbage - | tee "$fpath" | file --brief --extension -)"
+    input="${@:-$(< /dev/stdin)}"
 
-    mv "$fpath" "${fpath}.${extension}"
+    if echo "$input" | base64 -d --ignore-garbage - >/dev/null 2>&1; then
+        extension="$(echo $input | base64 -d --ignore-garbage - | tee "$fpath" | file --brief --extension -)"
+        
+        if [[ -s $fpath ]]; then
+            success="File written to ${fpath}.${extension}"           
+            mv "$fpath" "${fpath}.${extension}"
+            echo "$success"
+        else
+            rm "$fpath"
+            echo "Input is empty."
+        fi
+    else
+        echo "Input is garbage."
+    fi        
 }
 
 psgrep() {
@@ -357,8 +369,7 @@ psgrep() {
 }
 
 which() {
-    # correctly calls which, but don't
-    # know why yet :shrug:
+    # correctly calls which, but don't know why yet :shrug:
     /usr/bin/which --tty-only \
                    --read-alias \
                    --read-functions \
