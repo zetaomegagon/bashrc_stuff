@@ -1053,3 +1053,8 @@ for i in {0..63}; do
 emacsctl stop
 emacsctl start
 emacs .bashrc
+ps -e | grep GeckoMain
+pkill 2530
+kill 2530
+watch -n1 "ps -e | grep GeckoMain"
+pgrep GeckoMain

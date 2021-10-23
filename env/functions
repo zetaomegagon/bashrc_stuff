@@ -304,12 +304,10 @@ cpu_temps() {
 }
 
 search() {
-    # simple search with firefox and searx
-    # opens a new tab in an existing instance of
-    # firefox
-    #
-    # NOTE: expand to open a new window if FF isn't
-    #       running
+    # simple search with firefox and searx.
+    # starts firefox with the search query,
+    # or creates a new tab in the existing
+    # instance
     baseurl="https://searx.tiekoetter.com/search?preferences="
     
     substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMXENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lh"
@@ -320,8 +318,20 @@ search() {
     preferences="$(echo $substr{1..4})"
     query="&q=$*"
     range="&time_rage=year"
-    
-    /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}${range}"
+
+    if ps -e | grep -q GeckoMain; then
+        (
+            {
+                /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}${range}"
+            } >/dev/null 2>&1 &
+        )
+    else
+        (
+            {
+                /usr/bin/firefox --new-instance "${baseurl}${preferences}${query}${range}"
+            } >/dev/null 2>&1 &
+        )
+    fi
 }
 
 decode64() {
