@@ -1353,10 +1353,6 @@ user_pref("media.navigator.enabled", false);
 /*** [SECTION 9000]: PERSONAL
    Non-project related but useful. If any interest you, add them to your overrides
 ***/
-user_pref("network.trr.uri", "https://www.jabber-germany.de/dns-query");
-user_pref("network.trr.mode", 3);
-user_pref("network.security.esni.enabled", true);
-
 user_pref("_user.js.parrot", "9000 syntax error: the parrot's cashed in 'is chips!");
 /* WELCOME & WHAT'S NEW NOTICES ***/
 user_pref("browser.startup.homepage_override.mstone", "ignore"); // master switch
