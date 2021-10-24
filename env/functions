@@ -350,10 +350,11 @@ decode64() {
     input="${@:-$(< /dev/stdin)}"
 
     if echo "$input" | base64 -d --ignore-garbage - >/dev/null 2>&1; then
+        # this does most of the work
         extension="$(echo $input | base64 -d --ignore-garbage - | tee "$fpath" | file --brief --extension -)"
         
         if [[ -s $fpath ]]; then
-            success="File written to ${fpath}.${extension}"           
+            success="File written to ${fpath}.${extension}"
             mv "$fpath" "${fpath}.${extension}"
             echo "$success"
         else
@@ -362,7 +363,7 @@ decode64() {
         fi
     else
         echo "Input is garbage."
-    fi        
+    fi
 }
 
 psgrep() {
@@ -378,4 +379,16 @@ which() {
                    --read-functions \
                    --show-tilde \
                    --show-dot "$@" < <(alias; declare -f)
+}
+
+edit() {
+    # edit a file in users HOME directory
+    # general casse is for bash config files
+    file="$1"
+    
+    if [[ -f $HOME/\.${file} ]]; then
+        emacs $HOME/\.${file}
+    else
+        printf "%s\n" "File, $file, not found in $HOME."
+    fi
 }

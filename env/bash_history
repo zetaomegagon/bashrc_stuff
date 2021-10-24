@@ -94,3 +94,20 @@ ip a
 	--name=pihole 	-e TZ=Europe/Berlin 	-e WEBPASSWORD=password 	-e SERVERIP=127.0.0.1 	-v pihole:/etc/pihole 	-v dnsmasq:/etc/dnsmasq.d 	-p 80:80 	-p 53:53/tcp 	-p 53:53/udp 	--restart=unless-stopped 	pihole/pihole
 cd projects/pi-hole/
 cat pi-hole.sh
+rpm-ostree status
+double='\n\n' printf "${double}%s${double}%s\n" "## rpm-ostree" "alias ro='rpm-ostree'" >> .aliases
+emacs .aliases
+man [[
+man test
+git-sync
+debug sudo emacs /etc/fstab
+fsrc
+srcf
+which emacs
+emacsctl stop emacs
+emacs .functions
+dnf install @fedora-workstation
+sudo dnf install @fedora-workstation
+dnf group list
+sudo dnf install @workstation
+sudo dnf install @'fedora workstation'
