@@ -331,6 +331,7 @@ decode64() {
     bpath="$PWD"
     fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
     fpath="$bpath/$fname"
+
     # ${input} allows the following or equvalent:
     # $ cat file | decode64 -
     # $ decode64 < <(cat file)
@@ -383,10 +384,15 @@ emacs() {
     fi
 }
 
-## Learn 'getopts' ...
-#  https://wiki.bash-hackers.org/howto/getopts_tutorial
+##########################################################
+# Learn 'getopts' ...                                    #
+#  https://wiki.bash-hackers.org/howto/getopts_tutorial  #
+#                                                        #
+#  Also consider combining some of the below and parsing #
+#  file names differently                                #
+##########################################################
 
-src() {
+src () {
     # source various config files
     case $1 in
         -a)
