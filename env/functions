@@ -144,9 +144,8 @@ emacsctl() {
 }
 
 mkrnd() {
-    # generate a 64 character random password
-    input="${@:-$(</dev/stdin)}"
-    rnd="$(mktemp -u "$(for ((i=${input:-$1};i<${input:-$2};i++)); do printf "%s" "X"; done)")"
+    # generate an arbitrary length random string
+    rnd="$(mktemp -u "$(for ((i=1;i<$1;i++)); do printf "%s" "X"; done)")"
     
     printf "%s" "$rnd" | tee | gpaste-client
     printf "%s\n" "Random string copied to clipboard"
@@ -192,6 +191,7 @@ vmanage() {
 }
 
 vterm_printf() {
+    # this is for multi-vterm in emacs
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
@@ -376,18 +376,6 @@ which() {
                    --show-dot "$input" < <(alias; declare -f)
 }
 
-edit() {
-    # edit a file in users HOME directory
-    # general casse is for bash config files
-    file=".$1"
-    
-    if [[ -f $HOME/${file} ]]; then
-        emacs $HOME/${file}
-    else
-        printf "%s\n" "File, $file, not found in $HOME."
-    fi
-}
-
 emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
@@ -400,4 +388,72 @@ emacs() {
     else
         [[ -z "$input" ]] && eclt || eclt "$input"
     fi
+}
+
+src() {
+    # source various config files
+    case $1 in
+        -a)
+            source $HOME/.aliases ;;
+        -b)
+            source $HOME/.bashrc ;;
+        -f)
+            source $HOME/.functions ;;
+        -sp)
+            source $HOME/.spectre ;;
+        -sh)
+            source $HOME/.sshpw ;;
+        -t)
+            source $HOME/.translate ;;
+        *)
+            echo
+            echo "Usage:"
+            echo " src [-a|-b|-f|-sp|-sh|-t]"
+            echo
+            echo " -a      source .aliases"
+            echo " -b      source .bashrc"
+            echo " -f      source .functions"
+            echo " -sp     source .spectre"
+            echo " -sh     source .sshpw"
+            echo " -t      source .translate"
+            echo 
+    esac
+}
+
+edit() {
+    # edit various config files
+    moz_profile="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
+    
+    case $1 in
+        -a)
+            emacs $HOME/.aliases ;;
+        -b)
+            emacs $HOME/.bashrc ;;
+        -f)
+            emacs $HOME/.functions ;;
+        -sp)
+            emacs $HOME/.spectre ;;
+        -sh)
+            emacs $HOME/.sshpw ;;
+        -t)
+            emacs $HOME/.translate ;;
+        -ujs)
+            emacs "${moz_profile}/user.js" ;;
+        -uojs)
+            emacs "${moz_profile}/user.js" ;;
+        *)
+            echo
+            echo "Usage:"
+            echo " edit [-a|-b|-f|-sp|-sh|-t|-ujs|-uojs]"
+            echo
+            echo " -a         edit .aliases"
+            echo " -b         edit .bashrc"
+            echo " -f         edit .functions"
+            echo " -sp        edit .spectre"
+            echo " -sh        edit .sshpw"
+            echo " -t         edit .translate"
+            echo " -ujs       edit FF user.js"
+            echo " -uojs      edit FF user-overrides.js"
+            echo
+    esac
 }
