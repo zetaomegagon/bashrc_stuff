@@ -105,7 +105,6 @@ mpv() {
     local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
     play() {
-	      # if nvidia optimus graphics card exists, use it
 	      inhibit-and-play() {
 	          # syntactic sugar
 	          systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
@@ -114,6 +113,7 @@ mpv() {
 	      if [[ -z "$optimus" ]]; then
 	          inhibit-and-play "$@"
 	      else
+            # if nvidia optimus graphics card exists, use it
 	          DRI_PRIME=1 inhibit-and-play "$@"
 	      fi
     }
@@ -198,8 +198,7 @@ vterm_printf() {
 }
 
 dnf() {
-    # run dnf from a layered package or
-    # from a container
+    # run dnf from a layered package or from a container
     input="$*"
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
@@ -356,19 +355,18 @@ decode64() {
 }
 
 psgrep() {
-    # print bsd style processes of
-    # of the given input string
+    # print bsd style processes of of the given input string
+    # matching a process.
+    #
+    # should maybe write something in awk since very long
+    # outputs are ugly
     ps aux | grep -v grep | grep "$@"
 }
 
 which() {
     input="$@"
-    # correctly calls which, but don't know why yet :shrug:
-    /usr/bin/which --tty-only \
-                   --read-alias \
-                   --read-functions \
-                   --show-tilde \
-                   --show-dot "$input" < <(alias; declare -f)
+    # which is deprecated use the 'command' builtin
+    command -vV "$input"
 }
 
 emacs() {
@@ -400,17 +398,20 @@ src() {
             source $HOME/.sshpw ;;
         -t)
             source $HOME/.translate ;;
+        --all)
+            source $HOME/.{aliases,bashrc,functions,spectre,sshpw,translate} ;;
         *)
             echo
             echo "Usage:"
             echo " src [-a|-b|-f|-sp|-sh|-t]"
             echo
-            echo " -a      source .aliases"
-            echo " -b      source .bashrc"
-            echo " -f      source .functions"
-            echo " -sp     source .spectre"
-            echo " -sh     source .sshpw"
-            echo " -t      source .translate"
+            echo " -a         source .aliases"
+            echo " -b         source .bashrc"
+            echo " -f         source .functions"
+            echo " -sp        source .spectre"
+            echo " -sh        source .sshpw"
+            echo " -t         source .translate"
+            echo " --all      source all config files"            
             echo 
     esac
 }
@@ -418,6 +419,9 @@ src() {
 edit() {
     # edit various config files
     moz_profile="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
+    moz_usr_js="$moz_profile_dir/user.js"
+    moz_ovr_js="$moz_profile_dir/user-overrides.js"
+
     
     case $1 in
         -a)
@@ -433,9 +437,9 @@ edit() {
         -t)
             emacs $HOME/.translate ;;
         -ujs)
-            emacs "${moz_profile}/user.js" ;;
+            emacs "$moz_usr_js" ;;
         -uojs)
-            emacs "${moz_profile}/user.js" ;;
+            emacs "$moz_ovr_js" ;;
         *)
             echo
             echo "Usage:"
@@ -452,3 +456,48 @@ edit() {
             echo
     esac
 }
+
+preview() {
+    # preview various config files
+    moz_profile_dir="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
+    moz_usr_js="$moz_profile_dir/user.js"
+    moz_ovr_js="$moz_profile_dir/user-overrides.js"    
+    
+    case $1 in
+        -a)
+            "$PAGER" $HOME/.aliases ;;
+        -b)
+            "$PAGER" $HOME/.bashrc ;;
+        -f)
+            "$PAGER" $HOME/.functions ;;
+        -sp)
+            "$PAGER" $HOME/.spectre ;;
+        -sh)
+            "$PAGER" $HOME/.sshpw ;;
+        -t)
+            "$PAGER" $HOME/.translate ;;
+        -ujs)
+            "$PAGER" "$moz_usr_js" ;;
+        -uojs)
+            "$PAGER" "$moz_ovr_js" ;;
+        --all-shell)
+            "$PAGER" $HOME/.{aliases,bashrc,functions,spectre,sshpw,translate} ;;
+        --all-moz)
+            "$PAGER" "$moz_{usr,ovr}_js" ;;           
+        *)
+            echo
+            echo "Usage:"
+            echo " preview [-a|-b|-f|-sp|-sh|-t|-ujs|-uojs]"
+            echo
+            echo " -a         preview .aliases"
+            echo " -b         preview .bashrc"
+            echo " -f         preview .functions"
+            echo " -sp        preview .spectre"
+            echo " -sh        preview .sshpw"
+            echo " -t         preview .translate"
+            echo " -ujs       preview FF user.js"
+            echo " -uojs      preview FF user-overrides.js"
+            echo
+    esac
+}
+

@@ -1,66 +1,78 @@
 #!/usr/bin/env bash
 
-# Source global definitions
+## Source global definitions
 if [ -f /etc/bashrc ]; then
     source /etc/bashrc
 fi
 
+## history variables
 export HISTFILESIZE=20000
 export HISTSIZE=10000
-export HISTCONTROL=ignoredups
+export HISTCONTROL=erasedups
 export HISTIGNORE="&:l[lsa]:[bf]g:exit:history"
+
+## keep shell exiting on C-d
 export IGNOREEOF=1000000000
+
+## pager variables
+export PAGER='/usr/bin/less'
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
 export LESS='-R'
-export PAGER='/usr/bin/less'
 export EDITOR="/usr/bin/emacsclient"
+
+## prompt
+#  Fix: custom pompt on silverblue removes
+#  toolbox prompt
+#
 #export PS1="| \t | \u@\h | \w | $: "
 
-# shell options
+## shell options
 shopt -s histappend
 shopt -s cmdhist
 shopt -s autocd
 shopt -s checkwinsize
 shopt -s extglob
 
-# Make sure user D-bus is accessible
+## Make sure user D-bus is accessible
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=""
-
-# Path
-if ! $(echo $PATH | grep -q ${HOME}/bin); then
+## Path
+if ! echo $PATH | grep -q "${HOME}/bin"; then
     PATH=${HOME}/bin:$PATH
 fi
 
-# Source user specific aliases and functions
-if [ -f ${HOME}/.functions ]; then
-    source "${HOME}/.functions"
-fi
-
-if [ -f ${HOME}/.aliases ]; then
-    source "${HOME}/.aliases"
-fi
-
-if [ -f "${HOME}/.sshpw" ]; then
-    source "${HOME}/.sshpw"
-fi
-
-## MasterPassword
-if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
-    source "${HOME}/.spectre"
+## Source user specific aliases and functions
+source-config() {
+    alias_home="$HOME/.aliases"
+    alias_git="$HOME/gits/bashrc_stuff/env"
     
-    export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
-    export SPECTRE_ALGORITHM=3
-    export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
-    export SPECTRE_FORMAT=json
+    if [ -f "alias_home" ]; then
+        source "$alias_home"
+    else
+        source "$alias_git"
+    fi
 
-    [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
-fi
+    src -a
+    src -f
+    src -sh
+    src -t
+    
+    # MasterPassword
+    if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
+        src -sp
+        
+        export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
+        export SPECTRE_ALGORITHM=3
+        export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
+        export SPECTRE_FORMAT=json
+
+        [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
+    fi
+}
 
 ## Emacs Stuff
-# vterm
+#
+#  emacs vterm clear screen
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     function clear(){
         vterm_printf "51;Evterm-clear-scrollback";

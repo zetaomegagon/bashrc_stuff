@@ -13,20 +13,12 @@ alias zfgrep='zfgrep --color=auto'
 alias zgrep='zgrep --color=auto'
 
 ## ls
-alias l='ls -CF --color=always --group-directories-first'
-alias l.='ls -ldF.* --color=always --group-directories-first'
+alias l='command -p ls -CF --color=always --group-directories-first'
 alias la='ls -AlF --color=always --group-directories-first --sort=extension'
 alias ll='ls -lF --color=always --group-directories-first --sort=extension'
+alias lr='ls -lFR --color=always --group-directories-first --sort=extension'
 alias ls='l'
 alias lz='ls -AlFZ --color=always --group-directories-first --sort=extension'
-alias lal='ls -AlF --color=always --group-directories-first --sort=extension | less -R'
-
-## source shell env files
-alias srcb='source $HOME/.bashrc'
-alias srca='source $HOME/.aliases'
-alias srcf='source $HOME/.functions'
-alias srcsp='source $HOME/.spectre'
-alias srcsh='source $HOME/.sshpw'
 
 ## virtualbox
 #
@@ -64,4 +56,4 @@ alias histc='history -c'
 alias ytdl='/usr/bin/youtube-dl'
 alias qemu='/usr/bin/qemu-kvm'
 alias tb='/usr/bin/toolbox'
-
+alias docker='/usr/bin/podman'
