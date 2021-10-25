@@ -383,6 +383,9 @@ emacs() {
     fi
 }
 
+## Learn 'getopts' ...
+#  https://wiki.bash-hackers.org/howto/getopts_tutorial
+
 src() {
     # source various config files
     case $1 in
