@@ -307,21 +307,24 @@ cpu-temps() {
 }
 
 search() {
+
     # simple search with firefox and searx.
     # starts firefox with the search query,
     # or creates a new tab in the existing
     # instance
-    baseurl="https://searx.tiekoetter.com/search?preferences="
+
+    # old pref_string
+    #
+    # substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMX"
+    # substr2="ENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lhqHybfanOqLrUVtu_N"
+    # substr3="_3kxO4oCDU2PqfTlvs0bNEqK6ijKQSuISC16Bw9n-ABF3DOViQacLqGQweuSZ3rzqIz"
+    # substr4="qaDOOXIDU6HBmrnoJmgRGzCdtHWJwucyVgsKRfz9nmFoiFsFn_8-t2MsVtW4mdWFKoO"
+    # substr5="i6MncnX6dncqIayn8VPu0aqn3CAveIaWX7qdc0nP-J7wZo6ty7IvKRWmx2UOy6vsh5G"
+    # substr6="BRqPELzZvxw0dc7nkkhWDxMp0d_ASb1m0QI_2qANBxF0CQ1jf_FqtzS5sFkPL2uEsX9"
+    # substr7="q-VyJIl2ByeK8BpN2KdjGtEDusYaxkGnq2se9y1sEufyWuf3W2WRNGdcodmpD_WzgPbw=="
     
-    substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMX"
-    substr2="ENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lhqHybfanOqLrUVtu_N"
-    substr3="_3kxO4oCDU2PqfTlvs0bNEqK6ijKQSuISC16Bw9n-ABF3DOViQacLqGQweuSZ3rzqIz"
-    substr4="qaDOOXIDU6HBmrnoJmgRGzCdtHWJwucyVgsKRfz9nmFoiFsFn_8-t2MsVtW4mdWFKoO"
-    substr5="i6MncnX6dncqIayn8VPu0aqn3CAveIaWX7qdc0nP-J7wZo6ty7IvKRWmx2UOy6vsh5G"
-    substr6="BRqPELzZvxw0dc7nkkhWDxMp0d_ASb1m0QI_2qANBxF0CQ1jf_FqtzS5sFkPL2uEsX9"
-    substr7="q-VyJIl2ByeK8BpN2KdjGtEDusYaxkGnq2se9y1sEufyWuf3W2WRNGdcodmpD_WzgPbw=="
-    
-    preferences="$(echo $substr{1..7})"
+    baseurl="https://searx.be/search?preferences="
+    preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-prefstring)"
     query="&q=$*"
     range="&time_rage=year"
 
@@ -342,12 +345,14 @@ search() {
 
 decode64() {
     # decodes a base64 input string
-    #
-    # NOTE: needs error handling
     bpath="$PWD"
     fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
     fpath="$bpath/$fname"
-    input="${@:-$(< /dev/stdin)}"
+    # ${input} allows the following or equvalent:
+    # $ cat file | decode64 -
+    # $ decode64 < <(cat file)
+    # $ decode64 $(cat file)
+    input="${@:-$(</dev/stdin)}"
 
     if echo "$input" | base64 -d --ignore-garbage - >/dev/null 2>&1; then
         # this does most of the work
@@ -390,5 +395,19 @@ edit() {
         emacs $HOME/\.${file}
     else
         printf "%s\n" "File, $file, not found in $HOME."
+    fi
+}
+
+emacs() {
+    # connect to the local emacs daemon if non-privleged;
+    # or run a standalone terminal session of emacs
+    input="${@:-$(</dev/stdin)}"
+    enox="/usr/bin/emacs-nox"
+    eclt="/usr/bin/emacsclient -nw"
+    
+    if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
+        { [[ -z "$input" ]] && "$enox"; } || "$enox" "$input"
+    else
+        { [[ -z "$input" ]] && "$eclt"; } || "$eclt" "$input"
     fi
 }
