@@ -378,7 +378,7 @@ which() {
 edit() {
     # edit a file in users HOME directory
     # general casse is for bash config files
-    file="\.$1"
+    file=".$1"
     
     if [[ -f $HOME/${file} ]]; then
         emacs $HOME/${file}
@@ -390,13 +390,16 @@ edit() {
 emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
-    input="${@:-$(</dev/stdin)}"
-    alias enox="/usr/bin/emacs-nox"
-    alias ectl="/usr/bin/emacs-client -nw"
+    input="$@"
+    #enox(){ /usr/bin/emacs-nox "$@"; }
+    #eclt(){ /usr/bin/emacsclient -nw "$@"; }
     
+    alias enox="/usr/bin/emacs-nox"
+    alias eclt="/usr/bin/emacsclient -nw"
+
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
-        { [[ -z "$input" ]] && enox; } || enox "$input"
+        [[ -z "$input" ]] && enox || enox "$input"
     else
-        { [[ -z "$input" ]] && eclt; } || eclt "$input"
+        [[ -z "$input" ]] && eclt || eclt "$input"
     fi
 }
