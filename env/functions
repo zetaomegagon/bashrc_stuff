@@ -313,16 +313,6 @@ search() {
     # or creates a new tab in the existing
     # instance
 
-    # old pref_string
-    #
-    # substr1="eJxtUsuO2zAM_JrqskhQ9K5Tse0HbHoWGJmRBdOiV6Sd-O9Lx8YmgfcgCTN8aEZUBMX"
-    # substr2="ENaP4hAUrkCMoaYSEHsvh34cjjkALcDAqR-4HQkWfmBOhy71lhqHybfanOqLrUVtu_N"
-    # substr3="_3kxO4oCDU2PqfTlvs0bNEqK6ijKQSuISC16Bw9n-ABF3DOViQacLqGQweuSZ3rzqIz"
-    # substr4="qaDOOXIDU6HBmrnoJmgRGzCdtHWJwucyVgsKRfz9nmFoiFsFn_8-t2MsVtW4mdWFKoO"
-    # substr5="i6MncnX6dncqIayn8VPu0aqn3CAveIaWX7qdc0nP-J7wZo6ty7IvKRWmx2UOy6vsh5G"
-    # substr6="BRqPELzZvxw0dc7nkkhWDxMp0d_ASb1m0QI_2qANBxF0CQ1jf_FqtzS5sFkPL2uEsX9"
-    # substr7="q-VyJIl2ByeK8BpN2KdjGtEDusYaxkGnq2se9y1sEufyWuf3W2WRNGdcodmpD_WzgPbw=="
-    
     baseurl="https://searx.be/search?preferences="
     preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-prefstring)"
     query="&q=$*"
