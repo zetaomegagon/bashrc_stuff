@@ -313,7 +313,7 @@ search() {
     # or creates a new tab in the existing
     # instance
     baseurl="https://searx.be/search?preferences="
-    preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-prefstring)"
+    preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-preferences)"
     query="&q=$*"
     range="&time_rage=year"
 
@@ -363,16 +363,17 @@ decode64() {
 psgrep() {
     # print bsd style processes of
     # of the given input string
-    ps aux | grep -v grep | grep $@
+    ps aux | grep -v grep | grep "$@"
 }
 
 which() {
+    input="$@"
     # correctly calls which, but don't know why yet :shrug:
     /usr/bin/which --tty-only \
                    --read-alias \
                    --read-functions \
                    --show-tilde \
-                   --show-dot "$@" < <(alias; declare -f)
+                   --show-dot "$input" < <(alias; declare -f)
 }
 
 edit() {
@@ -390,10 +391,7 @@ edit() {
 emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
-    input="$@"
-    #enox(){ /usr/bin/emacs-nox "$@"; }
-    #eclt(){ /usr/bin/emacsclient -nw "$@"; }
-    
+    input="$@"    
     alias enox="/usr/bin/emacs-nox"
     alias eclt="/usr/bin/emacsclient -nw"
 
