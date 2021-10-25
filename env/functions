@@ -92,12 +92,12 @@ spectre() {
 
 clip() {
     # syntactic sugar for gpaste-client
-    gpaste="/usr/bin/gpaste-client"
+    gpaste() { /usr/bin/gpaste-client "$@"; }
     
     if [[ $1 =~ -e|--empty|-c|--clear ]]; then
-        "$gpaste" empty
+        gpaste empty
     else        
-        "$gpaste"
+        gpaste
     fi
 }
 
@@ -155,21 +155,21 @@ mmtail() {
     # pass arbitrary number of files to multitail or
     # all files in a directory
     mt() {
-	      declare -a file
+	      declare -a files
         
-	      for object in "$@"; do
+	      for file in "$@"; do
 	          if [[ -f "$file" ]]; then
                 files+=("$file ")
             fi
         done
 
-	      multitail "${objects[@]}"
+	      multitail "${files[@]}"
     }
 
     # if called w/o args, process all files; otherwise
     # process specified files
     if [[ -z "$@" ]]; then
-        mt *
+        mt --
     else
         mt "$@"
     fi
@@ -192,7 +192,7 @@ vmanage() {
 
 vterm_printf() {
     # this is for multi-vterm in emacs
-    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
+    if [ -n "$TMUX" ] && { [ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]; }; then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
     elif [ "${TERM%%-*}" = "screen" ]; then
@@ -206,13 +206,14 @@ vterm_printf() {
 dnf() {
     # run dnf from a layered package or
     # from a container
+    input="$*"
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     
     if [[ -e /usr/bin/dnf ]]; then
-        /usr/bin/dnf $(echo $@)
+        /usr/bin/dnf "$(echo "$input")"
     else
-        podman run --rm "$distro":"$release" dnf $@
+        podman run --rm "$distro":"$release" dnf "$*"
     fi
 }
 
@@ -255,7 +256,7 @@ cpu-profiles() {
     case "$arg" in
         performance|powersave)
             # set scaling
-            sudo su -c "echo "$arg" | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
+            sudo su -c "echo $arg | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
         --available|-a)
             # show available scalings
             cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors ;;
@@ -275,10 +276,10 @@ EOF
         *)
             # Get currnet scalings per cpu and pretty print them on one line
             scalingc=( $(cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor) )
-            scalingp+=()
+            declare -a scalingp
             
-            for scaling in ${scalingc[@]}; do
-                scalingp+="$scaling "
+            for scaling in "${scalingc[@]}"; do
+                scalingp+=("$scaling ")
             done
             
             echo "${scalingp[@]}"
@@ -286,25 +287,25 @@ EOF
             # protects agains accumulating more values
             # beyond the number of cpu cores if being
             # called in a compound command
-            scalingp=
+            scalingp=()
     esac
 }
 
 cpu-temps() {
     # Show cpu temps in degrees F, and them print on a single line
     tempm=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
-    tempf=()
+    declare -a tempf
     
-    for temp in ${tempm[@]}; do
-        tempf+="$((($temp / 1000) * 9/5 + 32))F "
+    for temp in "${tempm[@]}"; do
+        tempf+=( "$(( ($temp / 1000) * 9/5 + 32 ))F " )
     done
 
-    echo ${tempf[@]}
+    echo "${tempf[@]}"
 
     # protects agains accumulating more values
     # beyond the number of cpu cores if being
     # called in a compound command
-    tempm=
+    tempm=()
 }
 
 search() {
@@ -380,13 +381,13 @@ emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
     input="$@"    
-    alias enox="/usr/bin/emacs-nox"
-    alias eclt="/usr/bin/emacsclient -nw"
+    enox() { /usr/bin/emacs-nox "$@"; }
+    eclt() { /usr/bin/emacsclient -nw "$@"; }
 
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
-        [[ -z "$input" ]] && enox || enox "$input"
+        { [[ -z "$input" ]] && enox; } || enox "$input"
     else
-        [[ -z "$input" ]] && eclt || eclt "$input"
+        { [[ -z "$input" ]] && eclt; } || eclt "$input"
     fi
 }
 
