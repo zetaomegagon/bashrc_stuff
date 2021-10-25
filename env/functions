@@ -92,13 +92,7 @@ spectre() {
 
 clip() {
     # syntactic sugar for gpaste-client
-    gpaste() { /usr/bin/gpaste-client "$@"; }
-    
-    if [[ $1 =~ -e|--empty|-c|--clear ]]; then
-        gpaste empty
-    else        
-        gpaste
-    fi
+    /usr/bin/gpaste-client "$@"
 }
 
 debug() {
