@@ -91,12 +91,22 @@ spectre() {
 }
 
 spectre-add() {
+    # add a spectre command alias to $HOME/.spectre
     input="${@:-$(</dev/stdin)}"
     target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
+    aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
     tee() { command -p /usr/bin/tee -a "$@"; }
 
-    # do I really wanna remove '.*$' ?
-    printf "%s\n" "alias ${input/\.*$//}=\'spectre -tx -c1 $input\'" | tee "$target_spctr" 
+    # create the alias and write to target
+    printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee "$target_spctr"
+
+    # remove spectre aliases
+    for alias in $aliases; do
+        unalias "$alias"
+    done
+
+    # source spectre aliases
+    source "$target_spctr"
 }
 
 clip() {
