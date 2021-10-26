@@ -109,6 +109,16 @@ spectre-add() {
     source "$target_spctr"
 }
 
+spectre-list() {
+    # list spectre aliases with line numbers
+    :
+}
+
+spectre-rm() {
+    # remove given line in $HOME/.spectre
+    :
+}
+
 clip() {
     # syntactic sugar for gpaste-client
     /usr/bin/gpaste-client "$@"
