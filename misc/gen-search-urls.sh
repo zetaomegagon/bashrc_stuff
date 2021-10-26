@@ -1,14 +1,14 @@
 #!/usr/bin/env -S bash -x
 
-##################################################################################
-# Generate FF bookmark html for all combinations of DeepL language translations, #
-# that includes the following:                                                   #
-# - a search keyword e.g. "en-es"                                                #
-# - tags. Minimally "from-$lang" and "to-$lang"                                  #
-# - a title: "DeepL Translate | ${from_lang}->${to_lang}"                        #
-#                                                                                #
-# Additionally generate translation function for each, which execute in FF       #
-##################################################################################
+###################################################################################
+# Generate FF bookmark html for all combinations of DeepL language translations,  #
+# that includes the following:                                                    #
+# - a search keyword e.g. "en-es"                                                 #
+# - tags. Minimally "from-$lang" and "to-$lang"                                   #
+# - a title: "DeepL Translate | ${from_lang}->${to_lang}"                         #
+#                                                                                 #
+# Additionally generate translation function for each, which execute launch in FF #
+###################################################################################
 
 # languages: languages=( "[bulgarian]=bg" "[chinese]=zh" ...)
 declare -A languages
