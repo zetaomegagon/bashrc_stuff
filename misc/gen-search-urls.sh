@@ -28,7 +28,7 @@ target_func="$HOME/gits/bashrc_stuff/env/translate"
 
 # create or empty target files
 #[[ -f $target_html ]] && echo > $target_html
-#[[ -f $target_func ]] && echo > $target_func
+[[ -f $target_func ]] && echo > $target_func
 
 ## main
 added="$(($(date +%s) + $RANDOM))"
