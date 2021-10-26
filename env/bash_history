@@ -1,1 +1,13 @@
 
+preview --all-shell
+which tmux-start
+rm bin/\#*\#
+ll bin/
+less bin/touchpad-button-config 
+emacs bin/touchpad-button-config 
+git-sync
+edit
+edit -ujs
+pgrep emacs
+which pgrep
+protonmail
