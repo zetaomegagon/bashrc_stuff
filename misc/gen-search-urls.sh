@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -x
+#!/usr/bin/env -S bash
 
 ###################################################################################
 # Generate FF bookmark html for all combinations of DeepL language translations,  #
@@ -58,13 +58,13 @@ for language in ${!languages[@]}; do
             search_html="<DT><A HREF=\"${baseurl}${transurl}\" ADD_DATE=\"${added}\" LAST_MODIFIED=\"${modified}\" SHORTCUTURL=\"${keyword}\" TAGS=\"${tags}\">${title}</A>"
 
             # append bookmark to target
-            printf "$search_html\n" #>> $target_html
+            printf "$search_html\n" # | tee -a $target_html
 
             # Bash function template (need a better way...)
             template="${from_code}-${to_code}() {\n    # DeepL Translate | ${from_lang}->${to_lang}\n    input=\"\${@:-\$(</dev/stdin)}\"\n    baseurl=\"${baseurl}\"\n    query=\"#${from_code}/${to_code}/\${input}\"\n\n    if ps -e | grep -q GeckoMain; then\n        ( { /usr/bin/firefox --new-tab \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    else\n        ( { /usr/bin/firefox --new-instance \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    fi\n}"
 
             # append functions to target
-            printf  "$template\n\n" >> "$target_func"
+            printf  "$template\n\n" | tee -a "$target_func"
         fi
     done 
 done

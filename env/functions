@@ -90,6 +90,15 @@ spectre() {
     fi
 }
 
+spectre-add() {
+    input="${@:-$(</dev/stdin)}"
+    target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
+    tee() { command -p /usr/bin/tee -a "$@"; }
+
+    # do I really wanna remove '.*$' ?
+    printf "%s\n" "alias ${input/\.*$//}=\'spectre -tx -c1 $input\'" | tee "$target_spctr" 
+}
+
 clip() {
     # syntactic sugar for gpaste-client
     /usr/bin/gpaste-client "$@"

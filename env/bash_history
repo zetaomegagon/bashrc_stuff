@@ -11,3 +11,7 @@ edit -ujs
 pgrep emacs
 which pgrep
 protonmail
+ll -R projects/
+cp projects/deepl-searches/gen-search-urls.sh gits/bashrc_stuff/misc/
+git-sync
+emacs gits/bashrc_stuff/misc/gen-search-urls.sh 
