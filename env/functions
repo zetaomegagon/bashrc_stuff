@@ -162,7 +162,7 @@ mmtail() {
 
     # if called w/o args, process all files; otherwise
     # process specified files
-    if [[ -z "$@" ]]; then
+    if [[ -z $* ]]; then
         mt --
     else
         mt "$@"
@@ -355,17 +355,17 @@ decode64() {
     fi
 }
 
-psgrep() {
-    # print bsd style processes of of the given input string
-    # matching a process.
-    #
-    # should maybe write something in awk since very long
-    # outputs are ugly
-    ps aux | grep -v grep | grep "$@"
+pgrep() {
+    # print pid and full command line of given input string
+    # matching a process name
+    input=("$@")
+    for proc in "${input[@]}"; do
+        command -p pgrep -aif "$proc"
+    done
 }
 
 which() {
-    input="$@"
+    input="$*"
     # which is deprecated use the 'command' builtin
     command -vV "$input"
 }
@@ -373,7 +373,7 @@ which() {
 emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
-    input="$@"    
+    input="$*"
     enox() { /usr/bin/emacs-nox "$@"; }
     eclt() { /usr/bin/emacsclient -nw "$@"; }
 
@@ -384,13 +384,16 @@ emacs() {
     fi
 }
 
-##########################################################
-# Learn 'getopts' ...                                    #
-#  https://wiki.bash-hackers.org/howto/getopts_tutorial  #
-#                                                        #
-#  Also consider combining some of the below and parsing #
-#  file names differently                                #
-##########################################################
+
+###########################################################
+# Learn 'getopts' ...                                     #
+# * https://wiki.bash-hackers.org/howto/getopts_tutorial  #
+# ... or another way to parse positional params.          #
+#                                                         #
+# Also consider combining some of the below and parsing   #
+# file names differently                                  #
+###########################################################
+
 
 src () {
     # source various config files
@@ -410,24 +413,25 @@ src () {
         --all)
             source $HOME/.{aliases,bashrc,functions,spectre,sshpw,translate} ;;
         *)
+            echo "Source various configuration files"
             echo
             echo "Usage:"
-            echo " src [-a|-b|-f|-sp|-sh|-t]"
+            echo " src [options]"
             echo
-            echo " -a         source .aliases"
-            echo " -b         source .bashrc"
-            echo " -f         source .functions"
-            echo " -sp        source .spectre"
-            echo " -sh        source .sshpw"
-            echo " -t         source .translate"
-            echo " --all      source all config files"            
+            echo " -a      source .aliases"
+            echo " -b        ''   .bashrc"
+            echo " -f        ''   .functions"
+            echo " -sp       ''   .spectre"
+            echo " -sh       ''   .sshpw"
+            echo " -t        ''   .translate"
+            echo " --all     ''   all config files"            
             echo 
     esac
 }
 
 edit() {
     # edit various config files
-    moz_profile="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
+    moz_profile_dir="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
     moz_usr_js="$moz_profile_dir/user.js"
     moz_ovr_js="$moz_profile_dir/user-overrides.js"
 
@@ -450,18 +454,19 @@ edit() {
         -uojs)
             emacs "$moz_ovr_js" ;;
         *)
+            echo "Edit various configuration files"
             echo
             echo "Usage:"
-            echo " edit [-a|-b|-f|-sp|-sh|-t|-ujs|-uojs]"
+            echo " edit [options]"
             echo
-            echo " -a         edit .aliases"
-            echo " -b         edit .bashrc"
-            echo " -f         edit .functions"
-            echo " -sp        edit .spectre"
-            echo " -sh        edit .sshpw"
-            echo " -t         edit .translate"
-            echo " -ujs       edit FF user.js"
-            echo " -uojs      edit FF user-overrides.js"
+            echo " -a      edit .aliases"
+            echo " -b       ''  .bashrc"
+            echo " -f       ''  .functions"
+            echo " -sp      ''  .spectre"
+            echo " -sh      ''  .sshpw"
+            echo " -t       ''  .translate"
+            echo " -ujs     ''  FF user.js"
+            echo " -uojs    ''  FF user-overrides.js"
             echo
     esac
 }
@@ -494,19 +499,21 @@ preview() {
         --all-moz)
             "$PAGER" "$moz_{usr,ovr}_js" ;;           
         *)
+            echo "Preview various configuration files"
             echo
             echo "Usage:"
-            echo " preview [-a|-b|-f|-sp|-sh|-t|-ujs|-uojs]"
+            echo " preview [options]"
             echo
             echo " -a         preview .aliases"
-            echo " -b         preview .bashrc"
-            echo " -f         preview .functions"
-            echo " -sp        preview .spectre"
-            echo " -sh        preview .sshpw"
-            echo " -t         preview .translate"
-            echo " -ujs       preview FF user.js"
-            echo " -uojs      preview FF user-overrides.js"
+            echo " -b           ''    .bashrc"
+            echo " -f           ''    .functions"
+            echo " -sp          ''    .spectre"
+            echo " -sh          ''    .sshpw"
+            echo " -t           ''    .translate"
+            echo " -ujs         ''    FF user.js"
+            echo " -uojs        ''    FF user-overrides.js"
+            echo " --all-shell  ''    all shell config files"
+            echo " --all-moz    ''    user.js and user-overrides.js"            
             echo
     esac
 }
-
