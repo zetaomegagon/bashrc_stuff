@@ -28,7 +28,6 @@ alias lz='ls -AlFZ --color=always --group-directories-first --sort=extension'
 #     /usr/bin/vboxmanage "$@"
 # }
 # ```
-
 alias vmlist='vmanage list vms'
 alias vmlistl='vmanage list --long vms | less'
 alias vminfo='vmanage showvminfo --machinereadable'
@@ -41,11 +40,6 @@ alias vmhelp='vmanage --help | less'
 
 ## editors
 alias vi='vim'
-
-## Firefox User.js
-#  use 'v' to edit
-alias user.js='emacs .mozilla/firefox/gm15iqn0.elijah-arkenfox/user.js'
-alias user-overrides.js='emacs .mozilla/firefox/gm15iqn0.elijah-arkenfox/user-overrides.js'
 
 ## rpm-ostree
 alias ro='rpm-ostree'
