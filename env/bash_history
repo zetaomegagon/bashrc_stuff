@@ -15,3 +15,171 @@ ll -R projects/
 cp projects/deepl-searches/gen-search-urls.sh gits/bashrc_stuff/misc/
 git-sync
 emacs gits/bashrc_stuff/misc/gen-search-urls.sh 
+psgrep firefox
+pgrep -a firefox
+pgrep -a /usr/lib64/firefox/firefox
+pgrep -aF /usr/lib64/firefox/firefox
+pgrep -af /usr/lib64/firefox/firefox
+pgrep -f firefox
+pgrep -a GeckoMain; pgrep -af firefox; pgrep -a WebExtension
+pgrep -af firefox; pgrep -a WebExtension
+pgrep -af firefox
+psgrep Webextension
+pgrep -af firefox; pgrep -ai Webextension
+pgrep -ai Webextension
+pgrep -a Webextension
+pgrep -a WebExtension
+pgrep -af GeckoMain; pgrep -af firefox; pgrep -af WebExtension
+    declare -a input
+for proc in geckomain firefox webextension; do printf "%s\n" "$(pgrep -aif "$proc")"; done
+pgrep --help
+pgrep --help | less
+    declare -a input
+for proc in geckomain firefox webextension; do printf "%s\n" "$(pgrep -aif "$proc")"; done
+pgrep geckomain firefox webextension
+pgrep -c geckomain firefox webextension
+pgrep --help
+pgrep firefox webextension geckomain
+pgrep geckomain
+ps -e | grep GeckoMain
+command -p pgrep --parent 18219
+command -p pgrep -aP 18219
+command -p pgrep -aif firefox
+command -p pgrep -if firefox
+command -p pgrep -if firefox | head -1
+command -p pgrep -aP "$(command -p pgrep -if firefox | head -1)"
+command -p pgrep -aP "$(command -p pgrep -aif firefox | head -1 | tee | awk '{ print $1 }')"
+pgrep firefox
+command -p pgrep -aP <(command -p pgrep -aif firefox | head -1 | tee | awk '{ print $1 }')
+command -p pgrep -aP < <(command -p pgrep -aif firefox | head -1 | tee | awk '{ print $1 }')
+command -p pgrep -aP - < <(command -p pgrep -aif firefox | head -1 | tee | awk '{ print $1 }')
+command -p pgrep -aP $(command -p pgrep -if firefox | head -1)
+pgrep tmux
+emacs bin/tmux-start 
+emacs
+emacsctl restart
+edit -f
+which edit
+src -sp
+edit -f
+edit -b
+edit -f
+emacsclient -nw .bashrc
+ll projects/misc/
+ss
+ss | firefox
+ss | grep firefox
+man ss
+ss -s
+htop
+ps
+ps -e
+ps -e | less
+pkill GeckoMain
+top
+debug pgrep geckomain firefox webextension
+pgrep geckomain firefox webextension
+pgrep geckomain
+src
+preview
+preview --all-shell
+which tmux-start
+rm bin/\#*\#
+ll bin/
+less bin/touchpad-button-config 
+emacs bin/touchpad-button-config 
+edit
+pgrep emacs
+which pgrep
+protonmail
+cd projects/
+cd ..
+ls -l projects/*
+declare -A foo
+foo[one]=bar
+foo[two]=baz
+foo[three]=buzz
+declare -a fizz
+fizz=("${foo[@]}")
+echo ${fizz[@]}
+en-hu hello
+gits/bashrc_stuff/misc/gen-search-urls.sh 
+which add-password
+man tee
+spectre-add spectre -tx -c1 commandlinefu.com
+command --help
+spectre -tx commandlinefu.com
+google.personal
+gitlab
+edit -ujs
+gpaste
+mkrnd 999
+which vlc
+which mpv
+mpv "https://video-hw.xvideos-cdn.com/videos_new/3gp/3/5/a/xvideos.com_35ad347f882415a12fa6097a70d5fd2c.mp4?e=1635287504&ri=1024&rs=85&h=27ee2bd2f2b80a562f9f9f87b9612cb7"
+mpv "https://video-hw.xvideos-cdn.com/videos_new/3gp/3/5/a/xvideos.com_35ad347f882415a12fa6097a70d5fd2c.mp4"
+which youtube-dl
+spectre-add commandlinefu.com
+unalias --help
+unalias .spectre
+unalias <(cat $HOME/.spectre)
+unalias < <(cat $HOME/.spectre)
+commandlinefu
+cat .spectre
+cat .spectre | awk -F'=
+cat .spectre | awk -F'=' '{ print $1 }'
+cat .spectre | awk '{ print $2 }'
+cat .spectre | cut -d'=' -f1
+cat .spectre | grep -v alias
+cat .spectre | tail -n $(wc -l </dev/stdin)
+debug cat .spectre | tail -n $(wc -l </dev/stdin)
+debug cat .spectre | wc -l
+set -x
+alias
+alias | grep spectre
+set +x
+alias | /usr/bin/grep spectre
+alias | /usr/bin/grep spectre | sed 's/alias//g'
+alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g'
+aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
+echo $aliases
+echo "$aliases"
+which emacs
+which ls
+unalias -a
+source .functions
+src -a
+src -sh
+spectre-add foobar.com
+which commandlinefu
+git-sync
+mkrnd 100
+mkrnd 900
+mkrnd 80
+mkrnd 800
+mkrnd 200
+mkrnd {300..800}
+for i in {1..700}; do mkrnd $1; done
+for ((i=1;i<799;i++)); do mkrnd $i; done
+man mktemp
+mktemp -pu XXXXXXXXXX
+mktemp -u XXXXXXXXXX
+mktemp -p -u XXXXXXXXXX
+mktemp -u XXXXXXXXXX -p
+for i in {1..799}; do echo $i; mkrnd $i; done
+genrandom && genrandom 32
+clip
+which genrandom
+clip empty
+genrandom 32 && genrandom 
+echo foo | tee -a &3
+echo foo | tee -a >&3
+echo foo | tee -a /dev/stdout 
+echo foo | tee -a /dev/null 
+echo foo | tee -a
+src -f
+genrandom
+which tee
+tb --container gnome-tweaks run nano /etc/dnf/dnf.conf
+gnome-tweaks
+tb list

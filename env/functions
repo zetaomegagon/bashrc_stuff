@@ -58,7 +58,7 @@ spectre() {
     if [[ "$1" =~ (-h|--help) ]]; then
 	      # Call the binary directly when passing help flag so we
 	      # don't get ugly output and duplicate output with pager
-	      [[ ! -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h > /tmp/spectre_help 2>&1
+	      { [[ ! -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h > /tmp/spectre_help; } 2>/dev/null
 	      
 	      less /tmp/spectre_help
     else
@@ -68,7 +68,7 @@ spectre() {
 	      # Ask for the user's name and password if not yet known.
 	      SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
 
-	      # restart the gpaste-client daemon  because it has
+	      # restart the gpaste-client daemon because it has
 	      # trouble keeping up with clipboard changes.
 	      gpaste-client daemon-reexec >/dev/null 2>&1
         
@@ -93,20 +93,22 @@ spectre() {
 spectre-add() {
     # add a spectre command alias to $HOME/.spectre
     input="${@:-$(</dev/stdin)}"
-    target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
-    aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
-    tee() { command -p /usr/bin/tee -a "$@"; }
 
-    # create the alias and write to target
-    printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee "$target_spctr"
+    if [[ -z "$input" ]]; then
+        target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
+        aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
 
-    # remove spectre aliases
-    for alias in $aliases; do
-        unalias "$alias"
-    done
+        # create the alias and write to target
+        printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee -a "${target_spctr:-/dev/null}"
 
-    # source spectre aliases
-    source "$target_spctr"
+        # remove spectre aliases
+        for alias in $aliases; do
+            unalias "$alias"
+        done
+
+        # source spectre aliases
+        source "$target_spctr"
+    fi
 }
 
 spectre-list() {
@@ -142,7 +144,7 @@ mpv() {
 	      if [[ -z "$optimus" ]]; then
 	          inhibit-and-play "$@"
 	      else
-            # if nvidia optimus graphics card exists, use it
+            # if nvidia graphics card exists, use it
 	          DRI_PRIME=1 inhibit-and-play "$@"
 	      fi
     }
@@ -166,12 +168,18 @@ emacsctl() {
     esac
 }
 
-mkrnd() {
-    # generate an arbitrary length random string
-    rnd="$(mktemp -u "$(for ((i=1;i<$1;i++)); do printf "%s" "X"; done)")"
-    
-    printf "%s" "$rnd" | tee | gpaste-client
-    printf "%s\n" "Random string copied to clipboard"
+genrandom() {
+    input="${1:-64}"
+
+    case "$input" in
+        [4-9][0-9]{2,})
+            random="$(mktemp -u "$(for ((i=1;i<"$input";i++)); do printf X; done)")"
+            printf "%s" "$random" | gpaste-client
+            printf "%s\n" "$random"
+            ;;
+        -h)
+            usage
+    esac
 }
 
 mmtail() {
@@ -233,9 +241,10 @@ dnf() {
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     
     if [[ -e /usr/bin/dnf ]]; then
-        /usr/bin/dnf "$(echo "$input")"
+        /usr/bin/dnf $input
     else
-        podman run --rm "$distro":"$release" dnf "$*"
+        podman run --rm "$distro":"$release" dnf $input
+        podman kill dnf
     fi
 }
 
