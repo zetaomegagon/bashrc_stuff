@@ -183,3 +183,10 @@ which tee
 tb --container gnome-tweaks run nano /etc/dnf/dnf.conf
 gnome-tweaks
 tb list
+cd gits/
+cd user.js/
+git pull
+git-sync
+./updater.sh 
+ll userjs_backups/
+less userjs_backups/user.js.backup.2021-10-26_2229 
