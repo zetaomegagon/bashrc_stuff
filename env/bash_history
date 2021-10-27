@@ -190,3 +190,92 @@ git-sync
 ./updater.sh 
 ll userjs_backups/
 less userjs_backups/user.js.backup.2021-10-26_2229 
+emacs
+set -x
+alias
+alias | grep spectre
+set +x
+alias | /usr/bin/grep spectre
+alias | /usr/bin/grep spectre | sed 's/alias//g'
+alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g'
+aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
+echo $aliases
+echo "$aliases"
+which emacs
+which ls
+unalias -a
+source .functions
+src -a
+src -sh
+spectre-add foobar.com
+which commandlinefu
+mkrnd 100
+mkrnd 900
+mkrnd 80
+mkrnd 800
+mkrnd 200
+mkrnd {300..800}
+for i in {1..700}; do mkrnd $1; done
+for ((i=1;i<799;i++)); do mkrnd $i; done
+man mktemp
+mktemp -pu XXXXXXXXXX
+mktemp -u XXXXXXXXXX
+mktemp -p -u XXXXXXXXXX
+mktemp -u XXXXXXXXXX -p
+for i in {1..799}; do echo $i; mkrnd $i; done
+genrandom && genrandom 32
+genrandom 32 && genrandom 
+echo foo | tee -a &3
+echo foo | tee -a >&3
+echo foo | tee -a /dev/stdout 
+echo foo | tee -a /dev/null 
+echo foo | tee -a
+which tee
+clip
+debug genrandom
+debug genrandom 32 && genrandom
+genrandom 32 | tee
+which genrandom
+tee < <(genrandom 32)
+which clip
+clipc
+clip empty
+genrandom 32 && genrandom
+genrandom
+genrandom -h
+genrandom 0
+genrandom 1
+genrandom 3
+genrandom 4
+which dnf
+/usr/bin/dnf
+podman rm jq
+tb create dnf
+tb --container dnf run sudo dnf upgrade -y && dnf search email
+debug dnf search email
+tb --container dnf run sudo nano /etc/dnf.conf
+tb --container dnf run sudo ls -Al /etc | grep dnf | less
+tb --container dnf run sudo ls -Al /etc/dnf | grep dnf | less
+tb --container dnf run sudo nano /etc/dnf/dnf.com
+tb --container dnf run sudo nano /etc/dnf/dnf.conf
+dnf upgrade
+dnf upgrade -y
+src -f
+dnf upgrade info less
+tb list
+dnf search email
+echo foo > bar
+ln -s $PWD/bar $PWD/gits/bashrc_stuff/bar
+ll gits/bashrc_stuff/
+git add -A gits/bashrc_stuff/bar
+cd gits/bashrc_stuff/
+git add -A
+git-sync
+cd -
+git info
+git staus
+git status
+git log
+cd
+rm -rf bar
+rm  gits/bashrc_stuff/bar
