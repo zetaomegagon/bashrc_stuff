@@ -279,3 +279,98 @@ git log
 cd
 rm -rf bar
 rm  gits/bashrc_stuff/bar
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+dnf search info
+tb list
+podman rm --force dnf
+src -f
+set -x; dnf search info; set +x
+dnf search info
+tb list
+src -f
+set -x; dnf search info; set +x
+podman rm --force dnf
+tb --container dnf run sudo ls -Al /etc/dnf | grep dnf | less
+tb --container dnf run sudo nano /etc/dnf/dnf.com
+dnf upgrade
+dnf upgrade -y
+dnf upgrade info less
+dnf search email
+echo foo > bar
+ln -s $PWD/bar $PWD/gits/bashrc_stuff/bar
+ll gits/bashrc_stuff/
+git add -A gits/bashrc_stuff/bar
+cd gits/bashrc_stuff/
+git add -A
+git-sync
+cd -
+git info
+git staus
+git status
+git log
+cd
+rm -rf bar
+rm  gits/bashrc_stuff/bar
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+dnf search info
+dnf search info
+set -x; dnf search info; set +x
+echo $?
+set -x
+
+tb --container dnf run sudo nano /etc/dnf/dnf.conf
+which localectl
+localectl list-locales
+localectl list-locales | igrep en
+localectl
+localectl --help
+podman rm --force dnf
+set -x; dnf search podman; set -x
+set -x; dnf search podman; set +x
+podman rm dnf
+dnf info podman
+set +x
+printf_args="\\"%s\\\n%s\\\n\" \\"max_parallel_downloads=10\\" \\"fastestmirror=True\\"\"
+echo "\\"%s\\\n%s\\\n\" \\"max_parallel_downloads=10\\" \\"fastestmirror=True\\"\"
+echo "\\"%s\\\n%s\\\n\\" \\"max_parallel_downloads=10\\" \\"fastestmirror=True\\""
+echo $(echo "\\"%s\\\n%s\\\n\\" \\"max_parallel_downloads=10\\" \\"fastestmirror=True\\"")
+dnf search podman
+tb rm dnf
+which grep
+which igrep
+command --help
+echo foobar | command -p grep
+echo foobar | grep bar
+echo foobar | grep foo
+echo foobar | command -p grep bar
+echo foobar | command -p grep bar | tr -d [fo]
+echo foobar | command -p grep foo | tr -d [fo]
+alias | command -p grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g'
+alias | command -p grep spectre | tr -d 'alias'
+alias | command -p grep spectre | tr -d 'alias' | tr -d '='
+alias | command -p grep spectre | tr -d 'alias' | tr -d "=*$"
+alias | command -p grep spectre | tr -d 'alias' 
+alias | command -p grep spectre | tr -d 'alias' | tr -d "=.*$"
+man tr
+alias | command -p grep spectre | sed -e 's:\(alias\|=.*$\)::g'
+src -f
+dnf search bwm-ng
+dnf search iftop
+locale
+locale -a
+which locale-gen
+file /etc/locale.gen
+less /etc/locale.conf 
+tb list
+tb rm --foce dnf
+tb rm --force dnf

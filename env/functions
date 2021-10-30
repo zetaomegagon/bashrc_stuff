@@ -96,7 +96,7 @@ spectre-add() {
 
     if [[ -z "$input" ]]; then
         target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
-        aliases="$(alias | /usr/bin/grep spectre | sed -e 's/alias//g' -e 's/\=.*$//g')"
+        aliases="$(alias | command -p grep spectre | sed 's:\(alias\|=.*$\)::g')"
 
         # create the alias and write to target
         printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee -a "${target_spctr:-/dev/null}"
@@ -223,10 +223,10 @@ vmanage() {
 
 vterm_printf() {
     # this is for multi-vterm in emacs
-    if [ -n "$TMUX" ] && { [ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]; }; then
+    if [[ -n "$TMUX" ]] && { [[ "${TERM%%-*}" = "tmux" ]] || [[ "${TERM%%-*}" = "screen" ]]; }; then
         # Tell tmux to pass the escape sequences through
         printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-    elif [ "${TERM%%-*}" = "screen" ]; then
+    elif [[ "${TERM%%-*}" = "screen" ]]; then
         # GNU screen (screen, screen-256color, screen-256color-bce)
         printf "\eP\e]%s\007\e\\" "$1"
     else
@@ -235,17 +235,36 @@ vterm_printf() {
 }
 
 dnf() {
-    # run dnf from a layered package or from a container
-    input="$*"
+    # run dnf from a toolbox container, or
+    # create the toolbox, update it, and
+    # run dnf.
+    #
+    # on container creation optimize dnf,
+    # increasing parallel downloads and
+    # using the fastest mirror
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    name=\dnf
+    dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+    export DNF_EXIT_STATUS
     
-    if [[ -e /usr/bin/dnf ]]; then
-        /usr/bin/dnf $input
+    if ! toolbox list | command -p grep -iq dnf; then
+        {
+            toolbox --distro "$distro" --release "$release" create "$name" || { DNF_EXIT_STATUS=1 && return $DNF_EXIT_STATUS; }
+            toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf" || { DNF_EXIT_STATUS=2 && return $DNF_EXIT_STATUS; }
+            toolbox --container "$name" run sudo dnf -yq upgrade || { DNF_EXIT_STATUS=3 && return $DNF_EXIT_STATUS; }
+        } >/dev/null 2>&1
+        
+        toolbox --container "$name" run sudo dnf $@
+        podman kill "$name"
+        DNF_EXIT_STATUS=$?
     else
-        podman run --rm "$distro":"$release" dnf $input
-    fi
+        toolbox --container "$name" run dnf $@
+        podman kill "$name"
+        DNF_EXIT_STATUS=$?
+    fi              
 }
+
 
 gnome-tweaks() {
     # run gnome-tweaks from a toolbox container, or
@@ -257,22 +276,23 @@ gnome-tweaks() {
     distro=fedora
     release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     name=\gnome-tweaks
+    dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
     
-    if ! toolbox list | /usr/bin/grep -q gnome-tweaks; then
+    if ! toolbox list | command -p grep -iq gnome-tweaks; then
         (
             {
-                toolbox --distro "$distro" --release  "$release" create "$name" &&
-                    toolbox --container "$name" run \
-                            sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks" &&
-                    toolbox --container "$name" run "$name"
+                toolbox --distro "$distro" --release  "$release" create "$name" || return 1
+                toolbox --container "$name" run sudo "printf $dnf_conf >> /etc/dnf/dnf.conf" || return 2
+                toolbox --container "$name" run sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks" || return 3
+                toolbox --container "$name" run "$name"
+                
                 podman kill "$name"
             } >/dev/null 2>&1 &
         )
     else
         (
             {
-                toolbox --container "$name" run sudo dnf upgrade -yq &&
-                    toolbox --container "$name" run "$name"
+                toolbox --container "$name" run sudo su -c "dnf upgrade -yq && $name"
                 podman kill "$name"
             } >/dev/null 2>&1 &
         ) 
@@ -480,6 +500,8 @@ edit() {
             emacs $HOME/.bashrc ;;
         -f)
             emacs $HOME/.functions ;;
+        -gt)
+            toolbox --container gnome-tweaks run "sudo nano /etc/dnf/dnf.conf" ;;
         -sp)
             emacs $HOME/.spectre ;;
         -sh)
@@ -499,6 +521,7 @@ edit() {
             echo " -a      edit .aliases"
             echo " -b       ''  .bashrc"
             echo " -f       ''  .functions"
+            echo " -gt      ''  gnome-tweaks dnf.conf"
             echo " -sp      ''  .spectre"
             echo " -sh      ''  .sshpw"
             echo " -t       ''  .translate"
