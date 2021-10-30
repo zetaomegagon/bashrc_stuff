@@ -31,7 +31,7 @@ git-sync() {
     popd >/dev/null 2>&1
 
     # Source updated .bashrc
-    { unalias -a; unset -fvn; } && source ${HOME}/.bashrc
+    { unalias -a; unset -f; } && source ${HOME}/.bashrc
 }
 
 spectre() {
