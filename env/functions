@@ -7,7 +7,7 @@ git-sync() {
     local repo="${HOME}/gits/bashrc_stuff"
 
     # move to working dir 
-    [[ "$(pwd)" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
+    [[ "$PWD" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
 
     # ensure stash is clean
     [[ -n "$(git stash list)" ]] && git stash drop
@@ -31,7 +31,7 @@ git-sync() {
     popd >/dev/null 2>&1
 
     # Source updated .bashrc
-    unalias -a && . ${HOME}/.bashrc
+    { unalias -a; unset -fvn; } && source ${HOME}/.bashrc
 }
 
 spectre() {

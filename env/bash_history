@@ -374,3 +374,32 @@ less /etc/locale.conf
 tb list
 tb rm --foce dnf
 tb rm --force dnf
+unset --help
+src -f
+git info
+git staus
+git status
+git log
+cd
+rm -rf bar
+rm  gits/bashrc_stuff/bar
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+glassdoor
+edit -gt
+tb --container gnome-tweaks run sudo nano /etc/dnf/dnf.conf
+set -x; dnf search info; set +x
+set -x; dnf search info; set +x
+command -p dnf
+tb --container dnf run sudo nano /etc/locale.conf
+podman rm --force dnf
+set +x
+dnf search info
+tb list
+tb rm dnf
+echo $!
+echo $?
+src -f
+dnf search podman
+echo $DNF_EXIT_STATUS
