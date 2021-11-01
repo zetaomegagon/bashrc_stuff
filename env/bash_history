@@ -403,3 +403,118 @@ echo $?
 src -f
 dnf search podman
 echo $DNF_EXIT_STATUS
+cd projects/
+ll baby_names.txt/
+man curl
+cd
+./get-names.sh
+less projects/baby_names/baby_names.txt 
+emacs projects/baby_names/baby_names.txt 
+mv get-names.sh projects/baby_names/
+rm *~
+cd projects/baby_names
+emacs get-names.sh 
+projects/baby_names/get-names.sh
+emacs projects/baby_names/get-names.sh
+emacs projects/baby_names/baby_names.txt 
+./get-names.sh
+projects/baby_names/get-names.sh
+emacs projects/baby_names/baby_names.txt 
+cd projects/baby_names/
+./get-baby-names.sh
+mv projects/baby_names/get-names.sh projects/baby_names/get-baby-names.sh
+ ll
+cd projects/baby_names/
+rm *~
+emacs get-baby-names.sh 
+emacs get-baby-names.sh 
+./get-baby-names.sh
+    curl -X GET "${base_url}${prefix}"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> "${target_dir}/${target_name}"
+    curl -X GET "${base_url}${prefix}"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> "${target_dir}/${target_name}"
+    curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> "${target_dir}/${target_name}"
+rm baby_names.txt 
+    curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> ./baby_names.txt 
+./get-baby-names.sh
+yes
+emacsctl restart
+cd projects/baby_names/
+emacs baby_names.txt 
+rm baby_names.txt 
+less baby_names.txt 
+cd projects/baby_names/
+emacs get-baby-names.sh
+rm baby_names.txt 
+yes
+emacsctl restart
+cd projects/baby_names/
+history | grep curl
+    curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> ./baby_names.txt 
+curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html" | command -p grep \<td\> | awk -F 'td' '{ print $4 }'
+curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html" | command -p grep \<td\> | awk -F 'td' '{ print $4 }' | sed -e 's:\(<\|>\|/\)::g'
+./get-baby-names.sh
+yes
+emacsctl restart
+cd projects/baby_names/
+history | grep curl
+    curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html"         | command -p grep \<td\>         | awk -F 'td' '{ print $4 }'         | sed -e 's:\(<\|>\|/\)::g' >> ./baby_names.txt 
+curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html" | command -p grep \<td\> | awk -F 'td' '{ print $4 }'
+curl -X GET "https://namecensus.com/baby_names/boys-2017_pg2.html" | command -p grep \<td\> | awk -F 'td' '{ print $4 }' | sed -e 's:\(<\|>\|/\)::g'
+./get-baby-names.sh
+curl file:///dev/null
+curl file:///dev/null; curl_exit=$?; echo $curl_exit
+curl https://wiki.archlinux.org; curl_exit=$?; echo $curl_exit
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo hello && echo $curl_exit
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || { echo hello && echo $curl_exit; }
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo $curl_exit
+curl https://wiki.archlinux.org  || echo $curl_exit
+curl https://wiki.archlinux.org  || echo foo
+curl -s https://wiki.archlinux.org  || echo foo
+
+curl -sq https://wiki.archlinux.org || echo foo
+curl -q https://wiki.archlinux.org || echo foo
+curl -s https://wiki.archlinux.org || echo foo
+curl https://wiki.archlinux.org  || echo foo
+curl -s https://wiki.archlinux.org  || echo foo
+curl -sq https://wiki.archlinux.org || echo foo
+curl -q https://wiki.archlinux.org || echo foo
+curl -s https://wiki.archlinux.org || echo foo
+echo $(: foo)
+echo $(: $(echo foo))
+echo $(set -x;: $(echo foo); set +x)
+source ./projects/baby_names/get-baby-names.sh 
+cd projects/baby_names/
+history | grep curl
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo hello && echo $curl_exit
+htop
+popd ~/projects/decode64/
+pushd ~/projects/decode64/
+popd
+(nautlius &)
+(nautilus &)
+echo bar
+echo foo
+mkdir dir_foo_bar
+rm dir_foo_bar/
+rm -r dir_foo_bar/
+. ./get-baby-names.sh
+( { . ./get-baby-names.sh; } >/dev/null |&; }
+( { . ./get-baby-names.sh; } >/dev/null 2>&1; }
+( { . ./get-baby-names.sh; } >/dev/null 2>&1; & )
+( { . ./get-baby-names.sh; } >/dev/null 2>&1 & )
+caller
+wc -l $(< baby_names.txt)
+wc -l < (cat baby_names.txt)
+wc -l < (< baby_names.txt)
+wc -l < <(< baby_names.txt)
+wc -l < <(cat baby_names.txt)
+wc -l < <(baby_names.txt)
+cat baby_names.txt | wc -l
+cat baby_names.txt | tee -a $(> uniq) | wc -l 
+cat baby_names.txt | tee -a $(> uniq > other_baby_names.txt) | wc -l 
+cat other_baby_names.txt 
+cat baby_names.txt | tee -a <(> uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (| uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (> | uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a $(> | uniq > other_baby_names.txt) | wc -l 
+man curl
+man bash
