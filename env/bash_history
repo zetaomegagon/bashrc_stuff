@@ -705,3 +705,69 @@ file $(file ~/bin/spectre | awk "{ print $5 }") | tr ["] [']
 file $(file ~/bin/spectre | awk "{ print $5 }") | tr \" \'
 file $(file ~/bin/spectre | awk "{ print $5 }") | tr [a-z] [A-Z]
 exec $(echo "file $(file ~/bin/spectre | awk "{ print $5 }")" | tr \" \')
+which dnf
+command -p dnf search git | less -R
+command -p dnf search git | grep manual
+command -p dnf search git | grep "man page"
+wc -l < <(cat baby_names.txt)
+wc -l < <(baby_names.txt)
+cat baby_names.txt | wc -l
+cat baby_names.txt | tee -a $(> uniq) | wc -l 
+cat baby_names.txt | tee -a $(> uniq > other_baby_names.txt) | wc -l 
+cat other_baby_names.txt 
+cat baby_names.txt | tee -a <(> uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (| uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (> | uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a $(> | uniq > other_baby_names.txt) | wc -l 
+man curl
+man bash
+get-baby-names
+get-baby-name
+cd projects/baby_names/
+emacs get-baby-names.sh
+ps -e | grep git
+psgrep git
+pgrep git
+github
+cd projects/
+echo $PWD
+ln $PWD $HOME/gits/bashrc_stuff/projects
+file *
+file */*
+file */* | less
+mv $PWD/baby_names $HOME/bashrc_stuff/
+ll ~/gits/bashrc_stuff/
+la ~/gits/bashrc_stuff/
+$PWD
+echo mv $PWD
+mv ~/bashrc_stuff/ $HOME/gits/bashrc_stuff/baby_names
+cd ~/gits/bashrc_stuff/
+ll baby_names/
+git add -A
+cd
+emacs projects/baby_names/get-baby-names.sh
+emacsctl start
+which emacs
+edit -f
+emacsctl stop
+git-sync
+git add --help
+man git
+git --help
+man git-add
+git-add --help
+git help add
+git help -a
+git add help
+git help
+git --help add
+git help -g
+git help -g | less
+git help cli
+dnf search git | less
+dnf search git | grep manual
+src -f
+dnf search git
+less -R < <(dnf search git)
+command -p less < <(dnf search git)
+tb enter dnf

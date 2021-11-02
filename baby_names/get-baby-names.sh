@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 #########################################################################################
 # Pull top 8077 baby names in 2017, for boys, from namecensus.com                       #
 #                                                                                       #
@@ -15,10 +14,7 @@
 # - random: 1, 5, 10, 20 (whith ability to select, and write liked names out to a file) #
 #########################################################################################
 
-
 ## variables
-
-# if set to '1', enable debugging
 DEBUG="${1:-0}"
 
 base_url="https://namecensus.com/baby_names/boys-2017"
@@ -84,7 +80,7 @@ while read -r name; do
     count=$((count + 1))
 done < <(paginate-names-requests)
 
-# get a baby name
+# get a random baby name
 get-baby-name
 
 [[ "$DEBUG" -eq 1 ]] && set +x
