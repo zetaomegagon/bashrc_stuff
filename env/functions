@@ -88,7 +88,7 @@ spectre-add() {
     # add a spectre command alias to $HOME/.spectre
     local input="${@:-$(</dev/stdin)}"
 
-    if [[ -z "$input" ]]; then
+    if [[ -n "$input" ]]; then
         target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
         aliases="$(alias | grep spectre | sed 's:\(alias\|=.*$\)::g')"
 

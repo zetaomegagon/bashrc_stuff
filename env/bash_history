@@ -894,3 +894,7 @@ cd scratch/
 mpv < <(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)
 mpv $(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)
 nautilus documents/
+dnf search git
+command -p dnf search git | less
+dnf info git-all
+exit 
