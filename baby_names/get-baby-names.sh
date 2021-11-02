@@ -12,6 +12,7 @@
 # - max: return the highest line number as a natural number                             #
 # - top: 10 - 1000, 5000, 10000, 20000                                                  #
 # - random: 1, 5, 10, 20 (whith ability to select, and write liked names out to a file) #
+# - option to use local data; or re-request the data                                    #
 #########################################################################################
 
 ## variables
@@ -30,16 +31,23 @@ requested-names-filter() {
     http_status="$(curl -Iso /dev/null -w "%{http_code}" "${base_url}${postfix}")"
 
     if [[ "$http_status" = 200 ]]; then
-        # test if request to page is valid if so, request the page
+        # if the request is successful; then
+        # request the page and filter for
+        # names
         curl -s "${base_url}${postfix}" \
             | grep \<td\> \
             | awk -F 'td' '{ print $4 }' \
             | sed -e 's:\(<\|>\|/\)::g'
     elif grep -qvE . "$target"; then
-        # if target is empty remove it and exit or exit
+        # if the request is not successful
+        # check if the run was a total faiure,
+        # remove the target, and exit
         rm "$target"
         exit 3
     else
+        # this case is needed since we throw
+        # a non-200 status possibly on the
+        # last page requested
         exit 0
     fi
 }
@@ -58,6 +66,7 @@ paginate-names-requests() {
 }
 
 get-baby-name() {
+    # print a random baby name from the target
     grep -E ^$(( 1 + RANDOM % 8077 )) "$target"
 }
 
