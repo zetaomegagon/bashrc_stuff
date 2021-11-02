@@ -258,6 +258,8 @@ This needs to be added to a repo and installed via straight / use-package."
                   (menu-bar-lines . t)
                   (window-system . x))))
 
+(use-package tldr)
+
 ;; disable the menu-bar in cli and toolbar in gui.
 ;; disable scrollbar in both
 (menu-bar-mode -1)
