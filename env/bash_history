@@ -771,3 +771,126 @@ dnf search git
 less -R < <(dnf search git)
 command -p less < <(dnf search git)
 tb enter dnf
+ln -s $PWD/baby_names $HOME/projects/
+ll ~/projects/
+man git-stash
+git-stash --help
+git stash --help
+git-sync
+command -P spectre -h
+./bin/spectre -h
+./bin/spectre -h | less
+less $(< ./bin/spectre -h)
+less < <(./bin/spectre -h)
+debug spectre -h
+set -x; spectre -h; set +x
+$HOME/bin/spectre -h > /tmp/spectre_help
+$HOME/bin/spectre -h 2>&1 > /tmp/spectre_help
+less /tmp/spectre_help
+$HOME/bin/spectre -h 1>/dev/null
+spectre -h
+{ ! [[ -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h 2>/tmp/spectre_help; } || less /tmp/spectre_help 
+$HOME/bin/spectre -h 2>/dev/null
+$HOME/bin/spectre -h 2>&1
+$HOME/bin/spectre -h 2>&1 | less
+command -P spectre
+command -vV spectre
+type spectre
+which ~/bin/spectre
+history | tail -2
+history | tail -5
+ 
+file $(file ~/bin/spectre | awk '{ print $5 }')
+file spectre
+file $(file ~/bin/spectre | awk "{ print $5 }")
+debug file $(file ~/bin/spectre | awk "{ print $5 }")
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr " '
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr ["] [']
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr \" \'
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr [a-z] [A-Z]
+exec $(echo "file $(file ~/bin/spectre | awk "{ print $5 }")" | tr \" \')
+pgrep -ai geckomain
+pgrep -a geckomain
+command -p pgrep -ai geckomain
+command -p pgrep -i geckomain
+emacsctl status
+pgrep emacs
+pgrep --hlep
+command -p pgrep -vP emacs
+command -p pgrep emacs
+pgrep --help
+debug pgrep --help
+pgrep emacs firefox | awk '{ print 1 }'
+pgrep emacs firefox | awk '{ print $1 }'
+which pgrep
+debug pgrep emacs firefox
+pgrep emacs firefox
+emacsctl stop
+emacsctl start
+src -f
+edit -f
+emacs .gitconfig 
+git tree
+emacs .functions 
+exec $(echo "file $(file ~/bin/spectre | awk "{ print $5 }")" | tr \" \')
+cd gits/bashrc_stuff/
+git log --graph --online --all
+git log --graph --oneline --all
+la ~/
+la ~/.config/
+git log --graph --pretty=oneline --abbrev-commit
+git log --graph --decorate --pretty=oneline --abbrev-commit
+git log
+git log --graph --decorate --abbrev-commit
+git log --graph --decorate --oneline --abbrev-commit
+git tree
+rm add-symlinks.sh*
+rm \#*\#
+git-sync
+gitlab
+searx_pref_url_1="https://searx.be/?preferences=eJxtVk2T2zYM_TWri2Y9bdJOm4NPO5NrO5P0rIFImEJEEgpJ2db--oK2tCLtHFY7BEF8PDwAVpDQcCCMR4MeA9jGgjczGDyif_3vW2NZgc2HBubEit1kMeHxQiNNqAkacqLcTYGvy_F7mLFxmAbWx3__-fa9iXDCiBDUcPytSQM6PHJUEJqAcbYpduw7j5cuQX_8CjZio5k6uWR7xnBkkOOBg2lur15jWiQWy4YUazy_aghjA_oMXqHuVkerHYrQW5GiN-QlvwZ9Lfh5AZ_aW_ix6-7_Xz69nckhd92ZNHI-95T6WY2YRCfJOWfeM4_yZoVsFWpIUMkGAS5asVNK-6TJmK47kb25s9zHhIcQV_M9efMclKU-QFjabCdS5Vqpe0KF9uzjZCEOhSjj1WMwRRKCuxjKXxGEuV8Mui0KLRnnP8NV7BJb7Vq9pnOB1QIDVy8wMdsqXJ7QB5w47hAsPKe5x8KOYTYWW0liaWGaCt2IE8G90IU-Br6QrsDnoD2NpSjxuHDiOPAIfrdoJtYaQ9dFVgS2dZnVWyHuHgpPEZ2whlQb1cAW8jNFKPTLGKLWlJ4MZawdeSpjMWSEjBBTKdSk0jt7rGWZLGuR3OLQsdAgBfDRSu8-5Hylkf1BYxsXz160y2u_AOxpO_6BOD5yWJouUlqqUDd8tpfkoQBE2pAEEQipYFvM5ynPhcLQBs-H1kkHzlXbDJ8CSuR8ShcI2GoKqJJku1Jye15go02r8STQJmJfsezW26VgMUZsBczS3R_5kUAVIZXEc3wmLGsP09g6CoELMDJoP2dOVaYR3z24X-W-FvKD8W6OpHa_T3TTQHZxnPMrpKcADvJIwBWb3A5Su7aeDHsTPw-UCTE8NJ2f3GpumnuXqbVT2whXkgzGbT78_vnzX9cCSUtqDIX5G5d4eWDAhfqaWpQs9NvgC3CutAcQUf6sCveuz4OszZ8tkmvhVs8a_QOnM3YQKr_x5e3Pl78_8UUmRPvj5e2Ply9f3pcR2kmG1UhYT70wO9kbZVFuPfnQ5R9tUjdU5DmouqNZlkloh3lLHJNU2FuqG98LGru1fZ1NdpZpX6yzTZDhuR7W00G2WDdwGnGJK3T73cAxCT9R9qwQ_VbfWmGdr8I5df99sMhutdKNz6bylrkffmHFnjryJ366EWFuWhSCBbb26V7GW8aom4OVGKUPMTzpMHT3nwqXIJYaGe4oIPwPX7VSHw==&q=%s"
+searx_pref_url_2="https://searx.be/?preferences=eJxtVk2P4zYM_TXxxZig3W3R7iGnAfbaArs9G7TE2FzLopeSnfH8-lJjJ5GSPcSAKH6_JzIGInYshOHUoUcBVznw3QwdntC__PetcmzApUMFc2TD4-Qw4qlj7hxWNKpmMwm_rafvMmM1YuzZnv7959v3KsAZA4KY_vRbFXsc8cTBgFSCYXYxNOwbj5cmQnv6Ci5gZZkavWS3oJwY9Hhk6aoPq5cQV03EcUeGLS4V2AW8QdvsMXYXFKB1KkXfkde6MDK70DR7fYdPrwuNyE2zkEUOel67LrII-tg0Z3KYZHa26HOjcHj98_D3J754Guofh9c_Dl--vK8D1JN6H0i7mGv__vnzX293bxcaaCRPucrKc5xbzPIQtJZirhN5WDly6HkAf3dnjHmJS2Z5tsJk7wobOvV2n-k5agVkrVOEQEVTWvLds0FKXCFSUfruarnZhd9oYH-0WIfVs19HLPqgTfjgSLId-QfiUDQVJ4INviJouxYxNImF18S0TGqB3DpyJGXR3ZYn9IJTKuIGJZn4zr4w7ia2FqWI0ivPg1NHRRTqtN7AhsDVI1qC1G4hPxCYrLYJUR7gbONmfM1D5nbtcNTMKOYpPDjvQTFKn11PT0uREkxDPZIIy933Cj0XBDRm43-WYuoyLViXuO9UmRys9ciLToKcVwIjJNLgnoxfATKaKZxRH9O1pCuBHyoKESROD_Ch8CVR9i65Wt8SVtwTukrYwjAq6t5RCejPC_ji6ZCHrJANiZ3DiU-BZzH4q_C70sbKNGnq9NkrTKY_Z46F5TS3WqqWbQh1IOXY3gYAi9XBkVudHZlBsnIdtyHiUW7dnEcdZFkRfhr3KzubIf06rjfzzE3Adw9jATFFB-2Tafn6Y6tCjLtWKrlF6a4cTMPhKdKoj31kHSdRwAenq6TA8yyoQ4HP8QKCtSVBo2N2veaBCylkyowi91FlZOpgenYgeU9nH5SkoS8JooSWQPFpXliIULxj1uqk7udrH27jd5wDmaRhu9riWad0Il3xRry-QHmM0DIP5UuiTjcPhPjEy-fW5a8Opuk6rSr05fK6r7PJzSoKp8TLt-N-Ouoqa3qOA65Xzt7veg5RmYC6UTXORw9LBYZmW7gXofh8Tf6jGagYCDt3y-3XmexTXIex2f5TrLqXnUL-5FfF50ad89ON8iih1MziNCudRijPVSUKbIdK1yNqIv8DArJOfA==&q=%s"
+clip empty
+echo "$searx_pref_url_1" | clip
+clip
+searx_pref_url_2="https://searx.be/?preferences=eJxtVk2P4zYM_TXxxZig3W3R7iGnAfbaArs9G7TE2FzLopeSnfH8-lJjJ5GSPcSAKH6_JzIGInYshOHUoUcBVznw3QwdntC__PetcmzApUMFc2TD4-Qw4qlj7hxWNKpmMwm_rafvMmM1YuzZnv7959v3KsAZA4KY_vRbFXsc8cTBgFSCYXYxNOwbj5cmQnv6Ci5gZZkavWS3oJwY9Hhk6aoPq5cQV03EcUeGLS4V2AW8QdvsMXYXFKB1KkXfkde6MDK70DR7fYdPrwuNyE2zkEUOel67LrII-tg0Z3KYZHa26HOjcHj98_D3J754Guofh9c_Dl--vK8D1JN6H0i7mGv__vnzX293bxcaaCRPucrKc5xbzPIQtJZirhN5WDly6HkAf3dnjHmJS2Z5tsJk7wobOvV2n-k5agVkrVOEQEVTWvLds0FKXCFSUfruarnZhd9oYH-0WIfVs19HLPqgTfjgSLId-QfiUDQVJ4INviJouxYxNImF18S0TGqB3DpyJGXR3ZYn9IJTKuIGJZn4zr4w7ia2FqWI0ivPg1NHRRTqtN7AhsDVI1qC1G4hPxCYrLYJUR7gbONmfM1D5nbtcNTMKOYpPDjvQTFKn11PT0uREkxDPZIIy933Cj0XBDRm43-WYuoyLViXuO9UmRys9ciLToKcVwIjJNLgnoxfATKaKZxRH9O1pCuBHyoKESROD_Ch8CVR9i65Wt8SVtwTukrYwjAq6t5RCejPC_ji6ZCHrJANiZ3DiU-BZzH4q_C70sbKNGnq9NkrTKY_Z46F5TS3WqqWbQh1IOXY3gYAi9XBkVudHZlBsnIdtyHiUW7dnEcdZFkRfhr3KzubIf06rjfzzE3Adw9jATFFB-2Tafn6Y6tCjLtWKrlF6a4cTMPhKdKoj31kHSdRwAenq6TA8yyoQ4HP8QKCtSVBo2N2veaBCylkyowi91FlZOpgenYgeU9nH5SkoS8JooSWQPFpXliIULxj1uqk7udrH27jd5wDmaRhu9riWad0Il3xRry-QHmM0DIP5UuiTjcPhPjEy-fW5a8Opuk6rSr05fK6r7PJzSoKp8TLt-N-Ouoqa3qOA65Xzt7veg5RmYC6UTXORw9LBYZmW7gXofh8Tf6jGagYCDt3y-3XmexTXIex2f5TrLqXnUL-5FfF50ad89ON8iih1MziNCudRijPVSUKbIdK1yNqIv8DArJOfA==&q=%s"
+clip empty
+echo "$searx_pref_url_1" | clip
+clip
+man find
+cd projects/
+wget -mk -np -e robots=off "https://man7.org/linux/man-pages/index.html"
+echo $[RANDOM+1]
+echo $[RANDOM%10+1]
+square_variable=whuttafuh
+echo $square_variable
+echo $[square_variable]
+prinf "%s" "$[square_variable]"
+printf "%s" "$[square_variable]"
+printf "%s\n" "$[square_variable]"
+
+echo $[RANDOM%X+1]
+# echo $[RANDOM%X+1]
+# echo $[ RANDOM % X + 1 ]
+echo $(( RANDOM % 5 + 1 ))
+cd
+
+debug export Q='() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }; Q $(pwd)'; bash -c "Q; cd ~/Desktop; Q"
+export Q='() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }; Q $(pwd)'; bash -c "Q; cd ~/Desktop; Q"
+export Q='() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }; Q $(pwd)'; bash -c "Q; cd ~/desktop; Q"
+export Q='() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }; bash -c "Q $(pwd)"'; bash -c "Q; cd ~/desktop; Q"
+echo $Q
+Q() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }; Q $(pwd); bash -c "Q; cd ~/desktop; Q"
+Q() { a=$(pwd); [ -z "$Q_env" ] && export Q_env=$*; b=$Q_env; echo "a=$a, b=$b,"; }
+Q $PWD
+debug Q $PWD
+echo $Q_env
+cd projects/
+mkdir scratch
+cd scratch/
+(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)
+(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)|vlc
+(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)|mpv
+mpv < <(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)
+mpv $(base64 -d <<<TVRoZAAAAAYAAQABAYBNVHJrAAAoMAD/UQOZlmY=;notes=("4E" "55" "56");for x in {0..31}; do echo -n 1001001020|while read -n1 i;do printf "\x00\x90\x${notes[$i]}\x7F\x08\x80\x${notes[$i]}\x7F";done; done)
+nautilus documents/
