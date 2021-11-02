@@ -3,35 +3,32 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
-    
     local repo="${HOME}/gits/bashrc_stuff"
 
-    # move to working dir 
-    [[ "$PWD" != "$repo" ]] && pushd "$repo" >/dev/null 2>&1
+    (
+        # move to working dir 
+        cd "$repo" || exit
 
-    # ensure stash is clean
-    [[ -n "$(git stash list)" ]] && git stash drop
+        # ensure stash is clean
+        [[ -n "$(git stash list)" ]] && git stash drop
 
-    # stash changes (if any) & sync with github repo
-    git stash >/dev/null 2>&1
-    git pull
+        # stash changes (if any) & sync with github repo
+        git stash >/dev/null 2>&1
+        git pull
 
-    # apply stash (if any)
-    [[ -n "$(git stash list)" ]] && git stash apply
+        # apply stash (if any)
+        [[ -n "$(git stash list)" ]] && git stash apply
 
-    # Add all, commit, push
-    git add -A
-    git commit -m "auto commited on: $(date -I'ns')"
-    git push origin master
+        # Add all, commit, push
+        git add -A
+        git commit -m "auto commited on: $(date -I'ns')"
 
-    # Good push? Drop the stash
-    [[ "$?" -eq 0 ]] && git stash drop
-
-    # Return to origin dir
-    popd >/dev/null 2>&1
+        # Good push? Drop the stash
+        git push origin master && git stash drop
+    )
 
     # Source updated .bashrc
-    { unalias -a; unset -fn; } && source ${HOME}/.bashrc
+    { unalias -a; unset -fn; } && source "${HOME}/.bashrc"
 }
 
 spectre() {
@@ -423,15 +420,15 @@ pgrep() {
 }
 
 which() {
-    input="$*"
+    input=("$@")
     # which is deprecated use the 'command' builtin
-    command -vV "$input"
+    command -vV "${input[@]}"
 }
 
 emacs() {
     # connect to the local emacs daemon if non-privleged;
     # or run a standalone terminal session of emacs
-    input="$*"
+    local input="$@"
     enox() { /usr/bin/emacs-nox "$@"; }
     eclt() { /usr/bin/emacsclient -nw "$@"; }
 
