@@ -13,7 +13,7 @@ git-sync() {
         [[ -n "$(git stash list)" ]] && git stash drop
 
         # stash changes (if any) & sync with github repo
-        git stash >/dev/null 2>&1
+        git stash
         git pull
 
         # apply stash (if any)
@@ -34,8 +34,8 @@ git-sync() {
 spectre() {
     # Modified spectre wrapper
     _copy() {
-        _clips=('pbcopy' 'xclip' 'gpaste-client')
-        _use="${_clips[2]}"
+        local _clips=('pbcopy' 'xclip' 'gpaste-client')
+        local _use="${_clips[2]}"
 
         case "$_use" in
             "${_clips[0]}")
@@ -53,11 +53,8 @@ spectre() {
     }
 
     if [[ "$1" =~ (-h|--help) ]]; then
-	      # Call the binary directly when passing help flag so we
-	      # don't get ugly output and duplicate output with pager
-	      { [[ ! -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h > /tmp/spectre_help; } 2>/dev/null
-	      
-	      less /tmp/spectre_help
+        # print help to stdout
+        $HOME/bin/spectre -h 2>&1
     else
  	      # Empty the clipboard.
 	      :| _copy 2>/dev/null
@@ -89,11 +86,11 @@ spectre() {
 
 spectre-add() {
     # add a spectre command alias to $HOME/.spectre
-    input="${@:-$(</dev/stdin)}"
+    local input="${@:-$(</dev/stdin)}"
 
     if [[ -z "$input" ]]; then
         target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
-        aliases="$(alias | command -p grep spectre | sed 's:\(alias\|=.*$\)::g')"
+        aliases="$(alias | grep spectre | sed 's:\(alias\|=.*$\)::g')"
 
         # create the alias and write to target
         printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee -a "${target_spctr:-/dev/null}"
@@ -130,7 +127,8 @@ debug() {
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
-    local optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
+    local optimus
+    optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
     
     play() {
 	      inhibit-and-play() {
@@ -166,7 +164,7 @@ emacsctl() {
 }
 
 genrandom() {
-    input="${1:-64}"
+    local input="${1:-64}"
 
     case "$input" in
         [4-9][0-9]{2,})
@@ -174,8 +172,8 @@ genrandom() {
             printf "%s" "$random" | gpaste-client
             printf "%s\n" "$random"
             ;;
-        -h)
-            usage
+        *)
+            : # finish me!!!
     esac
 }
 
@@ -183,9 +181,10 @@ mmtail() {
     # pass arbitrary number of files to multitail or
     # all files in a directory
     mt() {
+        local input=("$@")
 	      declare -a files
         
-	      for file in "$@"; do
+	      for file in "${input[@]}"; do
 	          if [[ -f "$file" ]]; then
                 files+=("$file ")
             fi
@@ -196,16 +195,19 @@ mmtail() {
 
     # if called w/o args, process all files; otherwise
     # process specified files
-    if [[ -z $* ]]; then
+    if [[ -z "${input[*]}" ]]; then
         mt --
     else
-        mt "$@"
+        mt "${input[@]}"
     fi
 }
 
 miotop() {
     # pass arbitrary amount of PIDs to iotop
-    for pid in $(pgrep "$1"); do
+    local input="$1"
+    declare -a pids
+    
+    for pid in $(pgrep "$input"); do
 	      pids+=( "--pid $pid " )
     done
 
@@ -239,10 +241,10 @@ dnf() {
     # on container creation optimize dnf,
     # increasing parallel downloads and
     # using the fastest mirror
-    distro=fedora
-    release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
-    name=\dnf
-    dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+    local distro=fedora
+    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    local name=\dnf
+    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
     export DNF_EXIT_STATUS
     
     if ! toolbox list | command -p grep -iq dnf; then
@@ -271,10 +273,10 @@ gnome-tweaks() {
     #
     # In either case update the container before
     # running gnome-tweaks
-    distro=fedora
-    release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
-    name=\gnome-tweaks
-    dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+    local distro=fedora
+    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    local name=\gnome-tweaks
+    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
     
     if ! toolbox list | command -p grep -iq gnome-tweaks; then
         (
@@ -299,9 +301,9 @@ gnome-tweaks() {
 
 cpu-profiles() {
     # Get, set, or show current cpu scalings
-    arg="$1"
+    local input="$1"
 
-    case "$arg" in
+    case "$input" in
         performance|powersave)
             # set scaling
             sudo su -c "echo $arg | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
@@ -345,7 +347,7 @@ cpu-temps() {
     declare -a tempf
     
     for temp in "${tempm[@]}"; do
-        tempf+=( "$(( ($temp / 1000) * 9/5 + 32 ))F " )
+        tempf+=( "$(( (temp / 1000) * 9/5 + 32 ))F " )
     done
 
     echo "${tempf[@]}"
@@ -361,12 +363,12 @@ search() {
     # starts firefox with the search query,
     # or creates a new tab in the existing
     # instance
-    baseurl="https://searx.be/search?preferences="
-    preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-preferences)"
+    local baseurl="https://searx.be/search?preferences="
+    local preferences; preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-preferences)"
     query="&q=$*"
     range="&time_rage=year"
 
-    if ps -e | grep -q GeckoMain; then
+    if pgrep GeckoMain; then
         (
             {
                 /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}${range}"
@@ -383,9 +385,9 @@ search() {
 
 decode64() {
     # decodes a base64 input string
-    bpath="$PWD"
-    fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
-    fpath="$bpath/$fname"
+    local bpath="$PWD"
+    local fname; fname="decoded-$(mktemp -u $(for i in {0..15}; do printf X; done))"
+    local fpath="$bpath/$fname"
 
     # ${input} allows the following or equvalent:
     # $ cat file | decode64 -
@@ -395,10 +397,11 @@ decode64() {
 
     if echo "$input" | base64 -d --ignore-garbage - >/dev/null 2>&1; then
         # this does most of the work
+        local extension
         extension="$(echo $input | base64 -d --ignore-garbage - | tee "$fpath" | file --brief --extension -)"
         
         if [[ -s $fpath ]]; then
-            success="File written to ${fpath}.${extension}"
+            local success="File written to ${fpath}.${extension}"
             mv "$fpath" "${fpath}.${extension}"
             echo "$success"
         else
@@ -413,16 +416,19 @@ decode64() {
 pgrep() {
     # print pid and full command line of given input string
     # matching a process name
-    input=("$@")
+    local input=("$@")
+    
     for proc in "${input[@]}"; do
-        command -p pgrep -aif "$proc"
+        printf "%s\n%s\n\n" "---- ${proc} ----" "$(command -p pgrep -aif "$proc")"
     done
 }
 
 which() {
-    input=("$@")
     # which is deprecated use the 'command' builtin
-    command -vV "${input[@]}"
+    # maybe type...?
+    local input="$@"
+    
+    command -vV "$input"
 }
 
 emacs() {
@@ -431,6 +437,8 @@ emacs() {
     local input="$@"
     enox() { /usr/bin/emacs-nox "$@"; }
     eclt() { /usr/bin/emacsclient -nw "$@"; }
+
+    ! ( command -p pgrep emacs ) && emacsctl start
 
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
         { [[ -z "$input" ]] && enox; } || enox "$input"
@@ -574,4 +582,12 @@ preview() {
             echo " --all-moz    ''    user.js and user-overrides.js"            
             echo
     esac
+}
+
+nautilus() {
+    (
+        {
+            command -p nautilus "$@" &
+        } >/dev/null 2>&1
+    )
 }

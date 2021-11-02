@@ -518,3 +518,190 @@ cat baby_names.txt | tee -a (> | uniq > other_baby_names.txt) | wc -l
 cat baby_names.txt | tee -a $(> | uniq > other_baby_names.txt) | wc -l 
 man curl
 man bash
+curl file:///dev/null
+curl file:///dev/null; curl_exit=$?; echo $curl_exit
+curl https://wiki.archlinux.org; curl_exit=$?; echo $curl_exit
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo hello && echo $curl_exit
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || { echo hello && echo $curl_exit; }
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo $curl_exit
+curl https://wiki.archlinux.org  || echo $curl_exit
+curl https://wiki.archlinux.org  || echo foo
+curl -s https://wiki.archlinux.org  || echo foo
+curl -sq https://wiki.archlinux.org || echo foo
+curl -q https://wiki.archlinux.org || echo foo
+curl -s https://wiki.archlinux.org || echo foo
+curl https://wiki.archlinux.org  || echo foo
+curl -s https://wiki.archlinux.org  || echo foo
+curl -sq https://wiki.archlinux.org || echo foo
+curl -q https://wiki.archlinux.org || echo foo
+curl -s https://wiki.archlinux.org || echo foo
+echo $(: foo)
+echo $(: $(echo foo))
+echo $(set -x;: $(echo foo); set +x)
+source ./projects/baby_names/get-baby-names.sh 
+history | grep curl
+{ curl https://wiki.archlinux.org; curl_exit=$?; } || echo hello && echo $curl_exit
+htop
+popd ~/projects/decode64/
+pushd ~/projects/decode64/
+popd
+(nautlius &)
+(nautilus &)
+echo bar
+echo foo
+mkdir dir_foo_bar
+rm dir_foo_bar/
+rm -r dir_foo_bar/
+. ./get-baby-names.sh
+( { . ./get-baby-names.sh; } >/dev/null |&; }
+( { . ./get-baby-names.sh; } >/dev/null 2>&1; }
+( { . ./get-baby-names.sh; } >/dev/null 2>&1; & )
+( { . ./get-baby-names.sh; } >/dev/null 2>&1 & )
+caller
+wc -l < (cat baby_names.txt)
+wc -l < (< baby_names.txt)
+wc -l < <(< baby_names.txt)
+wc -l < <(baby_names.txt)
+cat baby_names.txt | wc -l
+cat baby_names.txt | tee -a $(> uniq) | wc -l 
+cat baby_names.txt | tee -a $(> uniq > other_baby_names.txt) | wc -l 
+cat other_baby_names.txt 
+cat baby_names.txt | tee -a <(> uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (| uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a (> | uniq > other_baby_names.txt) | wc -l 
+cat baby_names.txt | tee -a $(> | uniq > other_baby_names.txt) | wc -l 
+man curl
+man bash
+env --help
+env bash echo hello
+env bash -c "echo hello"
+debug env bash -c "echo hello"
+man env
+env -i bash -c "which grep"
+env -i bash -c "command -vV grep"
+env bash -c "command -vV grep"
+printf "%s" "\#\!/usr/bin/env bash" >> example-script.sh
+printf "\n%s\n" "command -vV grep" >> example-script.sh 
+chmod +x example-script.sh 
+emacs example-script.sh 
+./example-script.sh 
+command -vV grep
+./projects/baby_names/get-baby-names.sh
+( cd ./projects/baby_names/ )
+pgrep cd
+which pgrep 
+type --help
+type grep
+./projects/baby_names/get-baby-names.sh 1
+rm example-script.sh*
+cd projects/baby_names/
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < <(./baby_names) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < <(< /baby_names.txt) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < <(< ./baby_names.txt) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < <(./baby_names.txt) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < $(<./baby_names.txt) 
+count=1; while read -r name; do printf "%s\s%s\n" "$count" "$name"; done < $(< ./baby_names.txt) 
+count=1; while read -r name; do printf "%s %s\n" "$count" "$name"; done < $(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%s %s\n" "$count" "$name"; done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%s %s\n" "$count" "$name"; count+=1; done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%s %s\n" "$count" "$name"; (( count +1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%s %s\n" "$count" "$name"; count=$(( $count + 1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%2s\n" "$count" "$name"; count=$(( $count + 1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%2s" "$count" "$name"; count=$(( $count + 1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%2s" "$count $name"; count=$(( $count + 1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%2s\n" "$count $name"; count=$(( $count + 1 )); done < <(cat ./baby_names.txt) 
+count=1; while read -r name; do printf "%2s\n" "$count $name"; count=$(( count + 1 )); done < <(cat ./baby_names.txt) 
+less get-baby-names.sh
+less baby_names.txt 
+emacs baby_names.txt 
+rm baby_names.txt 
+wc -l $(< baby_names.txt)
+man -k random
+echo $RANDOM
+which random
+which RANDOM
+which $RANDOM
+which \$RANDOM
+debug $RANDOM
+$RANDOM
+printf $RANDOM
+printf "%s\n" $RANDOM
+printf "%s\n" $(( RANDOM / 8077 ))
+printf "%s\n" $(( RANDOM - 8077 ))
+echo $(( 1 + RANDOM % 8077 ))
+grep $(( 1 + RANDOM % 8077 )) baby_names.txt 
+grep -E ^$(( 1 + RANDOM % 8077 )) baby_names.txt 
+get-baby-name() { command -p grep -E ^$(( 1 + RANDOM % 8077 )) "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name() { command -p grep -E ^$(( 1 + RANDOM % 8077 ))\s "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name() { command -p grep -E "^$(( 1 + RANDOM % 8077 ))\s" "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name() { grep -E "^$(( 1 + RANDOM % 8077 ))" "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name() { grep -vE "^$(( 1 + RANDOM % 8077 ))\s" "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name | less
+get-baby-name() { grep -E "^$(( 1 + RANDOM % 8077 ))\s" "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name() { grep -E "^$(( 1 + RANDOM % 8077 ))\s" "$HOME/projects/baby_names/baby_names.txt"; }
+get-baby-name
+which get-baby-name
+wc -l < <(cat baby_names.txt)
+nnames() { wc -l < <(cat baby_names.txt); }
+nnames
+unset get-baby-name
+./get-baby-names.sh 1
+shellcheck ./get-baby-names.sh
+./get-baby-names.sh
+cd
+mv projects/ gits/bashrc_stuff/
+ln -s $HOME/gits/bashrc_stuff/projects $HOME/projects
+debug git-sync
+git add -A
+set -x
+git add projects/
+git status
+debug git add -A
+git stash drop
+set +x
+ll -R projects/
+ll -hR projects/ | less
+rm ~/projects/
+rm ~/projects
+mv projects/ ~/
+ll ~/
+ln -s $PWD/baby_names $HOME/projects/
+ll ~/projects/
+man git-stash
+git-stash --help
+git stash --help
+git-sync
+command -P spectre -h
+./bin/spectre -h
+./bin/spectre -h | less
+less $(< ./bin/spectre -h)
+less < <(./bin/spectre -h)
+debug spectre -h
+set -x; spectre -h; set +x
+$HOME/bin/spectre -h > /tmp/spectre_help
+$HOME/bin/spectre -h 2>&1 > /tmp/spectre_help
+less /tmp/spectre_help
+$HOME/bin/spectre -h 1>/dev/null
+src -f
+spectre -h
+{ ! [[ -f /tmp/spectre_help ]] && ${HOME}/bin/spectre -h 2>/tmp/spectre_help; } || less /tmp/spectre_help 
+$HOME/bin/spectre -h 2>/dev/null
+$HOME/bin/spectre -h 2>&1
+$HOME/bin/spectre -h 2>&1 | less
+command -P spectre
+command -vV spectre
+type spectre
+which ~/bin/spectre
+history | tail -2
+history | tail -5
+ 
+file $(file ~/bin/spectre | awk '{ print $5 }')
+file spectre
+file $(file ~/bin/spectre | awk "{ print $5 }")
+debug file $(file ~/bin/spectre | awk "{ print $5 }")
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr " '
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr ["] [']
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr \" \'
+file $(file ~/bin/spectre | awk "{ print $5 }") | tr [a-z] [A-Z]
+exec $(echo "file $(file ~/bin/spectre | awk "{ print $5 }")" | tr \" \')
