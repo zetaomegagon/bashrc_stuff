@@ -1129,3 +1129,46 @@ mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --tab
 mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns '[ device-name ]','[ mount-path ]','[ fs-type ]','[ options ]'
 mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns :device-name,:mount-path,:fs-type,:options
 echo $HOSTNAME
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns :device-name,:mount-path,:fs-type,:options
+echo $HOSTNAME
+findmount
+findmnt
+findmnt -j
+man findmnt
+findmnt -J
+findmnt -J | less
+mount
+mount | column -t
+mount | awk '{ print $1" "$3" "$5" "$6 }'
+mount | awk '{ print $1"\t"$3"\t"$5"\t"$6 }' 
+mount | awk '{ print $1" "$3" "$5" "$6 }' | column -t
+mount | awk '{ print $1" "$3" "$5" "$6 }' | tr -d"(" | column --table --tablename mounts.$HOSTNAME --table-columns device,mount-path,fs-type,options
+mount | awk '{ print $1" "$3" "$5" "$6 }' | tr -d '[\(\)]' | column --table --tablename mounts.$HOSTNAME --table-columns device,mount-path,fs-type,options
+mount | awk '{ print $1" "$3" "$5" "$6 }' | tr -d '[\(\)]' | column --table --table-name mounts.$HOSTNAME --table-columns device,mount-path,fs-type,options
+mount | awk '{ print $1" "$3" "$5" "$6 }' | tr -d '[\(\)]' | column --table --table-name mounts.$HOSTNAME --table-columns device,mount-path,fs-type,options -J | less
+findmnt -J | less
+tail -30 .functions 
+mountj() { mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less; }
+mountj() { mount | sed 's:\(on\|type\|(\|)\)::g' | column --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less; }
+mount | column --table --table-name mounts.nekko --table-columns device-name,mount-path,fs-type,options
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns device-name,mount-path,fs-type,options
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns [ device-name],[ mount-path ],[ fs-type ],[ options ]
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns \[ device-name \],\[ mount-path \],\[ fs-type \],\[ options \]
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns '[ device-name ]','[ mount-path ]','[ fs-type ]','[ options ]'
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns :device-name,:mount-path,:fs-type,:options
+echo $HOSTNAME
+debug mountt
+which mountt
+man column
+mount | column -t
+src -f; mountt
+src -f
+which mountj
+mountt
+mountj
+which table
+mount
+man mount
+git-sync
+explain findmnt -J
+findmnt

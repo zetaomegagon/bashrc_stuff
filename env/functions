@@ -579,11 +579,7 @@ preview() {
 nautilus() {
     # run nautilus file manager from commandline
     # w/o any fuss
-    (
-        {
-            command -p nautilus "$@" &
-        } >/dev/null 2>&1
-    )
+    ( command -p nautilus "$@" >/dev/null 2>&1 & )
 }
 
 explain() {
