@@ -583,3 +583,11 @@ nautilus() {
         } >/dev/null 2>&1
     )
 }
+
+explain() {
+    local cols="cols=80"
+    local query; query="&q=$(sed 's:\s:\%20:g' < <(echo "$*"))"
+    local base_url="https://www.mankier.com/api/v2/explain/?"
+
+    curl -s -X GET "${base_url}${cols}${query}"
+}
