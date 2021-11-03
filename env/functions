@@ -451,7 +451,9 @@ emacs() {
 
 
 src () {
-    # source various config files
+    # source various run commands files
+    #
+    # https://wikiless.org/wiki/Run_commands?lang=en
     case $1 in
         -a)
             source $HOME/.aliases ;;
@@ -468,7 +470,7 @@ src () {
         --all)
             source $HOME/.{aliases,bashrc,functions,spectre,sshpw,translate} ;;
         *)
-            echo "Source various configuration files"
+            echo "Source various run commands files"
             echo
             echo "Usage:"
             echo " src [options]"
@@ -577,7 +579,7 @@ preview() {
 }
 
 nautilus() {
-    # run nautilus file manager from commandline
+    # run nautilus file manager from command line
     # w/o any fuss
     ( command -p nautilus "$@" >/dev/null 2>&1 & )
 }

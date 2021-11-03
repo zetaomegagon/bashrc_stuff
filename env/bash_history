@@ -1172,3 +1172,102 @@ man mount
 git-sync
 explain findmnt -J
 findmnt
+which jq
+file min.js 
+cat min.js | jq .
+dnf search git
+command -p dnf search git | less
+dnf info git-all
+exit 
+spectre-add taiga.io
+edit -sp
+which spectre-add
+debug spectre-add taiga.io
+taiga
+git stash --help
+emacs
+tb list
+tb enter jq
+tb --container jq run cat min.js | jq
+command -vV lessfile
+command -v lessfile
+which lessfile
+which lessfilter
+cat .lesshst 
+cat .lesshst | less
+rm .lesshst 
+pgrep tmux
+command -p pgrep tmux
+for pid in command -p pgrep tmux; do kill $pid; done
+for pid in $(command -p pgrep tmux); do kill $pid; done
+curl https://www.mankier.com/api/v2/explain/?cols=80&q='ls -ls'
+curl "https://www.mankier.com/api/v2/explain/?cols=80&q='ls -ls'"
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls -ls'
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls%20-ls'
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls%20-lAFCz'
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls%20-lAFCz --color'
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls%20-lAFCz%20--color'
+curl 'https://www.mankier.com/api/v2/explain/?cols=80&q=ls%20-lAFCZ%20--color'
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(tr ' ' '%20' $(< $@))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(tr ' ' '%20' < <(cat $@))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(tr ' ' '%20' < <(cat "$*"))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(echo "$*" | tr ' ' '%20')" curl -s "${url}${input}"; }
+sed 's:\s:\%20:g' < <(echo "foo bar")
+echo "foo bar" | tr '\s' '\%20'
+echo "foo bar" | tr ' ' '\%20'
+echo "foo bar" | tr ' ' '\%\2\0'
+echo "foo bar" | tr '' '\%20'
+man tr
+echo "foo bar" | tr ' ' [%20]
+echo "foo bar" | tr ' ' '[%20]'
+echo "foo bar" | tr '" "' '%20'
+echo "foo bar" | tr '" ' '%20'
+echo "foo bar" | tr ' ' '%20'
+echo "foo bar" | tr ' "' '%20'
+echo "foo bar" | tr '" '' '%20'
+echo "foo bar" | tr '" ' '%20'
+echo "foo bar" | tr '" '' '%20'
+echo "foo bar" | tr '" ' '%20'
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' "$(< $*)")" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' < <(cat $*)")" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' < <(cat $*))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' < <(cat "$*"))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' < <(echo "$*"))" curl -s "${url}${input}"; }
+explain() { local url; url="https://www.mankier.com/api/v2/explain/?cols=70&q="; local input; input="$(sed 's:\s:\%20:g' < <(echo "$*"))" curl -s "${url}${input}";
+
+explain() {     local cols=80;     local url="https://www.mankier.com/api/v2/explain/?cols=${cols}&q=";     local query="${*//\s/\%20}"     curl -sX GET "${url}${query}"; }
+which explain
+explain 'less -R'
+explain() {     local cols=80;     local url="https://www.mankier.com/api/v2/explain/?cols=${cols}&q=";     local query="${*// /\%20}"     curl -sX GET "${url}${query}"; }
+explain() {     local cols=80;     local url="https://www.mankier.com/api/v2/explain/?cols=${cols}&q=";     local query="${*// /\%20}"     curl -s -X GET "${url}${query}"; }
+explain() { local cols=80; local url="https://www.mankier.com/api/v2/explain/?cols=${cols}&q="; local query="${*// /\%20}"; curl -s -X GET "${url}${query}"; }
+debug explain 'less -R'
+debug explain 'less -v -R'
+man less
+debug explain 'less -e -R'
+src -f
+search conditional shebang
+sudo systemctl list-units
+sudo su
+systemd-analyze critical-chain
+sudo systemd-analyze critical-chain
+sudo systemd-analyze
+systemd-analyze --help
+systemd-analyze blame
+findmnt
+lsblk
+mountt | sed 's.\s.\..g' | head -1
+mountt | sed 's.\s.\..g'
+mountt | sed 's.\s.\-.g'
+mountt | sed 's.\s.\~.g' | grep tracing
+mountt | sed 's.\s.\~.g'
+mountt | sed 's.\s.\*.g'
+mountt | sed 's.\s.\>.g'
+mountt | sed 's.\s.\`.g'
+src -a
+mount
+mountt
+which mountt
+edit -a
+edit -f
+git-sync
