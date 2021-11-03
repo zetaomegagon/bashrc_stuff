@@ -53,10 +53,10 @@ spectre() {
     }
 
     # print help to stdout so that it can be paged
-    case "$1" in
-        
+    case "$1" in        
         -h|--help)
-            $HOME/bin/spectre -h 2>&1 ;;
+            $HOME/bin/spectre -h 2>&1
+            exit 0 ;;
     esac
     
  	  # Empty the clipboard.
