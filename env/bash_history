@@ -1000,3 +1000,132 @@ debug search flub bub dub
 which search
 src -f
 debug search foo bar baz
+which lessfilter
+cat .lesshst 
+cat .lesshst | less
+rm .lesshst 
+pgrep tmux
+command -p pgrep tmux
+for pid in command -p pgrep tmux; do kill $pid; done
+for pid in $(command -p pgrep tmux); do kill $pid; done
+search positional paramenter \!ddg \!bash
+man pgrep
+cd gits/bashrc_stuff/env/
+mv searx-be-preferences searx-preferences 
+search foobar
+search "bash positional parameter"
+search functional programming in bash
+param="functional programming in bash"
+echo ${param// /\%20}
+echo ${param//\s/\%20}
+echo ${param//" "/\%20}
+echo ${param//[\s]/\%20}
+echo ${param//[\s]*/\%20}
+echo "${param// /\%20}"
+debug search functional programming in bash
+cd
+source .functions
+search flub bub dub
+debug search flub bub dub
+which search
+set +x
+debug search foo bar baz
+debug search "foo bar baz"
+search foo bar baz
+src -f
+search \!ddg positional parameters +dash
+search \!ddg positional parameters \+dash
+search \!ddg positional parameters "+dash"
+src -f; search \!ddg positional parameters +dash
+src -f; search '!ddg positional parameters+dash'
+src -f; search '!ddg positional parameters +dash'
+src -f; search '!ddg positional parameters +penis'
+src -f; search 'positional parameters +dash'
+src -f; search 'lt. cmdr. data site:memory-alpha.com'
+src -f; search 'data site:memory-alpha.com'
+src -f; search foobar baz
+explain man -k
+git-sync
+explain exec $(echo "file $(file ~/bin/spectre | awk "{ print $5 }")" | tr \" \')
+explain exec
+curl https://www.mankier.com/3/exec
+explain command -pvV
+explain type
+type --help
+type --help | head -1 | awk '{ print "$2" "$3" }' | sed 's.[\[\]]..g'
+type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.[\[\]]..g'
+type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.\([\|\]\)..g'
+type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.\([\|\]\|-\)..g'
+type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.\(\[\|\]\|-\)..g'
+type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.\(\[\|\]\)..g'
+explain $(type --help | head -1 | awk '{ print $2" "$3 }' | sed 's.\(\[\|\]\)..g')
+explain type -afptP
+explain type -a
+man -k type
+man -k which
+man -k printf
+man -k network
+systemctl list-units | grep man
+systemctl list-units | grep cron
+sudo mandb
+man -k print
+systemctl staus mandb.timer
+systemctl status mandb.timer
+systemctl status man-db.timer
+systemctl status man-db.service
+sudo systemctl enable --now mandb
+sudo systemctl list-units
+systemctl list-units | grep man-db
+man -k print
+systemctl staus mandb.timer
+systemctl status mandb.timer
+systemctl status man-db.timer
+systemctl status man-db.service
+sudo systemctl enable --now mandb
+sudo systemctl list-units
+systemctl list-units | grep man-db
+mount --help
+command -p mount --help
+src -f
+mountt
+mount | column -t
+unset mount
+mount
+mount | column -n
+mount | column -j
+column --help
+mount | column -J
+mount | column --table-columns -J
+mount | column --table --table-columns -J
+mount | column --table --table-columns
+mount | column -t --table
+man column
+mount | column -t --table --table-columns -J
+mount | sed 's:on::g' | column -t
+mount | sed 's:on::g' | column -t --table --table-columns mount-name, 
+mount | sed 's:\(on\|type\)::g' | column -t --table --table-columns NAME,MOUNT,FSTYPE,OPTIONS -J
+mount | sed 's:\(on\|type\|\(\|\)\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\)::g' | tr -d\( | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\)::g' | tr -d'(' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\)::g' | tr -d '[\(\)]' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\|\\(\|\\)\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\)\(\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed -e 's:\(on\|type\)::g' -e 's:\(::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed -e 's:\(on\|type\)::g' -e 's:(::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J
+mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less
+mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-name mounts@nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less
+mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less
+echo 'mountj() { mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less; }' >> .functions 
+tail -30 .functions 
+mountj() { mount | sed 's:\(on\|type\|(\|)\)::g' | column -t --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less; }
+mountj() { mount | sed 's:\(on\|type\|(\|)\)::g' | column --table --table-name mounts.nekko --table-columns DEVICE-NAME,MOUNT-PATH,FS-TYPE,OPTIONS -J | less; }
+mountj
+mount | column --table --table-name mounts.nekko --table-columns device-name,mount-path,fs-type,options
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns device-name,mount-path,fs-type,options
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns [ device-name],[ mount-path ],[ fs-type ],[ options ]
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns \[ device-name \],\[ mount-path \],\[ fs-type \],\[ options \]
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns '[ device-name ]','[ mount-path ]','[ fs-type ]','[ options ]'
+mount | sed 's:\(on\|type\)::g' | column --table --table-name mounts.nekko --table-columns :device-name,:mount-path,:fs-type,:options
+echo $HOSTNAME

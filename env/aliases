@@ -45,7 +45,6 @@ alias vi='vim'
 alias ro='rpm-ostree'
 
 ## misc
-alias mountt='mount | column -t'
 alias histc='history -c'
 alias ytdl='/usr/bin/youtube-dl'
 alias qemu='/usr/bin/qemu-kvm'
