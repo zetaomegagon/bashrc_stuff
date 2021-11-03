@@ -7,14 +7,14 @@ git-sync() {
 
     (
         # move to working dir
-        cd "$repo" || exit
+        cd "$repo" || exit 1
 
         # ensure stash is clean
         [[ -n "$(git stash list)" ]] && git stash drop
 
         # stash changes i(f any) & sync with github repo
         git stash
-        git pull
+        git pull || exit 
 
         # apply stash (if any)
         [[ -n "$(git stash list)" ]] && git stash apply
@@ -52,36 +52,42 @@ spectre() {
         echo >&2 "Copied!"
     }
 
-    if [[ "$1" =~ (-h|--help) ]]; then
-        # print help to stdout
-        $HOME/bin/spectre -h 2>&1
-    else
- 	      # Empty the clipboard.
-	      :| _copy 2>/dev/null
+    # print help to stdout so that it can be paged
+    case "$1" in
+        
+        -h|--help)
+            $HOME/bin/spectre -h 2>&1 ;;
+    esac
+    
+ 	  # Empty the clipboard.
+	  :| _copy 2>/dev/null
 
-	      # Ask for the user's name and password if not yet known.
-	      SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
+	  # Ask for the user's name and password if not yet known.
+	  SPECTRE_FULLNAME=${SPECTRE_USERNAME:-$(ask 'Your Full Name:')}
 
-	      # restart the gpaste-client daemon because it has
-	      # trouble keeping up with clipboard changes.
-	      gpaste-client daemon-reexec >/dev/null 2>&1
+	  # restart the gpaste-client daemon because it has
+	  # trouble keeping up with clipboard changes.
+	  gpaste-client daemon-reexec >/dev/null 2>&1
 
-	      # Start Master Password and copy the output. This is where the
-	      # magic begins.
-	      printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
+	  # Start Master Password and copy the output. This is where the
+	  # magic begins.
+	  printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
 
-	      # For gpaste-client: clear last password after 30 seconds
-	      if [[ "$_use" = "${_clips[2]}" ]]; then
-            (
-                {
-                    _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
-                    gpaste-client rename-password "" "$_name"
-                    sleep 30
-                    gpaste-client delete-password "$_name"
-                } >/dev/null 2>&1 &
-            )
-	      fi
-    fi
+	  # For gpaste-client: clear last password after 30 seconds
+	  if [[ "$_use" = "${_clips[2]}" ]]; then
+        # execute in a subshell so that we get back control
+        # of the command line
+        (
+            # group these commands so that we can redirect
+            # unwanted output to /dev/null
+            {
+                _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
+                gpaste-client rename-password "" "$_name"
+                sleep 30
+                gpaste-client delete-password "$_name"
+            } >/dev/null 2>&1 &
+        )
+	  fi
 }
 
 spectre-add() {

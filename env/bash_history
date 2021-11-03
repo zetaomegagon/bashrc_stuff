@@ -1296,3 +1296,29 @@ src -f
 git stash list
 which git-sync
 git-sync
+git stash list 56d197c99d5917457bb0fac665a1307ccbc01547
+git stash apply 56d197c99d5917457bb0fac665a1307ccbc01547
+git-sync
+which git-sync
+src -f
+debug git-sync
+git stash list
+(cd gits/bashrc_stuff/; git stash list)
+src -f; git-sync
+cd gits/spectre/
+cd cli/
+cd api/
+git pull
+help return 
+which return
+which echo
+which [
+which [[
+which {
+which (
+which \(
+dnf search rxvt
+dnf info mrxvt
+cat /sys/class/mem/mem/uevent 
+pwd
+google.personal
