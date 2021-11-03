@@ -577,6 +577,8 @@ preview() {
 }
 
 nautilus() {
+    # run nautilus file manager from commandline
+    # w/o any fuss
     (
         {
             command -p nautilus "$@" &
@@ -585,6 +587,8 @@ nautilus() {
 }
 
 explain() {
+    # query ManKier man pages for specific options
+    # to commands
     local cols="cols=80"
     local query; query="&q=$(sed 's:\s:\%20:g' < <(echo "$*"))"
     local base_url="https://www.mankier.com/api/v2/explain/?"
