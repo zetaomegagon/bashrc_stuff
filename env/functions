@@ -79,7 +79,8 @@ spectre() {
         # of the command line
         (
             # group these commands so that we can redirect
-            # unwanted output to /dev/null
+            # unwanted output to /dev/null, and run in the
+            # background
             {
                 _name="spectre_$(mktemp -u XXXXXXXXXXXX)"
                 gpaste-client rename-password "" "$_name"
