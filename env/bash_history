@@ -1271,3 +1271,28 @@ which mountt
 edit -a
 edit -f
 git-sync
+mountt | sed 's.\s.\~.g'
+mountt | sed 's.\s.\*.g'
+mountt | sed 's.\s.\>.g'
+mountt | sed 's.\s.\`.g'
+src -a
+mount
+mountt
+which mountt
+edit -a
+edit -f
+src - a
+( echo "attempting to stash changes" & ) && echo "changes stashed"
+( echo "attempting to stash changes" & ) || echo "changes stashed"
+git stash list; isStashed=$?; echo $isStashed
+( cd ./gits/bashrc_stuff; git stash list; isStashed=$?; echo $isStashed )
+cd gits/bashrc_stuff/
+git stash --help
+git stash create test-stash
+git stash list 56d197c99d5917457bb0fac665a1307ccbc01547
+git pull
+git stash apply 56d197c99d5917457bb0fac665a1307ccbc01547
+src -f
+git stash list
+which git-sync
+git-sync

@@ -4,7 +4,6 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
-    local stash_name; stash_name="$(mktemp -u "$(for i in {0..16}; do printf "%s" "X"; done)")"
     local stash_state; stash_state="$(git stash list)"
 
     (
@@ -27,10 +26,10 @@ git-sync() {
 
         # Good push? Clear the stash
         git push origin master && git stash drop "$stash_name"
-    )
 
-    # Source updated .bashrc
-    { unalias -a; unset -fn; } && source "${HOME}/.bashrc"
+        # Source updated .bashrc
+        { unalias -a; unset -fn; } && source "${HOME}/.bashrc"
+    )
 }
 
 spectre() {
