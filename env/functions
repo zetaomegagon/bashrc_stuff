@@ -4,6 +4,8 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
+    local stash_name; stash_name="$(mktemp -u "$(for i in {0..16}); do printf "%s" "X"; done)")"
+    local stash_state; stash_state="$(git stash list)"
 
     (
         # move to working dir
@@ -12,19 +14,19 @@ git-sync() {
         # ensure stash is clean
         [[ -n "$(git stash list)" ]] && git stash drop
 
-        # stash changes (if any) & sync with github repo
-        git stash
+        # stash changes i(f any) & sync with github repo
+        git stash create "$stash_name"
         git pull
 
         # apply stash (if any)
-        [[ -n "$(git stash list)" ]] && git stash apply
+        [[ -n "$stash_state" ]] && git stash apply "$stash_name"
 
         # Add all, commit, push
         git add -A
-        git commit -m "auto commited on: $(date -I'ns')"
+        git commit -m "auto commited on: $(date -uI'ns')"
 
-        # Good push? Drop the stash
-        git push origin master && git stash drop
+        # Good push? Clear the stash
+        git push origin master && git stash drop "$stash_name"
     )
 
     # Source updated .bashrc
