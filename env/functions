@@ -4,7 +4,7 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
-    local stash_state; stash_state="$(git stash list)"
+    local stash_state; stash_state="$(cd "$repo" && git stash list)"
 
     (
         # move to working dir
