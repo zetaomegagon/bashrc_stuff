@@ -4,7 +4,6 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
-    local stash_state; stash_state="$(cd "$repo" && git stash list)"
 
     (
         # move to working dir
@@ -14,11 +13,11 @@ git-sync() {
         [[ -n "$(git stash list)" ]] && git stash drop
 
         # stash changes i(f any) & sync with github repo
-        git stash create "$stash_name"
+        git stash
         git pull
 
         # apply stash (if any)
-        [[ -n "$stash_state" ]] && git stash apply "$stash_name"
+        [[ -n "$(git stash list)" ]] && git stash apply
 
         # Add all, commit, push
         git add -A
