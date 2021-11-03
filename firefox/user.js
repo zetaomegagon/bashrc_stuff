@@ -1472,7 +1472,9 @@ user_pref("browser.cache.offline.storage.enable", false); // [DEFAULT: false FF8
 user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!");
 
 
-/*** User Overrides ***/
+/********************/
+/** User Overrides **/
+/********************/
 
 
 /*** DoH, TRR, and ECH ***/
@@ -1484,7 +1486,10 @@ user_pref("network.trr.uri", "https://www.jabber-germany.de/dns-query");
 // https://blog.mozilla.org/security/2021/01/07/encrypted-client-hello-the-future-of-esni-in-firefox/
 user_pref("network.dns.echconfig.enabled", true)
 user_pref("network.dns.use_https_rr_as_altsvc", true)
-//user_pref("network.security.esni.enabled", true);
+
+/*** devtools dark theme ***/
+// https://searchfox.org/mozilla-central/source/modules/libpref/init/all.js#4525
+user_pref("devtools.theme", "dark", sticky)
 
 /* 0820: disable coloring of visited links
  * [SETUP-HARDEN] Bulk rapid history sniffing was mitigated in 2010 [1][2]. Slower and more expensive

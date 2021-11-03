@@ -898,3 +898,105 @@ dnf search git
 command -p dnf search git | less
 dnf info git-all
 exit 
+man bash
+exit 
+curl https://assets.pkgs.org/js/main.min.js?v24
+tb list
+tb create jq
+dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+tb --container jq run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf && dnf -y upgrade && dnf -y install jq curl"
+reset
+src -b
+man df
+man df
+which curl
+which which
+curl file:///dev/null
+jq --help
+curl https://assets.pkgs.org/js/main.min.js?v24
+curl https://assets.pkgs.org/js/main.min.js?v24 | jq .
+curl -s https://assets.pkgs.org/js/main.min.js?v24 | jq .
+curl -s "https://assets.pkgs.org/js/main.min.js" | jq .
+jq $(curl -s "https://assets.pkgs.org/js/main.min.js")
+jq < <(curl -s "https://assets.pkgs.org/js/main.min.js")
+jq - < <(curl -s "https://assets.pkgs.org/js/main.min.js")
+jq . < <(curl -s "https://assets.pkgs.org/js/main.min.js")
+curl -s "https://assets.pkgs.org/js/main.min.js"
+curl -s "https://assets.pkgs.org/js/main.min.js" > min.js
+cat min.js | jq .
+which jq
+file min.js 
+cat min.js | jq .
+dnf search git
+command -p dnf search git | less
+dnf info git-all
+exit 
+spectre-add taiga.io
+edit -sp
+which spectre-add
+edit -f
+src -f
+debug spectre-add taiga.io
+taiga
+git-sync
+git stash --help
+emacs
+tb list
+tb enter jq
+tb --container jq run cat min.js | jq
+command -vV lessfile
+command -v lessfile
+which lessfile
+which lessfilter
+cat .lesshst 
+cat .lesshst | less
+rm .lesshst 
+pgrep tmux
+command -p pgrep tmux
+for pid in command -p pgrep tmux; do kill $pid; done
+for pid in $(command -p pgrep tmux); do kill $pid; done
+edit -sp
+which spectre-add
+edit -f
+debug spectre-add taiga.io
+taiga
+git-sync
+git stash --help
+emacs
+tb list
+tb enter jq
+tb --container jq run cat min.js | jq
+command -vV lessfile
+command -v lessfile
+which lessfile
+which lessfilter
+cat .lesshst 
+cat .lesshst | less
+rm .lesshst 
+pgrep tmux
+command -p pgrep tmux
+for pid in command -p pgrep tmux; do kill $pid; done
+for pid in $(command -p pgrep tmux); do kill $pid; done
+search positional paramenter \!ddg \!bash
+man pgrep
+cd gits/bashrc_stuff/env/
+mv searx-be-preferences searx-preferences 
+search foobar
+search "bash positional parameter"
+search functional programming in bash
+param="functional programming in bash"
+echo ${param// /\%20}
+echo ${param//\s/\%20}
+echo ${param//" "/\%20}
+echo ${param//[\s]/\%20}
+echo ${param//[\s]*/\%20}
+echo "${param// /\%20}"
+debug search functional programming in bash
+cd
+source .functions
+search foo bar baz
+search flub bub dub
+debug search flub bub dub
+which search
+src -f
+debug search foo bar baz

@@ -363,23 +363,15 @@ search() {
     # starts firefox with the search query,
     # or creates a new tab in the existing
     # instance
-    local baseurl="https://searx.be/search?preferences="
-    local preferences; preferences="$(cat $HOME/gits/bashrc_stuff/env/searx-be-preferences)"
-    query="&q=$*"
-    range="&time_rage=year"
+    local baseurl="https://searx.tiekoetter.com/search?preferences="
+    local preferences; preferences="$(< $HOME/gits/bashrc_stuff/env/searx-preferences)"
+    local engine="!ddg"
+    local query; query="&q=${engine}$(sed 's:\s:\%20:g' < <(echo " $*"))"
 
-    if pgrep GeckoMain; then
-        (
-            {
-                /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}${range}"
-            } >/dev/null 2>&1 &
-        )
+    if command -p pgrep GeckoMain >/dev/null 2>&1; then
+        ( /usr/bin/firefox --new-tab "${baseurl}${preferences}${query}" >/dev/null 2>&1 & )
     else
-        (
-            {
-                /usr/bin/firefox --new-instance "${baseurl}${preferences}${query}${range}"
-            } >/dev/null 2>&1 &
-        )
+        ( /usr/bin/firefox --new-instance "${baseurl}${preferences}${query}" >/dev/null 2>&1 & )
     fi
 }
 
