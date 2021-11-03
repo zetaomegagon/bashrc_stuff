@@ -24,7 +24,7 @@ git-sync() {
         git commit -m "auto commited on: $(date -uI'ns')"
 
         # Good push? Clear the stash
-        git push origin master && git stash drop "$stash_name"
+        git push origin master && git stash drop
 
         # Source updated .bashrc
         { unalias -a; unset -fn; } && source "${HOME}/.bashrc"
