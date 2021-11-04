@@ -64,7 +64,7 @@ source-config() {
         
         export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
         export SPECTRE_ALGORITHM=3
-        export SPECTRE_ASKPASS="${HOME}/bin/spectre_ask"
+        export SPECTRE_ASKPASS="${HOME}/bin/spectre-ask"
         export SPECTRE_FORMAT=json
 
         [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
