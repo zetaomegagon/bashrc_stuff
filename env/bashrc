@@ -36,6 +36,7 @@ shopt -s extglob
 ## Make sure user D-bus is accessible
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
+
 ## Path
 if ! echo $PATH | grep -q "${HOME}/bin"; then
     PATH=${HOME}/bin:$PATH

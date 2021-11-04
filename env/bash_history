@@ -1322,3 +1322,13 @@ dnf info mrxvt
 cat /sys/class/mem/mem/uevent 
 pwd
 google.personal
+grep -e ll .alias
+grep ll .aliases 
+foo=$(grep ll .aliases)
+echo ${foo//*}
+echo ${foo/*}
+echo ${foo}
+echo ${foo//'(alias|=.*$)'/}
+echo ${foo// /\[\]}
+echo ${foo//=/}
+spectre -h

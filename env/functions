@@ -55,8 +55,7 @@ spectre() {
     # print help to stdout so that it can be paged
     case "$1" in        
         -h|--help)
-            $HOME/bin/spectre -h 2>&1
-            exit 0 ;;
+            $HOME/bin/spectre -h 2>&1 && return 0 ;;
     esac
     
  	  # Empty the clipboard.
@@ -96,19 +95,19 @@ spectre-add() {
     local input="${@:-$(</dev/stdin)}"
 
     if [[ -n "$input" ]]; then
-        target_spctr="$HOME/gits/bashrc_stuff/env/spectre"
-        aliases="$(alias | grep spectre | sed 's:\(alias\|=.*$\)::g')"
+        target_spectre="$HOME/gits/bashrc_stuff/env/spectre"
+        aliases=( "$(alias | grep spectre | sed 's:\(alias\|=.*$\)::g')" )
 
         # create the alias and write to target
-        printf "%s\n" "alias "${input%\.*}"='spectre -tx -c1 $input'" | tee -a "${target_spctr:-/dev/null}"
+        printf "%s\n" "alias ${input%\.*}='spectre -tx -c1 $input'" | tee -a "${target_spectre:-/dev/null}"
 
         # remove spectre aliases
-        for alias in $aliases; do
+        for alias in "${aliases[@]}"; do
             unalias "$alias"
         done
 
         # source spectre aliases
-        source "$target_spctr"
+        source "$target_spectre"
     fi
 }
 
