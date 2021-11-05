@@ -353,10 +353,10 @@ EOF
 
 cpu-temps() {
     # Show cpu temps in degrees F, and them print on a single line
-    tempm=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
+    tempc=( $(cat /sys/class/thermal/thermal_zone[0-9]*/temp) )
     declare -a tempf
 
-    for temp in "${tempm[@]}"; do
+    for temp in "${tempc[@]}"; do
         tempf+=( "$(( (temp / 1000) * 9/5 + 32 ))F " )
     done
 
@@ -366,7 +366,7 @@ cpu-temps() {
     # beyond the number of cpu cores if being
     # called in a compound command...not sure
     # why it happens...
-    unset tempm
+    unset tempc
 }
 
 search() {
