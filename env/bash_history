@@ -1332,3 +1332,76 @@ echo ${foo//'(alias|=.*$)'/}
 echo ${foo// /\[\]}
 echo ${foo//=/}
 spectre -h
+echo ${foo//*}
+echo ${foo/*}
+echo ${foo}
+echo ${foo//'(alias|=.*$)'/}
+echo ${foo// /\[\]}
+echo ${foo//=/}
+spectre -h
+ll bin
+ln -s $HOME/gits/spectre/cli/bashlib $PWD/bin/
+src -f
+less bin/spectre_ask 
+mv bin/spectre_ask bin/spectre-ask
+ll bin/
+ll gits/bashrc_stuff/bin/
+which spectre-ask
+which bashlib
+ll gits/bashrc_stuff/bin
+git-sync
+src -b
+echo $SPECTRE_ASKPASS
+amazon
+emacs bin/spectre-ask 
+tput clear
+google.personal
+gits/spectre/cli/build 
+rm min.js 
+ll .spectre
+github
+github.elijahthomasbeale
+ll .spectre.d/
+emacs .functions 
+sudo adb list
+adb --help
+adb --help | less
+sudo adb devices
+cd projects/opn10/
+adb reboot bootloader
+adb reboot bootloader
+grep 'dnf()' -A 20 .functions 
+printf "%s" "\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+printf "%s\n" "\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+printf "\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+printf "%s\n%s\n" "max_parallel_downloads=10" "fastestmirror=True"
+printf "%s\n%s\n" "max_parallel_downloads=10" "fastestmirror=True" >> /etc/dnf/dnf.conf 
+sudo su -c printf "%s\n%s\n" "max_parallel_downloads=10" "fastestmirror=True" >> /etc/dnf/dnf.conf 
+sudo su -c 'printf "%s\n%s\n" "max_parallel_downloads=10" "fastestmirror=True" >> /etc/dnf/dnf.conf'
+cat /etc/dnf/dnf.conf 
+sudo su -c "dnf upgrade -y; dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+dnf search chrome
+dnf search ungoogled
+command -p dnf search ungoogled
+sudo dnf install rpmfusion-{,non}free-release-tainted
+dnf install -y chromium-freeworld
+command -p dnf search chromium
+cat /proc/1/cgroup
+cat /proc/self/cgroup
+tb enter ungoogled-chromium
+tb --container ungoogled-chromium enter
+tb list
+tb --container ungoogled-chrome
+tb --container ungoogled-chrome enter
+ll /proc
+ll /proc | less
+cat /proc/cgroups
+cat /proc/1
+cat /proc/1/cgroup 
+cat /proc/self/cgroup 
+cat /proc/self/cgroup | grep -E ^0::.*scope$
+cat /proc/self/cgroup | grep -E ^0::/$
+cat /proc/self/cgroup | grep -E ^0::/.*scope$
+grep -E '^0::/$ /proc/cgroup
+grep -E '^0::/$' /proc/cgroup
+grep -E '^0::/$' /proc/self/cgroup

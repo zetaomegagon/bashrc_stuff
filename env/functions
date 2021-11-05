@@ -251,24 +251,27 @@ dnf() {
     local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     local name=\dnf
     local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
-    export DNF_EXIT_STATUS
 
-    if ! toolbox list | command -p grep -iq dnf; then
-        {
-            toolbox --distro "$distro" --release "$release" create "$name" || { DNF_EXIT_STATUS=1 && return $DNF_EXIT_STATUS; }
-            toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf" || { DNF_EXIT_STATUS=2 && return $DNF_EXIT_STATUS; }
-            toolbox --container "$name" run sudo dnf -yq upgrade || { DNF_EXIT_STATUS=3 && return $DNF_EXIT_STATUS; }
-        } >/dev/null 2>&1
+    if grep -qE '^0::/' proc/self/cgroup; then
 
-        toolbox --container "$name" run sudo dnf $@ || { DNF_EXIT_STATUS=4 && return $DNF_EXIT_STATUS; }
-        podman stop "$name" >/dev/null || { DNF_EXIT_STATUS=5 && return $DNF_EXIT_STATUS; }
-        DNF_EXIT_STATUS=$?
+        if ! toolbox list | command -p grep -iq dnf; then
+            {
+                toolbox --distro "$distro" --release "$release" create "$name"
+                toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
+                toolbox --container "$name" run sudo dnf -yq upgrade
+            } >/dev/null 2>&1
+
+            toolbox --container "$name" run sudo dnf $@
+            podman stop "$name" >/dev/null &
+        else
+
+            toolbox --container "$name" run sudo dnf $@
+            podman stop "$name" >/dev/null &
+        fi
     else
-
-        toolbox --container "$name" run sudo dnf $@ || { DNF_EXIT_STATUS=4 && return $DNF_EXIT_STATUS; }
-        podman stop "$name" >/dev/null || { DNF_EXIT_STATUS=5 && return $DNF_EXIT_STATUS; }
-        DNF_EXIT_STATUS=$?
+        command -p dnf $@
     fi
+    
 }
 
 
@@ -287,9 +290,9 @@ gnome-tweaks() {
     if ! toolbox list | command -p grep -iq gnome-tweaks; then
         (
             {
-                toolbox --distro "$distro" --release  "$release" create "$name" || return 1
-                toolbox --container "$name" run sudo "printf $dnf_conf >> /etc/dnf/dnf.conf" || return 2
-                toolbox --container "$name" run sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks" || return 3
+                toolbox --distro "$distro" --release  "$release" create "$name"
+                toolbox --container "$name" run sudo "printf $dnf_conf >> /etc/dnf/dnf.conf"
+                toolbox --container "$name" run sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks"
                 toolbox --container "$name" run "$name"
 
                 podman stop "$name"
@@ -342,8 +345,9 @@ EOF
 
             # protects agains accumulating more values
             # beyond the number of cpu cores if being
-            # called in a compound command
-            scalingp=()
+            # called in a compound command...not sure
+            # why it happens
+            unset scalingp
     esac
 }
 
@@ -360,8 +364,9 @@ cpu-temps() {
 
     # protects agains accumulating more values
     # beyond the number of cpu cores if being
-    # called in a compound command
-    tempm=()
+    # called in a compound command...not sure
+    # why it happens...
+    unset tempm
 }
 
 search() {

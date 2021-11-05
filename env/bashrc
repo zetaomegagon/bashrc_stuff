@@ -83,3 +83,4 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
         tput clear;
     }
 fi
+

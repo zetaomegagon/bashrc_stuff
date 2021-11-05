@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 # Ask script for MasterPassword
-# Defined in MPW_ASKPASS
+# Defined in $SPECTRE_ASKPASS
 
 read -rsp "$1" && echo "$REPLY"
