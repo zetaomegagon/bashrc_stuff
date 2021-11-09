@@ -1405,3 +1405,48 @@ cat /proc/self/cgroup | grep -E ^0::/.*scope$
 grep -E '^0::/$ /proc/cgroup
 grep -E '^0::/$' /proc/cgroup
 grep -E '^0::/$' /proc/self/cgroup
+grep -E '^0::/$' /proc/self/cgroup
+dnf search chromium
+sudo su -c "printf "%s\n" "max_parallel_downloads=10" "fastestmirror=True" >> /etc/dnf/dnf.conf"
+sudo dnf install -y rpmfusion-{,non}free-release-tainted
+sudo su -c "dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm rpmfusion-{,non}free-release-tainted; dnf upgrade -y"
+sudo su -c "dnf upgrade -y; dnf install install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm; dnf install -y rpmfusion-{,non}free-release-tainted"
+sudo su -c "dnf upgrade -y; dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm; dnf install -y rpmfusion-{,non}free-release-tainted"
+sudo dnf search chromium
+sudo dnf install -y chromium-freeworld
+chromium-freeworld 
+spectre-add foo.com
+src -f; spectre add bar.com
+spectre-add foo.com
+src -f; spectre add bar.com
+src -f; spectre-add bar.com
+src -f
+spectre-add bar.com
+tb --container ungoogled-chrome enter
+ll /proc
+ll /proc | less
+cat /proc/cgroups
+cat /proc/1
+cat /proc/1/cgroup 
+cat /proc/self/cgroup 
+cat /proc/self/cgroup | grep -E ^0::.*scope$
+cat /proc/self/cgroup | grep -E ^0::/$
+cat /proc/self/cgroup | grep -E ^0::/.*scope$
+grep -E '^0::/$ /proc/cgroup
+grep -E '^0::/$' /proc/cgroup
+grep -E '^0::/$' /proc/self/cgroup
+debugcpu-temps && cpu-profiles
+debug cpu-temps && cpu-profiles
+src -f
+cpu-temps && cpu-profiles
+debug cpu-temps && debug cpu-profiles
+src -f; debug cpu-temps && debug cpu-profiles
+git-sync
+tb list
+tb remove --force ungoogled-chrome
+tb rm --force ungoogled-chrome
+tb create chromium-freeworld
+tb enter chromium-freeworld
+edit -f
+spectre-add bar.baz
+debug spectre-add bar.baz

@@ -99,11 +99,11 @@ spectre-add() {
         aliases=( "$(alias | grep spectre | sed 's:\(alias\|=.*$\)::g')" )
 
         # create the alias and write to target
-        printf "%s\n" "alias ${input%\.*}='spectre -tx -c1 $input'" | tee -a "${target_spectre:-/dev/null}"
+        printf "%s\n" "alias ${input%\.*}='spectre -tx -c1 $input'" >> "${target_spectre:-/dev/null}"
 
         # remove spectre aliases
         for alias in "${aliases[@]}"; do
-            unalias "$alias"
+            unalias "$alias" >/dev/null 2>&1
         done
 
         # source spectre aliases
