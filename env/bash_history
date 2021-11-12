@@ -1450,3 +1450,112 @@ tb enter chromium-freeworld
 edit -f
 spectre-add bar.baz
 debug spectre-add bar.baz
+cat /proc/self/cgroup | grep -E ^0::/.*scope$
+grep -E '^0::/$ /proc/cgroup
+grep -E '^0::/$' /proc/cgroup
+grep -E '^0::/$' /proc/self/cgroup
+debugcpu-temps && cpu-profiles
+debug cpu-temps && cpu-profiles
+src -f
+cpu-temps && cpu-profiles
+debug cpu-temps && debug cpu-profiles
+src -f; debug cpu-temps && debug cpu-profiles
+tb list
+tb remove --force ungoogled-chrome
+tb rm --force ungoogled-chrome
+tb create chromium-freeworld
+tb enter chromium-freeworld
+edit -f
+spectre-add bar.baz
+debug spectre-add bar.baz
+grep matrix .spectre
+spectre-add matrix.org
+spectre-add matrix.org.diy-fuego
+spectre-add matrix.org.securitypassphrase-diy-fuego
+tail -10 .spectre
+diy-fuego-password 
+diy-fuego-security-phrase 
+glassdoor
+redhat
+spectre --help
+spectre --help | less
+spectre -c1 -ti redhat.com
+echo "alias redhat.pin='spectre -c1 -ti redhat.com'" >> .spectre
+spectre-add adobe.com
+adobe
+protonmail.com
+protonmail
+systemctl --user restart wireplumber
+systemctl --user status wireplumber
+journalctl -u pulseaudio -b0 --user
+journalctl -u pulseaudio
+journalctl | grep pulse
+journalctl | grep pulseaudio
+journalctl -u pipewire -b0 --user
+grep pipewire < <(journalctl)
+less < <(grep pipewire < <(journalctl))
+time less < <(grep pipewire < <(journalctl))
+time journalctl | grep pipewire | less
+time { journalctl | grep pipewire | less; }
+time { less < <(grep pipewire < <(journalctl)); }
+systemctl status pipewire
+which pipewire
+pipewire --help
+which pipewire.conf
+man pipewire
+grep google .spectre
+emacs .spectre
+sed 's,^\n$,,g' .spectre
+sed 's,^\n$,,g' .spectre | less
+sed ':\n:d' .spectre | less
+sed 's:\n::g' .spectre | less
+sed 's:^\n::g' .spectre | less
+sed ':^\s*$:d' .spectre | less
+man sed
+sed -E ':^\s*$:d' .spectre | less
+sed -r ':^\s*$:d' .spectre | less
+sed -r ':[[:space:]]*$:d' .spectre | less
+sed ':[[:space:]]*$:d' .spectre | less
+sed ':^[[:space:]]*$:d' .spectre | less
+sed /^$/d .spectre | less
+sed -e /^$/d -e 's/\(\#\!/usr/env bash\)/$1\n' .spectre | less
+sed -e /^$/d -e 's/\(\#\!/usr/env bash\)/$1\n/g' .spectre | less
+sed -e /^$/d -e 's:\(#!/usr/env bash\):\$1\n:g' .spectre | less
+sed /^$/d .spectre | sed 's:\(#!/usr/env bash\):\$1\n:g' | less
+sed -e /^$/d -e 's:\(#!/usr/bin/env bash\):\$1\n:g' .spectre | less
+sed -e /^$/d -e 's:\(#!/usr/bin/env bash\):$1\n:g' .spectre | less
+sed -e /^$/d -e 's:(#!/usr/bin/env bash):1\n:g' .spectre | less
+sed -e /^$/d -e 's:(#!/usr/bin/env bash):\1\n:g' .spectre | less
+sed -e /^$/d -e 's:(\#\!\/usr\/bin\/env\ bash):\1\n:g' .spectre | less
+sed 's:(\#\!\/usr\/bin\/env\ bash):\1\n:g' .spectre | less
+sed 's:(a.*s):\1-foo:g' .spectre | less
+sed 's:(a.*s):\1:g' .spectre | less
+sed 's:(a.*s):foobar:g' .spectre | less
+sed -r 's:(a.*s):foobar:g' .spectre | less
+sed -r -e /^$/d -e 's:(\#\!\/usr\/bin\/env\ bash):\1\n:g' .spectre | less
+sed -i -r -e /^$/d -e 's:(\#\!\/usr\/bin\/env\ bash):\1\n:g' .spectre
+less .spectre
+. .spectre
+google.personal
+vemo
+grep purism .spectre
+purism
+grep dice .spectre
+git-sync
+dice
+find . -iname */resume
+find . -iwholename */resume 2>/dev/null
+find . -iwholename resume 2>/dev/null
+find . -iname resume 2>/dev/null
+echo < <(basename documents/resume/smart-tech-link-solutions/elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf) | wc
+wc --help
+echo < <(basename documents/resume/smart-tech-link-solutions/elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf) | wc -m
+echo < <(basename documents/resume/smart-tech-link-solutions/elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf)
+echo $(basename documents/resume/smart-tech-link-solutions/elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf)
+echo $(basename documents/resume/smart-tech-link-solutions/elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf) | wc -m
+cd documents/resume/smart-tech-link-solutions/
+cp elijah-beale_resume_smart-techlink-solutions_desktop-support.pdf elijah-beale_l2-desktop-support.pdf
+linkedin
+clip empty
+clip daemon-reexec
+clip
