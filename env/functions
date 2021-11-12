@@ -26,7 +26,7 @@ git-sync() {
         { git push origin master && git stash drop; } || exit 6
 
         # Source updated files
-        unalias -a unset || exit 7
+        unalias -a || exit 7
         unset -fn || exit 8
         source "${HOME}/.bashrc" || exit 9
     )
