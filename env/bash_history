@@ -1559,3 +1559,24 @@ linkedin
 clip empty
 clip daemon-reexec
 clip
+linkedin
+clip empty
+clip daemon-reexec
+clip
+git-sync
+which git-sync
+which git-sync 
+which spectre
+which dnf
+type dnf
+. .bashrc
+which type
+which which
+which command
+unalias help
+help unalias
+unset help
+help unset
+src -f
+debug git-sync
+tput clear
