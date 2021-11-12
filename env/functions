@@ -557,9 +557,11 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
-## The following create and  / or run programs out of containers
-## need to create a generic "create" function since I'm breaking
-## DRY
+########################################################################
+# The following functions run applications out of containers. I need   #
+# to create a generic "create" function for reuse, as I'm breaking DRY #
+# precepts                                                             #
+########################################################################
 dnf() {
     # run dnf from a toolbox container, or
     # create the toolbox, update it, and
