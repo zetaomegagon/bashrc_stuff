@@ -29,7 +29,7 @@ git-sync() {
         unalias -a || exit 7
         unset -fn || exit 8
         source "${HOME}/.bashrc" || exit 9
-    )
+    ) 1>/dev/null
 
 }
 
