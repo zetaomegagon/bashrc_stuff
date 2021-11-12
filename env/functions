@@ -4,11 +4,12 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
+    local cdmsg="Entering ${repo} directory"
 
     (
         {
             # move to working dir
-            cd "$repo" || exit 1
+            { cd "$repo" && printf "%s\n" "$cdmsg"; } || exit 1
 
             # ensure stash is clean
             git stash drop
