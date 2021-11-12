@@ -4,14 +4,10 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local REPO="${HOME}/gits/bashrc_stuff"
-    local FUNC="${REPO}/env/functions"
     local CDMSG="Entering ${REPO}"
     
     (
         {
-            # source changes to functions (in case this function was modified)
-            source "$FUNC" || exit 1
-            
             # move to working dir
             { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 2
 
