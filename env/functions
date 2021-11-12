@@ -3,34 +3,38 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
-    local repo="${HOME}/gits/bashrc_stuff"
-    local cdmsg="Entering ${repo}"
-
+    local REPO="${HOME}/gits/bashrc_stuff"
+    local FUNC="${REPO}/env/functions"
+    local CDMSG="Entering ${REPO}"
+    
     (
         {
+            # source changes to functions (in case this function was modified)
+            source "$FUNC" || exit 1
+            
             # move to working dir
-            { cd "$repo" && printf "%s\n" "$cdmsg"; } || exit 1
+            { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 2
 
             # ensure stash is clean
             git stash drop
 
             # stash changes & sync with github repo
-            git stash || exit 2
-            git pull || exit 3
+            git stash || exit 3
+            git pull || exit 4
 
             # apply stashed changes
-            git stash apply
+            git stash apply # || exit 5 <-- exits if no stash to apply
 
             # Add all, commit, push
-            { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 5
+            { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 6
 
             # Good push? Clear the stash
-            { git push origin master && git stash drop; } || exit 6
+            { git push origin master && git stash drop; } || exit 7
 
             # Source updated files
-            unalias -a || exit 7
-            unset -fn || exit 8
-            source "${HOME}/.bashrc" || exit 9
+            unalias -a || exit 8
+            unset -fn || exit 9
+            source "${HOME}/.bashrc" || exit 10
         }
     ) 
 }
