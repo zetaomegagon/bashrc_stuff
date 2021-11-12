@@ -27,11 +27,10 @@ git-sync() {
 
         # Source updated files
         unalias -a unset || exit 7
-        unalias -fn || exit 8
+        unset -fn || exit 8
         source "${HOME}/.bashrc" || exit 9
     )
 
-    echo foo
 }
 
 spectre() {
