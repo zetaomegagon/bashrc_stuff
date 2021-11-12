@@ -368,10 +368,12 @@ decode64() {
 pgrep() {
     # print pid and full command line of given input string
     # matching a process name
-    local input=("$@")
+    local input="$@"
 
-    for proc in "${input[@]}"; do
-        printf "%s\n%s\n\n" "---- ${proc} ----" "$(command -p pgrep -aif "$proc")"
+    for proc in "$@"; do
+        if command -p pgrep -f "$proc" >/dev/null; then
+            printf "%s\n%s\n\n" "---- ${proc} ----" "$(command -p pgrep -aif "$proc")"
+        fi     
     done
 }
 
@@ -517,7 +519,7 @@ preview() {
         --all-shell)
             "$PAGER" $HOME/.{aliases,bashrc,functions,spectre,sshpw,translate} ;;
         --all-moz)
-            "$PAGER" "$moz_{usr,ovr}_js" ;;
+            "$PAGER" $moz_{usr,ovr}_js ;;
         *)
             echo "Preview various configuration files"
             echo
