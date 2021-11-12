@@ -1580,3 +1580,37 @@ help unset
 src -f
 debug git-sync
 tput clear
+clip daemon-reexec
+clip
+linkedin
+clip empty
+clip daemon-reexec
+clip
+which spectre
+which dnf
+type dnf
+. .bashrc
+which type
+which which
+which command
+unalias help
+help unalias
+unset help
+tput clear
+explain unset -fnv
+explain unset -f
+help unset
+protonmail.com
+protonmail
+unalias -a
+unset -fn
+source .bashrc
+which git-sync 
+git stash drop --help
+help git stash drop
+git stash help
+man git stash
+git-sync
+debug git-sync
+src -f
+which git-sync
