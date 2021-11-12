@@ -4,7 +4,7 @@ git-sync() {
     # Add, commit, push functions and aliases.
     # Hopefully safely
     local repo="${HOME}/gits/bashrc_stuff"
-    local cdmsg="Entering ${repo}"
+    local cdmsg="Entering ${repo} directory"
 
     (
         {
