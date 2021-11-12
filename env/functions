@@ -557,11 +557,44 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
-########################################################################
-# The following functions run applications out of containers. I need   #
-# to create a generic "create" function for reuse, as I'm breaking DRY #
-# precepts                                                             #
-########################################################################
+##############################################################
+# The following functions run applications out of containers #
+##############################################################
+toolbox-create() {
+    # create a toolbox of the given name, modify /etc/dnf/dnf.conf,
+    # and upgrade it
+    local distro=fedora
+    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
+    local name="$1"
+    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
+
+    {
+        toolbox --distro "$distro" --release "$release" create "$name"
+        toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
+        toolbox --container "$name" run sudo dnf -yq upgrade
+    } >/dev/null 2>&1
+}
+
+toolbox-run() {
+    # upgrade the given toolbox, and run a program out of it
+    # stop the toolbox on program exit
+    local name="$1"
+    
+    (
+        {
+            toolbox --container "$name" run sudo dnf upgrade -qy
+            toolbox --container "$name" run "$name"
+            podman stop "$name"
+        } >/dev/null 2>&1 &
+    )
+}
+
+toolbox-install() {
+    # install the given application the toolbox is named after
+    local name="$1"
+    toolbox --container "$name" run sudo dnf -qy install "$name"
+}
+
 dnf() {
     # run dnf from a toolbox container, or
     # create the toolbox, update it, and
@@ -570,20 +603,11 @@ dnf() {
     # on container creation optimize dnf,
     # increasing parallel downloads and
     # using the fastest mirror
-    local distro=fedora
-    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     local name=\dnf
-    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
 
     if grep -qE '^0::/' /proc/self/cgroup; then
-
-        if ! toolbox list | command -p grep -iq dnf; then
-            {
-                toolbox --distro "$distro" --release "$release" create "$name"
-                toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
-                toolbox --container "$name" run sudo dnf -yq upgrade
-            } >/dev/null 2>&1
-
+        if ! toolbox list | command -p grep -iq "$name"; then
+            toolbox-create "$name"
             toolbox --container "$name" run sudo dnf $@
             podman stop "$name" >/dev/null
         else
@@ -603,39 +627,41 @@ gnome-tweaks() {
     #
     # In either case update the container before
     # running gnome-tweaks
-    local distro=fedora
-    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     local name=\gnome-tweaks
-    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
 
-    if ! toolbox list | command -p grep -iq gnome-tweaks; then
+    if ! toolbox list | command -p grep -iq "$name"; then
         (
             {
-                toolbox --distro "$distro" --release  "$release" create "$name"
-                toolbox --container "$name" run sudo "printf $dnf_conf >> /etc/dnf/dnf.conf"
-                toolbox --container "$name" run sudo su -c "dnf upgrade -yq && dnf install -yq gnome-tweaks"
-                toolbox --container "$name" run "$name"
+                # if the container doesn't exist; then create it, install gnome-tweaks, and run gnome-tweaks
+                toolbox-create "$name"
+                toolbox-install "$name"
+                toolbox-run "$name"
                 podman stop "$name"
             } >/dev/null 2>&1 &
         )
     else
-        (
-            {
-                toolbox --container "$name" run sudo su -c "dnf upgrade -yq"
-                toolbox --container "$name" run "$name"
-                podman stop "$name"
-            } >/dev/null 2>&1 &
-        )
+        toolbox-run "$name"
     fi
 }
 
 chromium-freeworld() {
+    # run chromium-freeworld inside a container
     local name=\chromium-freeworld
-    
-    (
-        {
-            toolbox --container "$name" run "$name"
-            podman stop "$name"
-        } >/dev/null 2>&1 &
-    ) 
+
+    if ! toolbox list | command -p grep -iq "$name"; then
+        (
+            {
+                # if the container doesn't exist; then create it, install chromium-freeworld, and run chromium-freeworld
+                toolbox-create "$name"
+                toolbox --container "$name" run sudo dnf -qy install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+                        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
+                        rpmfusion-{,non}free-release-tainted
+                toolbox-install "$name"
+                toolbox-run "$name"
+                podman stop "$name"
+            } >/dev/null 2>&1 &
+        )
+    else
+        toolbox-run "$name"
+    fi
 }
