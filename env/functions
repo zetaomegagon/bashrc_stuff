@@ -10,24 +10,25 @@ git-sync() {
         cd "$repo" || exit 1
 
         # ensure stash is clean
-        [[ -n "$(git stash list)" ]] && git stash drop
+        git stash drop
 
-        # stash changes i(f any) & sync with github repo
-        git stash
-        git pull || exit 
+        # stash changes & sync with github repo
+        git stash || exit 2
+        git pull || exit 3
 
-        # apply stash (if any)
-        [[ -n "$(git stash list)" ]] && git stash apply
+        # apply stashed changes
+        git stash apply || exit 4
 
         # Add all, commit, push
-        git add -A
-        git commit -m "auto commited on: $(date -uI'ns')"
+        { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 5
 
         # Good push? Clear the stash
-        git push origin master && git stash drop
+        { git push origin master && git stash drop; } || exit 6
 
-        # Source updated .bashrc
-        { unalias -a; unset -fn; } && source "${HOME}/.bashrc"
+        # Source updated files
+        unalias -a unset || exit 7
+        unalias -fn || exit 8
+        source "${HOME}/.bashrc" || exit 9
     )
 }
 
@@ -558,7 +559,10 @@ explain() {
 }
 
 ##############################################################
-# The following functions run applications out of containers #
+# The following functions run applications out of contianers #
+# Rethink redirections inside of helper functions            #
+#                                                            #
+# Possibly generalize "toolbox-install"                      #
 ##############################################################
 toolbox-create() {
     # create a toolbox of the given name, modify /etc/dnf/dnf.conf,
