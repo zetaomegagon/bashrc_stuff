@@ -6,31 +6,32 @@ git-sync() {
     local repo="${HOME}/gits/bashrc_stuff"
 
     (
-        # move to working dir
-        cd "$repo" || exit 1
+        {
+            # move to working dir
+            cd "$repo" || exit 1
 
-        # ensure stash is clean
-        git stash drop
+            # ensure stash is clean
+            git stash drop
 
-        # stash changes & sync with github repo
-        git stash || exit 2
-        git pull || exit 3
+            # stash changes & sync with github repo
+            git stash || exit 2
+            git pull || exit 3
 
-        # apply stashed changes
-        git stash apply || exit 4
+            # apply stashed changes
+            git stash apply || exit 4
 
-        # Add all, commit, push
-        { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 5
+            # Add all, commit, push
+            { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 5
 
-        # Good push? Clear the stash
-        { git push origin master && git stash drop; } || exit 6
+            # Good push? Clear the stash
+            { git push origin master && git stash drop; } || exit 6
 
-        # Source updated files
-        unalias -a || exit 7
-        unset -fn || exit 8
-        source "${HOME}/.bashrc" || exit 9
-    ) >/dev/null
-
+            # Source updated files
+            unalias -a || exit 7
+            unset -fn || exit 8
+            source "${HOME}/.bashrc" || exit 9
+        } >/dev/null
+    ) 
 }
 
 spectre() {
