@@ -392,7 +392,7 @@ emacs() {
     enox() { /usr/bin/emacs-nox "$@"; }
     eclt() { /usr/bin/emacsclient -nw "$@"; }
 
-    ! ( command -p pgrep emacs ) && emacsctl start
+    ! { command -p pgrep emacs; } && emacsctl start
 
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
         { [[ -z "$input" ]] && enox; } || enox "$input"
