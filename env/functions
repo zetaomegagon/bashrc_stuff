@@ -30,6 +30,8 @@ git-sync() {
         unalias -fn || exit 8
         source "${HOME}/.bashrc" || exit 9
     )
+
+    echo foo
 }
 
 spectre() {
