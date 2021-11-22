@@ -395,7 +395,7 @@ emacs() {
     enox() { /usr/bin/emacs-nox "$@"; }
     eclt() { /usr/bin/emacsclient -nw "$@"; }
 
-    ! command -p pgrep emacs && emacsctl start
+    { ! command -p pgrep emacs && emacsctl start; } >/dev/null 2>&1
 
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
         { [[ -z "$input" ]] && enox; } || enox "$input"
@@ -465,8 +465,6 @@ edit() {
             emacs $HOME/.bashrc ;;
         -f)
             emacs $HOME/.functions ;;
-        -gt)
-            toolbox --container gnome-tweaks run "sudo nano /etc/dnf/dnf.conf" ;;
         -sp)
             emacs $HOME/.spectre ;;
         -sh)
@@ -486,7 +484,6 @@ edit() {
             echo " -a      edit .aliases"
             echo " -b       ''  .bashrc"
             echo " -f       ''  .functions"
-            echo " -gt      ''  gnome-tweaks dnf.conf"
             echo " -sp      ''  .spectre"
             echo " -sh      ''  .sshpw"
             echo " -t       ''  .translate"
@@ -560,6 +557,23 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
+ayudar() {
+    # a naive generic help wrapper that pages ouput
+    # through less
+    local input; local message; local message_lines; local term_lines
+    
+    input="$@"
+    message="$( { "$input" --help || "$input" -help || "$input" -h || help "$input" || return; } 2>/dev/null )"
+    message_lines="$(printf "%s\n" "$message" | wc -l)"
+    term_lines=$(tput lines)
+
+    if (( $message_lines > 0 )) && (( $message_lines > $term_lines )); then
+        printf "%s\n" "$message" | command -p less -R
+    else
+        printf "%s\n" "$message"
+    fi
+}
+
 ##############################################################
 # The following functions run applications out of contianers #
 # Rethink redirections inside of helper functions            #
@@ -575,7 +589,7 @@ toolbox-create() {
     local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
 
     {
-        toolbox --distro "$distro" --release "$release" create "$name"
+        toolbox --assumeyes --distro "$distro" --release "$release" create "$name"
         toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
         toolbox --container "$name" run sudo dnf -yq upgrade
     } >/dev/null 2>&1
@@ -611,7 +625,7 @@ dnf() {
     # using the fastest mirror
     local name=\dnf
 
-    if grep -qE '^0::/' /proc/self/cgroup; then
+    if command -p grep -qE '^0::/$' /proc/self/cgroup; then
         if ! toolbox list | command -p grep -iq "$name"; then
             toolbox-create "$name"
             toolbox --container "$name" run sudo dnf $@

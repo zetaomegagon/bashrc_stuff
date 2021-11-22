@@ -1614,3 +1614,65 @@ git-sync
 debug git-sync
 src -f
 which git-sync
+which git-sync
+debug chromium-freeworld
+tb list
+which podman
+podman -v
+podman ps
+ll .local/
+ll .local/lib/
+ll .local/share/
+. .bashrc
+which search
+chromium-freeworld
+toolbox --help
+ro upgrade
+search change userid
+sudo su passwd
+sudo passwd root
+search toolbox "failed to get the podman version"
+search toolbox \"failed to get the podman version\"
+tb list
+debug tb list
+man toolbox
+toolbox --log-leve=debug --log-podman list
+toolbox --log-level=debug --log-podman list
+userdel --help
+sudo userdel --force --remove rescue
+ll /var/home
+sudo rm -rf /var/home/rescue/
+which virt-manager
+sudo virt-manager
+chromium-freeworld
+git-sync
+edit -f
+git-sync
+edit -f
+sudo /usr/bin/dnf remove gnome-tweaks
+sudo /usr/bin/dnf remove dnf
+sudo /usr/bin/dnf remove --skip-broken dnf
+pgrep podman
+pgrep toolbox
+pgrep toolbox
+which pgrep
+which spectre
+. .functions
+which which
+chromium-freeworld
+git-sync
+debug gnome-tweaks
+toolbox list
+toolbox create foobar
+man toolbox
+src -f
+gnome-tweaks
+which gnome-tweaks
+which which
+which dnf
+dnf search info
+debug dnf search info
+grep -E '^0::/' /proc/self/cgroup
+grep -E '^0::/$' /proc/self/cgroup
+edit -f
+man toolbox
