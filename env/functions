@@ -407,12 +407,21 @@ emacs() {
 conntest() {
     # test connection to listed servers at a time, and tries
     # the next on failure. Requires Network Manager.
-    local status; status="$(nmcli -g state general status)"
+    #
+    # NOTE: since the fucntion uses associative arrays, there
+    #       servers are tested at random
 
-    local dn="\n\n"
-    local p="Primary"
-    local f="Fallback"
-    
+    # get status of Network Manager active connections
+    local status; status="$(nmcli -g state general status):-noconnections"
+
+    {
+        # string formatting variables
+        local dn="\n\n"
+        local p="Primary"
+        local f="Fallback"
+    }
+
+    # associative array of servers
     declare -A servers=(
         ["9.9.9.9"]="Quad9 ${p}"
         ["149.112.112.112"]="Quad9 ${f}"
@@ -442,6 +451,9 @@ conntest() {
     }
     
     ping-loop() {
+        # loops over array of servers and pings each.
+        # tries each server in the list for $timeout
+        # seconds
         local timeout="$1"
         local count="${#servers[@]}"
         
@@ -457,6 +469,7 @@ conntest() {
         done
     }
 
+    # main
     if [[ "$status" = "connected" ]]; then
         ping-loop 3
     else
