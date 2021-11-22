@@ -578,7 +578,7 @@ ayudar() {
 # The following functions run applications out of contianers #
 # Rethink redirections inside of helper functions            #
 #                                                            #
-# Possibly generalize "toolbox-install"                      #
+# Needs re-write...                                          #
 ##############################################################
 toolbox-upgrade() {
     # upgrade a toolbox
