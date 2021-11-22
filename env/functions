@@ -404,22 +404,64 @@ emacs() {
     fi
 }
 
-contest() {
-    local count=10
-    servers=(
-        ""
-        ""
-        ""
-        ""
-        ""
+conntest() {
+    # test connection to listed servers at a time, and tries
+    # the next on failure. Requires Network Manager.
+    local status; status="$(nmcli -g state general status)"
+
+    local dn="\n\n"
+    local p="Primary"
+    local f="Fallback"
+    
+    declare -A servers=(
+        ["9.9.9.9"]="Quad9 ${p}"
+        ["149.112.112.112"]="Quad9 ${f}"
+        ["8.8.8.8"]="Google ${p}"
+        ["8.8.4.4"]="Google ${f}"
+        ["1.1.1.1"]="Cloudflare ${p}"
+        ["1.1.0.0"]="Cloudflare ${f}"
     )
+
+    {
+        # user messaging helper functions
+        nonconn_msg() { printf "%s${dn}" "Network Manager reports no active connections..."; }
+        proceed_msg() { local server="$1"printf "%s${dn}" "Testing connection to the ${server} server"; }
+        success_msg() { local server="$1"; printf "%s${dn}" "Connection to the ${server} server completed. The connection is all good!"; }
+        failure_msg() {
+            local server="$1";
+            local this_srv_msg="The ${server} server could not be reached."
+            local next_srv_msg="Trying the next server..."
+            local no_srv_msg="No servers could be reached. There seems to be someting wrong with the connection..."
+            
+            if (( "$count" > 0 )); then
+                printf "%s${dn}" "${this_srv_msg} ${next_srv_msg}"
+            else
+                printf "%s${dn}" "${this_srv_msg} ${no_srv_msg}"
+            fi
+        }
+    }
     
     ping-loop() {
-        for server in "${servers[@]}"; do
-            printf "%s/n" "Testing connection to ${server}" #--> cut off '\.*'
-            ping -c "$count" "$server"
-        done        
+        local timeout="$1"
+        local count="${#servers[@]}"
+        
+        for address in "${!servers[@]}"; do                        
+            proceed_msg "${servers[address]}"
+            if ping -w "$timeout" "$address" >/dev/null 2>&1; then
+                success_msg "${servers[address]}"
+                break
+            else
+                count=$((count--))
+                failure_msg "${servers[address]}"
+            fi
+        done
     }
+
+    if [[ "$status" = "connected" ]]; then
+        ping-loop 3
+    else
+        nonconn_msg
+    fi
 }
 
 ###########################################################
