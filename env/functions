@@ -601,12 +601,15 @@ toolbox-create() {
 
 toolbox-run() {
     # upgrade the given toolbox, and run a program out of it
-    local name="$1"
+    local args=${@}
+    local name=${args[0]}
+    local command=${args[@]:1}
+    
     
     (
         {
             toolbox-upgrade "$name"
-            toolbox --container "$name" run "$name"
+            toolbox --container "$name" run "$commmand"
             podman stop "$name"
         } >/dev/null 2>&1 &
     )
@@ -627,11 +630,12 @@ dnf() {
     # increasing parallel downloads and
     # using the fastest mirror
     local name=\dnf
+    local input="$@"
 
     if command -p grep -qE '^0::/$' /proc/self/cgroup; then
         if ! toolbox list | command -p grep -iq "$name"; then
             toolbox-create "$name"
-            toolbox --container "$name" run sudo dnf $@
+            toolbox-run "$name" "sudo dnf $input"
             podman stop "$name" >/dev/null
         else
             toolbox --container "$name" run sudo dnf $@
@@ -658,7 +662,7 @@ gnome-tweaks() {
                 # if the container doesn't exist; then create it, install gnome-tweaks, and run gnome-tweaks
                 toolbox-create "$name"
                 toolbox-install "$name"
-                toolbox-run "$name"
+                toolbox-run "$name" "gnome-tweaks"
                 podman stop "$name"
             } >/dev/null 2>&1 &
         )
