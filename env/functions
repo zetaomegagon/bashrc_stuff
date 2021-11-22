@@ -580,9 +580,14 @@ ayudar() {
 #                                                            #
 # Possibly generalize "toolbox-install"                      #
 ##############################################################
+toolbox-upgrade() {
+    # upgrade a toolbox
+    local name="$1"
+    toolbox --container "$name" run sudo dnf -yq upgrade
+}
+
 toolbox-create() {
-    # create a toolbox of the given name, modify /etc/dnf/dnf.conf,
-    # and upgrade it
+    # create a toolbox of the given name
     local distro=fedora
     local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
     local name="$1"
@@ -591,18 +596,16 @@ toolbox-create() {
     {
         toolbox --assumeyes --distro "$distro" --release "$release" create "$name"
         toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
-        toolbox --container "$name" run sudo dnf -yq upgrade
     } >/dev/null 2>&1
 }
 
 toolbox-run() {
     # upgrade the given toolbox, and run a program out of it
-    # stop the toolbox on program exit
     local name="$1"
     
     (
         {
-            toolbox --container "$name" run sudo dnf upgrade -qy
+            toolbox-upgrade "$name"
             toolbox --container "$name" run "$name"
             podman stop "$name"
         } >/dev/null 2>&1 &
