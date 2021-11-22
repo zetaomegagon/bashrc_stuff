@@ -1677,3 +1677,34 @@ grep -E '^0::/$' /proc/self/cgroup
 edit -f
 man toolbox
 src -f
+src -f
+dnf search libsodium
+spectre_depends=( "libsodium{,-devel}" )
+echo $spectre_depends
+spectre_depends=( "libsodium" "libsodium-devel" )
+dnf search json-c
+spectre_depends+=( "json-c" "json-c-devel" )
+dnf install -y "${spectre_depends[@]}"
+sudo dnf install -y "${spectre_depends[@]}"
+emacs gits/spectre/cli/install
+cd gits/spectre/cli/install
+cd gits/spectre/cli/
+less build
+cd
+dnf search libncurses
+dnf search ncurses
+spectre_depends+=( "ncurses-devel" )
+dnf search libxml
+dnf search libxml2
+spectre_depends+=( "libxml2" "libxml2-devel" )
+ro install "$(echo "${spectre_depends[@]}")"
+ro install $(echo "${spectre_depends[@]}")
+rpm-ostree install --help
+ro install --apply-live --idempotent $(echo "${spectre_depends[@]}")
+ro install --apply-live --allow-inactive $(echo "${spectre_depends[@]}")
+google.personal
+command -p gnome-tweaks
+debug spectre example.com
+command -p gnome-tweaks
+debug spectre example.com
+google.personal
