@@ -412,14 +412,12 @@ conntest() {
     #       servers are tested at random
 
     # get status of Network Manager active connections
-    local status; status="$(nmcli -g state general status):-noconnections"
+    local status; status="$(nmcli -g state general status)"
 
-    {
-        # string formatting variables
-        local dn="\n\n"
-        local p="Primary"
-        local f="Fallback"
-    }
+    # string formatting variables
+    local dn="\n\n"
+    local p="Primary"
+    local f="Fallback"
 
     # associative array of servers
     declare -A servers=(
@@ -430,24 +428,22 @@ conntest() {
         ["1.1.1.1"]="Cloudflare ${p}"
         ["1.1.0.0"]="Cloudflare ${f}"
     )
-
-    {
-        # user messaging helper functions
-        nonconn_msg() { printf "%s${dn}" "Network Manager reports no active connections..."; }
-        proceed_msg() { local server="$1"printf "%s${dn}" "Testing connection to the ${server} server"; }
-        success_msg() { local server="$1"; printf "%s${dn}" "Connection to the ${server} server completed. The connection is all good!"; }
-        failure_msg() {
-            local server="$1";
-            local this_srv_msg="The ${server} server could not be reached."
-            local next_srv_msg="Trying the next server..."
-            local no_srv_msg="No servers could be reached. There seems to be someting wrong with the connection..."
-            
-            if (( "$count" > 0 )); then
-                printf "%s${dn}" "${this_srv_msg} ${next_srv_msg}"
-            else
-                printf "%s${dn}" "${this_srv_msg} ${no_srv_msg}"
-            fi
-        }
+    
+    # user messaging helper functions
+    nonconn_msg() { printf "%s${dn}" "Network Manager reports no active connections..."; }
+    proceed_msg() { local server="$1"; printf "%s${dn}" "Testing connection to the ${server} server"; }
+    success_msg() { local server="$1"; printf "%s${dn}" "Connection to the ${server} server completed. The connection is all good!"; }
+    failure_msg() {
+        local server="$1";
+        local this_srv_msg="The ${server} server could not be reached."
+        local next_srv_msg="Trying the next server..."
+        local no_srv_msg="No servers could be reached. There seems to be someting wrong with the connection..."
+        
+        if (( "$count" > 0 )); then
+            printf "%s${dn}" "${this_srv_msg} ${next_srv_msg}"
+        else
+            printf "%s${dn}" "${this_srv_msg} ${no_srv_msg}"
+        fi
     }
     
     ping-loop() {
@@ -458,13 +454,13 @@ conntest() {
         local count="${#servers[@]}"
         
         for address in "${!servers[@]}"; do                        
-            proceed_msg "${servers[address]}"
+            proceed_msg "${servers[$address]}"
             if ping -w "$timeout" "$address" >/dev/null 2>&1; then
-                success_msg "${servers[address]}"
+                success_msg "${servers[$address]}"
                 break
             else
                 count=$((count--))
-                failure_msg "${servers[address]}"
+                failure_msg "${servers[$address]}"
             fi
         done
     }
@@ -475,6 +471,10 @@ conntest() {
     else
         nonconn_msg
     fi
+}
+
+virt-manager() {
+    sudo virt-manager
 }
 
 ###########################################################

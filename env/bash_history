@@ -1708,3 +1708,101 @@ debug spectre example.com
 command -p gnome-tweaks
 debug spectre example.com
 google.personal
+google.personal
+edit -f
+src -f\
+src -f
+which spectre-add
+emacs .bashrc
+edit -f
+edit -f
+src -f
+which source-config
+debug source-config
+which which
+debug source .bashrc
+gnome-tweaks
+which gnome-tweaks
+debug source-config
+which which
+debug source .bashrc
+which git-sync
+which tmux-start
+chown -R ebeale:ebeale .
+sudo chown -R ebeale:ebeale .
+tb enter dnf
+debug dnf search info
+debug dnf search info >/dev/null
+pgrep toolbox
+pgrep podman
+pgrep gnome-tweaks
+src -f
+which gnome-tweaks
+debug gnome-tweaks
+toolbox enter gnome-tweaks
+podman ps
+podman kill $(podman ps | tail -2 | cut -f1)
+podman kill $(podman ps | tail -2 | awk '{ print $1 }')
+tb list
+which spectre-add
+spectre-add dell.wd1.myworkdayjobs.com
+dell.wd1.myworkdayjobs
+ro install --apply-live --idempotent $(echo "${spectre_depends[@]}")
+ro install --apply-live --allow-inactive $(echo "${spectre_depends[@]}")
+google.personal
+command -p gnome-tweaks
+debug spectre example.com
+command -p gnome-tweaks
+debug spectre example.com
+google.personal
+nmcli general status
+debug conntest
+src -fpp
+conntest
+edit -f
+debug source-config
+which which
+debug source .bashrc
+which git-sync
+which tmux-start
+chown -R ebeale:ebeale .
+sudo chown -R ebeale:ebeale .
+tb enter dnf
+debug dnf search info
+debug dnf search info >/dev/null
+pgrep toolbox
+pgrep podman
+pgrep gnome-tweaks
+src -f
+which gnome-tweaks
+debug gnome-tweaks
+toolbox enter gnome-tweaks
+podman ps
+podman kill $(podman ps | tail -2 | cut -f1)
+podman kill $(podman ps | tail -2 | awk '{ print $1 }')
+tb list
+which spectre-add
+spectre-add dell.wd1.myworkdayjobs.com
+dell.wd1.myworkdayjobs
+which spectre-add
+edit -b
+dell.wd1.myworkdayjobs
+which spectre-add
+edit -b
+virt-manager
+free --help
+taiga
+aafire
+aainfo
+ro uninstall --help
+ro uninstall aalib
+gpaste
+clip
+clip | grep -i mech
+clip | command -p grep -i mech
+lsblk
+udevadm info /dev/nvme0n1
+free -m
+echo (( 1841548 / 2 ))
+echo $(( 1841548 / 2 ))
+mount
