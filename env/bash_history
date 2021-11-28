@@ -1806,3 +1806,5 @@ free -m
 echo (( 1841548 / 2 ))
 echo $(( 1841548 / 2 ))
 mount
+which pgrep
+which edit

@@ -477,6 +477,21 @@ virt-manager() {
     sudo virt-manager
 }
 
+decrypt-mech15() {
+    local dev_maps=()
+    
+    for device in /dev/*; do
+	if [[ "$device"  =~ nvme.*3 ]]; then
+	    local dev_map="crypt_${device#/dev/}"
+	    sudo cryptsetup open "$device" "$dev_map" --type luks2
+	    dev_maps+=( "/dev/mapper/$dev_map" ) 
+	fi
+    done
+
+    sudo mount "${dev_maps[0]}" /mnt
+}
+
+
 ###########################################################
 # Learn 'getopts' ...                                     #
 # * https://wiki.bash-hackers.org/howto/getopts_tutorial  #
@@ -764,3 +779,4 @@ chromium-freeworld() {
         toolbox-run "$name" "$name"
     fi
 }
+
