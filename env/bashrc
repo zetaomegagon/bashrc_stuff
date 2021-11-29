@@ -12,15 +12,15 @@ git_home="$HOME/gits/bashrc_stuff"
 env_home="$git_home/env"
 bin_home="$git_home/bin"
 
-source "$env_home/functions" && echo success
-source "$env_home/aliases" && echo success
-source "$env_home/sshpw" && echo success
-source "$env_home/translate" && echo success
+source "$env_home/functions"
+source "$env_home/aliases"
+source "$env_home/sshpw"
+source "$env_home/translate"
 
 # Source MasterPassword definitions
 if [[ -e "$env_home/spectre" ]] && [[ -e "$bin_home/spectre" ]] && [[ -e "$bin_home/bashlib" ]]; then
-    source "$env_home/spectre" && echo success
-    source "$HOME/bin/bashlib" && echo success
+    source "$env_home/spectre"
+    source "$HOME/bin/bashlib"
     
     export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
     export SPECTRE_ALGORITHM=3
@@ -61,7 +61,7 @@ shopt -s extglob
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 ## If $HOME/bin isn't in path, include it
-if \! echo $PATH | grep -q "$HOME/bin"; then
+if ! echo $PATH | grep -q "$HOME/bin"; then
     PATH=$HOME/bin:$PATH
 fi
 
