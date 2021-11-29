@@ -12,15 +12,15 @@ git_home="$HOME/gits/bashrc_stuff"
 env_home="$git_home/env"
 bin_home="$git_home/bin"
 
-source "$env_home/functions"
 source "$env_home/aliases"
 source "$env_home/sshpw"
 source "$env_home/translate"
+source "$env_home/functions"
 
 # Source MasterPassword definitions
 if [[ -e "$env_home/spectre" ]] && [[ -e "$bin_home/spectre" ]] && [[ -e "$bin_home/bashlib" ]]; then
     source "$env_home/spectre"
-    source "$HOME/bin/bashlib"
+    source "$bin_home/bashlib"
     
     export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
     export SPECTRE_ALGORITHM=3

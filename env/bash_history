@@ -39,3 +39,7 @@ sudo lsof /etc/group.4
 sudo ls -Al /etc | grep group.4
 sudo rm /etc/group.4
 rpm-ostree upgrade
+sudo killall tmux
+pgrep tmux
+for pid in $(command -p pgrep tmux); do pkill $pid; done
+for pid in $(command -p pgrep tmux); do sudo kill -9 $pid; done
