@@ -1,8 +1,32 @@
 #!/usr/bin/env bash
 
-## Source global definitions
+## Source global and user config
+
+# Source global definitions
 if [ -f /etc/bashrc ]; then
     source /etc/bashrc
+fi
+
+# Source user specific definitions
+git_home="$HOME/gits/bashrc_stuff"
+env_home="$git_home/env"
+bin_home="$git_home/bin"
+
+source "$env_home/functions" && echo success
+source "$env_home/aliases" && echo success
+source "$env_home/sshpw" && echo success
+source "$env_home/translate" && echo success
+
+# Source MasterPassword definitions
+if [[ -e "$env_home/spectre" ]] && [[ -e "$bin_home/spectre" ]] && [[ -e "$bin_home/bashlib" ]]; then
+    source "$env_home/spectre" && echo success
+    source "$HOME/bin/bashlib" && echo success
+    
+    export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
+    export SPECTRE_ALGORITHM=3
+    export SPECTRE_ASKPASS="$bin_home/spectre-ask"
+    export SPECTRE_FORMAT=json
+
 fi
 
 ## history variables
@@ -36,38 +60,9 @@ shopt -s extglob
 ## Make sure user D-bus is accessible
 export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
-
-## Path
-if ! echo $PATH | grep -q "${HOME}/bin"; then
-    PATH=${HOME}/bin:$PATH
-fi
-
-## Source user specific aliases and functions
-
-func_home="${HOME}/.functions"
-func_git="${HOME}/gits/bashrc_stuff/env/functions"
-
-if [[ -f "$func_home" ]]; then
-    source "$func_home"
-else
-    source "$func_git"
-fi
-
-# source aliases, ssh key passwords, translation functions
-src -a
-src -sh
-src -t
-
-# MasterPassword
-if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
-    src -sp
-    
-    export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
-    export SPECTRE_ALGORITHM=3
-    export SPECTRE_ASKPASS="${HOME}/bin/spectre-ask"
-    export SPECTRE_FORMAT=json
-
-    [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
+## If $HOME/bin isn't in path, include it
+if \! echo $PATH | grep -q "$HOME/bin"; then
+    PATH=$HOME/bin:$PATH
 fi
 
 ## Emacs Stuff
@@ -80,5 +75,3 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     }
 fi
 
-## Start tmux
-tmux-start

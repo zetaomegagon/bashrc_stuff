@@ -1,3 +1,41 @@
-
-cat .sshpw 
-github.elijahthomasbeale
+for disk in nvme0n1 nvme1n1; do sudo cryptsetup open --type plain -d /dev/urandom /dev/$disk to_be_wiped_$disk; done
+for disk in nvme0n1 nvme1n1; do sudo cryptsetup open --type plain -d /dev/urandom /dev/$disk to_be_wiped_$disk; done
+tmux ls | grep -vm1
+tmux ls | grep -vm 1
+tmux ls | grep -v -m1
+tmux ls | grep -v -m 1
+tmux ls | grep -m 1
+tmux ls | grep -m 1 attached
+echo $TMUX
+cat bin/tmux-start 
+tmux ls
+tmux ls | grep -vm1 attached
+tmux ls | grep -vm1 attached | cut -d: -f1
+for disk in nvme0n1 nvme1n1; do sudo cryptsetup open --type plain -d /dev/urandom /dev/$disk to_be_wiped_$disk; done
+gsettings
+gsettings list schemas
+gsettings list- schemas
+gsettings list-schemas
+gnome-schemas() { gsettings list-schemas; }
+gnome-schemas
+gnome_schemas=( gnome-schemas )
+echo ${gnome_schemas}
+gnome_schemas=( $(gnome-schemas) )
+echo ${gnome_schemas[@]}
+for schema in "${gnome_schemas[@]}"; do printf -- "\n$schema"; done
+for schema in "${gnome_schemas[@]}"; do printf -- "\n$schema"; printf -- "\n"; done
+for schema in "${gnome_schemas[@]}"; do printf -- "\n$schema"; done; printf -- "\n"
+gnome-schemas | less
+exiyt
+emacs --execute='(dired "~/")'
+emacs .
+cd gits/bashrc_stuff/env
+shellcheck .bashrc
+ro install ShellCheck
+journalctl -t 'rpm-ostree(unbound-libs.prein)
+journalctl -t 'rpm-ostree(unbound-libs.prein)'
+ro upgrade
+sudo lsof /etc/group.4
+sudo ls -Al /etc | grep group.4
+sudo rm /etc/group.4
+rpm-ostree upgrade

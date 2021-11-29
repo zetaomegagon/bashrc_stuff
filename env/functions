@@ -651,132 +651,65 @@ ayudar() {
     
     input="$@"
     message="$( { "$input" --help || "$input" -help || "$input" -h || help "$input" || return; } 2>/dev/null )"
-    message_lines="$(printf "%s\n" "$message" | wc -l)"
+    message_lines="$(printf -- "${message}\n" | wc -l)"
     term_lines=$(tput lines)
 
     if (( $message_lines > 0 )) && (( $message_lines > $term_lines )); then
-        printf "%s\n" "$message" | command -p less -R
+        printf --  "${message}\n" | command -p less -R
     else
-        printf "%s\n" "$message"
+        printf "%s\n" "${message}\n"
     fi
 }
 
-##############################################################
-# The following functions run applications out of contianers #
-# Rethink redirections inside of helper functions            #
-#                                                            #
-# Needs re-write...                                          #
-##############################################################
-toolbox-upgrade() {
-    # upgrade a toolbox
-    local name="$1"
-    toolbox --container "$name" run sudo dnf -yq upgrade
-}
-
+## Toolbox Wrapper Functions
 toolbox-create() {
-    # create a toolbox of the given name
-    local distro=fedora
-    local release; release="$(uname -r | awk -F'.' '{print $(NF -1)}' | sed 's:fc::')"
-    local name="$1"
-    local dnf_conf="\"%s\\n%s\\n\" \"max_parallel_downloads=10\" \"fastestmirror=True\""
-
-    {
-        toolbox --assumeyes --distro "$distro" --release "$release" create "$name"
-        toolbox --container "$name" run sudo su -c "printf  $dnf_conf >> /etc/dnf/dnf.conf"
-    } >/dev/null 2>&1
+    # create a new toolbox and upgrade it
+    #
+    # NOTE: make sure to modify /etc/dnf/dnf.conf with
+    #       - max_parallel_downloads=10
+    #       - fastest_mirror=True
+    #
+    # toolbox-create <distro> <release> <container_name>
+    :
 }
 
-toolbox-run() {
-    # upgrade the given toolbox, and run a program out of it
-    local args=${@}
-    local name=${args[0]}
-    local command=${args[@]:1}
-    
-    
-    (
-        {
-            toolbox-upgrade "$name"
-            toolbox --container "$name" run "$commmand"
-            podman stop "$name"
-        } >/dev/null 2>&1 &
-    )
+toolbox-upgrade() {
+    # upgrade an existing toolbox
+    #
+    # toolbox-upgrade <container_name>
+    :
 }
 
 toolbox-install() {
-    # install the given application the toolbox is named after
-    local name="$1"
-    toolbox --container "$name" run sudo dnf -qy install "$name"
+    # install an application inside an existing toolbox
+    #
+    # toolbox-install <container_name> <applicaton_name>
+    :
 }
 
-dnf() {
-    # run dnf from a toolbox container, or
-    # create the toolbox, update it, and
-    # run dnf.
+toolbox-run() {
+    # run a program inside a given contianer
     #
-    # on container creation optimize dnf,
-    # increasing parallel downloads and
-    # using the fastest mirror
-    local name=\dnf
-    local input="$@"
+    # toolbox-run <container_name> <application_name>
+    :
+}
 
-    if command -p grep -qE '^0::/$' /proc/self/cgroup; then
-        if ! toolbox list | command -p grep -iq "$name"; then
-            toolbox-create "$name"
-            toolbox-run "$name" "sudo dnf $input"
-            podman stop "$name" >/dev/null
-        else
-            toolbox --container "$name" run sudo dnf $@
-            podman stop "$name" >/dev/null
-        fi
-    else
-        command -p dnf $@
-    fi
+# Example on demand toolbox creation
+gnome-tweaks-demo-toolbox() {    
+    # if toolbox list | command -p grep -q "gnome-tweaks"; then
+    #     (
+    #         toolbox-upgrade gnome-tweaks
+    #         toolbox-run gnome-tweaks "gnome-tweaks"
+    #     ) >/dev/null 2>&1 &
+    # else
+    #     (
+    #         toolbox-create fedora 36 gnome-tweaks
+    #         toolbox-upgrade gnome-tweaks
+    #         toolbox-install gnome-tweaks gnome-tweaks
+    #         toolbox-run gnome-tweaks "gnome-tweaks"
+    #     ) >/dev/null 2>&1 &
+    # fi
     
-}
-
-gnome-tweaks() {
-    # run gnome-tweaks from a toolbox container, or
-    # create the toolbox, install gnome-tweaks, and
-    # run it.
-    #
-    # In either case update the container before
-    # running gnome-tweaks
-    local name=\gnome-tweaks
-
-    if ! toolbox list | command -p grep -iq "$name"; then
-        (
-            {
-                # if the container doesn't exist; then create it, install gnome-tweaks, and run gnome-tweaks
-                toolbox-create "$name"
-                toolbox-install "$name"
-                toolbox-run "$name" "gnome-tweaks"
-                podman stop "$name"
-            } >/dev/null 2>&1 &
-        )
-    else
-        toolbox-run "$name"
-    fi
-}
-
-chromium-freeworld() {
-    # run chromium-freeworld inside a container
-    local name=\chromium-freeworld
-
-    if ! toolbox list | command -p grep -iq "$name"; then
-        (
-            {
-                # if the container doesn't exist; then create it, install chromium-freeworld, and run chromium-freeworld
-                toolbox-create "$name"
-                toolbox --container "$name" run sudo dnf -qy install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-                        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm \
-                        rpmfusion-{,non}free-release-tainted
-                toolbox-install "$name"
-                toolbox-run "$name" "$name"
-                podman stop "$name"
-            } >/dev/null 2>&1 &
-        )
-    else
-        toolbox-run "$name" "$name"
-    fi
+    :
 }
 
