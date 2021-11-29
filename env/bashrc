@@ -70,10 +70,6 @@ if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
     [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
 fi
 
-
-
-
-
 ## Emacs Stuff
 #
 #  emacs vterm clear screen
@@ -84,3 +80,5 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
     }
 fi
 
+## Start tmux
+tmux-start
