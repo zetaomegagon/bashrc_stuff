@@ -43,36 +43,36 @@ if ! echo $PATH | grep -q "${HOME}/bin"; then
 fi
 
 ## Source user specific aliases and functions
-source-config() {
-    func_home="${HOME}/.functions"
-    func_git="${HOME}/gits/bashrc_stuff/env/functions"
+
+func_home="${HOME}/.functions"
+func_git="${HOME}/gits/bashrc_stuff/env/functions"
+
+if [[ -f "$func_home" ]]; then
+    source "$func_home"
+else
+    source "$func_git"
+fi
+
+# source aliases, ssh key passwords, translation functions
+src -a
+src -sh
+src -t
+
+# MasterPassword
+if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
+    src -sp
     
-    if [[ -f "$func_home" ]]; then
-        source "$func_home"
-    else
-        source "$func_git"
-    fi
+    export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
+    export SPECTRE_ALGORITHM=3
+    export SPECTRE_ASKPASS="${HOME}/bin/spectre-ask"
+    export SPECTRE_FORMAT=json
 
-    # source aliases, ssh key passwords, translation functions
-    src -a
-    src -sh
-    src -t
-    
-    # MasterPassword
-    if [ -f "${HOME}/.spectre" ] && [ -e "${HOME}/bin/spectre" ]; then
-        src -sp
-        
-        export SPECTRE_USERNAME=Elijah\ Thomas\ Beale
-        export SPECTRE_ALGORITHM=3
-        export SPECTRE_ASKPASS="${HOME}/bin/spectre-ask"
-        export SPECTRE_FORMAT=json
+    [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
+fi
 
-        [[ -f "${HOME}/bin/bashlib" ]] && source "${HOME}/bin/bashlib"
-    fi
-}
 
-# main
-source-config
+
+
 
 ## Emacs Stuff
 #

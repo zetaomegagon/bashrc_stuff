@@ -1808,3 +1808,6 @@ echo $(( 1841548 / 2 ))
 mount
 which pgrep
 which edit
+which which
+edit -b
+edit -f
