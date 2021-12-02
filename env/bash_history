@@ -43,3 +43,62 @@ sudo killall tmux
 pgrep tmux
 for pid in $(command -p pgrep tmux); do pkill $pid; done
 for pid in $(command -p pgrep tmux); do sudo kill -9 $pid; done
+for pid in $(command -p pgrep tmux); do sudo kill -9 $pid; done
+emacs .
+debug emacs .
+emacsctl status
+systemctl --user --enable emacs
+systemctl --user enable emacs
+systemctl --user enable emacs | less
+/usr/bin/emacs --help | less
+/usr/bin/emacs --exec (calc)
+/usr/bin/emacs --exec=(calc)
+emacsclient --help | less
+emacs < <(echo "(calc)")
+emacs < $(echo "(calc)")
+emacs <(echo "(calc)")
+emacs -e < <(echo "(calc)")
+emacs -e < <("(calc)")
+emacs -e < <(printf -- "(calc)")
+dired ./bin
+emacsctl restart
+emacs -e < <(printf -- "(calc (+ 3 4))")
+emacs -e < <(printf -- "(calc + 3 4)")
+sudo killall cat
+sudo killall tmux
+sudo killall gnome-terminal
+pgrep tmux
+for pid in command -p pgrep tmux|awk '{ print $1 }'; do kill -9 $pid; done
+for pid in $(command -p pgrep tmux|awk '{ print $1 }'); do kill -9 $pid; done
+lsblk
+sudo su
+emacs -e < <(printf -- "(calc)")
+dired ./bin
+emacsctl restart
+emacs -e < <(printf -- "(calc (+ 3 4))")
+emacs -e < <(printf -- "(calc + 3 4)")
+sudo iotop
+sudo iotop --pid 6926
+sudo kill -9 6926
+pgrep cat
+sudo sync
+sudo su
+sudo tmux-start
+sudo tmux
+pgrep dd
+sudo htop
+top
+top
+hdparm --help | less 
+hdparm -help | less 
+man nvme-cli
+man nvme
+man nvme-format
+virt-manager
+cat /proc/meminfo | head -1 | awk '{print $2}'
+echo $(( ( $(cat /proc/meminfo | head -1 | awk '{print $2}') / 1024 ) / 2 ))
+rm crypto_*
+rm -rf crypto_*
+lsblk
+findmnt
+rm nohup.out 

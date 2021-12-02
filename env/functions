@@ -404,6 +404,22 @@ emacs() {
     fi
 }
 
+calc() {
+    # start emacs calc mode from command line
+    emacs -e < <(printf -- "(calc)")
+}
+
+dired() {
+    # start dired mode from command line
+    input="$@"
+
+    if [[ -z "$input" ]]; then
+        emacs .
+    else
+        emacs "$input"
+    fi
+}
+
 conntest() {
     # test connection to listed servers at a time, and tries
     # the next on failure. Requires Network Manager.
@@ -641,23 +657,6 @@ explain() {
     local base_url="https://www.mankier.com/api/v2/explain/?"
 
     curl -s -X GET "${base_url}${cols}${query}"
-}
-
-ayudar() {
-    # a naive generic help wrapper that pages ouput
-    # through less
-    local input; local message; local message_lines; local term_lines
-    
-    input="$@"
-    message="$( { "$input" --help || "$input" -help || "$input" -h || help "$input" || return; } 2>/dev/null )"
-    message_lines="$(printf -- "${message}\n" | wc -l)"
-    term_lines=$(tput lines)
-
-    if (( $message_lines > 0 )) && (( $message_lines > $term_lines )); then
-        printf --  "${message}\n" | command -p less -R
-    else
-        printf "%s\n" "${message}\n"
-    fi
 }
 
 ## Toolbox Wrapper Functions

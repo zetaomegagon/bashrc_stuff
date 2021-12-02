@@ -33,7 +33,7 @@ fi
 export HISTFILESIZE=20000
 export HISTSIZE=10000
 export HISTCONTROL="ignoredups:erasedups:ignorespace"
-export HISTIGNORE="l[lsaz]*:[bf]g:exit:history*:which*:command*:help*:*-help::edit -*:source*:cd:cd -:src -*:clear:clip:gpaste-client:git-sync"
+export HISTIGNORE="l[lsaz]:[bf]g:exit:history*:which*:command*:help*:*-help::edit -*:source*:cd:cd -:src -*:clear:clip:gpaste-client:git-sync"
 
 ## keep shell exiting on C-d
 export IGNOREEOF=1000000000
