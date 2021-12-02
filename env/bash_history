@@ -102,3 +102,32 @@ rm -rf crypto_*
 lsblk
 findmnt
 rm nohup.out 
+rpm-ostree install --allow-inactive -A emacs-nox tmux libsodium libsodium-devel json-c json-c-devel libxml2 libxml2-devel ncurses ncurses-devel
+rm nohup.out 
+nano /etc/dnf/dnf.conf
+sudo nano /etc/dnf/dnf.conf
+dnf upgrade -y
+sudo dnf upgrade -y
+sudo dnf search libsodium
+dnf search json-c
+dnf search ncurses
+dnf search libncurses
+dnf search libxml2
+dnf search ncurses
+dnf search libncurses
+dnf search libxml2
+lslbk
+umount /var/mnt
+sudo umount /var/mnt
+sudo umount /dev/sdc?
+sudo eject /dev/sdc
+umount /run/media/rescue/boot
+sudo umount /run/media/rescue/boot
+lsblk
+lsblk | grep -v 'sdb|zram'
+lsblk | grep -v 'sdb|zram0'
+lsblk | grep -vE 'sdb|zram0'
+la /
+la /var
+la /sysroot/
+rpm-ostree status -v | less
