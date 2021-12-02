@@ -131,3 +131,38 @@ la /
 la /var
 la /sysroot/
 rpm-ostree status -v | less
+la /var
+la /sysroot/
+rpm-ostree status -v | less
+ro status
+rm -rf .mozilla/
+ll gits/user.js/
+ll gits/user.js/extensions/
+la .mozilla/
+la .mozilla/firefox/
+cat .mozilla/firefox/profiles.ini 
+cd .mozilla
+ll extensions/
+ll extensions/\{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}/
+cd firefox/
+rm -rf uu9zd0o3.default-release/
+nano profiles.ini 
+la azlgj4b7.ebeale.arkenfox/
+rm -rf azlgj4b7.ebeale.arkenfox/
+ll ct6kt7av.ebeale.arkenfox/
+ll ~/gits/user.js/
+cd ct6kt7av.ebeale.arkenfox/
+cd ..
+rm -rf ct6kt7av.ebeale.arkenfox/
+ln -s /var/home/ebeale/gits/user.js $PWD/ct6kt7av.ebeale.arkenfox
+github
+gpg.elijahthomasbeale@gmail.com
+gpg.elijahthomasbeale
+cat .sshpw
+cat .sshpw 
+github.elijahthomasbeale
+cat .bash_history 
+dired
+calc
+cd gits/user.js/
+pwd
