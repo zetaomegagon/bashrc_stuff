@@ -166,3 +166,19 @@ dired
 calc
 cd gits/user.js/
 pwd
+man podman-run
+podman run --rm=true dnf search json-c
+podman run --rm=true run dnf search json-c
+podman run --rm=true fedora run dnf search json-c
+podman image list
+podman rum --rm=true fedora dnf search json-c
+podman run --rm=true fedora dnf search json-c
+podman run --rm=true fedora -- echo "fastest_mirror=True" >> /etc/dnf/dnf.conf; echo "max_parallel_downloads=20 >> /etc/dnf/dnf.conf; dnf search json-c
+podman run --rm=true fedora -- echo "fastest_mirror=True" >> /etc/dnf/dnf.conf; echo "max_parallel_downloads=20" >> /etc/dnf/dnf.conf; dnf search json-c
+ls /etc/ | grep dnf
+ls /etc/dnf/dnf.conf
+sudo ls /etc/dnf/dnf.conf
+sudo ls /etc/dnf/
+sudo ls /etc/dnf/modules.d/
+sudo ls /etc/dnf/*.d/
+rpm-ostree install -A json-c-devel libsodium libsodium-devel ncurses-devel tmux emacs-nox parallel powertop
