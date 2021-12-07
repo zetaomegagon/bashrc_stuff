@@ -711,3 +711,21 @@ gnome-tweaks-demo-toolbox() {
     :
 }
 
+dnf() {
+    local input=( $@ )
+    local arg0=${input[0]}
+
+    if [[ "$arg0" = "search" ]]; then
+        toolbox --container dnf run -- sudo dnf "${input[@]}" \
+            | less \
+            | sed 's:\^O::g'
+    else
+        toolbox --container dnf run -- sudo dnf "${input[@]}"
+    fi    
+}
+
+gnome-tweaks() {
+    (
+        toolbox --container gnome-tweaks run -- gnome-tweaks >/dev/null 2>&1 &
+    )
+}

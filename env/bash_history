@@ -182,3 +182,17 @@ sudo ls /etc/dnf/
 sudo ls /etc/dnf/modules.d/
 sudo ls /etc/dnf/*.d/
 rpm-ostree install -A json-c-devel libsodium libsodium-devel ncurses-devel tmux emacs-nox parallel powertop
+rpm-ostree install -A json-c-devel libsodium libsodium-devel ncurses-devel tmux emacs-nox parallel powertop
+{ echo "fastest_mirror=True"; echo "max_parallel_downloads=20"; } >> /etc/dnf/dnf.conf
+sudo { echo "fastest_mirror=True"; echo "max_parallel_downloads=20"; } >> /etc/dnf/dnf.conf
+sudo su -c { echo "fastest_mirror=True"; echo "max_parallel_downloads=20"; } >> /etc/dnf/dnf.conf
+sudo su -c "{ echo "fastest_mirror=True"; echo "max_parallel_downloads=20"; } >> /etc/dnf/dnf.conf"
+cat /etc/dnf/dnf.conf
+dnf upgrade -y && sudo dnf install -y gnome-shell-extension-gpaste gnome-tweaks
+sudo su -c "dnf upgrade -y && dnf install -y gnome-shell-extension-gpaste gnome-tweaks"
+gnome-tweaks
+sudo dnf search gpaste
+sudo remove gnome-shell-extension-gpaste
+sudo dnf remove gnome-shell-extension-gpaste
+podman ps
+pgrep toolbox
