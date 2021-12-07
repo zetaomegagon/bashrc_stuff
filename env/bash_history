@@ -166,7 +166,6 @@ dired
 calc
 cd gits/user.js/
 pwd
-<<<<<<< Updated upstream
 man podman-run
 podman run --rm=true dnf search json-c
 podman run --rm=true run dnf search json-c
@@ -197,8 +196,3 @@ sudo remove gnome-shell-extension-gpaste
 sudo dnf remove gnome-shell-extension-gpaste
 podman ps
 pgrep toolbox
-=======
-rpm-ostree upgrade && rpm-ostree install -A tmux emacs-nox json-c-devel libsodium libsodium-devel ncurses-devel gpaste
-rpm-ostree status
-reboot
->>>>>>> Stashed changes
