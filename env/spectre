@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-alias wrt32x2.root='spectre -tx openwrt.wrt32x.6038E0C69100.root'
-alias wrt32x2.eVector='spectre -tx openwrt.wrt32x.6038E0C69100.eVector'
-alias wrt32x1.root='spectre -tx openwrt.wrt32x.root'
-alias wrt32x1.eVector='spectre -tx -c2 openwrt.wrt32x.eVector'
+alias wrt32x1.root='spectre -tx openwrt.wrt32x.22C1060A703327.root'
+alias wrt32x1.eVector='spectre -tx -c2 openwrt.wrt32x.22C1060A703327.eVector'
 alias wikipedia='spectre -tx wikipedia.org'
 alias webex-tps='spectre -tx webex.com'
 alias us.jobs='spectre -tx us.jobs'
