@@ -1,1 +1,2 @@
 alias github.elijahthomasbeale='spectre -tx github.com.elijahthomasbeale'
+alias wrt32x1.ssh='spectre -tx wrt32x1.ssh'
