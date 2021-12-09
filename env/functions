@@ -25,7 +25,7 @@ git-sync() {
 
             # Source updated files
             unalias -a || exit 8
-            while read -r FNAME; do unset -f "$FNAME"; done < <(cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1)
+            while read -r FNAME; do unset -f "$FNAME"; done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1)
             source "${HOME}/.bashrc" || exit 10
         }
     ) 
