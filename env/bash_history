@@ -208,3 +208,22 @@ flatpak search chromium
 printf "%s\n" 'flatpack() { local input="${@:-$(</dev/stdin)}"; /usr/bin/flatpak "input"; }' >> .functions 
 tail -3 .functions 
 github.elijahthomasbeale 
+pgrep toolbox
+ip a
+flatpak search ungoogled
+flatpack upgrade
+flatpak upgrade
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flaptpak search chromium
+flatppak search chromium
+flatpak search chromium
+printf "%s\n" 'flatpack() { local input="${@:-$(</dev/stdin)}"; /usr/bin/flatpak "input"; }' >> .functions 
+tail -3 .functions 
+github.elijahthomasbeale 
+flatpack search chromium
+la gits/bashrc_stuff/env
+ll gits/bashrc_stuff/env
+chmod +x gits/bashrc_stuff/env/functions 
+ll gits/bashrc_stuff/env/functions 
+ll gits/bashrc_stuff/env/
+chmod -x gits/bashrc_stuff/env/functions 
