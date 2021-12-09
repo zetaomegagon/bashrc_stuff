@@ -10,9 +10,6 @@ git-sync() {
             # move to working dir
             { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 2
 
-            # ensure stash is clean
-            git stash drop
-
             # stash changes & sync with github repo
             git stash || exit 3
             git pull || exit 4
