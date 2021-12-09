@@ -25,7 +25,7 @@ git-sync() {
 
             # Source updated files
             unalias -a || exit 8
-            unset -fn || exit 9
+            while read -r FNAME; do unset -f "$FNAME"; done < <(cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1)
             source "${HOME}/.bashrc" || exit 10
         }
     ) 
@@ -728,5 +728,4 @@ gnome-tweaks() {
         toolbox --container gnome-tweaks run -- gnome-tweaks >/dev/null 2>&1 &
     )
 }
-
 

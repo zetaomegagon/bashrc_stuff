@@ -227,3 +227,11 @@ chmod +x gits/bashrc_stuff/env/functions
 ll gits/bashrc_stuff/env/functions 
 ll gits/bashrc_stuff/env/
 chmod -x gits/bashrc_stuff/env/functions 
+wich which
+echo $BASH_SOURCE
+echo ${BASH_SOURCE[@]}
+declare -f
+declare -f | less
+declare -f | grep which
+declare -f | grep flatpack
+declare -f | grep -A 5 flatpack
