@@ -659,6 +659,8 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
+flatpack() { /usr/bin/flatpak "$@" }
+
 ## Toolbox Wrapper Functions
 toolbox-create() {
     # create a new toolbox and upgrade it
@@ -729,3 +731,5 @@ gnome-tweaks() {
         toolbox --container gnome-tweaks run -- gnome-tweaks >/dev/null 2>&1 &
     )
 }
+
+
