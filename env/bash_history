@@ -196,3 +196,15 @@ sudo remove gnome-shell-extension-gpaste
 sudo dnf remove gnome-shell-extension-gpaste
 podman ps
 pgrep toolbox
+pgrep toolbox
+ip a
+flatpak search ungoogled
+flatpack upgrade
+flatpak upgrade
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flaptpak search chromium
+flatppak search chromium
+flatpak search chromium
+printf "%s\n" 'flatpack() { local input="${@:-$(</dev/stdin)}"; /usr/bin/flatpak "input"; }' >> .functions 
+tail -3 .functions 
+github.elijahthomasbeale 
