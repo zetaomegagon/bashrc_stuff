@@ -659,7 +659,7 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
-flatpack() { /usr/bin/flatpak "$@" }
+flatpack() { /usr/bin/flatpak "$@"; }
 
 ## Toolbox Wrapper Functions
 toolbox-create() {
