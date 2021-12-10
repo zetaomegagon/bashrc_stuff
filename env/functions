@@ -4,18 +4,23 @@ git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
     local CDMSG="Entering ${REPO}"
-    
+
+    exists-stash() { git stash list | command -p grep -q '.*'; }
+
     (
         {
-            # move to working dir
-            { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 2
+            # Move to working dir
+            { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 1
 
-            # stash changes & sync with github repo
+            # Cleanup any erroneoulsy leftover stashed changes
+            exists-stash && git stash drop
+
+            # Stash changes & sync with main
             git stash || exit 3
             git pull || exit 4
 
-            # apply stashed changes
-            [[ -n $(git stash list --oneline) ]] && git stash apply
+            # Apply stashed changes
+            { exists-stash && git stash apply; } || exit 5 
 
             # Add all, commit, push
             { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 6
@@ -23,13 +28,20 @@ git-sync() {
             # Good push? Clear the stash
             { git push origin master && git stash drop; } || exit 7
 
-            # Unset current aliases and function definitions and re-source them
-            # -- UUoC for readablility! --
-            while read -r ANAME; do unalias "$ANAME" 2>/dev/null; done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g') || exit 8
-            while read -r FNAME; do unset -f "$FNAME" 2>/dev/null; done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1) || exit 9
-            source "${HOME}/.bashrc" || exit 10
+            # Unset current aliases and function definitions
+            # -- UUoC for readability --
+            while read -r ALIAS; do
+                unalias "$ALIAS" 2>/dev/null
+            done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
+            
+            while read -r FUNCTION; do
+                unset -f "$FUNCTION" 2>/dev/null
+            done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
+
+            # Re-souce local environment
+            source "${HOME}/.bashrc"
         }
-    ) 
+    )
 }
 
 spectre() {
