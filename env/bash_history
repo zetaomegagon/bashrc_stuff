@@ -288,3 +288,10 @@ ssh-add -L
 ssh-add -l
 man gnome-keyring
 man seahorse
+ip a
+grep openwrt .spectre
+grep openwrt .spectre
+cd gits/bashrc_stuff/
+git stash list
+git-stash help
+man git-stash
