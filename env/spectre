@@ -1,12 +1,20 @@
 #!/usr/bin/env bash
 
 ## routers / hotspots
+#
+# alias part:
+#  <router_alias>.<user|essid>
+#
+# command part:
+#  <firmware>.<model_name>.<device_serial>.<user|essid>
+#
 alias wrt32x1.root='spectre -tx openwrt.wrt32x.22C1060A703327.root'
-alias wrt32x1.eVector='spectre -tx -c2 openwrt.wrt32x.22C1060A703327.eVector'
+alias wrt32x1.eVector='spectre -tx openwrt.wrt32x.22C1060A703327.eVector'
 alias ar750s.root='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.root'
-alias ar750s.hotspot='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.hotspot'
-alias ar750s.guest='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.guest'
+alias ar750s.scarab='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.scarab'
+alias ar750s.scarab-guest='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.scarab-guest'
 
+## to be categorized
 alias wikipedia='spectre -tx wikipedia.org'
 alias udemy='spectre -tx udemy.com'
 alias typingclub='spectre -tx typingclub.com'
@@ -114,3 +122,4 @@ alias buybuybaby='spectre -tx -c1 buybuybaby.com'
 alias buybuybaby.teacher='spectre -tx -c1 buybuybaby.teacher.com'
 alias buybuybaby.nickname='spectre -tx -c1 buybuybaby.nickname.com'
 alias ebeale@koi='spectre -tx -c1 ebeale@koi'
+alias lwn='spectre -tx -c1 lwn.net'

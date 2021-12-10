@@ -1,3 +1,20 @@
+#!/usr/bin/env bash
+
+## service ssh key passwords
+#
+# alias part
+#  <service_name>.<user_name>
+#
+# command part
+#  <service_name>.<com|net|org|...>.<user_name>
 alias github.elijahthomasbeale='spectre -tx github.com.elijahthomasbeale'
+
+## router / hotspot key passwords
+#
+# alias part
+#  <router_alias>.ssh
+#
+# command part
+#  <firmware>.<model_name>.<device_serial>.ssh
 alias wrt32x1.ssh='spectre -tx openwrt.wrt32x1.22C1060A703327.ssh'
-alias ar750s.ssh='openwrt.gl-ar750s-ext.020fa421bf53a89c.ssh'
+alias ar750s.ssh='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.ssh'
