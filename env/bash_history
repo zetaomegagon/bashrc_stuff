@@ -272,3 +272,19 @@ sudo killall tmux
 pgrep tmux
 for PID in $(command -p pgrep tmux); do pkill $PID; done
 for PID in $(command -p pgrep tmux); do sudo kill -9 $PID; done
+declare -f | grep -A 5 flatpack
+github.elijahthomasbeale
+cd .ssh
+cat known_hosts
+cat known_hosts.old 
+rm known_hosts*
+cat *.pub
+cat *id*$
+cat *id*
+for key in *; do printf "%s\n" "$key"; cat "$key"; done
+nano elijahthomasbeale+fedoraproject@gmail.com-id_ed25519.pub 
+rm elijahthomasbeale+fedoraproject@gmail.com-id_ed25519*
+ssh-add -L
+ssh-add -l
+man gnome-keyring
+man seahorse
