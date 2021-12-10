@@ -25,8 +25,8 @@ git-sync() {
 
             # Unset current aliases and function definitions and re-source them
             # -- UUoC for readablility! --
-            while read -r ANAME; do unalias "$ANAME"; done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g') || exit 8
-            while read -r FNAME; do unset -f "$FNAME"; done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1) || exit 9
+            while read -r ANAME; do unalias "$ANAME" 2>/dev/null; done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g') || exit 8
+            while read -r FNAME; do unset -f "$FNAME" 2>/dev/null; done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1) || exit 9
             source "${HOME}/.bashrc" || exit 10
         }
     ) 
