@@ -3,7 +3,7 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
-    local CDMSG="Entering ${REPO}"
+    local CDMSG=">>>Entering ${REPO}<<<"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
