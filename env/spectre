@@ -3,6 +3,9 @@
 alias wrt32x1.root='spectre -tx openwrt.wrt32x.22C1060A703327.root'
 alias wrt32x1.eVector='spectre -tx -c2 openwrt.wrt32x.22C1060A703327.eVector'
 alias ar750s.root='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.root'
+alias ar750s.hotspot='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.hotspot'
+alias ar750s.guest='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.guest'
+
 alias wikipedia='spectre -tx wikipedia.org'
 alias udemy='spectre -tx udemy.com'
 alias typingclub='spectre -tx typingclub.com'
