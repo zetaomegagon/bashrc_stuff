@@ -235,3 +235,40 @@ declare -f | less
 declare -f | grep which
 declare -f | grep flatpack
 declare -f | grep -A 5 flatpack
+declare -f | grep which
+declare -f | grep flatpack
+declare -f | grep -A 5 flatpack
+unset -fn
+unset -f
+unset -f < <(cat .functions)
+cat .functions
+cat .functions | while read -r FUNCNAME; do echo $FUNCNAME; done
+cat .functions | while read FUNCNAME; do echo $FUNCNAME; done
+cat .functions | grep -E '^.*\(\)'
+cat .functions | grep -E '^[a-z-]*\(\)'
+cat .functions | grep -E '^[a-z-]*\(\)' | cut -d')' -f1
+cat .functions | grep -E '^[a-z-]*\(\)' | cut -d'(' -f1
+cat .functions | command -p grep -E '^[a-z-]*\(\)' | cut -d'(' -f1
+printf "\e[m"
+cat .{functions,translate} | command -p grep -E '^[a-z-]*\(\)' | cut -d'(' -f1
+cat .{functions,translate} | command -p grep -E '^[^\s]*\(\)' | cut -d'(' -f1 | less
+cat .{functions,translate} | command -p grep -E '^[a-z-]*\(\)' | cut -d'(' -f1 | less
+printf "\n%s\n" 'cat .{functions,translate} | command -p grep -E '^[a-z-]*\(\)' | cut -d'(' -f1 | less' >> .functions
+printf "\n%s\n" 'cat .{functions,translate} | command -p grep -E '^[a-z-]*\(\)' | cut -d\'(\' -f1' >> .functions
+printf "\n%s\n" 'cat .{functions,translate} | command -p grep -E \'^[a-z-]*\(\)\' | cut -d\'(\' -f1' >> .functions
+printf "\n%s\n" 'cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1' >> .functions
+declare -f | grep -A 5 flatpack
+while read -r FNAME; do echo "$FNAME"; done < <(cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"\(" -f1)
+while read -r FNAME; do echo "$FNAME"; done < <(cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1)
+while read -r FNAME; do echo "$FNAME"; done < <(cat .{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1) | less
+rm .bash_profile && ln -s $PWD/.bash_profile $PWD/gits/bashrc_stuff/env/bashrc
+rm .bash_profile && ln -s $PWD/gits/bashrc_stuff/env/bashrc $PWD/.bash_profile 
+ln -s $PWD/gits/bashrc_stuff/env/bashrc $PWD/.bash_profile 
+cat .bash_logout
+cat .lesshst
+echo > .lesshst 
+rm .wget-hsts 
+sudo killall tmux
+pgrep tmux
+for PID in $(command -p pgrep tmux); do pkill $PID; done
+for PID in $(command -p pgrep tmux); do sudo kill -9 $PID; done
