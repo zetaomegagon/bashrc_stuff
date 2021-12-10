@@ -366,3 +366,46 @@ cat .spectre.d/Elijah\ Thomas\ Beale.mpjson
 netflix
 rm .spectre.d/Elijah\ Thomas\ Beale.mpjson 
 github
+grep -E ^alias .aliases 
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s='/]*'
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s=\'/]*'
+grep -E ^alias .aliases | command -p grep -vE "alias|[\s='/]*"
+grep -E ^alias .aliases | command -p grep -vE "[\s='/]*"
+wich ll
+cd gits/spectre/
+cd cli/
+cd api/
+git pull
+cd ..
+rm -rf libfprint*
+ll xps-touchpad-button-config/
+cat xps-touchpad-button-config/README.md 
+cd xps-touchpad-button-config/
+rm \#*\W
+rm \#*\#
+cat xps*
+printf "⎜↳ DLL0945:00 06CB:CDE6 Touchpad id=11 [slave pointer (2)]" | sed 's/^.*=//g'
+printf "⎜↳ DLL0945:00 06CB:CD"%s\n" E6 Touchpad id=11 [slave pointer (2)]" | sed 's/^.*=//g'
+printf "%s\n" "⎜↳ DLL0945:00 06CB:CD:E6 Touchpad id=11 [slave pointer (2)]" | sed 's/^.*=//g'
+echo "⎜↳ DLL0945:00 06CB:CD:E6 Touchpad id=11 [slave pointer (2)]" | sed 's/^.*=//g'
+echo "⎜↳ DLL0945:00 06CB:CD:E6 Touchpad id=11 [slave pointer (2)]" | sed -re 's/^.*=//g' -e 's/\s.*$//g'
+printf "%s" "\nsed -re 's/^.*=//g' -e 's/\s.*$//g'\n" >> xps-touchpad-button-config
+emacs xps-touchpad-button-config
+cat README.md 
+emacs README.md 
+cat xps-touchpad-button-config.desktop 
+emacs *.desktop
+git add -A
+git commit -m "Simplified command substitution by removing awk. Script comment cleanup / re-structure. Minor edits in README.md"
+git push -u origin master
+spectre -tx github.com
+spectre -tx -Fj -c1 github.com
+ll ~/.spectre.d/
+cat ~/.spectre.d/Elijah\ Thomas\ Beale.mpjson 
+github
+git push -u origin main
+cat ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519
+cat ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub 
+cat ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub | clip
+nano ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub
+ssh-add -l
