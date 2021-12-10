@@ -15,7 +15,7 @@ git-sync() {
             git pull || exit 4
 
             # apply stashed changes
-            [[ -n $(git stash list) ]] && git stash apply
+            [[ -n $(git stash list --oneline) ]] && git stash apply
 
             # Add all, commit, push
             { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 6
