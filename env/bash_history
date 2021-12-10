@@ -331,3 +331,38 @@ clip clear
 github
 clip empty
 spectre -tx -a 1 github.com
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s='/]*'
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s=\'/]*'
+grep -E ^alias .aliases | command -p grep -vE "alias|[\s='/]*"
+grep -E ^alias .aliases | command -p grep -vE "[\s='/]*"
+wich ll
+github.com
+clip clear
+clip empty
+spectre -tx -a 1 github.com
+la .spectre.d/
+crm.spectre.d/Elijah\ Thomas\ Beale.mpjson 
+rm .spectre.d/Elijah\ Thomas\ Beale.mpjson 
+sourc .spectre
+github
+cat .spectre.d/Elijah\ Thomas\ Beale.mpjson 
+netflix
+while read -r ANAME; do echo "$ANAME"; done < <(sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g' $HOME/gits/bashrc_stuff/env/{aliases,spectre,sshpw}) | less
+grep -E ^alias
+grep -E ^alias .aliases 
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s='/]*'
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s=\'/]*'
+grep -E ^alias .aliases | command -p grep -vE "alias|[\s='/]*"
+grep -E ^alias .aliases | command -p grep -vE "[\s='/]*"
+wich ll
+github.com
+clip clear
+clip empty
+spectre -tx -a 1 github.com
+la .spectre.d/
+crm.spectre.d/Elijah\ Thomas\ Beale.mpjson 
+sourc .spectre
+cat .spectre.d/Elijah\ Thomas\ Beale.mpjson 
+netflix
+rm .spectre.d/Elijah\ Thomas\ Beale.mpjson 
+github
