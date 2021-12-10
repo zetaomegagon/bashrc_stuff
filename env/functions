@@ -73,7 +73,7 @@ spectre() {
 	  # magic begins.
     #
     #Added only read / wrtie json option.
-	  printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
+	  printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F j "$@")" | _copy
 
 	  # For gpaste-client: clear last password after 30 seconds
 	  if [[ "$_use" = "${_clips[2]}" ]]; then
