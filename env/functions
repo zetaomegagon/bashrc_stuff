@@ -23,7 +23,8 @@ git-sync() {
             # Good push? Clear the stash
             { git push origin master && git stash drop; } || exit 7
 
-            # Source updated files
+            # Unset current aliases and function definitions and re-source them
+            # -- UUoC for readablility! --
             while read -r ANAME; do unalias "$ANAME"; done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g') || exit 8
             while read -r FNAME; do unset -f "$FNAME"; done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d"(" -f1) || exit 9
             source "${HOME}/.bashrc" || exit 10
@@ -70,6 +71,8 @@ spectre() {
 
 	  # Start Master Password and copy the output. This is where the
 	  # magic begins.
+    #
+    #Added only read / wrtie json option.
 	  printf %s "$(SPECTRE_USERNAME=$SPECTRE_USERNAME command spectre -F n "$@")" | _copy
 
 	  # For gpaste-client: clear last password after 30 seconds

@@ -295,3 +295,39 @@ cd gits/bashrc_stuff/
 git stash list
 git-stash help
 man git-stash
+cat .aliases 
+cat .aliases | command -p grep alias
+cat .aliases | command -p grep alias | sed -r 's,alias\s,,g'
+cat .aliases | command -p grep alias | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g'
+cat .aliases | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g'
+cat .aliases | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g' -e ',^\#,d'
+cat .aliases | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g' -e '/^\#/d'
+cat .aliases | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g' -e '/^\#/d' -e '/^[]$/d'
+cat .aliases | sed -r -e 's,alias\s,,g' -e 's,=.*$,,g' -e '/^\#/d' -e '/^\s*$/d'
+cat .aliases | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/\(alias\s\|=.*$\)//g'
+cat .aliases | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/\(^alias\s\|=.*$\)//g'
+cat .aliases | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g'
+cat .aliases | sed -r -e ':^\#:d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/
+cat .aliases | sed -r -e ':^\#:d' -e '/^\s*$/d' -e 's/^alias\s//g'
+cat .aliases | sed -r -e ':^\#:d' -e ':^\s*$:d' -e 's:^alias\s::g' -e 's:=.*$::g'
+cat .aliases | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's:^alias\s::g' -e 's:=.*$::g'
+cat .aliases | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g'
+while read -r ANAME; do echo "$ANAME"; done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
+while read -r ANAME; do echo "$ANAME"; done < <(cat $HOME/gits/bashrc_stuff/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
+while read -r ANAME; do echo "$ANAME"; done < <(cat $HOME/gits/bashrc_stuff/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g') | less
+while read -r ANAME; do echo "$ANAME"; done < <(sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g' $HOME/gits/bashrc_stuff/env/{aliases,spectre,sshpw}) | less
+grep -E ^alias
+grep -E ^alias .aliases 
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s='/]*'
+grep -E ^alias .aliases | command -p grep -vE 'alias|[\s=\'/]*'
+grep -E ^alias .aliases | command -p grep -vE "alias|[\s='/]*"
+grep -E ^alias .aliases | command -p grep -vE "[\s='/]*"
+wich ll
+grep -E ^alias .aliases | command -p grep -vE "alias|[\s='/]*"
+grep -E ^alias .aliases | command -p grep -vE "[\s='/]*"
+wich ll
+github.com
+clip clear
+github
+clip empty
+spectre -tx -a 1 github.com
