@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+## routers / hotspots
 alias wrt32x1.root='spectre -tx openwrt.wrt32x.22C1060A703327.root'
 alias wrt32x1.eVector='spectre -tx -c2 openwrt.wrt32x.22C1060A703327.eVector'
 alias ar750s.root='spectre -tx openwrt.gl-ar750s-ext.020fa421bf53a89c.root'
