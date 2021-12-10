@@ -3,10 +3,10 @@
 ## routers / hotspots
 #
 # alias part:
-#  <router_alias>.<user|essid>
+#  <router_alias>.<device_nick|essid|user>
 #
 # command part:
-#  <firmware>.<model_name>.<device_serial>.<user|essid>
+#  <firmware>.<model_name>.<device_serial>.<device_nick|essid|user>
 #
 alias wrt32x1.root='spectre -tx openwrt.wrt32x.22C1060A703327.root'
 alias wrt32x1.eVector='spectre -tx openwrt.wrt32x.22C1060A703327.eVector'
