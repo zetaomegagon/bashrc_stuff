@@ -4,6 +4,10 @@
 
 /*** custom prefs ***/
 
+// Set starup page to custom url
+user_pref("browser.startup.page", 1);
+user_pref("browser.startup.homepage", "https://tree.taiga.io/project/zetaomegagon-todo/kanban");
+
 // https://www.inmotionhosting.com/support/security/dns-over-https-encrypted-sni-in-firefox/
 user_pref("network.trr.mode", 3);
 user_pref("network.trr.uri", "https://www.jabber-germany.de/dns-query");

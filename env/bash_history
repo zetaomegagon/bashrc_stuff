@@ -409,3 +409,10 @@ cat ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub
 cat ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub | clip
 nano ~/.ssh/elijahthomasbeale+github@gmail.com-id_ed25519.pub
 ssh-add -l
+ssh-add -l
+ar750.ssh
+ar759s.ssh
+ar750s.ssh
+ar750s.root
+cd ..
+ll user.js/

@@ -567,7 +567,7 @@ src () {
 
 edit() {
     # edit various config files
-    moz_profile_dir="$HOME/.mozilla/firefox/gm15iqn0.elijah-arkenfox/"
+    moz_profile_dir="$HOME/gits/bashrc_stuff/firefox/"
     moz_usr_js="$moz_profile_dir/user.js"
     moz_ovr_js="$moz_profile_dir/user-overrides.js"
 
