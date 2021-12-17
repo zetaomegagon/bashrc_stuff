@@ -44,13 +44,6 @@ export LESSOPEN="|/usr/bin/lesspipe.sh %s"
 export LESS='-R'
 export EDITOR="/usr/bin/emacsclient"
 
-## grub2-mkconfig doesn't generate correct config on Silverblue with UEFI:
-#  - https://github.com/ostreedev/ostree/issues/1009
-#  However, this may be inaccurate?
-#  - https://github.com/ostreedev/ostree/pull/2298
-export _OSTREE_GRUB2_IS_EFI=1
-
-
 ## prompt
 #  Fix: custom pompt on silverblue removes
 #  toolbox prompt
