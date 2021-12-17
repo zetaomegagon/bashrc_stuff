@@ -73,6 +73,8 @@
 (straight-use-package 'use-package)
 
 ;; installed packages
+(use-package systemd)
+
 (use-package browse-kill-ring
   :config
   (global-set-key (kbd "C-c y") 'browse-kill-ring))

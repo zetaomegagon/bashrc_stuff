@@ -1,0 +1,10 @@
+[Unit]
+Description=Creates a new i2c DIMM device
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/var/home/bin/lm-sensors-dimm
+
+[Install]
+WantedBy=multi-user.target

@@ -108,3 +108,23 @@ kill $(pgrep GeckoMain)
 kill $(command -p pgrep GeckoMain)
 sudo iotop
 sensors
+sudo iotop
+sensors
+echo _OSTREE_GRUB2_IS_EFI
+echo $_OSTREE_GRUB2_IS_EFI
+sudo grub2-mkconfig | less
+sudo su -c "_OSTREE_GRUB2_IS_EFI=1 grub2-mkconfig | less"
+sudo su -c "_OSTREE_GRUB2_IS_EFI=1 grub2-mkconfig -o {/boot/efi/EFI/fedora/grub.cfg,/etc/grub2-efi.cfg}"
+grep -E '(linux|initrd)16' /boot/{efi/EFI/fedora,grub2}/grub.cfg
+sudo grep -E '(linux|initrd)16' /boot/{efi/EFI/fedora,grub2}/grub.cfg
+sudo su -c "WITH_MODERN_GRUB=1 grub2-mkconfig | less"
+sudo su
+fedoraproject
+sudo su
+sudo su
+la /boot/grub2/
+sudo ls -Al /boot/grub2/
+set WITH_MODERN_GRUB=0
+echo $WITH_MODERN_GRUB
+journalctl -xb
+journalctl -xe
