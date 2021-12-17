@@ -1,0 +1,110 @@
+printf "" > .bash_history 
+clip empty
+nmcli con $(nmcli con show | tail -3 | head -1 | cut -d' ' -f1) up
+nmcli con "$(nmcli con show | tail -3 | head -1 | cut -d' ' -f1)" up
+nmcli con "$(nmcli con show | tail -3 | head -1 | awk '{ print $2 }')" up
+nmcli con up "$(nmcli con show | tail -3 | head -1 | awk '{ print $2 }')"
+nmcli con show
+ip a
+ssh -p22222 root@192.168.8.1
+ar750s.root
+nautilus .ssh
+ar750s.ssh 
+nmcli dev wifi --rescan yes
+nmcli con show scarab-guest_5GHz 
+ar750s.scarab
+nmcli con show
+ar750s.ssh 
+ar750s.root
+watch -n1 "curl https://10.10.10.1/cgi-bin/luci"
+watch -n1 "curl http://10.10.10.1/cgi-bin/luci; printf $(date -Is)\n"
+watch -n1 "curl http://10.10.10.1/cgi-bin/luci; printf $(date -Is)\n"
+sudo systemctl start NetworkManager
+journalctl -u NetowrkManager
+ip a
+nmcli con show
+sudo systemctl stop NetworkManager
+man bash
+parted /dev/sda
+sudo parted /dev/sda
+parted /dev/sda
+sudo parted /dev/sda
+sensors | grep -i 'core\s[0-9]'
+sensors | command -p grep -i 'core\s[0-9]'
+sensors | command -p grep -i 'core\s[0-9]' | cut -d' ' -f2
+sensors | command -p grep -i 'core\s[0-9]' | cut -d' ' -f3
+sensors | command -p grep -i 'core\s[0-9]' | cut -d\t -f3
+sensors | command -p grep -i 'core\s[0-9]' | cut -d\t -f2
+sensors | command -p grep -i 'core\s[0-9]' | cut -d\t -f1
+sensors | command -p grep 'Core 0:'
+sensors | command -p grep 'Core 0:' | cut -d' ' -f2
+sensors | command -p grep 'Core 0:' | cut -d'    ' -f2
+sensors | command -p grep 'Core 0:' | cut -d' ' -f3
+sensors | command -p grep 'Core 0:' | cut -d' ' -f4
+sensors | command -p grep 'Core 0:' | awk '{ print "$1 " " $2" " $3" }'
+sensors | command -p grep 'Core 0:' | awk '{ print $1 $2 $3 }'
+sensors | command -p grep 'Core 0:' | awk '{ printf "$1\s$2\s\s\s\s$3" }'
+sensors | command -p grep 'Core 0:' | awk '{ printf "$1\b$2\b\b\b\b$3" }'
+sensors | command -p grep 'Core 0:' | awk '{ printf "$1\b$2\b\b\b\b$3\n" }'
+sensors | command -p grep 'Core 0:' | awk '{ printf "$1 $2 $3\n" }'
+sensors | command -p grep 'Core 0:' | awk '{ printf $1 $2 $3\n }'
+sensors | command -p grep 'Core 0:' | awk '{ printf $1 $2 $3 }'
+sensors | command -p grep 'Core 0:' | awk '{ printf $1, $2, $3 }'
+sensors | command -p grep 'Core 0:' | awk '//{ printf $1, $2, $3 }'
+sensors | command -p grep 'Core 0:' | awk '//{ print $1, $2, $3 }'
+sensors | command -p grep 'Core 0:' | awk '//{ print $1, $2, $3 }'; printf \s; printf -- foo
+sensors | command -p grep 'Core 0:' | awk '//{ print $1, $2, $3 }'; printf -- foo
+sensors | command -p grep 'Core 0:' | awk '//{ print $1, $2, $3, \s }'
+sensors | command -p grep 'Core 0:' | awk '//{ print $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf $1%s$2%s%s $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf $1%s$2%s%s$3}'
+sensors | command -p grep 'Core 0:' | awk { 'printf $1%s$2%s%s$3' }
+sensors | command -p grep 'Core 0:' | awk '{ 'printf $1%s$2%s%s$3' }'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s\s%s\s\s%s", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s\t%s\t\t%s", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s\b%s\b\b%s", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s\b%s\b\b%s\n", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s%s%s\n", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s %s  %s\n", $1, $2, $3}'
+sensors | command -p grep 'Core 0:' | awk '{ printf "%s %s  %s ", $1, $2, $3}'
+for core in {0..3}; do sensors | command -p grep "Core $core:" | awk '{ printf "[ %s %s  %s] ", $1, $2, $3}'; done
+for core in {0..3}; do sensors | command -p grep "Core $core:" | awk '{ printf "[ %s %s  %s] ", $1, $2, $3}'; printf \n; done
+for core in {0..3}; do sensors | command -p grep "Core $core:" | awk '{ printf "[ %s %s  %s] ", $1, $2, $3}'; printf "\n"; done
+for core in {0..3}; do sensors | command -p grep "Core $core:" | awk '{ printf "[ %s %s  %s] ", $1, $2, $3}'; done; printf "\n"
+sensors
+for core in {0..3}; do sensors | grep -i "core $core:" | awk '{ printf "[ %s %s  %s] ", $1, $2, $3}'; done; printf "\n"
+for core in {0..3}; do sensors | grep -i "core $core:" | awk '{ printf "[ %s ] ", $3}'; done; printf "\n"
+for core in {0..3}; do sensors | grep -i "core $core:" | awk '{ printf "[ %s |", $3}'; done; printf "\n"
+for core in {0..3}; do sensors | grep -i "core $core:" | awk '{ printf "%s |", $3}'; done; printf "\n"
+for core in {0..3}; do sensors | grep -i "core $core:" | awk '{ printf "%s | ", $3}'; done; printf "\n"
+sensors | grep -iE 'left|right'
+sensors | grep -iE 'left|right' | awk '{ print $4 }'
+sensors | grep -iE 'left|right' | awk '{ printf "%s %s", $4, $5}'
+sensors | grep -iE 'left' | awk '{ printf "%s %s", $4, $5}'
+sensors | grep -i 'left' | awk '{ printf "%s %s", $4, $5}'
+top
+ip a
+nmcli con show
+sudo systemctl stop NetworkManager
+man bash
+parted /dev/sda
+sudo parted /dev/sda
+top | grep Cpu
+top -t| grep Cpu
+top -h
+top -v
+top -b
+top -b1
+top -1 | grep -i cpu0
+top -2
+top -12
+top
+man top
+top -1t
+top -1
+pgrep firefox
+pgrep GeckoMain
+kill $(pgrep GeckoMain)
+kill $(command -p pgrep GeckoMain)
+sudo iotop
+sensors
