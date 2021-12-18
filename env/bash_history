@@ -347,3 +347,10 @@ ro status
 dnf search hddtemp
 dnf search smartmontools
 which which
+emacs bin/cpu-temps-executor 
+emacs bin/sensor-temps 
+dnf search smartmontools
+sudo ./bin/lm-sensors-dimm 
+which which
+cd gits/bashrc_stuff/
+git tree
