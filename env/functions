@@ -3,9 +3,10 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
-    local CDMSG=">>>Entering ${REPO}"
-    local DROP_DIRTY_MSG=">>>Dropping dirty stash"
-    local STASH_MSG=">>>Stashing local changes"
+    local INDICATOR=">>>"
+    local CDMSG="${INDICATOR} Entering ${REPO}"
+    local DROP_DIRTY_MSG="${INDICATOR} Dropping dirty stash"
+    local STASH_MSG="${INDICATOR} Stashing local changes"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
