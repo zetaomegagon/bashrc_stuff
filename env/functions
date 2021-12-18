@@ -18,14 +18,14 @@ git-sync() {
             { cd "$REPO" && printf "%s\n" "$CD_MSG"; } || exit 1
 
             # Cleanup any erroneoulsy leftover stashed changes
-            exists-stash && printf "%s\n" "$DROP_DIRTY_MSG" && git stash drop
+            exists-stash && printf "%s\n" "$DROP_DIRTY_MSG" && git stash drop >/dev/null
 
             # Stash changes & sync with main
-            { printf "%s\n" "$STASH_MSG" && git stash; } || exit 3
-            { printf "%s\n" "$PULL_MSG" && git pull; } || exit 4
+            { printf "%s\n" "$STASH_MSG" && git stash >/dev/null; } || exit 3
+            { printf "%s\n" "$PULL_MSG" && git pull >/dev/null; } || exit 4
 
             # Apply stashed changes
-            { exists-stash && printf "%s\n" "$APPLY_MSG" && git stash apply; } || exit 5 
+            { exists-stash && printf "%s\n" "$APPLY_MSG" && git stash apply >/dev/null; } || exit 5 
 
             # Add all, commit, push
             { git add -A && git commit -m "auto commited on: $(date -uI'ns')"; } || exit 6
