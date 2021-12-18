@@ -40,7 +40,10 @@ git-sync() {
                 printf "%s\n" "$APPLY_MSG"
                 git stash apply >/dev/null
             } || {
-                echo ">>> No changes to commit. Exiting."; echo ">>> Leaving ${REPO}" && exit 5
+                echo ">>> No changes to commit. Exiting."
+                echo ">>> Leaving ${REPO}"
+                printf "\n"
+                exit 5
             }
 
             # Add all, commit, push
