@@ -52,17 +52,20 @@ git-sync() {
 
             # Unset current aliases and function definitions
             # -- UUoC for readability --
+            echo ">>> Discarding alias definitions"
             while read -r ALIAS; do
                 unalias "$ALIAS" 2>/dev/null
             done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
-            
+
+            echo ">>> Discarding function definitions"
             while read -r FUNCTION; do
                 unset -f "$FUNCTION" 2>/dev/null
             done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
 
             # Re-souce local environment
-            printf "%s\n" "$CD_EXIT_MSG"
+            echo ">>> Re-initializing alias and function definitions"
             source "${HOME}/.bashrc"
+            printf "%s\n" "$CD_EXIT_MSG"
         }
     )
 }
