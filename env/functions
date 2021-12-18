@@ -3,6 +3,7 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
+    local OLD_PWD="$PWD"
     local INDICATOR=">>>"
     local CD_ENTER_MSG="${INDICATOR} Entering ${REPO}"
     local DROP_STASH_MSG="${INDICATOR} Dropping stash"
@@ -43,6 +44,7 @@ git-sync() {
                 echo ">>> No changes to commit. Exiting."
                 echo ">>> Leaving ${REPO}"
                 printf "\n"
+                cd "$OLD_PWD"
                 exit 5
             }
 
