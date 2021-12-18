@@ -185,3 +185,159 @@ which hddtemp
 man udisks
 man udiskctl
 man udisksctl
+fedoraproject
+sudo su
+sudo su
+la /boot/grub2/
+sudo ls -Al /boot/grub2/
+set WITH_MODERN_GRUB=0
+echo $WITH_MODERN_GRUB
+systemctl status lm-sensors-dimm
+sudo systemctl status lm-sensors-dimm
+sudo setenforce 0
+sudo systemctl enable --nom lm-sensors-dimm
+sudo systemctl enable lm-sensors-dimm
+sudo systemctl start lm-sensors-dimm
+sudo ./bin/lm-sensors-dimm 
+sudo nano /etc/systemd/system/lm
+sudo nano /etc/systemd/system/lm-sensors-dimm.service 
+sudo setenforce 1
+sensors
+sensors -j
+sensors -j | jq jc42-i2c-11-44.temp1
+sensors -j | jq `console.log(jc42-i2c-11-44.temp1)`
+sensors -j | jq
+sensors -j | jq `.jc42-i2c-11-44.temp1`
+sensors -j | jq `.jc42-i2c-11-44`
+sensors -j | jq `jc42-i2c-11-44`
+sensors -j | jq --flatten
+sensors -j | jq '
+sensors -j | jq '.jc42-i2c-11-44'
+sensors -j | jq 'jc42-i2c-11-44'
+sensors -j | jq '.'
+sensors -j | jq '.' | less
+sensors -j | jq '"jc42-i2c-11-44"'
+sensors -j | jq '."jc42-i2c-11-44"."temp1"'
+sensors | less
+sensors -j | jq '.jc42-i2c-11-44.temp1.temp1_input'
+sensors -j | sed 's:\"::g' | jq '.jc42-i2c-11-44.temp1.temp1_input'
+sensors -j | sed 's:\"::g' | less
+sensors -j | jq '."jc42-i2c-11-44"."temp1"."temp1_input"'
+sensors -j | jq '."coretemp-isa-0000"."Core 0"."temp2_input"'
+CPU0() { sensors -j | jq '."coretemp-isa-0000"."Core 0"."temp2_input"'; }
+CPU1() { sensors -j | jq '."coretemp-isa-0000"."Core 1"."temp3_input"'; }
+CPU2() { sensors -j | jq '."coretemp-isa-0000"."Core 2"."temp4_input"'; }
+CPU3() { sensors -j | jq '."coretemp-isa-0000"."Core 3"."temp5_input"'; }
+CPU0
+printf "[  %s  ]" "CPU0"
+printf "[  %s  ]" "$(CPU0)"
+printf "[  %s  ]" "$(CPU{0..3})"
+printf "[  %s  ]" "$(CPU0; CPU1; CPU2; CPU3)"
+printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf CPU$c; done)"
+printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf function CPU$c; done)"
+printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf $(CPU$c); done)"
+printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf "%s" "$(CPU$c)"; done)"
+printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf "%s" "$(CPU$c)"; [[ $c -lt 3 ]] && printf "  "; done)"
+echo 'CPU0() { sensors -j | jq '."coretemp-isa-0000"."Core 0"."temp2_input"'; }' >> sensors.sh
+echo 'CPU1() { sensors -j | jq '."coretemp-isa-0000"."Core 1"."temp3_input"'; }' >> sensors.sh 
+echo 'CPU2() { sensors -j | jq '."coretemp-isa-0000"."Core 2"."temp4_input"'; }' >> sensors.sh 
+echo 'CPU3() { sensors -j | jq '."coretemp-isa-0000"."Core 3"."temp5_input"'; }' >> sensors.sh 
+echo 'printf "[  %s  ]" "$(for ((c=0;c<4;c++)); do printf "%s" "$(CPU$c)"; [[ $c -lt 3 ]] && printf "  "; done)"' >> sensors.sh 
+emacs sensors.sh 
+rm lm_* sensors.*
+rm \#*\#
+emacs bin/cpu-temps-executor 
+sudo su -c "_OSTREE_GRUB2_IS_EFI=1 grub2-mkconfig -o {/boot/efi/EFI/fedora/grub.cfg,/etc/grub2-efi.cfg}"
+grep -E '(linux|initrd)16' /boot/{efi/EFI/fedora,grub2}/grub.cfg
+sudo grep -E '(linux|initrd)16' /boot/{efi/EFI/fedora,grub2}/grub.cfg
+sudo su -c "WITH_MODERN_GRUB=1 grub2-mkconfig | less"
+la /boot/grub2/
+sudo ls -Al /boot/grub2/
+set WITH_MODERN_GRUB=0
+echo $WITH_MODERN_GRUB
+ll ./bin/
+RAM() { printf "[  %s  ]" "$(sensors | grep -q "jc42" | grep "temp1:")"; }
+RAM() { printf "[  %s  ]" "$(sensors | grep -i "jc42" | grep -i "temp1:")"; }
+RAM() { printf "[  %s  ]" "$(sensors -j | grep -i "jc42")"; }
+RAM() { printf "[  %s  ]" "$(sensors -j)"; }
+RAM
+RAM | less
+ro install -A jq
+unset -f RAM
+sudo ls -Al /boot/grub2
+fedoraproject
+man jq
+sensors | less
+htop
+top
+sensors -j | less
+sudo su
+udisksctl info --drive /dev/sda
+udisksctl info
+udisksctl dump | less
+udisksctl info --block-device /org/freedesktop/UDisks2/block_devices/sda
+udisksctl info --drive /org/freedesktop/UDisks2/block_devices/sda
+sudo udisksctl info --drive /org/freedesktop/UDisks2/block_devices/sda
+sudo udisksctl info --block-device /org/freedesktop/UDisks2/block_devices/sda
+sudo udisksctl info --object-path /org/freedesktop/UDisks2/block_devices/sda
+sudo udisksctl status
+sudo udisksctl info --drive sda
+sudo udisksctl info --block-device sda
+udisksctl dump | grep temp
+udisksctl dump /dev/sda | grep temp
+udisksctl dump /dev/sda | grep -i temp
+printf "SSD: [  %s  ]" "$(( ($(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }') - 32) * 5/9))" 
+printf "SSD: [  %d  ]" "$(( ($(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }') - 32) * 5/9))" 
+printf "SSD: $(( ($(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }') - 32) * 5/9))" 
+echo $(( ($(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }') - 32) * 5/9))
+echo $(( ($(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }' | sed -r 's:\.[0-9]*::g') - 32) * 5/9))
+echo $(( ("$(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }')" - 32) * 5/9))
+echo "$(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }')" - 32) * 5/9 | bc
+echo ( "$(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }')" - 32 ) * 5/9 | bc
+raw_temp="$(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }')"
+echo $raw_temps
+echo $raw_temp
+echo ( $raw_temp - 32 ) * 5/9 | bc
+echo $raw_temp - 32 * 5/9 | bc
+echo "$raw_temp - 32 * 5/9" | bc
+man bash
+printf -- "scale=2; $raw_temp - 32 * 5/9" | bc
+printf -- scale=2; $raw_temp - 32 * 5/9 | bc
+man bc
+printf -- scale=2; ($raw_temp - 32)/1 * 5/9 | bc
+printf -- scale=2; ($raw_temp - 32) /1 * 5/9 | bc
+printf -- "scale=2; ($raw_temp - 32) /1 * 5/9" | bc
+printf "%s" "scale=2; ($raw_temp - 32) /1 * 5/9" | bc
+echo "scale=2; ($raw_temp - 32) / 1 * 5/9" | bc
+printf "scale=2; ($raw_temp - 32) / 1 * 5/9" | bc
+printf "scale=2; ($raw_temp - 32) / 1 * 5/9\n" | bc
+printf "%s\n" "scale=2; ($raw_temp - 32) / 1 * 5/9" | bc
+udisksctl dump /dev/sda | grep -i configuration
+udisksctl dump /dev/sda | grep -i configuration | jq .
+udisksctl dump /dev/sda | grep -i configuration | jq
+udisksctl dump /dev/sda | command -p grep -i configuration | awk '{ print $2 }'
+udisksctl dump /dev/sda | command -p grep -iA3 configuration
+udisksctl dump /dev/sda | command -p grep -i -A3 configuration
+udisksctl dump /dev/sda | command -p grep -i configuration
+udisksctl dump /dev/sda | command -p grep -iE configuration.*[('fstab'
+udisksctl dump /dev/sda | command -p grep -iE 'configuration.*[('fstab''
+udisksctl dump /dev/sda | command -p grep -iE 'configuration.*\[\('fstab''
+udisksctl dump /dev/sda | command -p grep -iE 'configuration*\[\('
+udisksctl dump /dev/sda | command -p grep -iE 'configuration.*\[\('
+udisksctl dump /dev/sda | jq
+udisksctl dump /dev/sda
+man udisksctl
+cat /sys/class/thermal/
+ll /sys/class/thermal/
+ll /sys/class/thermal/cooling_device*/
+ll /sys/class/thermal/cooling_device*/stats/
+ll /sys/class/thermal/cooling_device*/power/
+cat /sys/class/thermal/cooling_device*/power/time_in_state_ms
+ll /sys/class/thermal/cooling_device[0-9]*/power
+cat /sys/class/thermal/cooling_device[0-9]*/power/runtime_status
+mv ./bin/cpu-temps-executor ./bin/sensor-temps
+rm ./bin/*~
+smartctl
+udiskctl dump | grep -i temp
+udisksctl dump | grep -i temp
+udisksctl dump | grep -i temp | awk '{ print $2 }'
