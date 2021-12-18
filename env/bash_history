@@ -367,3 +367,31 @@ git status | -p grep "nothing to commit, working tree clean"
 git status | command -p grep "nothing to commit, working tree clean"
 cd gits/bashrc_stuff/
 git stash list
+git status | grep "nothing to commit, working tree clean"
+git status | -p grep "nothing to commit, working tree clean"
+git status | command -p grep "nothing to commit, working tree clean"
+cd gits/bashrc_stuff/
+git stash list
+protonmail.com
+protonmaill
+protonmail
+linkedin
+spectre-add phila.gov
+phila
+spectre-add peco.com
+sed 's/alias peco=\'spectre -tx -c1 peco.cm\'/alias peco=\'spectre -tx -c2 peco.com\'/g' .spectre
+sed 's/alias peco=\'spectre -tx -c1 peco.com\'/alias peco=\'spectre -tx -c2 peco.com\'/g' .spectre
+
+sed -r 's/alias peco=\'spectre -tx -c1 peco.com\'/alias peco=\'spectre -tx -c2 peco.com\'/g' .spectre
+
+sed 's,alias peco\=\'spectre -tx -c1 peco.com\',alias peco\=\'spectre -tx -c2 peco.com\',g' .spectre
+
+sed "s,alias peco\=\'spectre -tx -c1 peco.com\',alias peco\=\'spectre -tx -c2 peco.com\',g" .spectre
+sed "s,alias peco\=\'spectre -tx -c1 peco.com\',alias peco\=\'spectre -tx -c2 peco.com\',g" .spectre | grep peco
+sed "s,alias peco='spectre -tx -c1 peco.com',alias peco='spectre -tx -c2 peco.com',g" .spectre
+sed "s,alias peco='spectre -tx -c1 peco.com',alias peco='spectre -tx -c2 peco.com',g" .spectre | grep peco
+sed -i "s,alias peco='spectre -tx -c1 peco.com',alias peco='spectre -tx -c2 peco.com',g" .spectre
+. .spectre
+sed -i "s,alias peco='spectre -tx -c2 peco.com',alias peco='spectre -tx -c3 peco.com',g" .spectre && git-sync
+grep peco .spectre
+peco
