@@ -51,7 +51,7 @@ git-sync() {
                 printf "%s\n" "$PUSH_MSG"; git push origin master >/dev/null
             } && {
                 printf "%s\n" "$DROP_STASH_MESSAGE"
-                git stash drop
+                git stash drop >/dev/null
             } || exit 7
 
             # Unset current aliases and function definitions
