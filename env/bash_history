@@ -354,3 +354,16 @@ sudo ./bin/lm-sensors-dimm
 which which
 cd gits/bashrc_stuff/
 git tree
+emacs
+which which
+git tree
+man git
+git --help
+git status --help
+man git-status
+git status
+git status | grep "nothing to commit, working tree clean"
+git status | -p grep "nothing to commit, working tree clean"
+git status | command -p grep "nothing to commit, working tree clean"
+cd gits/bashrc_stuff/
+git stash list
