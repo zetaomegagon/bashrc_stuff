@@ -18,6 +18,7 @@ git-sync() {
     (
         {
             # Move to working dir
+            printf "\n"
             { cd "$REPO" && printf "%s\n" "$CD_ENTER_MSG"; } || exit 1
 
             # Cleanup any erroneoulsy leftover stashed changes
@@ -66,6 +67,7 @@ git-sync() {
             echo ">>> Re-initializing alias and function definitions"
             source "${HOME}/.bashrc"
             printf "%s\n" "$CD_EXIT_MSG"
+            printf "\n"
         }
     )
 }
