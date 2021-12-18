@@ -41,7 +41,7 @@ git-sync() {
 
             # Add all, commit, push
             {
-                printf "%s" "$ADD_COMMIT_MSG"
+                printf "%s\n" "$ADD_COMMIT_MSG"
                 git add -A >/dev/null && git commit -m "auto commited on: $(date -uI'ns')" >/dev/null
             } || exit 6
 
