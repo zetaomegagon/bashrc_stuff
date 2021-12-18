@@ -10,6 +10,7 @@ git-sync() {
     local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes"
     local APPLY_MSG="${INDICATOR} Applying local changes"
     local ADD_COMMIT_MSG="${INDICATOR} Adding changes and generating commit"
+    local PUSH_MSG="${INDICATOR} Pushing changes"
     local CD_EXIT_MSG="${INDICATOR} Leaving ${REPO}"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
@@ -46,7 +47,10 @@ git-sync() {
             } || exit 6
 
             # Good push? Clear the stash
-            { git push origin master && git stash drop; } || exit 7
+            {
+                printf "%s\n" "$PUSH_MSG"
+                git push origin master && git stash drop
+            } || exit 7
 
             # Unset current aliases and function definitions
             # -- UUoC for readability --
