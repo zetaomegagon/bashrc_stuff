@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+## variables to make pretty printing more explicit
+opn="["    sep="]  ["  cls="]"
+spc=" "    cpu="CPU:"  ram="RAM:"
+gpu="GPU:" ssd="SSD:"  fan="FAN:"
+
+## functions for facilitating pretty printing
+print-outter-sep() { printf "%4s" "$spc"; }
+print-inner-sep() { printf "%4s" "$spc"; }
+
 ## print cpu core temps
 CPU0() { sensors -j | jq '."coretemp-isa-0000"."Core 0"."temp2_input"' | sed -r 's:[0-9]{2}$::g'; }
 CPU1() { sensors -j | jq '."coretemp-isa-0000"."Core 1"."temp3_input"' | sed -r 's:[0-9]{2}$::g'; }
@@ -7,8 +16,16 @@ CPU2() { sensors -j | jq '."coretemp-isa-0000"."Core 2"."temp4_input"' | sed -r 
 CPU3() { sensors -j | jq '."coretemp-isa-0000"."Core 3"."temp5_input"' | sed -r 's:[0-9]{2}$::g'; }
 
 cpu-temps() {
-    printf "CPU: [  %s  ]" "$(for ((c=0;c<4;c++)); do printf "%s" "$(CPU$c)"; [[ $c -lt 3 ]] && printf "  -  "; done)";
-    printf "    "
+    printf "%s%4s%s%4s%s%4s%s" \
+           "$opn" \
+           "$spc" \
+           "$cpu" \
+           "$spc" \
+           "$(for ((core=0;core<4;core++)); do printf "%s" "$(CPU$core)"; [[ $core -lt 3 ]] && print-inner-sep; done)" \
+           "$spc" \
+           "$sep"
+    
+    print-outter-sep
 }
 
 ## print fan speeds
@@ -16,30 +33,56 @@ FAN_L() { sensors -j | jq '."applesmc-isa-0300"."Left side  "."fan1_input"' | se
 FAN_R() { sensors -j | jq '."applesmc-isa-0300"."Right side "."fan2_input"' | sed -r 's:\.[0-9]{3}::g'; }
 
 fan-speeds() {
-    printf "FAN: [  %s  ]" "$(for fan in L R; do printf "%s" "$(FAN_$fan)"; [[ $fan = L ]] && printf "  -  "; done)";
-    printf "    "
+    printf "%s%4s%s%4s%s" \
+           "$fan" \
+           "$spc" \
+           "$(for fan in L R; do printf "%s" "$(FAN_$fan)"; [[ $fan = L ]] && print-inner-sep; done)" \
+           "$spc" \
+           "$cls"
+    
+    print-outter-sep
 }
 
 ## print ram temps
 RAM0() { sensors -j | jq '."jc42-i2c-11-44"."temp1"."temp1_input"' | sed -r 's:[0-9]{2}$::g'; }
 
 ram-temps() {
-    printf "RAM: [  %s  ]" "$(for ram in 0; do printf "%s" "$(RAM$ram)"; [[ $ram -lt 0 ]] && printf "  -  "; done)"
-    printf "    "
+    printf "%s%4s%s%4s%s" \
+           "$ram" \
+           "$spc" \
+           "$(for ram in 0; do printf "%s" "$(RAM$ram)"; [[ $ram -lt 0 ]] && print-inner-sep; done)" \
+           "$spc" \
+           "$sep"
+    
+    print-outter-sep
 }
 
 ## print gpu temp
 GPU0() { sensors -j | jq '."radeon-pci-0100"."temp1"."temp1_input"' | sed -r 's:[0-9]{2}$::g'; }
 
 gpu-temps() {
-    printf "GPU: [  %s  ]" "$(for gpu in 0; do printf "%s" "$(GPU$gpu)"; [[ $gpu -lt 0 ]] && printf "  -  "; done)"
-    printf "    "
+    printf "%s%4s%s%4s%s" \
+           "$gpu" \
+           "$spc" \
+           "$(for gpu in 0; do printf "%s" "$(GPU$gpu)"; [[ $gpu -lt 0 ]] && print-inner-sep; done)" \
+           "$spc" \
+           "$sep"
+    
+    print-outter-sep
 }
 
-## print ssd temp
+## print ssd temps
+SSD0() { local input=$1; hddtemp --foreground --unit=C --numeric /dev/sda; }
+
 ssd-temps() {
-    printf "SSD: [  %s  ]" "$(hddtemp --foreground --unit=C --numeric /dev/sda)"
-    printf "    "
+    printf "%s%4s%s%4s%s" \
+           "$ssd" \
+           "$spc" \
+           "$(for ssd in 0; do printf "%s%s" "$(SSD$ssd).0"; [[ $ssd -lt 0 ]] && print-inner-sep; done)" \
+           "$spc" \
+           "$sep"
+    
+    print-outter-sep
 }
 
 ## main
