@@ -341,3 +341,8 @@ smartctl
 udiskctl dump | grep -i temp
 udisksctl dump | grep -i temp
 udisksctl dump | grep -i temp | awk '{ print $2 }'
+sudo bin/lm-sensors-dimm 
+which hddtemp
+ro status
+dnf search hddtemp
+dnf search smartmontools

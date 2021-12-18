@@ -38,16 +38,13 @@ gpu-temps() {
 
 ## print ssd temp
 ssd-temps() {
-    local raw_temp_f="$(udisksctl dump /dev/sda | grep -i 'smarttemperature' | awk '{ print $2 }')"
-    local scale_temp_c="$(printf "%s\n" "scale=1; ($raw_temp_f - 32) / 1 * 5/9" | bc)"
-
-    printf "SSD: [  %s  ]" "$scale_temp_c"
+    printf "SSD: [  %s  ]" "$(hddtemp --foreground --unit=C --numeric /dev/sda)"
     printf "    "
 }
 
 ## main
 cpu-temps
-fan-speeds
 ram-temps
 gpu-temps
 ssd-temps
+fan-speeds
