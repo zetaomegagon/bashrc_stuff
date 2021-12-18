@@ -5,7 +5,7 @@ git-sync() {
     local REPO="${HOME}/gits/bashrc_stuff"
     local INDICATOR=">>>"
     local CD_ENTER_MSG="${INDICATOR} Entering ${REPO}"
-    local DROP_DIRTY_MSG="${INDICATOR} Dropping dirty stash"
+    local DROP_STASH_MSG="${INDICATOR} Dropping stash"
     local STASH_MSG="${INDICATOR} Stashing local changes"
     local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes"
     local APPLY_MSG="${INDICATOR} Applying local changes"
@@ -21,7 +21,7 @@ git-sync() {
             { cd "$REPO" && printf "%s\n" "$CD_ENTER_MSG"; } || exit 1
 
             # Cleanup any erroneoulsy leftover stashed changes
-            exists-stash && printf "%s\n" "$DROP_DIRTY_MSG" && git stash drop >/dev/null
+            exists-stash && printf "%s\n" "$DROP_STASH_MSG" && git stash drop >/dev/null
 
             # Stash changes & sync with main
             {
@@ -48,8 +48,10 @@ git-sync() {
 
             # Good push? Clear the stash
             {
-                printf "%s\n" "$PUSH_MSG"
-                git push origin master && git stash drop
+                printf "%s\n" "$PUSH_MSG"; git push origin master >/dev/null
+            } && {
+                printf "%s\n" "$DROP_STASH_MESSAGE"
+                git stash drop
             } || exit 7
 
             # Unset current aliases and function definitions
