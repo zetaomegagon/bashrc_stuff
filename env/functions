@@ -39,7 +39,9 @@ git-sync() {
             exists-stash && {
                 printf "%s\n" "$APPLY_MSG"
                 git stash apply >/dev/null
-            } || exit 5 
+            } || {
+                echo ">>> No changes to commit. Leaving ${REPO}" && exit 5
+            }
 
             # Add all, commit, push
             {
