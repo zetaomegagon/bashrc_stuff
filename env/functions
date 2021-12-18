@@ -7,7 +7,7 @@ git-sync() {
     local CD_MSG="${INDICATOR} Entering ${REPO}"
     local DROP_DIRTY_MSG="${INDICATOR} Dropping dirty stash"
     local STASH_MSG="${INDICATOR} Stashing local changes"
-    local PULL_MSG="${INIDICATOR} Pulling changes applied by other remotes"
+    local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
