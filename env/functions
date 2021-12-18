@@ -47,8 +47,8 @@ git-sync() {
             } || exit 6
 
             # Good push? Clear the stash
-            printf "%s" "$PUSH_MSG"; git push origin master >/dev/null 2>&1
-            printf "%s\n" "$DROP_STASH_MESSAGE"; git stash drop >/dev/null || exit 8
+            printf "%s" "$PUSH_MSG"; git push origin master >/dev/null 2>&1 || exit 8
+            exists-stash && printf "%s\n" "$DROP_STASH_MESSAGE"; git stash drop >/dev/null || exit 9
 
             # Unset current aliases and function definitions
             # -- UUoC for readability --
