@@ -128,3 +128,60 @@ set WITH_MODERN_GRUB=0
 echo $WITH_MODERN_GRUB
 journalctl -xb
 journalctl -xe
+journalctl -xe
+for ((c=0;c<4;c++)); do sensors -j | jq '."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"'
+for ((c=0;c<4;c++)); do sensors -j | jq '."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"'; done
+set -x; for ((c=0;c<4;c++)); do sensors -j | jq '."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"'; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu="\'.\"coretemp-isa-0000\".\"Core $c\".\"temp$((c + 2))_input\"\'; sensors -j | jq $cpu; done; set +x
+
+set -x; for ((c=0;c<4;c++)); do cpu="\'.\"coretemp-isa-0000\".\"Core $c\".\"temp$((c + 2))_input\"\'"; sensors -j | jq $cpu; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu="'."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"'"; sensors -j | jq $cpu; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu="'."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"'"; sensors -j | jq "$cpu"; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu=."coretemp-isa-0000"."Core $c"."temp$((c + 2))_input"; sensors -j | jq "$cpu"; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu=.\"coretemp-isa-0000\".\"Core $c\".\"temp$((c + 2))_input\"; sensors -j | jq "$cpu"; done; set +x
+set -x; for ((c=0;c<4;c++)); do cpu=\.\"coretemp-isa-0000\".\"Core $c\".\"temp$((c + 2))_input\"; sensors -j | jq "$cpu"; done; set +x
+chmod +x sensors.sh 
+CPU0=$(sensors -j | jq ."coretemp-isa-0000"."Core 0"."temp2_input")
+./sensors.sh
+for i in {0..100}; do ./sensors.sh; done
+mv sensors.sh ./bin/cpu-temps-executor
+ll ./bin
+ll ./bin/
+cpu-temps-executor
+cpu-temps-executor; printf 
+cpu-temps-executor; printf "\n"
+help exec
+which cpu-temps
+cpu-temps
+cpupower --help
+cpupower monitor
+cat /sys/class/thermal/thermal_zone[0-9]*/temp
+cat /sys/class/thermal/thermal_zone*/temp
+sudo cat /sys/class/thermal/thermal_zone*/temp
+exec cpu-temps-executor 
+exec cpu-temps-executor 
+bash -c /var/home/bin/cpu-temps-executor 
+bash -- "/var/home/bin/cpu-temps-executor"
+man bash
+bash -- /var/home/bin/cpu-temps-executor
+bash "/var/home/bin/cpu-temps-executor"
+bash -- "/var/home/ebeale/bin/cpu-temps-executor"
+sensors -j | jq '."Left side"."fan1_input"'
+sensors -j | jq '."Left side "."fan1_input"'
+sensors -j | jq '."Left side  "."fan1_input"'
+sensors -j | jq '."applesmc-isa-0300"."Left side"."fan1_input"'
+sensors -j | jq '."applesmc-isa-0300"."Left side  "."fan1_input"'
+echo sensors -j | jq \'.\"applesmc-isa-0300\".\"Left side  \".\"fan1_input\"\' >> bin/cpu-temps-executor 
+echo "sensors -j | jq \'.\"applesmc-isa-0300\".\"Left side  \".\"fan2_input\"\'" >> bin/cpu-temps-executor 
+sensors -j | jq '."applesmc-isa-0300"."Right side  "."fan2_input"'
+sensors -j | jq '."applesmc-isa-0300"."Right side   "."fan2_input"'
+sensors -j | jq '."applesmc-isa-0300"."Right side "."fan2_input"'
+sensors -j | jq '."jc42-i2c-11-44"."temp1"."temp1_input"'
+cpu-temps-executor
+sensors -j | jq '."Core *"."temp*_input"'
+which smartmon-tools
+which smartctl
+which hddtemp
+man udisks
+man udiskctl
+man udisksctl
