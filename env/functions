@@ -3,8 +3,9 @@
 git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
-    local CDMSG=">>>Entering ${REPO}<<<"
-    local STASH_MSG=">>>Stashing Local Changes<<<"
+    local CDMSG=">>>Entering ${REPO}"
+    local DROP_DIRTY_MSG=">>>Dropping dirty stash"
+    local STASH_MSG=">>>Stashing local changes"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
@@ -14,7 +15,7 @@ git-sync() {
             { cd "$REPO" && printf "%s\n" "$CDMSG"; } || exit 1
 
             # Cleanup any erroneoulsy leftover stashed changes
-            exists-stash && git stash drop
+            exists-stash && printf "%s\n" "$DROP_DIRTY_MSG" && git stash drop
 
             # Stash changes & sync with main
             { printf "%s\n" "$STASH_MSG" && git stash; } || exit 3
