@@ -346,3 +346,4 @@ which hddtemp
 ro status
 dnf search hddtemp
 dnf search smartmontools
+which which
