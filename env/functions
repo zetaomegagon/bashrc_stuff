@@ -4,6 +4,7 @@ git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
     local CDMSG=">>>Entering ${REPO}<<<"
+    local STASH_MSG=">>>Stashing Local Changes<<<"
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
@@ -16,7 +17,7 @@ git-sync() {
             exists-stash && git stash drop
 
             # Stash changes & sync with main
-            git stash || exit 3
+            { printf "%s\n" "$STASH_MSG" && git stash; } || exit 3
             git pull || exit 4
 
             # Apply stashed changes
