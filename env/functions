@@ -6,6 +6,7 @@ git-sync() {
     local INDICATOR=">>>"
     local CD_ENTER_MSG="${INDICATOR} Entering: ${REPO} ..."
     local DROP_STASH_MSG="${INDICATOR} Dropping stash ..."
+    local NO_DROP_MSG="${INDICATOR} No stash to drop ..."
     local STASH_MSG="${INDICATOR} Stashing local changes ..."
     local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes ..."
     local APPLY_MSG="${INDICATOR} Applying local changes ..."
@@ -32,6 +33,8 @@ git-sync() {
             if exists-stash; then
                 print "$DROP_STASH_MSG"
                 git stash drop
+            else
+                print "$NO_DROP_MSG"
             fi 1>&2
 
             # Stash changes & sync with main
@@ -83,7 +86,7 @@ git-sync() {
 
             # For pretty printing purposes
             print
-        }
+        } 2>/dev/null
     )
 }
 
