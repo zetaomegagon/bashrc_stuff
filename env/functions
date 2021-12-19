@@ -2,9 +2,13 @@
 
 git-sync() {
     ## Add, commit, push functions and aliases.
+    ##
+    ## NOTES: maybe redirect some stdout and
+    ## all stderr to log files
 
-    #@ messaging variables
+    #@ variables
     local REPO="${HOME}/gits/bashrc_stuff"
+    # messaging variables
     local CD_ENTER_MSG="Entering: ${REPO}"
     local DROP_STASH_MSG="Dropping stash"
     local NO_DROP_MSG="No stash to drop"
