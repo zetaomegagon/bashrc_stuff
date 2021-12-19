@@ -38,7 +38,7 @@ git-sync() {
 
     exists-stash() {
         # check if stashed changes exit
-        git stash list | command -p grep -q '.*'
+        git stash list | command -p grep -qE '.+'
     }
 
     discard-definitions() {
