@@ -25,7 +25,7 @@ git-sync() {
         # prettry printer
         local input="$@"
         if [[ -z $input ]]; then
-            printf ""
+            printf "\n"
         else
             printf "%s %s %s\n" ">>>" "$@" "..."
         fi
