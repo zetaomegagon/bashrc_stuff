@@ -21,11 +21,24 @@ git-sync() {
     local CD_EXIT_MSG="Leaving: ${REPO}"
 
     #@ helper functions
-    print() { printf "%s %s %s\n" ">>>" "$@" "..."; }
-    exists-stash() { git stash list | command -p grep -q '.*'; }
+    print() {
+        # prettry printer
+        local input="$@"
+        if [[ -z $input ]]; then
+            printf ""
+        else
+            printf "%s %s %s\n" ">>>" "$@" "..."
+        fi
+    }
+
+    exists-stash() {
+        # check if stashed changes exit
+        git stash list | command -p grep -q '.*'
+    }
 
     discard-definitions() {
-        # -- UUoC for readability --
+        # discard user alias and function
+        # definitions. UUoC for readability.
         local input="$1"
         local REPO="${REPO}/env"
         
