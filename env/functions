@@ -5,24 +5,23 @@ git-sync() {
 
     #@ messaging variables
     local REPO="${HOME}/gits/bashrc_stuff"
-    local INDICATOR=">>>"
-    local CD_ENTER_MSG="${INDICATOR} Entering: ${REPO}."
-    local DROP_STASH_MSG="${INDICATOR} Dropping stash ..."
-    local NO_DROP_MSG="${INDICATOR} No stash to drop ..."
-    local STASH_MSG="${INDICATOR} Stashing local changes ..."
-    local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes ..."
-    local APPLY_MSG="${INDICATOR} Applying local changes ..."
-    local ADD_COMMIT_MSG="${INDICATOR} Adding changes and generating commit ..."
-    local PUSH_MSG="${INDICATOR} Pushing changes ..."
-    local NO_CHANGE_MSG="${INDICATOR} No changes to commit. Exiting."
-    local DISCARD_ALIAS_MSG="${INDICATOR} Discarding function definitions ..."
-    local DISCARD_FUNCTION_MSG="${INDICATOR} Discarding alias definitions ... "
-    local DEF_ALIAS_MSG="${INDICATOR} Re-initializing alias definitions ..."
-    local DEF_FUNCTION_MSG="${INDICATOR} Re-initializing function definitions ..."
-    local CD_EXIT_MSG="${INDICATOR} Leaving: ${REPO}."
+    local CD_ENTER_MSG="Entering: ${REPO}"
+    local DROP_STASH_MSG="Dropping stash"
+    local NO_DROP_MSG="No stash to drop"
+    local STASH_MSG="Stashing local changes"
+    local PULL_MSG="Pulling changes applied by other remotes"
+    local APPLY_MSG="Applying local changes"
+    local ADD_COMMIT_MSG="Adding changes and generating commit"
+    local PUSH_MSG="Pushing changes"
+    local NO_CHANGE_MSG="No changes to commit. Exit"
+    local DISCARD_ALIAS_MSG="Discarding function definitions"
+    local DISCARD_FUNCTION_MSG="Discarding alias definitions "
+    local DEF_ALIAS_MSG="Re-initializing alias definitions"
+    local DEF_FUNCTION_MSG="Re-initializing function definitions"
+    local CD_EXIT_MSG="Leaving: ${REPO}"
 
     #@ helper functions
-    print() { printf "%s\n" "$@"; }
+    print() { printf "%s %s %s\n" ">>>" "$@" "..."; }
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
     discard-definitions() {
