@@ -70,8 +70,9 @@ git-sync() {
             # Unset current aliases and function definitions
             # -- UUoC for readability --
             print "$DISCARD_ALIAS_MSG"
-            while read -r ALIAS; do
-                unalias "$ALIAS"; echo alias
+            while read -r DEF; do
+                unalias "$DEF"
+                printf "%s\n" "$DEF"
             done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
 
             print "$DISCARD_FUNCTION_MSG"
