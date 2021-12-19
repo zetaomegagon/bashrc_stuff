@@ -57,7 +57,7 @@ git-sync() {
             { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
 
             # Good push? Clear the stash
-            print "$PUSH_MSG"
+            print "$PUSH_MSG" | sed -r 's/\n//g'
             { git push origin master || exit 8; } 1>&2
 
             if exists-stash; then
