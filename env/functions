@@ -71,7 +71,7 @@ git-sync() {
             # -- UUoC for readability --
             print "$DISCARD_ALIAS_MSG"
             while read -r ALIAS; do
-                unalias "$ALIAS" #1>&2
+                unalias "$ALIAS"; echo alias
             done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
 
             print "$DISCARD_FUNCTION_MSG"
