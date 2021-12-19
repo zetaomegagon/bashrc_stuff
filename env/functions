@@ -13,7 +13,7 @@ git-sync() {
     local ADD_COMMIT_MSG="${INDICATOR} Adding changes and generating commit ..."
     local PUSH_MSG="${INDICATOR} Pushing changes ..."
     local NO_CHANGE_MSG="${INDICATOR} No changes to commit. Exiting."
-    local DISCARD_ALIASES_MSG="${INDICATOR} Discarding function definitions ..."
+    local DISCARD_ALIAS_MSG="${INDICATOR} Discarding function definitions ..."
     local DISCARD_FUNCTION_MSG="${INDICATOR} Discarding alias definitions ... "
     local INIT_DEF_MSG="${INDICATOR} Re-initializing alias and function definitions ..."
     local CD_EXIT_MSG="${INDICATOR} Leaving: ${REPO}."
@@ -57,7 +57,7 @@ git-sync() {
             { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
 
             # Good push? Clear the stash
-            print "$PUSH_MSG" | sed -r 's/\n//g'
+            print "$PUSH_MSG"
             { git push origin master || exit 8; } 1>&2
 
             if exists-stash; then
@@ -71,12 +71,12 @@ git-sync() {
             # -- UUoC for readability --
             print "$DISCARD_ALIAS_MSG"
             while read -r ALIAS; do
-                unalias "$ALIAS" 2>/dev/null
+                unalias "$ALIAS" 1>&2
             done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
 
             print "$DISCARD_FUNCTION_MSG"
             while read -r FUNCTION; do
-                unset -f "$FUNCTION" 2>/dev/null
+                unset -f "$FUNCTION" 1>&2
             done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
 
             # Re-souce local environment
