@@ -92,7 +92,8 @@ git-sync() {
             fi 1>&2
             
             # Unset current aliases and function definitions
-            discard-definitions {alias,function}
+            discard-definitions alias
+            discard-definitions function
             
             # Re-souce local environment
             print "$INIT_DEF_MSG"
