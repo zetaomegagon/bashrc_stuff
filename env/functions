@@ -17,7 +17,8 @@ git-sync() {
     local NO_CHANGE_MSG="${INDICATOR} No changes to commit. Exiting."
     local DISCARD_ALIAS_MSG="${INDICATOR} Discarding function definitions ..."
     local DISCARD_FUNCTION_MSG="${INDICATOR} Discarding alias definitions ... "
-    local INIT_DEF_MSG="${INDICATOR} Re-initializing alias and function definitions ..."
+    local DEF_ALIAS_MSG="${INDICATOR} Re-initializing alias definitions ..."
+    local DEF_FUNCTION_MSG="${INDICATOR} Re-initializing function definitions ..."
     local CD_EXIT_MSG="${INDICATOR} Leaving: ${REPO}."
 
     #@ helper functions
@@ -27,6 +28,7 @@ git-sync() {
     discard-definitions() {
         # -- UUoC for readability --
         local input="$1"
+        local REPO="${REPO}/env"
         
         case "$input" in
             alias)
@@ -34,12 +36,18 @@ git-sync() {
                 while read -r DEF; do
                     unalias "$DEF"
                 done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
+
+                print "$DEF_ALIAS_MSG"
+                source ${REPO}/aliases
                 ;;
             function)
                 print "$DISCARD_FUNCTION_MSG"
                 while read -r DEF; do
                     unset -f "$DEF" 1>&2
                 done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
+
+                print "$DEF_FUNCTION_MSG"
+                source ${REPO}/functions
                 ;;
         esac
     }
@@ -91,17 +99,15 @@ git-sync() {
                 exit 9
             fi 1>&2
             
-            # Unset current aliases and function definitions
+            # Re-initialize alias and functions definitions
+            # and return to old pwd
             discard-definitions alias
             discard-definitions function
-            
-            # Re-souce local environment
-            print "$INIT_DEF_MSG"
-            source "${HOME}/.bashrc"
             print "$CD_EXIT_MSG"
 
             # For pretty printing purposes
             print
+            
         } 2>/dev/null
     )
 }
