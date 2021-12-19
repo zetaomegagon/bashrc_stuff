@@ -4,78 +4,85 @@ git-sync() {
     # Add, commit, push functions and aliases.
     local REPO="${HOME}/gits/bashrc_stuff"
     local INDICATOR=">>>"
-    local CD_ENTER_MSG="${INDICATOR} Entering ${REPO}"
-    local DROP_STASH_MSG="${INDICATOR} Dropping stash"
-    local STASH_MSG="${INDICATOR} Stashing local changes"
-    local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes"
-    local APPLY_MSG="${INDICATOR} Applying local changes"
-    local ADD_COMMIT_MSG="${INDICATOR} Adding changes and generating commit"
-    local PUSH_MSG="${INDICATOR} Pushing changes"
-    local CD_EXIT_MSG="${INDICATOR} Leaving ${REPO}"
+    local CD_ENTER_MSG="${INDICATOR} Entering: ${REPO} ..."
+    local DROP_STASH_MSG="${INDICATOR} Dropping stash ..."
+    local STASH_MSG="${INDICATOR} Stashing local changes ..."
+    local PULL_MSG="${INDICATOR} Pulling changes applied by other remotes ..."
+    local APPLY_MSG="${INDICATOR} Applying local changes ..."
+    local ADD_COMMIT_MSG="${INDICATOR} Adding changes and generating commit ..."
+    local PUSH_MSG="${INDICATOR} Pushing changes ..."
+    local NO_CHANGE_MSG="${INDICATOR} No changes to commit. Exiting."
+    local DISCARD_ALIASES_MSG="${INDICATOR} Discarding function definitions ..."
+    local DISCARD_FUNCTION_MSG="${INDICATOR} Discarding alias definitions ... "
+    local INIT_DEF_MSG="${INDICATOR} Re-initializing alias and function definitions ..."
+    local CD_EXIT_MSG="${INDICATOR} Leaving: ${REPO}."
 
     exists-stash() { git stash list | command -p grep -q '.*'; }
+    print() { printf "%s\n" "$@"; }
 
     (
         {
+            # for pretty printing purposes
+            print
+            
             # Move to working dir
-            printf "\n"
-            { cd "$REPO" && printf "%s\n" "$CD_ENTER_MSG"; } || exit 1
-
+            { cd "$REPO" && print "$CD_ENTER_MSG"; } || exit 1
+            
             # Cleanup any erroneoulsy leftover stashed changes
-            exists-stash && printf "%s\n" "$DROP_STASH_MSG" && git stash drop >/dev/null
+            if exists-stash; then
+                print "$DROP_STASH_MSG"
+                git stash drop
+            fi 1>&2
 
             # Stash changes & sync with main
-            {
-                printf "%s\n" "$STASH_MSG"
-                git stash >/dev/null
-            } || exit 3
-            
-            {
-                printf "%s\n" "$PULL_MSG"
-                git pull >/dev/null
-            } || exit 4
+            print "$STASH_MSG"; { git stash || exit 2; } 1>&2
+            print  "$PULL_MSG"; { git pull || exit 3; } 1>&2
 
             # Apply stashed changes
-            {
-                exists-stash && {
-                    printf "%s\n" "$APPLY_MSG"
-                    git stash apply >/dev/null
-                } || {
-                    echo ">>> No changes to commit. Exiting."
-                    echo ">>> Leaving ${REPO}"
-                    printf "\n"
-                    exit 0
-                }
-            } || exit 5
+            if exists-stash; then
+                print  "$APPLY_MSG"
+                git stash apply
+            else
+                print "$NO_CHANGE_MSG"
+                print "$CD_EXIT_MSG"
+                exit 0
+            fi 1>&2
             
-
             # Add all, commit, push
-            {
-                printf "%s\n" "$ADD_COMMIT_MSG"
-                git add -A >/dev/null && git commit -m "auto commited on: $(date -uI'ns')" >/dev/null
-            } || exit 6
+            print  "$ADD_COMMIT_MSG"
+            { git add -A || exit 6; } 1>&2
+            { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
 
             # Good push? Clear the stash
-            printf "%s" "$PUSH_MSG"; git push origin master >/dev/null 2>&1 || exit 8
-            exists-stash && printf "%s\n" "$DROP_STASH_MESSAGE"; git stash drop >/dev/null || exit 9
+            print "$PUSH_MSG"
+            { git push origin master || exit 8; } 1>&2
 
+            if exists-stash; then
+                print "$DROP_STASH_MESSAGE"
+                git stash drop
+            else
+                exit 9
+            fi 1>&2
+            
             # Unset current aliases and function definitions
             # -- UUoC for readability --
-            echo ">>> Discarding alias definitions"
+            print "$DISCARD_ALIAS_MSG"
             while read -r ALIAS; do
                 unalias "$ALIAS" 2>/dev/null
             done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d' -e '/^\s*$/d' -e 's/^alias\s//g' -e 's/=.*$//g')
 
-            echo ">>> Discarding function definitions"
+            print "$DISCARD_FUNCTION_MSG"
             while read -r FUNCTION; do
                 unset -f "$FUNCTION" 2>/dev/null
             done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
 
             # Re-souce local environment
-            echo ">>> Re-initializing alias and function definitions"
+            print "$INIT_DEF_MSG"
             source "${HOME}/.bashrc"
-            printf "%s\n" "$CD_EXIT_MSG"
-            printf "\n"
+            print "$CD_EXIT_MSG"
+
+            # For pretty printing purposes
+            print
         }
     )
 }
