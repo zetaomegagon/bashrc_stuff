@@ -24,8 +24,7 @@ git-sync() {
     print() { printf "%s\n" "$@"; }
     exists-stash() { git stash list | command -p grep -q '.*'; }
 
-    discard-definition() {
-        set -x
+    discard-definitions() {
         # -- UUoC for readability --
         local input="$1"
         
@@ -43,7 +42,6 @@ git-sync() {
                 done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
                 ;;
         esac
-        set +x
     }
 
     #@ MAIN
