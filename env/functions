@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 git-sync() {
-    # Add, commit, push functions and aliases.
+    ## Add, commit, push functions and aliases.
+
+    #@ messaging variables
     local REPO="${HOME}/gits/bashrc_stuff"
     local INDICATOR=">>>"
-    local CD_ENTER_MSG="${INDICATOR} Entering: ${REPO} ..."
+    local CD_ENTER_MSG="${INDICATOR} Entering: ${REPO}."
     local DROP_STASH_MSG="${INDICATOR} Dropping stash ..."
     local NO_DROP_MSG="${INDICATOR} No stash to drop ..."
     local STASH_MSG="${INDICATOR} Stashing local changes ..."
@@ -18,9 +20,31 @@ git-sync() {
     local INIT_DEF_MSG="${INDICATOR} Re-initializing alias and function definitions ..."
     local CD_EXIT_MSG="${INDICATOR} Leaving: ${REPO}."
 
-    exists-stash() { git stash list | command -p grep -q '.*'; }
+    #@ helper functions
     print() { printf "%s\n" "$@"; }
+    exists-stash() { git stash list | command -p grep -q '.*'; }
 
+    discard-definition() {
+        # -- UUoC for readability --
+        local input="$1"
+        
+        case "$input" in
+            alias)
+                print "$DISCARD_ALIAS_MSG"
+                while read -r DEF; do
+                    unalias "$DEF"
+                done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
+                ;;
+            function)
+                print "$DISCARD_FUNCTION_MSG"
+                while read -r DEF; do
+                    unset -f "$DEF" 1>&2
+                done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
+                ;;
+        esac
+    }
+
+    #@ MAIN
     (
         {
             # for pretty printing purposes
@@ -68,18 +92,8 @@ git-sync() {
             fi 1>&2
             
             # Unset current aliases and function definitions
-            # -- UUoC for readability --
-            print "$DISCARD_ALIAS_MSG"
-            while read -r DEF; do
-                unalias "$DEF"
-                printf "%s\n" "$DEF"
-            done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
-
-            print "$DISCARD_FUNCTION_MSG"
-            while read -r FUNCTION; do
-                unset -f "$FUNCTION" 1>&2
-            done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
-
+            discard-definitions {alias,function}
+            
             # Re-souce local environment
             print "$INIT_DEF_MSG"
             source "${HOME}/.bashrc"
