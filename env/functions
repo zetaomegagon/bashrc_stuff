@@ -79,7 +79,7 @@ git-sync() {
             { cd "$REPO" && print "$CD_ENTER_MSG"; } || exit 1
             
             # Cleanup any erroneoulsy leftover stashed changes
-            if [[ -z $(git stash list --oneline) ]]; then
+            if [[ -n $(git stash list --oneline) ]]; then
                 print "$DROP_STASH_MSG"
                 git stash drop
             else
