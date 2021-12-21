@@ -3,9 +3,7 @@
 ## Source global and user config
 
 # Source global definitions
-if [ -f /etc/bashrc ]; then
-    source /etc/bashrc
-fi
+[ -f /etc/bashrc ] && source /etc/bashrc
 
 # Source user specific definitions
 git_home="$HOME/gits/bashrc_stuff"
@@ -18,7 +16,7 @@ source "$env_home/aliases"
 source "$env_home/sshpw"
 
 # Source MasterPassword definitions
-if [[ -e "$env_home/spectre" ]] && [[ -e "$bin_home/spectre" ]] && [[ -e "$bin_home/bashlib" ]]; then
+if [[ -f "$env_home/spectre" ]] && [[ -f "$bin_home/spectre" ]] && [[ -f "$bin_home/bashlib" ]]; then
     source "$env_home/spectre"
     source "$bin_home/bashlib"
     
@@ -43,12 +41,6 @@ export PAGER='/usr/bin/less'
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
 export LESS='-R'
 export EDITOR="/usr/bin/emacsclient"
-
-## prompt
-#  Fix: custom pompt on silverblue removes
-#  toolbox prompt
-#
-#export PS1="| \t | \u@\h | \w | $: "
 
 ## shell options
 shopt -s histappend

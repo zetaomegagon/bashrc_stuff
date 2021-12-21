@@ -497,3 +497,4 @@ alias buybuybaby.nickname='spectre -tx -c1 buybuybaby.nickname.com'
 alias ebeale@koi='spectre -tx -c1 ebeale@koi'
 alias lwn='spectre -tx -c1 lwn.net'
 
+alias 7cups='spectre -tx -c1 7cups.com'

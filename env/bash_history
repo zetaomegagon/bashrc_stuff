@@ -395,3 +395,7 @@ sed -i "s,alias peco='spectre -tx -c1 peco.com',alias peco='spectre -tx -c2 peco
 sed -i "s,alias peco='spectre -tx -c2 peco.com',alias peco='spectre -tx -c3 peco.com',g" .spectre && git-sync
 grep peco .spectre
 peco
+linkedin
+udemy
+github.com
+github
