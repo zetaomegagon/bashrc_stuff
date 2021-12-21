@@ -51,7 +51,7 @@ git-sync() {
             alias)
                 print "$DISCARD_ALIAS_MSG"
                 cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g' | while read -r DEF; do
-                    unalias "$DEF"
+                    unalias "$DEF" 1>&2
                 done # < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
 
                 print "$DEF_ALIAS_MSG"
@@ -60,14 +60,14 @@ git-sync() {
             function)
                 print "$DISCARD_FUNCTION_MSG"
                 cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1 | while read -r DEF; do
-                    unset -f "$DEF"
+                    unset -f "$DEF" 1>&2
                 done # < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
 
                 print "$DEF_FUNCTION_MSG"
                 source ${REPO}/functions
                 ;;
         esac
-    } 1>&2
+    }
 
     #@ MAIN
     (
