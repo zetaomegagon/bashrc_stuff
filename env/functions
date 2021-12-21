@@ -49,26 +49,22 @@ git-sync() {
         
         case "$input" in
             alias)
-                {
-                    print "$DISCARD_ALIAS_MSG"
-                    while read -r DEF; do
-                        unalias "$DEF"
-                    done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
+                print "$DISCARD_ALIAS_MSG"
+                while read -r DEF; do
+                    unalias "$DEF"
+                done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
 
-                    print "$DEF_ALIAS_MSG"
-                    source ${REPO}/aliases
-                }
+                print "$DEF_ALIAS_MSG"
+                source ${REPO}/aliases
                 ;;
             function)
-                {
-                    print "$DISCARD_FUNCTION_MSG"
-                    while read -r DEF; do
-                        unset -f "$DEF" 1>&2
-                    done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
+                print "$DISCARD_FUNCTION_MSG"
+                while read -r DEF; do
+                    unset -f "$DEF" 1>&2
+                done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
 
-                    print "$DEF_FUNCTION_MSG"
-                    source ${REPO}/functions
-                }
+                print "$DEF_FUNCTION_MSG"
+                source ${REPO}/functions
                 ;;
         esac
     }
@@ -598,11 +594,11 @@ decrypt-mech15() {
     local dev_maps=()
     
     for device in /dev/*; do
-	if [[ "$device"  =~ nvme.*3 ]]; then
-	    local dev_map="crypt_${device#/dev/}"
-	    sudo cryptsetup open "$device" "$dev_map" --type luks2
-	    dev_maps+=( "/dev/mapper/$dev_map" ) 
-	fi
+	      if [[ "$device"  =~ nvme.*3 ]]; then
+	          local dev_map="crypt_${device#/dev/}"
+	          sudo cryptsetup open "$device" "$dev_map" --type luks2
+	          dev_maps+=( "/dev/mapper/$dev_map" ) 
+	      fi
     done
 
     sudo mount "${dev_maps[0]}" /mnt
