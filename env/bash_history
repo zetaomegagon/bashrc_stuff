@@ -399,3 +399,62 @@ linkedin
 udemy
 github.com
 github
+sudo nano /etc/dnf/dnf.conf 
+sudo dnf upgrade
+sudo dnf install git kernel-devel
+cd gits
+git clone https://github.com/patjak/bcwc_pcie.git
+cd bcwc_pcie/
+make
+sudo su
+systemd-nspawn --help
+cd gits
+systemd-nspawn --help
+dnf install -y gcc make kerkel-headers kernel-modules
+sudo dnf install -y gcc make kernel-headers kernel-modules
+dnf group-list
+dnf group list
+dnf group install "Development Tools"
+dnf install group "Development Tools"
+dnf groupinstall "Development Tools"
+sudo dnf groupinstall "Development Tools" -y
+sudo su
+cd ..
+git clone https://github.com/patjak/bcwc_pcie.git
+cd bcwc_pcie/
+cat Makefile 
+dnf copr enable frgt10/facetimehd-dkms
+dnf install facetimehd
+cd gits/bcwc_pcie/
+ls /lib
+ls /lib/
+ls /lib/modules/5.16.0-0.rc5.20211216git2b14864acbaa.37.fc36.x86_64/
+ls /lib/modules/5.16.0-0.rc5.20211216git2b14864acbaa.37.fc36.x86_64/build/
+nano Makefile 
+make
+ls /lib/modules/5.16.0-0.rc5.20211216git2b14864acbaa.37.fc36.x86_64/build/
+sudo dnf install -y curl cpio xzcat
+dnf search xz
+dnf install -y xz && which xzcat
+sudo make install
+ll /usr/lib/firmware/
+ll /usr/lib/firmware/ | grep facetimehd
+ll /usr/lib/firmware/facetimehd/
+cd ..
+cd bcwc_pcie/
+make
+nano Makefile 
+echo 'install_items+=" /usr/lib/firmware/facetimehd/firmware.bin "' >> /etc/dracut.conf.d/facetimehd.conf
+sudo echo 'install_items+=" /usr/lib/firmware/facetimehd/firmware.bin "' >> /etc/dracut.conf.d/facetimehd.conf
+sudo su
+cat Makefile 
+man make
+sudo su
+cd gits/
+cd facetimehd-firmware/
+make clean
+make; sudo -c "make install"
+tb enter devbox
+cd gits/facetimehd-firmware/
+sudo make install
+sudo su
