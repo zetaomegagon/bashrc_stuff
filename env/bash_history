@@ -458,3 +458,4 @@ tb enter devbox
 cd gits/facetimehd-firmware/
 sudo make install
 sudo su
+github
