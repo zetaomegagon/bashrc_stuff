@@ -459,3 +459,48 @@ cd gits/facetimehd-firmware/
 sudo make install
 sudo su
 github
+tb enter devbox
+cd gits/facetimehd-firmware/
+sudo make install
+github
+flatpak search firefox
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak update
+flatpak search chromium
+flatpak install com.github.Eloston.UngoogledChromium
+flatpak search cheese
+flatpack search zoom
+flatpack install us.zoom.Zoom org.gnome.Cheese
+sudo dnf upgrade
+lspci
+journalctl -xe
+journalctl -xb | grep facetime
+dnf install facetimehd
+sudo dnf remove facetimehd
+sudo dnf install facetimehd
+modprobe facetimehd
+sudo find -name facetimehd.ko
+sudo find / -name facetimehd.ko
+sudo modprobe facetimehd
+sudo su
+sudo su
+zoom
+. .spectre
+github
+sudo modprobe facetimehd
+sudo su
+zoom
+. .spectre
+. .bash_profile 
+github
+sudo find / -name facetimehd.ko
+sudo modprobe facetimehd
+sudo su
+zoom
+. .spectre
+. .bash_profile 
+ll bin/
+rm bin/bashlib 
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/bin/bashlib
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/ebeale/bin/bashlib
+github
