@@ -504,3 +504,178 @@ rm bin/bashlib
 ln -s /home/ebeale/gits/spectre/cli/bashlib /home/bin/bashlib
 ln -s /home/ebeale/gits/spectre/cli/bashlib /home/ebeale/bin/bashlib
 github
+ll bin/
+rm bin/bashlib 
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/bin/bashlib
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/ebeale/bin/bashlib
+github
+_FLOAT=350.00000000
+echo ${#_FLOAT}
+echo ${_FLOAT%\.}
+echo ${_FLOAT%/\.[0-9]+}
+echo ${_FLOAT%%}
+echo ${_FLOAT%%.}
+echo ${_FLOAT%%\.}
+echo ${_FLOAT%+(\.[0-9]}
+echo ${_FLOAT%?}
+echo ${_FLOAT/[0-9]+\.}
+echo ${_FLOAT/'[0-9]+\.'}
+echo ${_FLOAT/+[digit]\.}
+echo ${_FLOAT/+[digit]}
+echo ${_FLOAT/[digit]}
+echo ${_FLOAT//[digit]}
+echo ${_FLOAT/?[digit]}
+echo ${_FLOAT/?[alnum]}
+echo ${_FLOAT/?(alnum)}
+echo ${_FLOAT/?}
+echo ${_FLOAT//?}
+echo ${_FLOAT//?(digit)}
+echo ${_FLOAT//?(alnum)}
+echo ${_FLOAT//?(5)}
+echo ${_FLOAT}
+echo ${_FLOAT//!(0)}
+echo ${_FLOAT//!(5)}
+echo ${_FLOAT//!()}
+echo ${_FLOAT//*(5)}
+echo ${_FLOAT//+(5)}
+echo ${_FLOAT//+(6)}
+echo ${_FLOAT//+(0)}
+echo ${_FLOAT//+(.0)}
+echo ${_FLOAT%+(.0)}
+echo ${_FLOAT%}
+echo ${_FLOAT#[0-9]}
+echo ${_FLOAT#[0-9]+}
+echo ${_FLOAT#+[0-9]}
+echo ${_FLOAT##+[0-9]}
+echo ${_FLOAT##[0-9]}
+echo ${_FLOAT##+([0-9])}
+echo ${_FLOAT#+([0-9])}
+echo ${_FLOAT##+([0-9]).}
+echo ${_FLOAT%%.+([0-9])}
+echo ${_FLOAT%%\.+([0-9])}
+echo ${_FLOAT%%\.+([0-9])}\.${_FLOAT##+([0-9]).}
+_PRECISION=${_FLOAT##+([0-9]).}
+echo ${_FLOAT%%\.+([0-9])}\.${_PRECISION}
+echo ${_FLOAT%%\.+([0-9])}\.${_FLOAT:${_PRECISION}:1}
+cd bin
+sudo ./sensor-temps 
+./sensor-temps 
+search :awiki mpv
+search arch mpv
+cd && cat .bash_profile
+. .bash_profile 
+which which
+cat /etc/bashrc
+less /etc/bashrc
+dnf install facetimehd
+sudo dnf remove facetimehd
+sudo dnf install facetimehd
+modprobe facetimehd
+sudo find -name facetimehd.ko
+sudo find / -name facetimehd.ko
+sudo modprobe facetimehd
+zoom
+. .spectre
+. .bash_profile 
+ll bin/
+rm bin/bashlib 
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/bin/bashlib
+ln -s /home/ebeale/gits/spectre/cli/bashlib /home/ebeale/bin/bashlib
+. .bashrc
+echo $SPECTRE_ASK_PASS
+echo $PATH
+cat bin/spectre-ask 
+which spectre
+which ask
+ask --help
+ask
+ask Elijah\ Thomas\ Beale
+uname -a
+uname -r
+journalclt -xk
+journalctl -xk
+journalctl -k
+journalctl -k | grep -iE 'facetime|facetime hd'
+journalctl -k | grep -iE 'facetimehd|facetime hd'
+journalctl -xk | grep -iE 'facetimehd|facetime hd'
+journalctl -x | grep -iE 'facetimehd|facetime hd'
+journalctl -x | grep -iE 'facetimehd|facetime hd' | less
+journalctl -xk | grep -iE 'facetimehd|facetime hd' | less
+journalctl -xe | grep -iE 'facetimehd|facetime hd' | less
+journalctl -xe
+journalctl | grep -iE 'facetimehd|facetime hd' | less
+man journalctl
+journalctl -x | grep -iE 'facetime(|hd| hd)'
+protonmail.com
+protonmail
+fedoraproject
+sudo su
+github
+ls /dev/ | grep video
+ll /dev/video*
+emacs bin/sensor-temps 
+ll /dev/video*
+emacs bin/sensor-temps 
+mv {.,documents/kaltura}/kaltura-player_elijah-beale.html
+ll documents/kaltura/
+mv documents/kaltura projects/kaltura
+cd downloads/
+unzip --help
+touch foo | mv - bar
+rm foo
+touch foo && cat foo | mv - bar
+cat foo > bar
+rm {foo,bar}
+unzip uBlock0_1.40.3b0.chromium.zip 
+mv uBlock0.chromium/ ublock
+la ../
+la ../.local
+la ../.local/share/
+la ../.config/BraveSoftware/
+la ../.config/BraveSoftware/Brave-Browser/
+rm -rf ../.config/BraveSoftware/
+la ../.config/
+la ../.config/google-chrome/
+rm -rf ../.config/google-*
+rm -rf ../.config/microsoft-*
+la ../.config/chromium/
+la ../.config/chromium/NativeMessagingHosts/
+rm -rf ../.config/toolbox/
+ll ..
+mkdir ../chromium-extensions
+mv ublock ../chromium-extensions/
+cat /etc/sysctl.d/99-sysctl.conf | grep 'kernel.unprivileged_userns_clone'
+cat /etc/sysctl.d/99-sysctl.conf
+sysctl kernel.unprivileged_userns_clone
+sudo sysctl kernel.unprivileged_userns_clone
+sysctl --help
+sysctl --all
+sysctl --all | grep unprivileged_userns_clone
+
+sysctl --all | less
+sudo su
+cat .bash_logout 
+cat .lesshst 
+la .emacs.d/
+emacsctl stop
+cd .emacs.d/
+rm session.*
+rm *~
+cat recentf 
+rm \#*\# recentf
+cat places 
+rm places 
+cat tra
+cat tramp
+cat ac-comphist.dat 
+ll auto-save-list/
+ll auto-save-list/*
+ll .cache/
+ll .cache/lsp/
+ll .cache/lsp/npm/
+ll elpa/
+ll snippets/
+ll straight/
+ll straight/repos/
+cd gits/bashrc_stuff/emacs/
+cd backups/

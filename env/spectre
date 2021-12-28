@@ -499,3 +499,4 @@ alias lwn='spectre -tx -c1 lwn.net'
 
 alias 7cups='spectre -tx -c1 7cups.com'
 alias sokiwi='spectre -tx -c1 sokiwi'
+alias zoom='spectre -tx -c1 zoom.us'

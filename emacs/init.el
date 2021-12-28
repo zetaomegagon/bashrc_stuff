@@ -22,6 +22,24 @@
 (setq-default tab-width 2)
 (setq indent-line-function 'insert-tab)
 
+;; auto saves and backups
+(if (not (file-directory-p "./backups/"))
+    (make-directory "./backups/" t))
+
+(if (not (file-directory-p "./autosaves/"))
+    (make-directory "./autosaves/" t))
+
+(setq auto-save-interval 20)
+
+(setq backup-by-copying t
+      backup-directory-alist '(("." . "./backups/"))
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)
+(setq auto-save-file-name-transforms
+      `((".*" "./auto-saves/" t)))
+
 ;;;; better unique naming of file buffers with the same name
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
