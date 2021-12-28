@@ -13,7 +13,7 @@ git-sync() {
     local DROP_STASH_MSG="Dropping stash"
     local NO_DROP_MSG="No stash to drop"
     local STASH_MSG="Stashing local changes"
-    local PULL_MSG="Pulling changes applied by other remotes"
+    local PULL_MSG="Pulling changes created by other remotes"
     local APPLY_MSG="Applying stashed changes"
     local ADD_COMMIT_MSG="Adding changes and generating commit"
     local PUSH_MSG="Pushing changes"
