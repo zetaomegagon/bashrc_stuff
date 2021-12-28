@@ -41,7 +41,7 @@ git-sync() {
         command -p grep -qE '.+' < <(git stash list)
     }
 
-    discard-definitions() {
+    discard-init-definitions() {
         # discard user alias and function
         # definitions. UUoC for readability.
         local input="$1"
@@ -118,8 +118,8 @@ git-sync() {
             
             # Re-initialize alias and functions definitions
             # and return to old pwd
-            discard-definitions alias
-            discard-definitions function
+            discard-init-definitions alias
+            discard-init-definitions function
             print "$CD_EXIT_MSG"
 
             # For pretty printing purposes
