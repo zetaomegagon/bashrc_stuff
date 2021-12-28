@@ -23,22 +23,22 @@
 (setq indent-line-function 'insert-tab)
 
 ;; auto saves and backups
-(if (not (file-directory-p "./backups/"))
-    (make-directory "./backups/" t))
+(if (not (file-directory-p "/home/ebeale/gits/bashrc_stuff/emacs/backups/"))
+    (make-directory "/home/ebeale/gits/bashrc_stuff/emacs/backups/" t))
 
-(if (not (file-directory-p "./autosaves/"))
-    (make-directory "./autosaves/" t))
+(if (not (file-directory-p "/home/ebeale/gits/bashrc_stuff/emacs/autosaves/"))
+    (make-directory "/home/ebeale/gits/bashrc_stuff/emacs/autosaves/" t))
 
 (setq auto-save-interval 20)
 
 (setq backup-by-copying t
-      backup-directory-alist '(("." . "./backups/"))
+      backup-directory-alist '(("." . "/home/ebeale/gits/bashrc_stuff/emacs/backups/"))
       delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2
       version-control t)
 (setq auto-save-file-name-transforms
-      `((".*" "./auto-saves/" t)))
+      `((".*" "/home/ebeale/gits/bashrc_stuff/emacs/autosaves/")))
 
 ;;;; better unique naming of file buffers with the same name
 (require 'uniquify)

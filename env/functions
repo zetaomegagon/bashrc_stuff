@@ -14,7 +14,7 @@ git-sync() {
     local NO_DROP_MSG="No stash to drop"
     local STASH_MSG="Stashing local changes"
     local PULL_MSG="Pulling changes applied by other remotes"
-    local APPLY_MSG="Applying local changes"
+    local APPLY_MSG="Applying stashed changes"
     local ADD_COMMIT_MSG="Adding changes and generating commit"
     local PUSH_MSG="Pushing changes"
     local NO_CHANGE_MSG="No changes to commit. Exit"
@@ -662,6 +662,8 @@ edit() {
             emacs $HOME/.aliases ;;
         -b)
             emacs $HOME/.bashrc ;;
+        -el)
+            emacs $HOME/.emacs.d/init.el ;;
         -f)
             emacs $HOME/.functions ;;
         -sp)
@@ -703,6 +705,8 @@ preview() {
             "$PAGER" $HOME/.aliases ;;
         -b)
             "$PAGER" $HOME/.bashrc ;;
+        -el)
+            "$PAGER" $HOME/.emacs.d/init.el ;;
         -f)
             "$PAGER" $HOME/.functions ;;
         -sp)
