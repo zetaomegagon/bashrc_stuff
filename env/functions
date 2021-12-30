@@ -818,13 +818,17 @@ dnf() {
     local input=( $@ )
     local arg0=${input[0]}
 
-    if [[ "$arg0" = "search" ]]; then
-        toolbox --container dnf run -- sudo dnf "${input[@]}" \
-            | less \
-            | sed 's:\^O::g'
+    if grep -qE podman; then
+        if [[ "$arg0" = "search" ]]; then
+            toolbox --container dnf run -- sudo dnf "${input[@]}" \
+                | less \
+                | sed 's:\^O::g'
+        else
+            toolbox --container dnf run -- sudo dnf "${input[@]}"
+        fi
     else
-        toolbox --container dnf run -- sudo dnf "${input[@]}"
-    fi    
+        command -p dnf $@
+    fi
 }
 
 gnome-tweaks() {
