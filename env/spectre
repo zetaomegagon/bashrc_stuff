@@ -503,3 +503,6 @@ alias zoom='spectre -tx -c1 zoom.us'
 alias yewtube='spectre -tx -c1 yewtube'
 alias myregistry='spectre -tx -c1 myregistry.com'
 alias myregistry-visitor-password='spectre -tx -c1 myregistry-visitor-password'
+alias pennie='spectre -tx -c1 pennie.com'
+
+alias pennie-nickname='spectre -tx -c1 pennie-nickname'
