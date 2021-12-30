@@ -818,7 +818,7 @@ dnf() {
     local input=( $@ )
     local arg0=${input[0]}
 
-    if grep -qE podman; then
+    if command -p grep -q 'podman|docker|lxc' /proc/1/cgroup; then
         if [[ "$arg0" = "search" ]]; then
             toolbox --container dnf run -- sudo dnf "${input[@]}" \
                 | less \
