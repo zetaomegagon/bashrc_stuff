@@ -767,10 +767,10 @@ toolbox-create() {
     # create a new toolbox and upgrade it
     #
     # NOTE: make sure to modify /etc/dnf/dnf.conf with
-    #       - max_parallel_downloads=10
+    #       - max_parallel_downloads=20
     #       - fastest_mirror=True
     #
-    # toolbox-create <distro> <release> <container_name>
+    # toolbox-create <distro> <release_version> <container_name>
     :
 }
 
@@ -829,11 +829,5 @@ dnf() {
     else
         command -p dnf $@
     fi
-}
-
-gnome-tweaks() {
-    (
-        toolbox --container gnome-tweaks run -- gnome-tweaks >/dev/null 2>&1 &
-    )
 }
 

@@ -1,0 +1,12 @@
+grep /proc/1/cgroup
+which podman
+podman ps
+sudo podman ps
+cat /proc/1/cgroup
+which dnf
+dnf search gnu
+set -x; dnf search gnu; set +x
+set +x
+dnf search info
+set -x; dnf search info 1>/dev/null; set +x
+myregistry
