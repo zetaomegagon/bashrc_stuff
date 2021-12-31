@@ -129,4 +129,4 @@ git-sync() {
     )
 }
 
-git-sync
+git-sync 2>/dev/null
