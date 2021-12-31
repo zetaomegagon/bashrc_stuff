@@ -11,3 +11,28 @@ dnf search info
 set -x; dnf search info 1>/dev/null; set +x
 myregistry
 cat bin/sensor-temps 
+set -x; dnf search info 1>/dev/null; set +x
+myregistry
+ping-test
+conntest
+which conntest
+command -vV conntest
+cd gits/
+cd user.js/
+git stash
+git pull
+rm bookmarkbackups 
+ln -s $HOME/gits/bashrc_stuff/firefox/bookmarkbackups $PWD/bookmarkbackups
+rm lock
+rm user-overrides.js 
+ln -s $HOME/gits/bashrc_stuff/firefox/user-overrides.js $PWD/user-overrides.js
+ll ~/.mozilla/firefox/
+rm 084tyonv.ebeale.external.arkenfox 
+ln -s /home/ebeale/.mozilla/firefox/084tyonv.ebeale.external.arkenfox $PWD/084tyonv.ebeale.external.arkenfox
+./updater.sh 
+ll bookmarkbackups/
+rm bookmarkbackups/bookmarks-2021-12-30.json 
+git stash list
+git stash show
+git stash --help
+git stash drop
