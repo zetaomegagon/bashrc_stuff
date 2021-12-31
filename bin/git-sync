@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+
+git-sync() {
+    ## Add, commit, push functions and aliases.
+    ##
+    ## NOTES: maybe redirect some stdout and
+    ## all stderr to log files
+
+    #@ variables
+    local REPO="${HOME}/gits/bashrc_stuff"
+    # messaging variables
+    local CD_ENTER_MSG="Entering: ${REPO}"
+    local DROP_STASH_MSG="Dropping stash"
+    local NO_DROP_MSG="No stash to drop"
+    local STASH_MSG="Stashing local changes"
+    local PULL_MSG="Pulling changes created by other remotes"
+    local APPLY_MSG="Applying stashed changes"
+    local ADD_COMMIT_MSG="Adding changes and generating commit"
+    local PUSH_MSG="Pushing changes"
+    local NO_CHANGE_MSG="No changes to commit. Exit"
+    local DISCARD_ALIAS_MSG="Discarding function definitions"
+    local DISCARD_FUNCTION_MSG="Discarding alias definitions "
+    local DEF_ALIAS_MSG="Re-initializing alias definitions"
+    local DEF_FUNCTION_MSG="Re-initializing function definitions"
+    local CD_EXIT_MSG="Leaving: ${REPO}"
+
+    #@ helper functions
+    print() {
+        # prettry printer
+        local input="$@"
+        
+        if [[ -z $input ]]; then
+            printf "\n"
+        else
+            printf "%s %s %s\n" ">>>" "$@" "..."
+        fi
+    }
+
+    exists-stash() {
+        # check if stashed changes exit
+        command -p grep -qE '.+' < <(git stash list)
+    }
+
+    discard-init-definitions() {
+        # discard user alias and function
+        # definitions. UUoC for readability.
+        local input="$1"
+        local REPO="${REPO}/env"
+        
+        case "$input" in
+            alias)
+                print "$DISCARD_ALIAS_MSG"
+                while read -r DEF; do
+                    unalias "$DEF" 1>&2
+                done < <(cat $REPO/env/{aliases,spectre,sshpw} | sed -r -e '/^\#/d;/^\s*$/d;s/^alias\s//g;s/=.*$//g')
+
+                print "$DEF_ALIAS_MSG"
+                source ${REPO}/aliases
+                ;;
+            function)
+                print "$DISCARD_FUNCTION_MSG"
+                while read -r DEF; do
+                    unset -f "$DEF" 1>&2
+                done < <(cat $REPO/env/{functions,translate} | command -p grep -E "^[a-z-]*\(\)" | cut -d "(" -f 1)
+
+                print "$DEF_FUNCTION_MSG"
+                source ${REPO}/functions
+                ;;
+        esac
+    }
+
+    #@ MAIN
+    (
+        {
+            # for pretty printing purposes
+            print
+            
+            # Move to working dir
+            { cd "$REPO" && print "$CD_ENTER_MSG"; } || exit 1
+            
+            # Cleanup any erroneoulsy leftover stashed changes
+            if [[ -n $(git stash list --oneline) ]]; then
+                print "$DROP_STASH_MSG"
+                git stash drop
+            else
+                print "$NO_DROP_MSG"
+            fi 1>&2
+
+            # Stash changes & sync with main
+            print "$STASH_MSG"; { git stash || exit 2; } 1>&2
+            print  "$PULL_MSG"; { git pull || exit 3; } 1>&2
+
+            # Apply stashed changes
+            if exists-stash; then
+                print  "$APPLY_MSG"
+                git stash apply
+            else
+                print "$NO_CHANGE_MSG"
+                print "$CD_EXIT_MSG"
+                exit 0
+            fi 1>&2
+            
+            # Add all, commit, push
+            print  "$ADD_COMMIT_MSG"
+            { git add -A || exit 6; } 1>&2
+            { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
+
+            # Good push? Clear the stash
+            print "$PUSH_MSG"
+            { git push origin master || exit 8; } 1>&2
+
+            if exists-stash; then
+                print "$DROP_STASH_MESSAGE"
+                git stash drop
+            else
+                exit 9
+            fi 1>&2
+            
+            # Re-initialize alias and functions definitions
+            # and return to old pwd
+            discard-init-definitions alias
+            discard-init-definitions function
+            print "$CD_EXIT_MSG"
+
+            # For pretty printing purposes
+            print
+            
+        }
+    )
+}
+
+git-sync
