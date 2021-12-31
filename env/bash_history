@@ -10,3 +10,4 @@ set +x
 dnf search info
 set -x; dnf search info 1>/dev/null; set +x
 myregistry
+cat bin/sensor-temps 

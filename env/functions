@@ -702,3 +702,8 @@ dnf() {
     fi
 }
 
+historectomy() {
+    gpaste-client empty
+    printf '' > $HOME/.bash_history
+    history -c
+}
