@@ -119,13 +119,11 @@ git-sync() {
         # and return to old pwd
         discard-init-definitions alias
         discard-init-definitions function
-        printf "%s" "$(date -uI's')" > /home/ebeale/bin/git-updated-at.txt
         print "$CD_EXIT_MSG"
 
         # For pretty printing purposes
         print
-
     )
 }
 
-git-sync
+git-sync 2>/dev/null
