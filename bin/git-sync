@@ -26,7 +26,7 @@ git-sync() {
 
     #@ helper functions
     print() {
-        # prettry printer
+        # pretty printer
         local input="$@"
         
         if [[ -z $input ]]; then
@@ -71,61 +71,60 @@ git-sync() {
 
     #@ MAIN
     (
-        {
-            # for pretty printing purposes
-            print
-            
-            # Move to working dir
-            { cd "$REPO" && print "$CD_ENTER_MSG"; } || exit 1
-            
-            # Cleanup any erroneoulsy leftover stashed changes
-            if [[ -n $(git stash list --oneline) ]]; then
-                print "$DROP_STASH_MSG"
-                git stash drop
-            else
-                print "$NO_DROP_MSG"
-            fi 1>&2
+        # for pretty printing purposes
+        print
+        
+        # Move to working dir
+        { cd "$REPO" && print "$CD_ENTER_MSG"; } || exit 1
+        
+        # Cleanup any erroneoulsy leftover stashed changes
+        if exists-stash; then
+            print "$DROP_STASH_MSG"
+            git stash drop
+        else
+            print "$NO_DROP_MSG"
+        fi 1>&2
 
-            # Stash changes & sync with main
-            print "$STASH_MSG"; { git stash || exit 2; } 1>&2
-            print  "$PULL_MSG"; { git pull || exit 3; } 1>&2
+        # Stash changes & sync with main
+        print "$STASH_MSG"; { git stash || exit 2; } 1>&2
+        print  "$PULL_MSG"; { git pull || exit 3; } 1>&2
 
-            # Apply stashed changes
-            if exists-stash; then
-                print  "$APPLY_MSG"
-                git stash apply
-            else
-                print "$NO_CHANGE_MSG"
-                print "$CD_EXIT_MSG"
-                exit 0
-            fi 1>&2
-            
-            # Add all, commit, push
-            print  "$ADD_COMMIT_MSG"
-            { git add -A || exit 6; } 1>&2
-            { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
-
-            # Good push? Clear the stash
-            print "$PUSH_MSG"
-            { git push origin master || exit 8; } 1>&2
-
-            if exists-stash; then
-                print "$DROP_STASH_MESSAGE"
-                git stash drop
-            else
-                exit 9
-            fi 1>&2
-            
-            # Re-initialize alias and functions definitions
-            # and return to old pwd
-            discard-init-definitions alias
-            discard-init-definitions function
+        # Apply stashed changes
+        if exists-stash; then
+            print  "$APPLY_MSG"
+            git stash apply
+        else
+            print "$NO_CHANGE_MSG"
             print "$CD_EXIT_MSG"
+            exit 0
+        fi 1>&2
+        
+        # Add all, commit, push
+        print  "$ADD_COMMIT_MSG"
+        { git add -A || exit 6; } 1>&2
+        { git commit -m "auto commited on: $(date -uI'ns')" || exit 7; }  1>&2
 
-            # For pretty printing purposes
-            print
-            
-        }
+        # Good push? Clear the stash
+        print "$PUSH_MSG"
+        { git push origin master || exit 8; } 1>&2
+
+        if exists-stash; then
+            print "$DROP_STASH_MESSAGE"
+            git stash drop
+        else
+            exit 9
+        fi 1>&2
+        
+        # Re-initialize alias and functions definitions
+        # and return to old pwd
+        discard-init-definitions alias
+        discard-init-definitions function
+        printf "%s" "$(date -I'ns')" > /home/ebeale/bin/git-updated-at.txt
+        print "$CD_EXIT_MSG"
+
+        # For pretty printing purposes
+        print
+
     )
 }
 
