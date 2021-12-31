@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <21/12/30 19:47:33 /home/ebeale/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <21/12/31 01:01:30 /home/ebeale/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; Run `M-x tramp-cleanup-all-connections' instead.
 
@@ -19,4 +19,6 @@
  ((tramp-file-name "sftp" nil nil "192.168.1.36" "1746" nil nil)
   ("default-location" "/"))
  ((tramp-file-name "sftp" nil nil "192.168.1.36" "1748" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.36" "1750" nil nil)
   ("default-location" "/")))
