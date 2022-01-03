@@ -84,3 +84,7 @@ rm -r portacle/
 rm -fr portacle/
 emacsctl restart
 emacs
+cd gits/bashrc_stuff/
+git stash show
+git stash list
+sudo bin/init-dimm-sensors 
