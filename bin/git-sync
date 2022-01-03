@@ -89,7 +89,7 @@ git-sync() {
         print "$STASH_MSG"; { git stash || exit 2; } 1>&2
         print  "$PULL_MSG"; { git pull || exit 3; } 1>&2
 
-        # Apply stashed changes foo
+        # Apply stashed changes
         if exists-stash; then
             print  "$APPLY_MSG"
             git stash apply
