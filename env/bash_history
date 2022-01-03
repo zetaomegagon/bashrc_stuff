@@ -1,0 +1,86 @@
+ll userjs_backups/
+cp userjs_backups/user.js.backup.2021-10-26_2229 ./user.js
+./updater.sh 
+./prefsCleaner.sh
+sudo dnf upgrade -y
+systemctl enable --now powertop
+sudo bin/init-dimm-sensors 
+udemy
+sudo dnf install sbcl -y
+sudo dnf search rlwrap
+sudo dnf install rlwrap -y
+which rlwrap
+rlwrap $(command -p sbcl)
+rlwrap command -p sbcl
+sbcl
+unset sbcl
+command -vV sbcl
+which sbcl
+cd projects/udemy/common-lisp-programming/getting-started/
+emacsctl restart
+emacs hello.lisp 
+cd udemy/common-lisp-programming/
+touch hello.lisp
+mkdir getting-started
+mv hello.lisp getting-started/
+cd getting-started/
+emacs hello.lisp 
+emacs ~/gits/bashrc_stuff/env/sbcl 
+ln -s $HOME/gits/bashrc_stuff/env/sbcl $HOME/.sbcl
+ll ~/
+la ~/
+emacs ~/.sbcl
+emacs questions.txt
+rm ~/.sbcl
+mv ~/gits/bashrc_stuff/env/sbcl{,rc}
+ln -s $HOME/gits/bashrc_stuff/env/sbclrc $HOME/.sbclrc
+sbcl
+printf '' > questions.txt 
+emacs ~/.sbclrc
+cat questions.txt 
+emacs questions.txt 
+sbcl --load hello.lisp 
+sbcl --script hello.lisp 
+discord
+rm questions.txt 
+flatpak saerch portacle
+flatpak search portacle
+sudo dnf search portacle
+cd ~/downloads/
+man tar
+tar -xJv lin-portacle.tar.xz 
+tar -xJvf lin-portacle.tar.xz 
+mv portacle/ ../projects/udemy/common-lisp-programming/
+cd ../projects/udemy/common-lisp-programming/
+cd portacle/
+./portacle.run 
+ll all
+ll all/emacsd/transient/
+ll all/emacsd/elpa/
+ll config/
+cat config/help.txt 
+less config/help.txt 
+ll lin/emacs/
+ll lin/sbin/
+ll ../bin
+ll ../lin/
+ll lin/bin/
+file lin/bin/xz
+ll projects/
+ll all/
+ll all/ssl
+ll all/emacsd/
+ll all/emacsd/portacle/
+file all/emacsd/smex-items 
+less all/emacsd/smex-items 
+emacs portacle.run 
+ll lin/
+ll lin/launcher/
+file lin/launcher/portacle 
+file lin/launcher/credentials 
+./lin/launcher/portacle 
+cd ..
+rm -r portacle/
+rm -fr portacle/
+emacsctl restart
+emacs
