@@ -707,3 +707,11 @@ historectomy() {
     printf '' > $HOME/.bash_history
     history -c
 }
+
+sbcl() {
+    if [[ -z "$@" ]]; then
+        rlwrap command -p sbcl
+    else
+        command -p sbcl "$@"
+    fi    
+}
