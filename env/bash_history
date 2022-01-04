@@ -88,3 +88,12 @@ cd gits/bashrc_stuff/
 git stash show
 git stash list
 sudo bin/init-dimm-sensors 
+man pandoc
+cd documents/
+cd common-lisp/
+evince practical-common-lisp.pdf 
+cd ../../projects/pandoc/
+cd --
+cd documents/common-lisp/
+rm practical-common-lisp.pdf 
+watch -n1 'ls -Al'

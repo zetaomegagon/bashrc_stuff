@@ -14,9 +14,10 @@
 ;;;; user set stuff
 (setq inhibit-startup-message t)
 (column-number-mode 1)
-;(electric-pair-mode 1)
+(electric-pair-mode 1)
 (put 'narrow-to-region 'disabled nil)
 (setq create-lockfiles nil)
+
 ;; indenting
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -337,6 +338,7 @@ This needs to be added to a repo and installed via straight / use-package."
 (when (display-graphic-p)
   (tool-bar-mode 0)
   (scroll-bar-mode 0))
+
 ;; browse various package repos using "M-x package-list"
 (require 'package)
 (add-to-list 'package-archives
