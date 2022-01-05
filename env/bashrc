@@ -37,7 +37,7 @@ export IGNOREEOF=1000000000
 ## pager variables
 export PAGER='/usr/bin/less'
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
-export LESS='-R'
+export LESS='-R -s -M +Gg'
 export EDITOR="/usr/bin/emacsclient"
 export LESS_TERMCAP_md=$'\e[01;31m'
 export LESS_TERMCAP_me=$'\e[0m'
