@@ -715,3 +715,4 @@ sbcl() {
         command -p sbcl "$@"
     fi    
 }
+print-res() { for CARD in /sys/class/drm/*; do if [[ -e $CARD/modes ]]; then echo "${CARD##*/}: $(while read -r MODE; do printf "%s " $MODE; done < <(cat $CARD/modes))"; fi; done; }
