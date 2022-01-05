@@ -1,4 +1,4 @@
-## Source global and user config
+#!/usr/bin/env bash
 
 # Source global definitions
 [ -f /etc/bashrc ] && source /etc/bashrc
@@ -39,6 +39,14 @@ export PAGER='/usr/bin/less'
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
 export LESS='-R'
 export EDITOR="/usr/bin/emacsclient"
+export LESS_TERMCAP_md=$'\e[01;31m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[01;32m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[45;93m'
+export LESS_TERMCAP_se=$'\e[0m'
+export GROFF_NO_SGR=1
+export MANPAGER='less -s -M +Gg'
 
 ## shell options
 shopt -s histappend

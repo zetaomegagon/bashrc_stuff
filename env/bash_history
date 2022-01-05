@@ -446,3 +446,58 @@ sudo dnf install aalib
 aafire
 sudo dnf remove aalib
 which gimp
+sudo dnf install -y gimp gawk
+sudo dnf install aalib
+aafire
+sudo dnf remove aalib
+which gimp
+sudo bin/init-dimm-sensors 
+cd documents/epaper/pdf
+for pdf in *; do evince $pdf; done
+evinced --help
+/usr/libexec/evinced --help
+for pdf in *; do ( evince $pdf &); done
+pgrep evince
+command -p pgrep evince
+for pid in $(command -p pgrep evince); do printf "%s " $pid; done
+for pid in $(command -p pgrep evince); do printf "%s " $pid; done; printf "\n"
+for pid in $(command -p pgrep evince); do printf "%s\n" $pid; done
+for pid in $(command -p pgrep evince); do printf pkill $pid; done
+for pid in $(command -p pgrep evince); do pkill $pid; done
+for pid in $(command -p pgrep evince); do kill -9 $pid; done
+vmstat
+vnstat --help
+vnstat -l
+vnstat --live --oneline
+vnstat --oneline
+vnstat --json
+vnstat --json | jq '.'
+vnstat --json | jq '.' | less
+vnstat --json | jq '.' | less -R
+vnstat --json | jq '.' | less --color=always
+man less
+vnstat --json | jq --color-output '.' | less
+vnstat
+man vnstat
+which man
+vnstat --json | jq --color-output '.' | less
+vnstat
+man foobar
+emacs
+which emacs
+which man
+man vnstat
+emacsctl stop
+pgrep tmux
+pgrep tmux
+set -x; man man; set +x
+man man
+set -x; man man; set +x
+man man
+man vnstat
+hostnameclt
+hostnamectl 
+hostnamectl --help
+hostnamectl set hostname panda
+hostnamectl hostname panda
+hostnamectl hostname

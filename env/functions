@@ -233,9 +233,9 @@ cpu-profiles() {
     local input="$1"
 
     case "$input" in
-        performance|powersave)
+        conservative|ondemand|userspace|powersave|performance|schedutil)
             # set scaling
-            sudo su -c "echo $arg | tee cat /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
+            sudo su -c "echo $input | tee /sys/devices/system/cpu/cpu[0-9]*/cpufreq/scaling_governor" ;;
         --available|-a)
             # show available scalings
             cat /sys/devices/system/cpu/cpufreq/policy6/scaling_available_governors ;;
@@ -313,9 +313,10 @@ decode64() {
     local fpath="$bpath/$fname"
 
     # ${input} allows the following or equvalent:
-    # $ cat file | decode64 -
-    # $ decode64 < <(cat file)
-    # $ decode64 $(cat file)
+    # $ decode64 <file>
+    # $ cat <file> | decode64 -
+    # $ decode64 < <(cat <file>)
+    # $ decode64 $(cat <file>)
     input="${@:-$(</dev/stdin)}"
 
     if echo "$input" | base64 -d --ignore-garbage - >/dev/null 2>&1; then
@@ -366,9 +367,9 @@ emacs() {
     { ! command -p pgrep emacs && emacsctl start; } >/dev/null 2>&1
 
     if [[ $UID = 0 ]] || [[ $EUID = 0 ]]; then
-        { [[ -z "$input" ]] && enox; } || enox "$input"
+       { [[ -z "$input" ]] && enox; } || enox "$input"
     else
-        { [[ -z "$input" ]] && eclt; } || eclt "$input"
+       { [[ -z "$input" ]] && eclt; } || eclt "$input"
     fi
 }
 
@@ -458,6 +459,7 @@ conntest() {
 }
 
 virt-manager() {
+    # so I don't have to type sudo every time.
     sudo virt-manager
 }
 
@@ -631,7 +633,10 @@ explain() {
     curl -s -X GET "${base_url}${cols}${query}"
 }
 
-flatpack() { /usr/bin/flatpak "$@"; }
+flatpack() {
+    # I misspell flatpak a lot
+    /usr/bin/flatpak "$@"
+}
 
 ## Toolbox Wrapper Functions
 toolbox-create() {
@@ -686,6 +691,15 @@ gnome-tweaks-demo-toolbox() {
 }
 
 dnf() {
+    # Hmmm... I think my logic might be off here...
+    #
+    # Should be that if...
+    # 1. toolbox is installed...or you aren't on Silverblue...
+    #  2. Check if your inside a toolbox, and if not; either...
+    #   a. create a new toolbox and run dnf in it, or
+    #   b. run dnf out of an existing toolbox;
+    # Otherwise...
+    # 3. run dnf as normal
     local input=( $@ )
     local arg0=${input[0]}
 
@@ -703,16 +717,29 @@ dnf() {
 }
 
 historectomy() {
+    # clear all histories
     gpaste-client empty
     printf '' > $HOME/.bash_history
     history -c
 }
 
 sbcl() {
+    # wrapper for sbcl. If called in interactive mode (i.e. no arguments);
+    # then, invoke with readline support
+    #
+    # otherwise, call sbcl (semi-)directly with arguments
     if [[ -z "$@" ]]; then
         rlwrap command -p sbcl
     else
         command -p sbcl "$@"
     fi    
 }
-print-res() { for CARD in /sys/class/drm/*; do if [[ -e $CARD/modes ]]; then echo "${CARD##*/}: $(while read -r MODE; do printf "%s " $MODE; done < <(cat $CARD/modes))"; fi; done; }
+
+print-res() {
+    # print supported resolutions of all display devices
+    for CARD in /sys/class/drm/*; do
+        if [[ -e $CARD/modes ]]; then
+            printf "%s" "${CARD##*/}: $(while read -r MODE; do printf "%s " $MODE; done < <(cat $CARD/modes))"
+        fi
+    done
+}
