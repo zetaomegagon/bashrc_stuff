@@ -506,3 +506,4 @@ alias myregistry-visitor-password='spectre -tx -c1 myregistry-visitor-password'
 alias pennie='spectre -tx -c1 pennie.com'
 
 alias pennie-nickname='spectre -tx -c1 pennie-nickname'
+alias compass='spectre -tl -c1 compass.state.pa.us'
