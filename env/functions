@@ -744,7 +744,11 @@ print-res() {
     done
 }
 
-rm-docker-containers() { while read -r CID; do if ! [[ $CID =~ CONTAINER|ID ]]; then ( sudo docker rm $CID >/dev/null & ); fi; done < <(sudo docker ps --all | awk '{ print $1 }'); }
+rm-docker-containers() {
+    while read -r CID; do
+        ! [[ $CID =~ CONTAINER|ID ]] && ( sudo docker rm $CID >/dev/null & )
+    done < <(sudo docker ps --all | awk '{ print $1 }')
+}
 
 get-running-node() {
     # print out PID of running node instance
@@ -769,8 +773,7 @@ get-running-node() {
     #  The PID and PROGRAM NAME are in the form <pid>/<prog_name> so I'm using colons
     #  instead of the usual forward slashes (/) you see used with sed to deliniate a regex-replace.
     #  This allows me to not have to escape the forward slash in '/node', which wasn't working
-
-    local PORT="$@"
+    local input="$1"
 
     g() { command -p grep -i "$@"; }
     

@@ -519,3 +519,54 @@ list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,"/node",,g'
 list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,g'
 list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,'
 list-listening 2>/dev/null | command -p grep node | awk '{ print $7 }' | sed -r 's,/node,,'
+preview -f
+list-listening | grep node | awk '{ print $7 }'
+list-listening | grep node | awk '{ print $7 }' | sed 's/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed ''/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed '/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/\(/d'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/Not/d'
+list-listening | grep node | awk '{ print $7 }' | sed -r 's/Not//g'
+list-listening 2>/dev/null 
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's/Not//g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:/node;;g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:\/node;;g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:\/node::g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,\\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,[/]node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,[\/]node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,"/node",,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,'
+list-listening 2>/dev/null | command -p grep node | awk '{ print $7 }' | sed -r 's,/node,,'
+cd projects/vue-scratch/
+yarn create hello-hello-world
+vue create example project
+vue create example-project
+cd example-project/
+yarn serve
+(yarn serve >/dev/null 2>&1 &)
+for pid in $(get-running-node); do kill -9 $pid; done
+cd ..
+(cd example-project/ && yarn serve --port 4040 >/dev/null 2&1 &)
+(cd example-project/ && yarn serve --port 4040 >/dev/null 2>&1 &)
+(cd hello-world/ && yarn serve >/dev/null 2>&1 &)
+get-running-node 3030
+netstat -tnlup
+get-running-node 8080
+search heredoc in emacs
+get-running-node help
+get-running-node --help
+get-running-node foo
+while read -r pid; do pkill $pid; done < <(get-running-node)
+while read -r pid; do kill -9 $pid; done < <(get-running-node)
+get-running-node
+(cd hello-world/ && yarn dev >/dev/null 2>&1)
+(cd hello-world/ && yarn dev >/dev/null 2>&1 &)
+(cd example-project/ && yarn dev --port 4040 >/dev/null 2>&1 &)
+get-running-node 
+get-running-node src -f
+get-running-node 4040
