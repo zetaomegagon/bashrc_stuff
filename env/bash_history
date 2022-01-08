@@ -263,3 +263,126 @@ sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ C
 sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
 sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
 sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+sudo docker logs
+sudo docker ps
+echo $DISPLAY
+sudo dnf -y install bridge-utils libvirt virt-install qemu-kvm
+sudo dnf -y install libvirt-devel virt-top libguestfs-tools
+sudo systemctl enable --now libvirtd
+sudo docker -ps -a
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done)
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do echo $CID; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]] then; echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+cd projects/docker-osx/
+sudo ./run-monterey.sh 
+emacs run-monterey.sh
+less run-monterey.log 
+cat /sys/module/kvm/parameters/ignore_msrs 
+lsmod kvm
+lsmod | grep kvm
+sysctl --help
+sudo sysctl -a | grep ignore
+sudo sysctl -a | grep msrs
+sudo sysctl -a | grep kvm
+journaclt -x
+journalclt -x
+journalctl
+journalctl -x
+journalctl -xe
+journalctl | grep docker
+sudo docker start 095e398c2f00
+sudo docker ps -a
+sudo docker logs 095e398c2f00
+sudo docker logs 095e398c2f00 | grep kvm
+systemctl status libvirtd
+pgrep -ia node
+pgrep
+pgrep firefix
+pgrep firefox
+command -p pgrep -is fireofx
+command -p pgrep -is firefox
+command -p pgrep -ia firefox
+pa aux tmux
+ps aux tmux
+ps -aux tmux
+ps
+ps --help
+man ps
+ps aux | grep node
+ss 
+ss | grep node
+ss | grep tmux
+ss | grep firefox
+lsof
+sudo lsof
+sudo lsof | grep firefox
+ss
+man ss
+ss -pl | less
+ss -t -r state established | less
+which node
+sudo dnf install npm
+npm install -g npm@8.3.0
+sudo npm install -g npm@8.3.0
+npm audit fix
+sudo npm audit fix
+npm install -g http-server
+sudo npm install -g http-server
+(http-server &)
+(http-server >/dev/null &)
+ss -l -r state established | less
+ss -l | less
+ps aux | grep http
+for pid in 58684 59098; do pkill $pid; done
+pkill {58684,59098}
+for pid in 58684 59098; do kill -9 $pid; done
+ps aux | grep [h]ttp
+http-server --help
+http-server --help | less
+sudo dnf search yarn
+sudo dnf install yarnpkg
+which yarn
+yarn run --help
+man yarn
+yarn --help | grep port
+yarn --help | less
+yarn --help run
+yarn --help
+yarn help run
+http-server
+yarn config list
+yarn help dev
+yarn help | grep dev
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+command -p pgrep -a http-server
+/usr/bin/pgrep -a http-server
+pgrep() { /usr/bin/pgrep $@; }
+pgrep() { /usr/bin/pgrep -ia $@; }
+pgrep http-server
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+echo $DISPLAY 
+ss -l | grep 8080
+ss -tl | grep 8080
+ss -tl
+ss -l
+man ss
+ss -a
+ss -a | less
+ss -lr | less
+which netstat
+netstat -ltup | 8080
+netstat -ltup | grep 8080
+netstat -ltup
+sudo netstat -ltup
+sudo netstat -lntup | grep http-server
+sudo netstat -lntup
+dnf search netstat
+dnf info netstat-monitor
