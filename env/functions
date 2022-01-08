@@ -745,3 +745,38 @@ print-res() {
 }
 
 rm-docker-containers() { while read -r CID; do if ! [[ $CID =~ CONTAINER|ID ]]; then ( sudo docker rm $CID >/dev/null & ); fi; done < <(sudo docker ps --all | awk '{ print $1 }'); }
+
+get-running-node() {
+    # print out PID of running node instance
+    #
+    # netstat --listen --tcp --udp --numeric --program 2>/dev/null
+    #   Shows [l]istening processes using [t]cp & [u]dp, and lists the [p]rogram name and PID,
+    #   as well as the [n]umerical IP address (instead of resolving it).
+    #
+    #   When run w/o root, returns a warning on /dev/stderr, so we redirect those lines
+    #   to /dev/null
+    #
+    # command -p grep -i $@
+    #   Makes sure to execute '/usr/bin/grep' instead of an alias or function to avoid possibly
+    #   passing color codes to sed. The second grep is filtering on the PORT number.
+    #
+    #   Both are case insensetive
+    #
+    # awk '{ print $7 }'
+    #  There are SEVEN columns of output (expected), and we want only the seventh
+    #
+    # sed 's:/node::'
+    #  The PID and PROGRAM NAME are in the form <pid>/<prog_name> so I'm using colons
+    #  instead of the usual forward slashes (/) you see used with sed to deliniate a regex-replace.
+    #  This allows me to not have to escape the forward slash in '/node', which wasn't working
+
+    local PORT="$@"
+
+    g() { command -p grep -i "$@"; }
+    
+    netstat -ltunp 2>/dev/null \
+        | g 'node' \
+        | g "$PORT" \
+        | awk '{ print $7 }' \
+        | sed 's:/node::'
+}

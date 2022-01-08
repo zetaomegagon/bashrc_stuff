@@ -386,3 +386,136 @@ sudo netstat -lntup | grep http-server
 sudo netstat -lntup
 dnf search netstat
 dnf info netstat-monitor
+sudo systemctl enable --now libvirtd
+systemctl status libvirtd
+sudo docker -ps -a
+sudo docker ps -a
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done)
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do echo $CID; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]] then; echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+cd projects/
+mkdir yarn-vue
+cd yarn-vue/
+yarn global add @vue/cli @vue/cli-service-global
+sudo yarn global add @vue/cli @vue/cli-service-global
+vue help serve
+vue serve help
+vue help
+vue serve --help
+cat "<template>
+</template>
+" > App.vue
+echo "<template>
+</template>
+" > App.vue
+cat App.vue 
+emacs App.vue 
+vue serve
+echo '{\n"name": "Elijah Beale"\n"version": "0.0.alpha"\n}' >> package.json
+cat package.json 
+yarn run App.vue 
+npm init
+mv App.vue index.js
+yarn run index.js 
+yarn run
+mv index.js App.vue
+rm -rf package.json yarn-error.log node_modules/
+vue serve App.vue 
+vue serve App.vue --host :: --port 3000
+vue serve App.vue --port 3000
+rm -r *
+vue create example-app
+cd example-app/
+vue-cli-service serve --mode
+vue create foobar
+rm -rf *
+mv ../{yarn-vue,vue-scratch}
+mv vue-scratch/
+mv build{_shit,-shit}
+mv google{_takeout,-takeout}
+cd vue-scratch/
+vue create hello-world
+cd hello-world/
+ll node_modules/
+ll 
+ll public/
+ll src/
+emacs src/App.vue 
+less package.json 
+emacs package.json 
+cd ..
+get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | sed 's:/node::'; }
+get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ prin $7 }' | sed 's:/node::'; }
+get-running-node 
+get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print $7 }' | sed 's:/node::'; }
+get-running-node
+printf "\n%s\n" 'get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print $7 }' | sed 's:/node::'; }'
+printf "\n%s\n" 'get-running-node() { netstat -tnlup 2>/dev/null | command -p grep \'node\' | awk \'{ print $7 }\' | sed \'s:/node::\'; }'
+printf "\n%s\n" get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print $7 }' | sed 's:/node::'; }
+printf "\n%s\n" "get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print $7 }' | sed 's:/node::'; }"
+printf "\n%s\n" "get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print \$7 }' | sed 's:/node::'; }"
+printf "\n%s\n" "get-running-node() { netstat -tnlup 2>/dev/null | command -p grep 'node' | awk '{ print \$7 }' | sed 's:/node::'; }" >> ~/.functions 
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]] then; echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)
+curl "https://cli.vuejs.org/guide/prototyping.html" | grep -E '<template>.*</template>'
+curl "https://cli.vuejs.org/guide/prototyping.html"
+curl "https://cli.vuejs.org/guide/prototyping.html" | grep template
+yarn help
+yarn help config
+yarn dev --port <your_port> || yarn dev -- --port <your_port>
+cd projects/vue-scratch/hello-world/
+yarn dev --port 3030
+touch .{env,env.alt,env.alt.local}
+mv env.{alt,production}
+mv .env.{alt,production}
+mv .env.{alt.local,production.local}
+touch .env.local
+la | grep env
+yarn lint
+yarn dev
+(yarn dev >/dev/null &)
+netstat -tnlup
+cd cd
+cd projects/vue-scratch/
+find ./node_modules/ -iname vue-cli-service
+vue-cli-service() { local project_dir=$PWD; local vcs_dir=${project_dir}/node_modules/.bin/vue-cli-service
+vue-cli-service() { local project_dir=$PWD; local vcs_dir=${project_dir}/node_modules/.bin}; ${vcs_dir}/vue-cli-service $@; }
+vue-cli-service() { local project_dir=$PWD; local vcs_dir=${project_dir}/node_modules/.bin; ${vcs_dir}/vue-cli-service $@; }
+vue-cli-service serve --port 55000
+cd ..
+vue-cli-service 
+cd hello-world/
+yarn dev --port 55000 --open
+yarn dev --port 5500 --open
+yarn dev --open
+list-listening() { netstat -tnlup; }
+list-listening
+list-listening | grep node | awk '{ print $7 }'
+list-listening | grep node | awk '{ print $7 }' | sed 's/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed ''/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed '/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/\(/d;s/\/node//g'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/\(/d'
+list-listening | grep node | awk '{ print $7 }' | sed -r '/Not/d'
+list-listening | grep node | awk '{ print $7 }' | sed -r 's/Not//g'
+list-listening 2>/dev/null 
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's/Not//g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:/node;;g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:\/node;;g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's:\/node::g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,\\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,[/]node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,[\/]node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed 's,"/node",,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,g'
+list-listening 2>/dev/null | grep node | awk '{ print $7 }' | sed -r 's,\/node,,'
+list-listening 2>/dev/null | command -p grep node | awk '{ print $7 }' | sed -r 's,/node,,'
