@@ -15,3 +15,251 @@ qemu-kvm --help
 less run-monterey.log 
 emacs run-monterey.sh 
 ./run-monterey.sh 
+cd projects/docker-osx/
+docker ps --all
+sudo docker ps --all
+sudo docker start -ai db45c66ca46f
+for cid in "$(sudo docker ps -a | awk '{ print $1 })"; do [[ "$cid" != "CONTAINER ID" ]] && sudo docker rm $cid; done
+for cid in $(sudo docker ps -a | awk '{ print $1 }'); do [[ "$cid" != "CONTAINER ID" ]] && sudo docker rm $cid; done
+sudo docker ps -a
+sudo ./run-monterey.sh 
+qemu-kvm --help
+less run-monterey.log 
+emacs run-monterey.sh 
+./run-monterey.sh 
+spectre -h
+spectre -h | less
+compass.spouse
+compass.song
+compass.school
+tdbank
+mkdir documents/compass
+touch "e-form-number-W44254127" documents/compass/
+ll documents/compass/
+ll documents/
+touch documents/compass/e-form-number-W44254127
+rm e-form-number-W44254127 
+dnf search keymapper
+pip3
+sudo dnf install python3-pip
+which pip
+which pip3
+ll /usr/bin | grep pip
+dnf info pip-3
+sudo pip3 install --no-binary :all: git+https://github.com/sezanzeb/input-remapper.git
+sudo pip install --no-binary :all: git+https://github.com/sezanzeb/input-remapper.git
+cd gits/
+git clone https://github.com/sezanzeb/input-remapper.git
+cd input-remapper/
+chmod +x setup.py 
+sudo pip uninstall input-remapper
+pip uninstall input-remapper
+sudo pip uninstall --force input-remapper
+pip uninstall --help
+sudo find / -iname *input-remapper* 2>/dev/null
+input-remapper-gtk
+sudo python3 ./setup.py 
+sudo python3 ./setup.py build
+sudo python3 ./setup.py install
+sudo python3 ./setup.py --help
+sudo python3 ./setup.py --help-commands
+cd ..
+sudo find / -iname *input-remapper* -exec rm -rf {} \; 2>/dev/null
+sudo find / -iname input-remapper-*
+sudo find / -iname *input-remapper* -exec echo {}; rm -rf {} \; 2>/dev/null
+sudo find / -iname *input-remapper* -exec echo {} \; rm -rf {} \; 2>/dev/null
+sudo find / -iname *input-remapper* -exec rm -rf {} \;
+sudo find / -iname *input-remapper*
+cd ~/documents/compass/
+nautilus .
+google.personal
+dnf search teams
+dnf search microsoft
+dnf search microsoft | grep teams
+flatpak search microsoft
+flatpak install com.microsoft.Teams
+flatpak kill $(flatpak ps | command -p grep Teams | awk '{ print $1 }')
+flatpak ps
+flatpak uninstall com.microsoft.Teams
+sudo dnf install ~/downloads/teams-1.4.00.26453-1.x86_64.rpm 
+xbox.com
+xbox
+protonmail
+xbox
+protonmail
+ip a
+findmnt
+flatpak ps | command -p grep videolan | awk '{ print $1 }'
+flatpak kill $(flatpak ps | command -p grep videolan | awk '{ print $1 }')
+flatpak ps
+command -p pgrep vlc
+pkill $(command -p pgrep vlc)
+pgrep vlc
+sudo kill -9 $(command -p pgrep vlc)
+which mpv
+sudo dnf install mpv
+mpv "http://localhost:8080"
+mpv "http://192.168.1.32:8080"
+mpv "http://192.168.1.32:8080/stream"
+mpv "http://192.168.1.32:8080/"
+internet.archive 
+hostnamectl hostname
+man vnstat
+cd projects/docker-osx/
+docker ps --all
+sudo docker ps --all
+sudo docker start -ai db45c66ca46f
+for cid in "$(sudo docker ps -a | awk '{ print $1 })"; do [[ "$cid" != "CONTAINER ID" ]] && sudo docker rm $cid; done
+for cid in $(sudo docker ps -a | awk '{ print $1 }'); do [[ "$cid" != "CONTAINER ID" ]] && sudo docker rm $cid; done
+sudo docker ps -a
+sudo ./run-monterey.sh 
+qemu-kvm --help
+less run-monterey.log 
+./run-monterey.sh 
+spectre -h
+spectre -h | less
+compass.spouse
+compass.song
+compass.school
+mkdir documents/compass
+touch "e-form-number-W44254127" documents/compass/
+ll documents/compass/
+ll documents/
+touch documents/compass/e-form-number-W44254127
+rm e-form-number-W44254127 
+dnf search keymapper
+pip3
+sudo dnf install python3-pip
+which pip
+which pip3
+ll /usr/bin | grep pip
+dnf info pip-3
+sudo pip3 install --no-binary :all: git+https://github.com/sezanzeb/input-remapper.git
+sudo pip install --no-binary :all: git+https://github.com/sezanzeb/input-remapper.git
+cd gits/
+git clone https://github.com/sezanzeb/input-remapper.git
+cd input-remapper/
+chmod +x setup.py 
+sudo pip uninstall input-remapper
+pip uninstall input-remapper
+sudo pip uninstall --force input-remapper
+pip uninstall --help
+sudo find / -iname *input-remapper* 2>/dev/null
+input-remapper-gtk
+sudo python3 ./setup.py 
+sudo python3 ./setup.py build
+sudo python3 ./setup.py install
+sudo python3 ./setup.py --help
+sudo python3 ./setup.py --help-commands
+cd ..
+sudo find / -iname *input-remapper* -exec rm -rf {} \; 2>/dev/null
+sudo find / -iname input-remapper-*
+sudo find / -iname *input-remapper* -exec echo {}; rm -rf {} \; 2>/dev/null
+sudo find / -iname *input-remapper* -exec echo {} \; rm -rf {} \; 2>/dev/null
+sudo find / -iname *input-remapper* -exec rm -rf {} \;
+sudo find / -iname *input-remapper*
+cd ~/documents/compass/
+nautilus .
+google.personal
+dnf search teams
+dnf search microsoft
+dnf search microsoft | grep teams
+flatpak search microsoft
+flatpak install com.microsoft.Teams
+flatpak kill $(flatpak ps | command -p grep Teams | awk '{ print $1 }')
+flatpak ps
+flatpak uninstall com.microsoft.Teams
+sudo dnf install ~/downloads/teams-1.4.00.26453-1.x86_64.rpm 
+xbox.com
+xbox
+protonmail
+tdbank
+peco
+cd ~/projects/docker-osx/
+emacs run-monterey.sh 
+protonmail
+cd documents/cs-ce-programming/lisp/
+echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\..!\.epub/-/g'
+echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\./-/g'
+echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\.!\.epub/-/g'
+echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\./-/g;s/-epub/\.epub/g'
+echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\./-/g;s/-epub/\.epub/g;s/-from/_from/g'
+mv Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub $(echo Racket.Programming.the.Fun.Way.From.Strings.to.Turing.Machines.epub | tr "[A-Z]" "[a-z]" | sed 's/\./-/g;s/-epub/\.epub/g;s/-from/_from/g')
+pandoc -f epub -o racket-programming-the-fun-way_from-strings-to-turing-machines.pdf racket-programming-the-fun-way_from-strings-to-turing-machines.epub 
+pandoc -f epub -o -t latex racket-programming-the-fun-way_from-strings-to-turing-machines.pdf racket-programming-the-fun-way_from-strings-to-turing-machines.epub 
+pandoc -f epub -t latex -o racket-programming-the-fun-way_from-strings-to-turing-machines.pdf racket-programming-the-fun-way_from-strings-to-turing-machines.epub 
+pandoc -f epub --pdf-engine=xelatex -o racket-programming-the-fun-way_from-strings-to-turing-machines.pdf racket-programming-the-fun-way_from-strings-to-turing-machines.epub 
+pandoc -f epub --pdf-engine=xelatex -o racket-programming-the-fun-way_from-strings-to-turing-machines.pdf racket-programming-the-fun-way_from-strings-to-turing-machines.epub | less
+sudo dnf install calibre
+internet.archive
+wget "https://raw.githubusercontent.com/sarabander/sicp-pdf/master/sicp.pdf"
+mv sicp.pdf structure-and-interpretation-of-computer-programs-2e.pdf
+sudo dnf install youtube-dl
+cd ..
+mkdir intro-to-the-theory-of-computation
+youtube-dl "https://yewtu.be/playlist?list=PL601FC994BDD963E4"
+youtube-dl "https://www.youtube.com/playlist?list=PL601FC994BDD963E4"
+rm Lecture\ *
+ll computational-complexity/
+mv computational-complexity/ computational-theory
+peco
+cd ~/projects/docker-osx/
+emacs run-monterey.sh 
+docker ps --all
+sudo ./run-monterey.sh 
+sudo docker logs
+docker ps
+sudo docker image list
+sudo docker ps
+sudo docker ps --all
+sudo docker rm $(sudo docker ps -a | tail -2 | awk '{ print $1 }')
+sudo docker image rm $(sudo docker image list | tail -2 | awk '{ print $3 }')
+echo $DISPLAY
+sudo docker ps
+sudo docker ps --all
+sudo docker rm $(sudo docker ps -a | tail -2 | awk '{ print $1 }')
+sudo docker image rm $(sudo docker image list | tail -2 | awk '{ print $3 }')
+echo $DISPLAY
+tail -f projects/docker-osx/run-monterey.log 
+cd projects/
+cd docker-osx/
+sed -ir '/[0-9]+\%/d;s/\\x1b\[0;1;31m//g;s/\\x1b\[2J^M//g;s/\^M//g' run-monterey.log
+sed -r '/[0-9]+\%/d;s/\\x1b\[0;1;31m//g;s/\\x1b\[2J^M//g;s/\^M//g' run-monterey.log
+sed -r '/[0-9]+\%/d;s/\\x1b\[0;1;31m//g;s/\\x1b\[2J^M//g;s/\^M//g' run-monterey.log | less
+man sed
+sed -i -r '/[0-9]+\%/d;s/\\x1b\[0;1;31m//g;s/\\x1b\[2J^M//g;s/\^M//g' run-monterey.log
+less run-monterey.
+less run-monterey.log
+emacs
+sed -ri '/[0-9]+\%/d;s/\\x1b\[0;1;31m//g;s/\\x1b\[2J^M//g;s/\^M//g' run-monterey.log
+rm run-monterey.logr
+emacs run-monterey.sh 
+less run-monterey.log 
+systemctl status kvm
+systemctl list-units | grep kvm
+sudo dnf search kvm
+sudo dnf install libvirt-daemon-kvm qemu-kvm -y
+systemctl status libvirt-kvm
+systemctl status libvirt-daemon-kvm
+lsmod | grep kvm
+cd projects/docker-osx/
+less run-monterey.log 
+sudo docker log
+sudo docker logs
+sudo docker ps
+echo $DISPLAY
+sudo dnf -y install bridge-utils libvirt virt-install qemu-kvm
+lsmod | grep kvm
+sudo dnf -y install libvirt-devel virt-top libguestfs-tools
+sudo systemctl enable --now libvirtd
+systemctl status libvirtd
+sudo docker -ps -a
+sudo docker ps -a
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done)
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER.*ID ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do if [[ "$CID" =~ CONTAINER ]]; then printf "$CID"; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read CID; do echo $CID; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]] then; echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done
+sudo docker rm $(sudo docker ps -a | awk '{ print $1 }' | while read -r CID; do if ! [[ "$CID" =~ CONTAINER|ID ]]; then echo $CID; fi; done)

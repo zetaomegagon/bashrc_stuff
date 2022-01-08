@@ -744,4 +744,4 @@ print-res() {
     done
 }
 
-rm-docker-containers() { while read -r CID; do if ! [[ $CID =~ CONTAINER|ID ]]; then ( sudo docker rm $CID & ); fi; done < <(sudo docker ps --all | awk '{ print $1 }'); }
+rm-docker-containers() { while read -r CID; do if ! [[ $CID =~ CONTAINER|ID ]]; then ( sudo docker rm $CID >/dev/null & ); fi; done < <(sudo docker ps --all | awk '{ print $1 }'); }
