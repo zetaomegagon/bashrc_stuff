@@ -773,8 +773,8 @@ get-running-node() {
     #  The PID and PROGRAM NAME are in the form <pid>/<prog_name> so I'm using colons
     #  instead of the usual forward slashes (/) you see used with sed to deliniate a regex-replace.
     #  This allows me to not have to escape the forward slash in '/node', which wasn't working
-    local input="$1"
-
+    local PORT="$1"
+    
     g() { command -p grep -i "$@"; }
     
     netstat -ltunp 2>/dev/null \
