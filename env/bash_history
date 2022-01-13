@@ -6,3 +6,174 @@ sed -i "s:alias compass='spectre -tp -c1 compass.state.pa.us':alias compass='spe
 command -p grep compass= .spectre
 sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
 compass
+google.personal 
+compass.spouse
+compass.school
+sed -i "s:alias compass='spectre -tp -c1 compass.state.pa.us':alias compass='spectre -tp -c2 compass.state.pa.us':" .spectre
+command -p grep compass= .spectre
+sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
+. .spectre
+grep compass .spectre
+compass
+htop
+htop
+n=0
+until (($n = 100)); do n=$((n +5)); echo $n; done
+until ((n = 100)); do n=$((n +5)); echo $n; done
+until $((n = 100)); do n=$((n +5)); echo $n; done
+until (( $n = 100 )); do n=$((n +5)); echo $n; done
+until (( $n == 100 )); do n=$((n +5)); echo $n; done
+n=0 \until (( $n == 100 )); do n=$((n + 5)); echo $n; done
+n=0 until [[ $n -eq 100 ]]; do n=$((n + 5)); echo $n; done
+n=0; until [[ $n -eq 100 ]]; do n=$((n + 5)); echo $n; done
+google.personal 
+grep compass .spectre
+compass.spouse
+compass.school
+sed -i "s:alias compass='spectre -tp -c1 compass.state.pa.us':alias compass='spectre -tp -c2 compass.state.pa.us':" .spectre
+command -p grep compass= .spectre
+sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
+compass
+google.personal 
+compass.spouse
+compass.school
+sed -i "s:alias compass='spectre -tp -c1 compass.state.pa.us':alias compass='spectre -tp -c2 compass.state.pa.us':" .spectre
+command -p grep compass= .spectre
+sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
+. .spectre
+grep compass .spectre
+compass
+htop
+lpstat -o $(lpstat -e)
+lpstat -s
+which lpadmin
+lpadmin --help
+lpoptions --help
+sudo dnf search gutenprint
+sudo dnf install gutenprint{,-cups}
+sudo dnf install gutenprint-plugin
+lpstat --help
+lpstat -e
+lp --help
+lpstat -W all
+lpstat -W completed
+which mediainfo
+which avconv
+help command
+command -vV spectre
+cd music/Roger\ Zelazny/Amber\ Cycle/Chronicles\ of\ Amber\ \(Zelazny\)\ 48kbps/Roger\ Zelazny\ -\ Amber\ 01\ -\ Nine\ Princes\ in\ Amber\ \(48\ KBps\ Unabridged\)/
+dnf search mediainfo
+which ffprobe
+ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 Roger\ Zelazny\ -\ Nine\ Princes\ in\ Amber\ -\ 1\ of\ 8.mp3 
+DURATION=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 Roger\ Zelazny\ -\ Nine\ Princes\ in\ Amber\ -\ 1\ of\ 8.mp3)
+echo ${DURATION#*.}
+echo ${DURATION#.*}
+echo ${DURATION/.*}
+WHOLE_SECONDS=${DURATION/}
+echo ${DURATION/*.}
+FRACTIONAL_SECONDS=${DURATION/*.}
+mkdir test
+echo $((WHOLE_SECONDS / 5))
+echo "$WHOLE_SECONDS / 5" | bc
+DURATION=$WHOLE_SECONDS
+echo * | while read -r FILE; do if [[ "${FILE/*.}" = "mp3" ]]; then DURATION
+START=00:00:00
+END=00:00:05
+echo $DURATION $START $END
+FILE='Roger Zelazny - Nine Princes in Amber - 1 of 8.mp3'
+echo $DURATION $START $END $FILE
+echo $DURATION $START $END "$FILE"
+for ((c=0;c<$((DURATION / 5));c++)); do ffmpeg -i "$FILE" -ss 00:00:$START -to 00:00:$END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done
+man ffmpgeg
+man ffmpeg
+man ffmpeg-utils
+for ((c=0;c<$((DURATION / 5));c++)); do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done
+echo $START
+echo $START $END
+until [[ $END -eq $DURATION ]]; do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done; START=00; END=05
+START=00; END=05; until [[ $END -eq $((DURATION / 5)) ]]; do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done
+END=05; START=00
+{ [[ $END -eq $((DURATION / 5)) ]] && echo $END; } || echo $((DURATION / 5))
+until [[ $END -eq $((DURATION / 5)) ]]; do END=$((END + 5)); echo $END; done
+echo $((DURATION / 5))
+END=05; until [[ $END -eq  574 ]]; do END=$((END + 5)); echo $END; done
+set -x; END=05; until [[ $END -eq  574 ]]; do END=$((END + 5)); done; set +x
+set -x; END=05; until [[ "$END" = 574 ]]; do END=$((END + 5)); done; set +x
+set -x; END=05; while [[ "$END" != 574 ]]; do END=$((END + 5)); done; set +x
+set -x; END=05; while (($END != $((DURATION / 5)); do END=$((END + 5)); done; set +x
+set -x; END=05; while (( $END != $((DURATION / 5)) )); do END=$((END + 5)); done; set +x
+set +x
+END=05; until [[ $END = $((DURATION / 5)) ]]; do END=$((END + 5)); echo $END; done | less
+END=05; until [[ $END = $((DURATION / 5)) ]]; do END=$((END + 5)); echo $END; done
+END=05; until [[ $END == $((DURATION / 5)) ]]; do END=$((END + 5)); echo $END; done
+n=0; until [[ $n = 100 ]]; do echo $n; n=$((n +5)); done
+n=0; until [[ $n = 101 ]]; do echo $n; n=$((n +5)); done
+until [[ $n = 101 ]]; do echo $n; n=$((n +5)); done
+while (( $n > 100 )); do echo $n; n=$((n +5)); done
+n=0
+while (( $n > 105 )); do echo $n; n=$((n +5)); done
+until (( $n > 105 )); do echo $n; n=$((n +5)); done
+while (( $n < 105 )); do echo $n; n=$((n +5)); done
+echo $n
+END=0
+while (($END < $((DURATION / 5)); do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done
+while (( $END < $((DURATION / 5)) )); do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/file-$START-$END.mp3; START=$END; END=$((END + 5)); done
+rm test/*; START=00;END=05;COUNT=0
+rm ./test/*; START=00;END=05;COUNT=0
+{ rm ./test/* || : ;}; START=00;END=05;COUNT=0
+while (( $END <= $((DURATION / 5)) )); do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/$COUNT-$START-$END.mp3; ((COUNT++)); START=$END; END=$((END + 5)); done
+ll | sort
+ll | sort -n
+ll --sort
+ll --help
+ll --help | less
+
+START=00;END=05;COUNT=0
+ll test/
+rm test/*
+echo $DURATION
+END=05
+START=00
+COUNT=1
+while [[ $((END - 5)) < $((DURATION / 5)) ]]; do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/$(printf "%04g" $COUNT)-$START-$END.mp3; ((COUNT++)); START=$END; END=$((END + 5)); done
+while (( $((END - 5)) < $((DURATION / 5)) )); do ffmpeg -i "$FILE" -ss $START -to $END -c copy ./test/$(printf "%04g" $COUNT)-$START-$END.mp3; ((COUNT++)); START=$END; END=$((END + 5)); done
+cd test/
+
+ll | less
+rm *
+cd ..
+rm -r test/
+sed -i "s:alias compass='spectre -tp -c1 compass.state.pa.us':alias compass='spectre -tp -c2 compass.state.pa.us':" .spectre
+command -p grep compass= .spectre
+sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
+. .spectre
+grep compass .spectre
+compass
+htop
+man lp
+lp -d MX920 -o media=letter -H immediate -q 100 -t 2022-yearly-calendar ./documents/calendars/January\ -\ December\ 2022.pdf 
+lpstat -W all
+lpstat --help
+lpstat -W not-completed
+evince documents/calendars/January\ -\ December\ 2022.pdf 
+echo foobar > foobar.txt
+lp -d $(lpstat -d | command -p grep -i mx920) -H immediate -o media=letter -o print-quality=3 -q 100 -t $(mktemp -u $(for ((i=0;i<15;i++)); do printf X; done)) foobar.txt
+set -x; lp -d $(lpstat -d | command -p grep -i mx920) -H immediate -o media=letter -o print-quality=3 -q 100 -t $(mktemp -u $(for ((i=0;i<15;i++)); do printf X; done)) foobar.txt; set +x
+lpstat -e | command -p grep -i mx
+lpstat -e | command -p grep -i mx920
+lpstat -e | command -p grep -i 'mx920'
+lpstat -e | command -p grep -iE '^mx920$'
+set -x; lp -d $(lpstat -d | command -p grep -iE '^mx920$') -H immediate -o media=letter -o print-quality=3 -q 100 -t $(mktemp -u $(for ((i=0;i<15;i++)); do printf X; done)) foobar.txt; set +x
+which print
+print() { lp -d MX920-H immediate -o media=letter -o print-quality=3 -q 100 -t $(mktemp -u $(for ((i=0;i<15;i++)); do printf X; done)) "$@"; }
+lpstat -e
+print() { lp -d MX920 -H immediate -o media=letter -o print-quality=3 -q 100 -t $(mktemp -u $(for ((i=0;i<15;i++)); do printf X; done)) "$@"; }
+print foobar.txt 
+lp --help
+lpstat -W all | awk '{ print $3 }' | head -2
+cancel --help
+for job in $(lpstat -W all | awk '{ print $3 }' | head -2); do cancel -x $job; done
+for job in $(lpstat -W all | awk '{ print $1 }' | head -2); do cancel -x $job; done
+help whiole
+help until
+help while
