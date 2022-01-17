@@ -1,3 +1,36 @@
 cat KDEConnect/compass-reset.txt | clip
 compass.school 
 compass.spouse
+compass.school 
+compass.spouse
+grep rent .spectre
+phila 
+compass
+spectre-add connectebt.com
+connectebt
+. .spectre
+connectebt 
+spectre --help
+grep connectebt .spectre
+command -p grep connectebt .spectre
+sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':"
+sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre
+set -x; sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre; set +x
+sort -u .spectre
+sort -u .spectre | less
+emacs .spectre
+preview -sp
+which spectre-add
+emacs bin/tmux-start 
+tmux new-session --help
+emacs bin/tmux-start 
+emacsctl restart
+emacsctl restart
+spectre --help
+spectre --help | less
+. .functions
+which connectebt.city
+emacs .spectre
+. .spectre
+connectebt.city 
+set -x; connectebt.city; set +x
