@@ -177,3 +177,75 @@ for job in $(lpstat -W all | awk '{ print $1 }' | head -2); do cancel -x $job; d
 help whiole
 help until
 help while
+curl "https://blog.feedspot.com/world_news_rss_feeds/" | less
+curl "https://blog.feedspot.com/world_news_rss_feeds/"
+command -p grep compass= .spectre
+sed -i "s:alias compass='spectre -tp -c2 compass.state.pa.us':alias compass='spectre -tl -c1 compass.state.pa.us':" .spectre
+. .spectre
+grep compass .spectre
+compass
+htop
+which ffmpeg
+ffmpeg --help
+ffmpeg --help | grep info
+ffmpeg --help | less
+man -k audio
+man -k transcode
+man -k video
+man radeon
+man amdgpu
+protonmail.com
+protonmail
+glassdoor
+ll OnionShare/
+ll .config/
+find . -iname *ublock*
+man tar
+explain tar -xvjf
+sudo dnf install tldr -y
+tldr tar -xvjf
+tar tvf downloads/privacy-redirect-1.1.49.tar.gz 
+tldr tar
+tar xvjf --directory=./chromium-extensions/
+tar xvjf ./downloads/privacy-redirect-1.1.49.tar.gz --directory=./chromium-extensions/
+tar xvzf ./downloads/privacy-redirect-1.1.49.tar.gz --directory=./chromium-extensions/
+tar xvzf ./downloads/privacy-redirect-1.1.49.tar.gz --directory=./chromium-extensions/privacy-redirect
+mv chromium-extensions/privacy-redirect{-1.1.49,}
+tar xvzf ./downloads/privacy-redirect-1.1.49.tar.gz --directory=./projects/$(mkdir ~/projects/chrome-extensions && echo chrome-extensions)
+cd projects/chrome-extensions/privacy-redirect-1.1.49/
+which node
+npm --help
+npm update
+npm install
+npm audit fix
+npm audit fix --force
+udemy
+less package.json 
+npm run build
+gunzip --help
+ll web-ext-artifacts/privacy_redirect-1.1.49.zip 
+gunzip -l web-ext-artifacts/privacy_redirect-1.1.49.zip 
+unzip --list web-ext-artifacts/privacy_redirect-1.1.49.zip 
+unzip -l web-ext-artifacts/privacy_redirect-1.1.49.zip 
+unzip --help
+mkdir ~/chromium-extensions/privacy-redirect
+unzip -v ./web-ext-artifacts/privacy_redirect-1.1.49.zip -d ~/chromium-extensions/privacy-redirect/
+unzip ./web-ext-artifacts/privacy_redirect-1.1.49.zip -d ~/chromium-extensions/privacy-redirect/
+ll ~/chromium-extensions/privacy-redirect/
+cd ..
+ll downloads/
+printf "%s\n" "https%3A%2F%2Fraw.githubusercontent.com%2FSpam404%2Flists%2Fmaster%2Fadblock-list.txt" | sed -r 's,%3A,:,;s,%2F,/,g'
+printf "%s\n" "https%3A%2F%2Fraw.githubusercontent.com%2FSpam404%2Flists%2Fmaster%2Fadblock-list.txt" | sed -r 's,%3A,:,;s,%2F,/,g' | clip
+printf "%s\n" "moz-extension://8446757e-686f-4a63-ba20-cb7cd7fc8f37/asset-viewer.html?url=https%3A%2F%2Fraw.githubusercontent.com%2Fgioxx%2Fxfiles%2Fmaster%2Ffiltri.txt" | sed -r 's,%3A,:,;s,%2F,/,g;s,moz-extension://8446757e-686f-4a63-ba20-cb7cd7fc8f37/asset-viewer.html?url=,,' | clip
+udemy
+emacs .emacs.d/init.el 
+google.personal 
+compass.spouse 
+compass.song
+compass
+emacs .spectre
+google.personal 
+unalias compass
+which compass
+compass
+spectre -tl -c1 compass.state.pa.us
