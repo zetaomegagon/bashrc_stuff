@@ -138,4 +138,4 @@ alias connectebt='spectre -tb -c1 connectebt.com'
 alias connectebt.city='spectre -tp -c1 connectebt.com.city'
 alias accenture='spectre -tx -c1 accenture.com'
 alias disroot='spectre -tx -c1 disroot.org'
-alias disroot.morning='spectre -tp -c1 disroot.org.morning'
+
