@@ -1,116 +1,32 @@
-cat KDEConnect/compass-reset.txt | clip
-compass.school 
-compass.spouse
-compass.school 
-compass.spouse
-grep rent .spectre
-phila 
-compass
-spectre-add connectebt.com
-connectebt
-. .spectre
-connectebt 
-spectre --help
-grep connectebt .spectre
-command -p grep connectebt .spectre
-sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':"
-sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre
-set -x; sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre; set +x
-sort -u .spectre
-sort -u .spectre | less
-emacs .spectre
-preview -sp
-which spectre-add
-emacs bin/tmux-start 
-tmux new-session --help
-emacs bin/tmux-start 
-emacsctl restart
-emacsctl restart
-spectre --help
-spectre --help | less
-. .functions
-which connectebt.city
-emacs .spectre
-. .spectre
-connectebt.city 
-set -x; connectebt.city; set +x
-sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre
-set -x; sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre; set +x
-sort -u .spectre
-sort -u .spectre | less
-preview -sp
-which spectre-add
-emacs bin/tmux-start 
-tmux new-session --help
-emacs bin/tmux-start 
-spectre --help
-connectebt 
-echo "alias connectebt.city='spectre -tp -c1 connectebt.com.city'" >> .spectre
-emacs .spectre
-. .spectre
-which connectebt.city
-gpaste-client --help
-emacs .functions
-emacsctl restart
-connectebt.city
-connecctebt
-connectebt
-which connectebt
-spectre -tb -c2 connectebt.com
-connectebt.city 
-spectre -tb -c2 connectebt.com.
-which which
-which java
-cd downloads
-cd downloads/
-java -jar ./tabula-1.0.5-jar-with-dependencies.jar --help
-mkdir documents medicaid
-rm -r documents/ medicaid/
-mkdir ../documents/medicaid
-mv *.pdf ../documents/medicaid/
-dnf search tabula
-dnf search tabula | less
-java -jar ./tabula-1.0.5-jar-with-dependencies.jar --pages=all -b ../documents/medicaid/
-cd ../documents/medicaid/
-less 2020\ Consumer\ Guide\ Rate\ Chart.csv 
-cd downloads/
-ll | grep -E 'jar|pdf'
-sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':"
-sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre
-set -x; sed "s:\$\(command -p grep connectebt .spectre\):alias connectebt='spectre -tm -c1 connectebt.com':" .spectre; set +x
-sort -u .spectre
-sort -u .spectre | less
-preview -sp
-which spectre-add
-emacs bin/tmux-start 
-tmux new-session --help
-emacs bin/tmux-start 
-spectre --help
-connectebt 
-echo "alias connectebt.city='spectre -tp -c1 connectebt.com.city'" >> .spectre
-emacs .spectre
-. .spectre
-which connectebt.city
-gpaste-client --help
-emacs .functions
-emacsctl restart
-connectebt.city
-connecctebt
-connectebt
-which connectebt
-connectebt.city 
-spectre -tb -c2 connectebt.com.
-spectre -tb -c2 connectebt.com
-emacs bin/tmux-start 
-emacsctl restart
-spectre --help
-spectre --help | less
-. .functions
-which connectebt.city
-emacs .spectre
-. .spectre
-connectebt.city 
-set -x; connectebt.city; set +x
-set +x
-connectebt
-connectebt.city
+amazon
+cd pictures/gaming-laptop/
+mv links links.txt
+cd ..
+mv gaming-laptop/ ~/projects/
+cd ~/projects/gaming-laptop/
+mkdir pictures
+mv *.{jpg,png} pictures/
+mkdir invoices
+mv *.pdf invoice
+mv *.pdf invoices
+emacs links
+gedit links.txt 
+emacs links.txt 
+cd invoices/
+nautilus .
+top
+htop
+nautilus .
+top
+htop
+sudo rm *.html
+umount /dev/sdc*
+sudo dd if=/dev/zero of=/dev/sdc bs=1MiB count=1 status=progress
+sudo sgdisk -Z /dev/sdc
+lsblk
+eject /dev/sdc
+sudo eject /dev/sdc
+sudo parted /dev/sdc
+mkfs.vfat /dev/sdc1
+sudo mkfs.vfat /dev/sdc1
+dnf search unpnp

@@ -783,3 +783,5 @@ get-running-node() {
         | awk '{ print $7 }' \
         | sed 's:/node::'
 }
+
+gerbera-web() { firefox $(systemctl status gerbera | command -p grep 'http://' | awk '{ print $19 }'); }
