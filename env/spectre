@@ -140,3 +140,4 @@ alias accenture='spectre -tx -c1 accenture.com'
 alias disroot='spectre -tx -c1 disroot.org'
 
 alias gerbera='spectre -tx -c1 gerbera'
+alias zotero='spectre -tx -c1 zotero.org'

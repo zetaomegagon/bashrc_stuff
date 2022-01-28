@@ -384,8 +384,10 @@ dired() {
 
     if [[ -z "$input" ]]; then
         emacs .
-    else
+    elif [[ -d "$input" ]]; then
         emacs "$input"
+    else
+        printf "%s\n" "Argument must be a directory name."
     fi
 }
 
