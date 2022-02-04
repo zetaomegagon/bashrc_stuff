@@ -384,10 +384,8 @@ dired() {
 
     if [[ -z "$input" ]]; then
         emacs .
-    elif [[ -d "$input" ]]; then
-        emacs "$input"
     else
-        printf "%s\n" "Argument must be a directory name."
+        emacs "$input"
     fi
 }
 
@@ -787,3 +785,5 @@ get-running-node() {
 }
 
 gerbera-web() { firefox $(systemctl status gerbera | command -p grep 'http://' | awk '{ print $19 }'); }
+
+kfp() { while read -r proc; do flatpak kill $proc; done < <(flatpak ps | command -p grep -i $1 | awk '{ print $1 }'); }

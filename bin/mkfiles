@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+############################################################
+# Create a series of files of size MIN to MAX in megabytes #   
+############################################################
+
+## Functions
+usage() {
+    nl() { printf "\n"; }
+    nnl() { nl; nl; }
+
+    nl;  printf "%s" "Create a series of files of size MIN to MAX in megabytes"
+    nnl;  printf "%s" "  Usage:"
+    nl;  printf "%s" "    mkfiles <DIR> <MIN> <MAX> <EXT>"
+    nnl; printf "%s" "  Where MIN and MAX are Natural numbers excluding zero,"
+    nl;  printf "%s" "    and where MAX is greater than MIN."
+    nnl; printf "%s" "  Example Output:"
+    nl;  printf "%s" "    1-megabyte-file.jpg"
+    nnl
+}
+
+## Variables
+NAME="-megabyte-file."
+DIR=$1
+declare -i MIN; MIN=$2
+declare -i MAX; MAX=$3
+EXT=$4
+
+## Main
+if (( MIN > 0 )) && (( MAX > MIN )) && [[ -n $DIR ]] && [[ -n $EXT ]]; then
+    
+    rm -r $DIR 2>/dev/null || :
+    mkdir $DIR || { printf "%s\n" "Couldn't create temporary directory <${DIR}>. Exiting." && exit 3; }
+    
+    (
+        cd $DIR || { printf "%s\n" "Couldn't change into temporary directory <${DIR}>. Exiting." && exit 4; }
+        
+        for ((i=$MIN;i<=$MAX;i++)); do
+            head -c ${i}M /dev/urandom > $(printf "%05d" "$i")${NAME}${EXT}
+        done
+    )
+    
+else
+    usage
+    exit 1
+fi
+

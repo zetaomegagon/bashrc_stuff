@@ -1,19 +1,2 @@
-sudo su
-xev
-sudo dnf remove wayfire
-mpv torrents/Eternals.2021.1080p.WEBRip.1600MB.DD5.1.x264-GalaxyRG\[TGx\]/Eternals.2021.1080p.WEBRip.1600MB.DD5.1.x264-GalaxyRG.mkv 
-dired
-psgrep emacs
-pgrep emacs
-sudo kill -9 2254
-cd gits/
-git clone https://github.com/RoiArthurB/Side-Auto_Sci-Hub.git
-cd Side-Auto_Sci-Hub/
-ll ressources/
-ll assets/
-cat README.md 
-ln -s $HOME/pictures $HOME/downloads/pictures
-rm downloads/pictures
-cp pictures/user-account-images/ downloads/
-cp -r pictures/user-account-images/ downloads/
-rm -r downloads/user-account-images/
+search "trauma 1993"
+exti
