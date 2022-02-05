@@ -15,7 +15,7 @@ usage() {
     nnl; printf "%s" "  Where MIN and MAX are Natural numbers excluding zero,"
     nl;  printf "%s" "    and where MAX is greater than MIN."
     nnl; printf "%s" "  Example Output:"
-    nl;  printf "%s" "    1-megabyte-file.jpg"
+    nl;  printf "%s" "    00001-megabyte-file.jpg"
     nnl
 }
 
@@ -36,7 +36,7 @@ if (( MIN > 0 )) && (( MAX > MIN )) && [[ -n $DIR ]] && [[ -n $EXT ]]; then
         cd $DIR || { printf "%s\n" "Couldn't change into temporary directory <${DIR}>. Exiting." && exit 4; }
         
         for ((i=$MIN;i<=$MAX;i++)); do
-            head -c ${i}M /dev/urandom > $(printf "%05d" "$i")${NAME}${EXT}
+            dd if=/dev/zero of=./$(printf "%05d" "$i")${NAME}${EXT} bs=1M count=$i
         done
     )
     
