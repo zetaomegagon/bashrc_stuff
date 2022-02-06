@@ -104,8 +104,11 @@ debug() {
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
-    local optimus
-    optimus="$(lspci | grep -E 'VGA|3D' | grep -E '[nN]vidia|NVIDIA')"
+    local exists_amd
+    local exists_nvidia
+    exists_amd="$(lspci | grep -iE 'vga|3d' | grep -iE 'amd|ati|radeon')"
+    exists_nvidia="$(lspci | grep -iE 'vga|3d' | grep -iE 'nvidia')"
+    exists_gpu="$( { [[ -n $exists_amd ]] || [[ -n $exists_nvidia ]]; } && printf "true")"
 
     play() {
 	      inhibit-and-play() {
@@ -113,12 +116,14 @@ mpv() {
 	          systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
 	      }
 
-	      if [[ -z "$optimus" ]]; then
+	      if [[ -z "$exists_gpu" ]]; then
 	          inhibit-and-play "$@"
-	      else
-            # if nvidia graphics card exists, use it
-	          DRI_PRIME=1 inhibit-and-play "$@"
-	      fi
+	      elif [[ -n $exists_nvidia ]]; then
+	           DRI_PRIME=1 inhibit-and-play "$@"
+        else
+            # what to do for amd cards?
+            :
+        fi        
     }
 
     play "$@"
