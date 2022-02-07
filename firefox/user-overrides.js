@@ -6,7 +6,7 @@
 
 // Set starup page to custom url
 user_pref("browser.startup.page", 1);
-user_pref("browser.startup.homepage", "https://tree.taiga.io/project/zetaomegagon-todo/kanban");
+user_pref("browser.startup.homepage", "https://apps.disroot.org/");
 
 // Geolocation
 user_pref("geo.provider.network.url", "file:///dev/null");
