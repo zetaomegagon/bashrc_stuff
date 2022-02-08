@@ -1,2 +1,147 @@
 set +x
 github
+sudo systemctl enable powertop --now
+github
+sudo systemctl enable powertop --now
+help return
+help break
+help continue
+help exit
+ll bin
+which env
+debug convert-to-mp4 music/*
+my-echo() { local input="$@"; echo "$input"; }
+my-echo() { local input="$@"; for object in "$input"; do if [[ -d $object ]]; then ( cd $object; my-echo *; fi; done; }
+my-echo() { local input="$@"; for object in "$input"; do if [[ -d $object ]]; then ( cd $object; my-echo * ; fi; done; }
+my-echo() { local input="$@"; for object in "$input"; do if [[ -d $object ]]; then ( cd $object; my-echo ./* ; fi; done; }
+my-echo() { local input="$@"; for object in "$input"; do [[ -d $object ]] && ( cd $object; my-echo * ); done; }
+my-echo() { local input=$@; for object in "$input"; do [[ -d $object ]] && ( cd $object; my-echo * ); done; }
+my-echo() { local input=$@; for object in $input; do [[ -d $object ]] && ( cd $object; my-echo * ); done; }
+my-echo() { local input=$@; for object in $input; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done; }
+my-echo() { local input="${@}"; for object in "${input[@]}"; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done; }
+my-echo() { local input=$@; for object in "${input[@]}"; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done; }
+my-echo() { local input=$@; for object in ${input[@]}; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done; }
+my-echo music/
+my-echo() { local input=$@; while read -r object; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done <<< ${input[@]}; }
+debut my-echo music/
+my-echo() { local input=$@; while read -r object; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done <<< $input; }
+my-echo() { local input=( "$@" ); for object in "${input[@]}"; do if [[ -d $object ]]; then ( cd $object; my-echo * ); else echo $object; fi; done; }
+debug my-echo music/
+foobar=( 1 2 3 )
+echo ${#foobar}
+echo ${#foobar[@]}
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "${foobar[$i]} |"; else printf "${foobar[$i]}"; done
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "${foobar[$i]} |"; else printf "${foobar[$i]}"; fi; done
+debug num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+debug { num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done; }
+{ num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done; }
+=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done; }
+=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s |" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+printf "%s | " "${foobar[0]}"
+printf "%s |" "${foobar[0]}"
+printf "%s|" "${foobar[0]}"
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num < 2)); then printf "%s|" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((num > 2)); then printf "%s|" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+num=${#foobar[@]}; for ((i=0;i<num;i++)); do if ((i < 2)); then printf "%s|" "${foobar[$i]}"; else printf "%s" "${foobar[$i]}"; fi; done
+chmod +x bin/convert-to-mp4 
+which spectre-add
+cd music/youtube/yt_darksynth_mix/
+rm *.m4a
+tree music/
+tree music/ | less
+debug convert-to-mp4 music/
+set +x
+printf ./*
+printf "*"
+printf *
+printf .*
+echo *
+[[ foo.bar =~ bar ]] && echo "foobar"
+[[ foo.bar =~ *bar ]] && echo "foobar"
+[[ foo.bar.biz =~ .bar|.biz ]] && echo "foobar"
+[[ foo.bar.biz =~ \.bar|\.biz ]] && echo "foobar"
+[[ foo =~ \.bar|\.biz| ]] && echo "foobar"
+foo=( $(echo *) )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(echo *) ) )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(echo *) ) && echo ${foo[@]} )
+printf "%s\n" *
+printf "%s\s" *
+printf "%s " *
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf *) ) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf %s *) ) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf %s "*\s") ) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf %s "$*\s") ) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf %s "$@") ) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf "%s " *) && echo ${foo[@]} )
+( cd music/youtube/yt_darksynth_mix/ && foo=( $(printf "%s " *) ) && echo ${foo[@]} )
+echo ${foo[@]}
+echo ${foo[@]:0:1}
+echo ${foo[@]:0:-1}
+echo ${foo[@]:${#foo[@]}:-1}
+echo ${foo[@]:1}
+echo ${foo[@]:2}
+echo "${foo[@]:2}"
+echo "${foo[*]:1}"
+foo=( 
+foo=( "$(echo *)" )
+foo=( "$(for file in *; do printf "$file"; done)" )
+foo=( "$(for file in *; do printf "$file "; done)" )
+foo=( "$(for file in *; do foo+=("$file"); done)" )
+echo "${foo[@]:0}"
+foo=(); for file in *; do foo+=("$file"); done
+echo "${foo[@]}"
+echo "${foo[@]:1}"
+convert-to-mp4 music/
+rm bin/convert-to-mp4 
+disroot
+fedora
+fedoraproject
+github
+sudo systemctl enable powertop --now
+cd bin
+rm convert-to-mp4 
+emacs convert-to-m4
+rm convert-to-m4
+emacs convert-to-mp4
+cd music/youtube/yt_metallica_hd_mix/
+for file in *; do mv "$file" "$(printf "%s" "$file" | sed -r 's,\.m4a,m4a,g')"; done
+for file in *; do mv "$file" "$(printf "%s" "$file" | sed -r 's,\s,\_,g')"; done
+for file in *; do mv "$file" "$(printf "%s" "$file" | tr '[A-Z]' '[a-z]')"; done
+for file in *; do mv "$file" "$(printf "%s" "$file" | sed -r 's,\-[a-z0-9],,g')"; done
+rm yt_metallica_hd_mix/
+rm -ryt_metallica_hd_mix/
+rm -r yt_metallica_hd_mix/
+cd yt_darksynth_mix/
+for file in *; do mv "$file" "$(printf "%s" "$file" | sed -r 's,\-[a-z0-9]\.,\.,g')"; done
+for file in *; do printf "$file" | sed -r 's/\-[a-z0-9]*\./\./g'
+for file in *; do printf "$file" | sed -r 's/\-[a-z0-9]*\./\./g'; done
+for file in *; do printf "%s\n" "$file" | sed -r 's/\-[a-z0-9]*\./\./g'; done
+for file in *; do printf "%s\n" "$file" | sed -r 's/\-[a-z0-9\.]/\./g'; done
+for file in *; do printf "%s\n" "$file" | sed -r 's/\-[a-zA-Z0-9]\./\./g'; done
+for file in *; do printf "%s\n" "$file" | tr '[A-Z] '[a-z]' | sed -r 's/\-[a-z0-9]\./\./g'; done
+for file in *; do printf "%s\n" "$file" | tr '[A-Z] '[a-z]'; done
+for file in *; do printf "%s\n" "$file" | tr '[A-Z]' '[a-z]'; done
+for file in *; do printf "%s\n" "$file" | tr '[A-Z]' '[a-z]' | sed -r 's:\-[a-z0-9]*\.:\.:g'; done
+for file in *; do printf "%s\n" "$file" | tr '[A-Z]' '[a-z]' | sed -r -e 's:\-[a-z0-9]*\.:\.:g' -e 's:\s:\_:g'; done
+for file in *; do mv "$file" "$(printf "%s\n" "$file" | tr '[A-Z]' '[a-z]' | sed -r -e 's:\-[a-z0-9]*\.:\.:g' -e 's:\s:\_:g'); done
+for file in *; do mv "$file" "$(printf "%s\n" "$file" | tr '[A-Z]' '[a-z]' | sed -r -e 's:\-[a-z0-9]*\.:\.:g' -e 's:\s:\_:g')"; done
+cd ..
+rm -r youtube/
+ll sleep-focus-sounds/
+ll sleep-focus-sounds/rm sleep-focus-sounds/
+rm -r sleep-focus-sounds/
+ll presentations/
+rm -r presentations/
+ll headphone-speaker-util/
+rm -r headphone-speaker-util/
+ll video-game-music/
+rm -r video-game-music/
+ll misc-music/
+rm -r misc-music/
+ll audio-books/
+ll -R audio-books/Roger\ Zelazny/
+ll -R audio-books/Roger\ Zelazny/ | less
+clip empty
+telegram
+disroot
