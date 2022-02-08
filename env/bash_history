@@ -145,3 +145,37 @@ ll -R audio-books/Roger\ Zelazny/ | less
 clip empty
 telegram
 disroot
+rm bin/convert-to-mp4 
+cat-tv
+cat-tv 
+debug cat-tv
+which cat-tv
+which init-dimm-sensors
+which mpv
+mpv --vo=help
+cat bin/cat-tv 
+mpv --vo=caca "https://yewtu.be/watch?v=nYcHi9EgUHs"
+mpv --vo=gpu "https://yewtu.be/watch?v=nYcHi9EgUHs"
+emacs .functions 
+disroot
+google.personal 
+cat bin/cat-tv 
+mpv --vo=caca "https://yewtu.be/watch?v=nYcHi9EgUHs"
+mpv --vo=gpu "https://yewtu.be/watch?v=nYcHi9EgUHs"
+emacs .functions 
+disroot
+cal -3
+cal -n12
+cal -n12 -
+cal -S -y
+cal -S -y -m
+cal
+cal -m
+cal --color=always -m -Y
+cal --color=always -m -Y -v
+cal --help
+cal -m march
+cal -vm march
+cal -y 2023
+cal -y 3000
+cal -y 100000
