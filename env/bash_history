@@ -179,3 +179,437 @@ cal -vm march
 cal -y 2023
 cal -y 3000
 cal -y 100000
+sudo touch init-ram-sensors.conf
+sudo rm init-ram-sensors.conf 
+init-dimm-sensors 
+sudo init-dimm-sensors 
+sudo ./init-dimm-sensors 
+reboot
+emacs .functions 
+disroot
+google.personal 
+cat bin/cat-tv 
+mpv --vo=caca "https://yewtu.be/watch?v=nYcHi9EgUHs"
+mpv --vo=gpu "https://yewtu.be/watch?v=nYcHi9EgUHs"
+emacs .functions 
+disroot
+cal -3
+cal -n12
+cal -n12 -
+cal -S -y
+cal -S -y -m
+cal
+cal -m
+cal --color=always -m -Y
+cal --color=always -m -Y -v
+cal --help
+cal -m march
+cal -vm march
+cal -y 2023
+cal -y 3000
+cal -y 100000
+sudo touch init-ram-sensors.conf
+sudo rm init-ram-sensors.conf 
+init-dimm-sensors 
+sudo init-dimm-sensors 
+sudo ./init-dimm-sensors 
+reboot
+for ((i=1;i<21;i++)); do printf "%s\n" "http://0pointer.de/blog/projects/systemd-for-admins-${i}.html" >> systemd-for-admins-series-links; done
+printf '' > systemd-for-admins-series-links 
+for ((i=1;i<=21;i++)); do printf "%s\n" "http://0pointer.de/blog/projects/systemd-for-admins-${i}.html" >> systemd-for-admins-series-links; done
+cat systemd-for-admins-series-links 
+while read -r URL; do \
+mkdir projects/systemd-for-admins-book
+mv systemd-for-admins-series-links projects/systemd-for-admins-book/
+cd projects/systemd-for-admins-book/
+create-systemd-for-admins-book() { local URL; URL=(); while read -r LINK; do :; done; }
+create-systemd-for-admins-book() { local URLS; URL=(); while read -r LINK; do URLS+=("$LINK"); done <<< $PWD/systemd-for-admins-series-links; pandoc --standalone --toc -f html "$(printf "%s " "${URLS[@]}")" -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done <<< $PWD/systemd-for-admins-series-links; pandoc --standalone --toc -f html "$(printf "%s " "${URLS[@]}")" -o $PWD/systemd-for-admins-book.pdf; }
+echo <<< systemd-for-admins-series-links 
+while read -r LINK; do echo $LINK; done <<< systemd-for-admins-series-links 
+while read -r LINK; do echo $LINK; done < <(systemd-for-admins-series-links)
+while read -r LINK; do echo $LINK; done < <(cat systemd-for-admins-series-links)
+while read -r LINK; do echo $LINK; done < cat systemd-for-admins-series-links)
+while read -r LINK; do echo $LINK; done <<< cat systemd-for-admins-series-links)
+while read -r LINK; do echo $LINK; done <<< systemd-for-admins-series-links)
+while read -r LINK; do echo $LINK; done <<< systemd-for-admins-series-links
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --standalone --toc -f html "$(printf "%s " "${URLS[@]}")" -o $PWD/systemd-for-admins-book.pdf; }
+debug create-systemd-for-admins-book 
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=xelatex --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc -V fontenc=T2A -V lang -V babel-lang=arabic -V babel-otherlangs=japanese --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=latex -V fontenc=T2A -V lang -V babel-lang=arabic -V babel-otherlangs=japanese --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=xelatex -V fontenc=T2A -V lang -V babel-lang=arabic -V babel-otherlangs=japanese --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=html --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=wkhtml --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book() { local URLS; URLS=(); while read -r LINK; do URLS+=("$LINK"); done < <(cat ./systemd-for-admins-series-links); pandoc --pdf-engine=wkhtmltopdf --standalone --toc -f html $(printf "%s " "${URLS[@]}") -o $PWD/systemd-for-admins-book.pdf; }
+create-systemd-for-admins-book
+sudo dnf search wkhtmltopdf
+sudo dnf install -y wkhtmltopdf-devel wkhtmltopdf
+create-systemd-for-admins-book 
+wget --input-file=./systemd-for-admins-series-links --mirror --no-clobber -e robots=off -O ./systemd-for-admins-series.html
+wget --input-file=./systemd-for-admins-series-links -mk --no-parent  -e robots=off -O ./systemd-for-admins-series.html
+wget --input-file=./systemd-for-admins-series-links -mk --no-clobber -e robots=off
+rm *.html
+emacs systemd-for-admins-series-links
+curl "https://www.freedesktop.org/wiki/Software/systemd/"
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | less
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | less
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,\<li\>\<a href\=\",,g' -e 's,\"\>\#?\:[\sa-zA-Z]*\<\/a\>\<\/li\>,,g' | less
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,">#4:[\sA-Za-z]*</a></li>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,">#4: [A-Za-z]*</a></li>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,">#?:[\sA-Za-z]*</a></li>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,\"\>\#?\:[\sA-Za-z]*\<\/a\>\<\/li\>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,\"\>\#[0-9]*\:[\sA-Za-z]*\<\/a\>\<\/li\>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,\"\>\#[0-9]*\:[\sA-Za-z]*,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,\"\>\#[0-9]*\:[\sA-Za-z]*,,g' -e 's,</a></li>,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -i '0pointer' | sed -r -e 's,<li><a href=",,g' -e 's,\".*$,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '\<li\>' | command -p grep -iE '.*0pointer.*' | sed -r -e 's,<li><a href=",,g' -e 's,\".*$,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '.*0pointer.*' | sed -r -e 's,<li><a href=",,g' -e 's,\".*$,,g'
+curl "https://www.freedesktop.org/wiki/Software/systemd/" | command -p grep -iE '.*0pointer.*' | sed -r -e 's,<li><a href=",,g' -e 's,\".*$,,g' > systemd-for-admins-series-links
+emacs systemd-for-admins-series-links 
+wget --input-file=./systemd-for-admins-series-links --no-clobber -e robots=off -O ./systemd-for-admins-series.html
+firefox systemd-for-admins-series.html 
+emacs systemd-for-admins-series.html 
+rm systemd-for-admins-series.html 
+wget --input-file=./systemd-for-admins-series-links -mk --no-parent -e robots=off
+ll 0pointer.de/
+ll 0pointer.net/
+ll 0pointer.net/blog/ | less
+rm -r 0pointer.net/
+ll 0pointer.de/blog/
+ll 0pointer.de/blog/projects/
+mv 0pointer.de/blog/projects .
+rm -r 0pointer.de/
+mv projects/systemd-for-admins-series-html
+mv projects systemd-for-admins-series-html
+ll systemd-for-admins-series-html/
+cd systemd-for-admins-series-html/
+echo changing-roots ${1}.html
+echo changing-roots ${argv}.html
+echo changing-roots ${ARGV}.html
+echo changing-roots ${ARG0}.html
+mv {,0-}changing-roots
+mv {0,6}-changing-roots
+mv {,1-}systemd-for-admins-1.html 
+mv {,2-}systemd-for-admins-2.html 
+mv {,3-}systemd-for-admins-3.html 
+mv {,4-}systemd-for-admins-4.html 
+mv {,5-}three-levels-of-off
+mv {,6-}changing-roots.html 
+mv {,7-}blame-game.html 
+file 5-three-levels-of-off 
+mv 5-three-levels-of-off 5-three-levels-of-off.html
+diff -y 6-changing-roots 6-changing-roots.html
+diff 6-changing-roots 6-changing-roots.html 
+rm 6-changing-roots
+rm the-new-configuration-files
+mv {,8-}the-new-configuration-files.html 
+mv {,9-}on-etc-sysinit.html 
+mv {,10-}instances.html 
+for file in *; do echo $file; done
+FILE=10-instances.html 
+echo ${FILE%-}
+echo ${FILE#-}
+echo ${FILE#-/}
+echo ${FILE##-}
+echo ${FILE##*-}
+echo ${FILE#*-}
+echo ${FILE%*-}
+echo ${FILE%%*-}
+echo ${FILE%-*}
+echo ${FILE%%-*}
+for file in *; if (( {FILE%%-*} < 10 )); then echo $FILE; fi; done
+for file in *; do if (( {FILE%%-*} < 10 )); then echo $FILE; fi; done
+for file in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done
+debug for file in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done
+debug { for file in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done; }
+debug "for file in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done"
+debug "for FILE in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done"
+for FILE in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done
+for FILE in *; do if (( ${FILE%-*} < 10 )); then echo $FILE; fi; done
+set -x; for FILE in *; do if (( ${FILE%%-*} < 10 )); then echo $FILE; fi; done; set +x
+set -x; for FILE in *; do if (( ${FILE%%-*} < 10 )) && [[ -z ${FILE%%-*} ]]; then echo $FILE; fi; done; set +x
+set -x; declare -i PREFIX ; for FILE in *; do PREFIX=${FILE%%-*}; if (( $PREFIX < 10 )) && [[ -z $PREFIX ]]; then echo $FILE; fi; done; set +x
+set -x; declare -i PREFIX ; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )) && (( PREFIX > 0 )); then echo $FILE; fi; done; set +x
+declare -i PREFIX ; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )) && (( PREFIX > 0 )); then echo $FILE; fi; done
+declare -i PREFIX ; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )) && ! [[ $PREFIX =~ [0-9] ]]; then echo $FILE; fi; done
+declare -i PREFIX; set -x; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )) && ! [[ $PREFIX =~ [0-9] ]]; then echo $FILE; fi; done; set +x
+declare -i PREFIX; set -x; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )) && ! [[ $PREFIX =~ [0-9]{1,2} ]]; then echo $FILE; fi; done; set +x
+set -x
+set +x
+mv {,11-}inetd.html 
+mv {,12-}security.html 
+declare -i PREFIX; for FILE in *; do PREFIX=${FILE%%-*}; if (( PREFIX < 10 )); then mv $FILE 0${PREFIX}-${FILE#-*}; fi; done
+for file in *; do mv $file $(printf -- $file | sed -r 's,[0-9]\-,,'); done
+mv 0cgroups-vs-cgroups.html cgroups-vs-cgroups.html 
+mv 0detect-virt.html 19-detect-virt.html 
+mv 1inetd.html 11-inetd.html 
+mv {1,10-}instances.html
+mv {1,12-}security.html 
+mv {,13-}systemctl-journal.html 
+mv {,17-}journalctl.html 
+mv {,20-}socket-activated-containers.html 
+less systemd.html 
+mv {,14-}self-documented-boot.html 
+mv {,15-}watchdog.html 
+mv serial-console.html 
+mv {,16-}serial-console.html 
+mv {,18-}resources.html 
+rm cgroups-vs-cgroups.html journal-submit.html socket-activation{,2}.html systemd.html systemd-website.html  the-journal.html  three
+rm cgroups-vs-cgroups.html journal-submit.html socket-activation{,2}.html systemd.html systemd-website.html  the-journal.html  three-levels-of-off.html 
+rm os-release.html 
+wget -mk -np -e robots=off http://0pointer.net/blog/systemd-for-administrators-part-xxi.html
+ll 0pointer.net/blog/projects/
+ll 0pointer.net/blog/projects/ | grep xxi
+ll 0pointer.net/blog/
+mv 0pointer.net/blog/systemd-for-administrators-part-xxi.html 21-systemd-for-administrators-part-xxi.html 
+cp ./21-systemd-for-administrators-part-xxi.html 0pointer.net/blog/systemd-for-administrators-part-xxi.html 
+( wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" & ) &
+( wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" ) &
+( nohup wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" ) &
+nohup wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" &
+wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" &
+wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html"
+( wget --quiet -mk -np -e robots=off "http://0pointer.de/blog/projects/systemd-for-admins-1.html" & )
+pgrep wget
+rm nohup.out 
+declare -a HTML_FILES; for file in *.html; HTML_FILES+=("$file"); done
+HTML_FILES=(); for file in *.html; HTML_FILES+=("$file"); done
+HTML_FILES=(); for file in *.html; do HTML_FILES+=("$file"); done
+echo "${HTML_FILES[@]}"
+pandoc --standalone --toc --pdf-engine=wkhtmltopdf $(for html in "${HTML_FILES[@]}"; do printf "%s " "$html"; done) systemd-for-admins-book.pdf
+debug "pandoc --standalone --toc --pdf-engine=wkhtmltopdf $(for html in "${HTML_FILES[@]}"; do printf "%s " "$html"; done) systemd-for-admins-book.pdf"
+pandoc --standalone --toc --pdf-engine=wkhtmltopdf -f html $(for html in "${HTML_FILES[@]}"; do printf "%s " "$html"; done) systemd-for-admins-book.pdf
+which create-systemd-for-admins-book 
+pandoc --standalone --toc --pdf-engine=wkhtmltopdf -f html $(printf "%s " "${HTML_FILES[@]}") -o systemd-for-admins-book.pdf
+evince systemd-for-admins-book.pdf 
+for html in *.html; do ( emacs "$html" ) 2>/dev/null &; done
+for html in *.html; do ( emacs "$html" ) 2>/dev/null & done
+pgrep emacs
+emacs
+ll projects/
+cd projects/pandoc/gigamonkeys.com/
+cd book/practicals-1.0.3/
+ll Chapter03/
+cd ../../
+cd ~/projects/pandoc/
+ll google-common-lisp-style-guide/
+ll docs.gimp.org/
+ll docs.gimp.org/2.10/
+ll docs.gimp.org/2.10/en/
+less docs.gimp.org/2.10/en/pcl-pdf.sh 
+fc-list
+fc-list :lang=ar
+cd ../systemd-for-admins-book/
+evince systemd-for-admins-book.pdf 
+ll 0pointer.de/
+ll 0pointer.de/public/
+ll 0pointer.de/blog/
+ll 0pointer.de/blog/projects/
+rm systemd-for-admins-series-links 
+rm -r 0pointer.de/
+echo '<li><a href="'
+echo '">#4: Killing Services</a></li>'
+emacs
+emacsctl restart
+cd projects/systemd-for-admins-book/
+rm systemd-for-admins-book.pdf 
+cd systemd-for-admins-series-html/
+rm *.pdf
+mv 0pointer.* ..
+ll ..
+emacs < <(echo *)
+emacs "$(echo *)"
+emacs "$(echo *)"
+ll projects/systemd-for-admins-book/
+ll projects/systemd-for-admins-book/systemd-for-admins-series-html/
+cat bin/init-dimm-sensors 
+lsmod | command -p grep -iE jc42
+cat /etc/dracut.conf
+sudo modprobe jc42
+lsmod | command -p grep -iE 'i2c_dev|jc42'
+help declare
+emacs < <(echo *)
+emacs "$(echo *)"
+help declare
+help local
+man pandoc
+man wget
+pgrep pandoc
+evince projects/minimalist-baker/html2pdf947994-1.pdf 
+evince projects/minimalist-baker/mini-baker.pdf 
+rm projects/minimalist-baker/mini-baker.pdf 
+ll projects/minimalist-baker/
+mv 0pointer.* ..
+ll ..
+emacs < <(echo *)
+emacs "$(echo *)"
+emacs "$(echo *)"
+ll projects/systemd-for-admins-book/
+ll projects/systemd-for-admins-book/systemd-for-admins-series-html/
+cat bin/init-dimm-sensors 
+lsmod | command -p grep -iE jc42
+cat /etc/dracut.conf
+sudo modprobe jc42
+lsmod | command -p grep -iE 'i2c_dev|jc42'
+help declare
+cd projects/
+mkdir minimalist-baker
+cd minimalist-baker/
+wget -mk -np -e robots=off "https://minimalistbaker.com/recipe-index/"
+wget -mk -np -e robots=off "https://minimalistbaker.com/"
+ll minimalistbaker.com/r/everyday-cooking-google-play/
+ll minimalistbaker.com/r/everyday-cooking-ibooks/
+ll minimalistbaker.com/r/everyday-cooking-indiebound/
+printf "https://minimalistbaker.com/recipe-index/?fwp_paged=2" > recipes
+emacs recipes 
+for i in {2..79}; do printf "%s\n" "https://minimalistbaker.com/recipe-index/?fwp_paged=$i" >> recipes; done
+cat recipes 
+wget --input-file=recipes -mk -np -e robots=off
+ll minimalistbaker.com/recipe-index/
+ll minimalistbaker.com/recipe-index/ | less
+firefox "file:///home/ebeale/projects/minimalist-baker/minimalistbaker.com/recipe-index/index.html\?fwp_paged\=3
+firefox "file:///home/ebeale/projects/minimalist-baker/minimalistbaker.com/recipe-index/index.html\?fwp_paged\=3"
+rm -r minimalistbaker.com/
+wget --input-file=recipes --out-file=recipes.html
+wget --input-file=recipes --output-file=recipes.html
+firefox recipes.html 
+rm recipes.html 
+wget --input-file=recipes
+ll | less
+ls *.html
+echo *.html
+for file in *.html; echo $file; done
+for file in *.html; do echo $file; done
+for file in *.html*; do echo $file; done
+rm recipes 
+mkdir index
+mv index.html\?fwp_paged\=* index
+for file in index/*.html*; do wget -mk -np -e robots=off "$file"; done
+for file in index/*.html*; do wget -mk -np -e robots=off https://https://minimalistbaker.com/"${file#/*}"; done
+for file in index/*.html*; do wget -mk -np -e robots=off https://https://minimalistbaker.com/"$(basename $file)"; done
+for file in index/*.html*; do wget -mk -np -e robots=off https://minimalistbaker.com/"$(basename $file)"; done
+for file in index/*.html*; do wget -mk -np -e robots=off https://minimalistbaker.com/index-"$(basename $file)"; done
+for file in index/*.html*; do wget -mk -np -e robots=off https://minimalistbaker.com/recipe-"$(basename $file)"; done
+rm -r index
+wget "https://minimalistbaker.com/recipe-index/?fwp_paged=2"
+firefox file:///$PWD/'index.html?fwp_paged=2'
+cat index.html\?fwp_paged\=2 
+firefox index.html\?fwp_paged\=2 
+wget -mk "https://minimalistbaker.com/recipe-index/?fwp_paged=2"
+rm -r *
+printf "%s\n" "https://minimalistbaker.com/recipe-index/" >> recipes.links
+
+while read -r URL; do wget "$URL"; done < <(cat recipes.links)
+rm index.html*
+while read -r URL; do wget -mk -e robots=off "$URL"; done < <(cat recipes.links)
+pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(cat recipes.links) -o mini-baker.pdf
+URLS=(); while read -r URL; do URLS+=("$URL"); done; pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(printf "%s " ${URLS[@]}) -o mini-baker.pdf
+set -x; URLS=(); while read -r URL; do URLS+=("$URL"); done; pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(printf "%s " ${URLS[@]}) -o mini-baker.pdf; set +x
+set -x; URLS=(); while read -r URL; do URLS+=("$URL"); done < <(recipes.links); pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(printf "%s " ${URLS[@]}) -o mini-baker.pdf; set +x
+set -x; URLS=(); while read -r URL; do URLS+=("$URL"); done < <(cat recipes.links); pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(printf "%s " ${URLS[@]}) -o mini-baker.pdf; set +x
+lll
+set -x; URLS=(); cat recipes.links | while read -r URL; do URLS+=("$URL"); done; pandoc --standalone --toc --from=html --pdf-engine=wkhtmltopdf $(printf "%s " "${URLS[@]}") -o mini-baker.pdf; set +x
+set -x; URLS=(); cat recipes.links | while read -r URL; do URLS+=("$URL"); done; pandoc --standalone --toc -f html --pdf-engine=wkhtmltopdf $(printf "%s " "${URLS[@]}") -o mini-baker.pdf; set +x
+set +x
+cat recipes.links 
+URLS=(); cat recipes.links | while read -r URL; do URLS=("$URL"); done
+for URL in $(cat recipes.links); do URLS+=("$URL"); done
+echo "${URLS[@]}"
+pandoc --standalone --toc -f html --pdf-engine=wkhtmltopdf $(printf "%s " "${URLS[@]}") -o mini-baker.pdf
+pandoc --standalone --toc -f html --pdf-engine=wkhtmltopdf $(echo "${URLS[@]}") -o mini-baker.pdf
+pandoc --verbose --standalone --toc -f html --pdf-engine=wkhtmltopdf $(echo "${URLS[@]}") -o mini-baker.pdf
+pandoc --verbose --standalone --toc -f html --pdf-engine=xelatex $(echo "${URLS[@]}") -o mini-baker.pdf
+ll /tmp
+ll minimalistbaker.com/
+man pandoc
+emacs
+ll minimalistbaker.com/
+man pandoc
+emacs
+google.personal 
+disroot
+spectre-add emby
+emby
+ip a | grep wlp
+sudo dnf install jellyfin
+dnf search jellyfin
+cd downloads/
+mkdir jellyfin
+mv jellyfin*.rpm jellyfin
+rm elijah.thomas.beale@gmail.com.ical\ \(1\)/
+rm -r elijah.thomas.beale@gmail.com.ical\ \(1\)/
+rm basic.ics 
+cd jellyfin/
+dnf install jellyfin-{server,web}-*
+sudo dnf install jellyfin-{server,web}-*
+sudo systemctl enable jellyfin --now
+sudo firewall-cmd --add-service jellyfin --permanent
+sudo firewall-cmd reload
+man firewall-cmd
+sudo firewall-cmd --reload
+flatpak ps
+flatpak kill $(flatpak ps | tail -5 | head -1 | awk '{ print $1 }')
+sudo systemctl reload
+sudo systemctl daemon-reload
+sudo systemctl restart jellyfin
+spectre-add jellyfin
+chown -R ebeale:jellyfin {videos,music,torrents}
+sudo chown -R ebeale:jellyfin {videos,music,torrents}
+rm -r Bitwig\ Studio/
+ll chromium-extensions/
+mv KDEConnect/ kde-connect
+la .config/
+cat-tv
+which cat-tv
+which which
+sudo dnf uninstall which
+sudo dnf remove which
+systemctl status jellyfin
+jellyfin
+set +x
+cat recipes.links 
+URLS=(); cat recipes.links | while read -r URL; do URLS=("$URL"); done
+for URL in $(cat recipes.links); do URLS+=("$URL"); done
+echo "${URLS[@]}"
+pandoc --standalone --toc -f html --pdf-engine=wkhtmltopdf $(printf "%s " "${URLS[@]}") -o mini-baker.pdf
+pandoc --standalone --toc -f html --pdf-engine=wkhtmltopdf $(echo "${URLS[@]}") -o mini-baker.pdf
+pandoc --verbose --standalone --toc -f html --pdf-engine=wkhtmltopdf $(echo "${URLS[@]}") -o mini-baker.pdf
+pandoc --verbose --standalone --toc -f html --pdf-engine=xelatex $(echo "${URLS[@]}") -o mini-baker.pdf
+ll /tmp
+ll minimalistbaker.com/
+man pandoc
+emacs
+less /etc/systemd/system/minidlna.service.d/run-as-user.conf 
+systemctl status jellyfin
+sudo emacs /etc/systemd/system/jellyfin.service.d/override.conf 
+sudo systemctl daemon-reload 
+sudo systemctl stop jellyfin
+sudo systemctl start jellyfin
+sudo systemctl status jellyfin
+jellyfin
+sudo chmod -R g+r videos/ torrents/ music/
+sudo chmod -R g+r {videos,torrents,music}
+sudo chmod -R 750 {videos,torrents,music}
+sudo chmod -R 705 {videos,torrents,music}
+sudo chmod -R 745 {videos,torrents,music}
+sudo chmod -R 700 {videos,torrents,music}
+sudo chmod -R 755 {videos,torrents,music}
+sudo systemctl restart jellyfin
+which netstat
+netstat l
+netstat -l
+netstat -l | grep jellyfin
+netstat -tln
+netstat -tlnp
+netstat -tlnpu
+youtube-dl --help
+youtube-dl --help | less
+amazon
+youtube-dl --help
+youtube-dl --help | less
+amazon
+amazon

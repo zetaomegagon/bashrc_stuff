@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## insert kernel modules for detecting dimm tempratures
-if ! lsmod | grep -q i2c_dev; then modprobe 12c_dev; fi
+if ! lsmod | grep -q i2c_dev; then modprobe i2c_dev; fi
 if ! lsmod | grep -q jc42; then modprobe jc42; fi
 
 ## create new i2c device for bus 11

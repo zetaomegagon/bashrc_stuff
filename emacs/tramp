@@ -1,4 +1,4 @@
-;; -*- emacs-lisp -*- <22/02/07 12:37:40 /home/ebeale/.emacs.d/tramp>
+;; -*- emacs-lisp -*- <22/02/08 23:29:11 /home/ebeale/.emacs.d/tramp>
 ;; Tramp connection history.  Don't change this file.
 ;; Run `M-x tramp-cleanup-all-connections' instead.
 
@@ -49,4 +49,22 @@
  ((tramp-file-name "sftp" nil nil "192.168.1.18" "1751" nil nil)
   ("default-location" "/"))
  ((tramp-file-name "sftp" nil nil "192.168.1.18" "1752" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1753" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1754" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1755" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1757" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1756" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1758" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1760" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1759" nil nil)
+  ("default-location" "/"))
+ ((tramp-file-name "sftp" nil nil "192.168.1.18" "1762" nil nil)
   ("default-location" "/")))
