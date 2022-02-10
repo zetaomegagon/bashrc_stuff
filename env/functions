@@ -160,11 +160,7 @@ jellyctl() {
         status)
             systemctl "$1" jellyfin ;;
 	      stop|start|restart)
-	          if (( EUID = 0 )); then
-                systemctl "$1" jellyfin
-            else
-                sudo systemctl "$1" jellyfin
-            fi ;;
+	          { (( EUID = 0 )) && systemctl "$1" jellyfin; } || sudo systemctl "$1" jellyfin ;;
             reload)
 	          jellyctl restart ;;
 	      *)

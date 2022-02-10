@@ -143,5 +143,4 @@ alias gerbera='spectre -tx -c1 gerbera'
 alias zotero='spectre -tx -c1 zotero.org'
 alias criterion='spectre -tx -c1 criterion.com'
 alias telegram='spectre -tx -c1 telegram.org'
-
-alias jellyfin='spectre -tx -c1 jellyfin'
+alias jellyfin.ebeale='spectre -tx -c1 jellyfin.org.ebeale'
