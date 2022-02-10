@@ -160,7 +160,7 @@ jellyctl() {
         status)
             systemctl "$1" jellyfin ;;
 	      stop|start|restart)
-	          { (( EUID = 0 )) && systemctl "$1" jellyfin; } || sudo systemctl "$1" jellyfin ;;
+	          { [[ $EUID = 0 ]] && systemctl "$1" jellyfin; } || sudo systemctl "$1" jellyfin ;;
             reload)
 	          jellyctl restart ;;
 	      *)
@@ -204,11 +204,12 @@ mmtail() {
     # pass arbitrary number of files to multitail or
     # all files in a directory
     mt() {
-        local input=("$@")
+        declare -a input
 	      declare -a files
+        input=("$@")
 
-	      for file in "${input[@]}"; do
-	          if [[ -f "$file" ]]; then
+	      for object in "${input[@]}"; do
+	          if [[ -f "$object" ]]; then
                 files+=("$file ")
             fi
         done
@@ -225,16 +226,21 @@ mmtail() {
     fi
 }
 
-miotop() {
+iotop() {
     # pass arbitrary amount of PIDs to iotop
-    local input="$1"
+    local input
     declare -a pids
+    input="$@"
 
-    for pid in $(pgrep "$input"); do
-	      pids+=( "--pid $pid " )
-    done
+    if (( ${#input} > 1 )); then
+        for pid in $(command -p pgrep "$input"); do
+	          pids+=( "--pid $pid " )
+        done
 
-    sudo iotop "${pids[@]}"
+        sudo command -p iotop "${pids[@]}"
+    else
+        sudo command -p iotop "$input"
+    fi        
 }
 
 vmanage() {
