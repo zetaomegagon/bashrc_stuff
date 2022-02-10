@@ -613,3 +613,417 @@ youtube-dl --help
 youtube-dl --help | less
 amazon
 amazon
+myregistry
+cat-tv
+cd torrents/
+youtube-dl --help
+youtube-dl --help | less
+youtube-dl -F "https://yewtu.be/watch?v=eEGAUHkHMyE&local=true&dark_mode=true"
+youtube-dl -f 22  "https://yewtu.be/watch?v=eEGAUHkHMyE&local=true&dark_mode=true"
+myregistry
+youtube-dl --help
+youtube-dl --help | less
+amazon
+pandoc --verbose --standalone --toc -f html --pdf-engine=wkhtmltopdf $(echo "${URLS[@]}") -o mini-baker.pdf
+pandoc --verbose --standalone --toc -f html --pdf-engine=xelatex $(echo "${URLS[@]}") -o mini-baker.pdf
+ll /tmp
+ll minimalistbaker.com/
+man pandoc
+google.personal 
+disroot
+spectre-add emby
+emby
+ip a | grep wlp
+sudo dnf install jellyfin
+dnf search jellyfin
+cd downloads/
+mkdir jellyfin
+mv jellyfin*.rpm jellyfin
+rm elijah.thomas.beale@gmail.com.ical\ \(1\)/
+rm -r elijah.thomas.beale@gmail.com.ical\ \(1\)/
+rm basic.ics 
+cd jellyfin/
+dnf install jellyfin-{server,web}-*
+sudo dnf install jellyfin-{server,web}-*
+sudo systemctl enable jellyfin --now
+sudo firewall-cmd --add-service jellyfin --permanent
+sudo firewall-cmd reload
+man firewall-cmd
+sudo firewall-cmd --reload
+flatpak ps
+flatpak kill $(flatpak ps | tail -5 | head -1 | awk '{ print $1 }')
+sudo systemctl reload
+sudo systemctl daemon-reload
+sudo systemctl restart jellyfin
+spectre-add jellyfin
+chown -R ebeale:jellyfin {videos,music,torrents}
+sudo chown -R ebeale:jellyfin {videos,music,torrents}
+rm -r Bitwig\ Studio/
+ll chromium-extensions/
+mv KDEConnect/ kde-connect
+la .config/
+cat-tv
+which cat-tv
+which which
+sudo dnf uninstall which
+sudo dnf remove which
+systemctl status jellyfin
+jellyfin
+find . -iname jellyfin
+find . -iname emby
+sudo find . -iname emby
+sudo find / -iname emby 2>/dev/null
+sudo find / -iname '*emby*' 2>/dev/null
+sudo find . -iname '*emby*' 2>/dev/null
+sudo find . -iname '*jellyfin*' 2>/dev/null
+amazon
+myregistry
+buybuybaby
+htop
+sudo systemctl stop jellyfin
+top
+emacs sync-amazon
+chmod +x sync-amazon 
+./sync-amazon 
+emacs
+emacs sync-amazon 
+rm sync-amazon 
+emacs scratch
+youtube-dl --help | less
+amazon
+youtube-dl --help
+youtube-dl --help | less
+amazon
+amazon
+date
+date --help
+date --help | less
+date %H%M%Y
+date +'%H%M%Y'
+date +'%D%M%Y'
+date +'%D%Y'
+date +'%D'
+date %D
+date +%D
+date +%D | sed 's:%:%2F'
+date +'%D' | sed 's:%:%2F:'
+date +'%D' | sed 's:/:%2F:'
+date +'%D' | sed 's:/:%2F:g'
+myregistry
+./sync-amazon 
+./sync-amazon | less
+./sync-amazon > curl.log
+rm curl.log 
+./sync-amazon 1>./curl.log 2>./curl.log
+man curl
+./sync-amazon 1>./curl.log 1>&2
+cat curl.log 
+less curl.log 
+./sync-amazon
+./sync-amazon 1>./curl.log 2>&1
+echo "
+1
+
+/*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
+
+2
+
+
+3
+
+
+4
+
+
+5
+
+
+6
+
+
+7
+
+/*! head.css3 - v1.0.0 */
+
+8
+
+
+9
+
+/*! head.load - v1.0.3 */
+
+10
+
+
+11
+
+* http://jqueryui.com
+
+12
+
+* Includes: widget.js, position.js, data.js, disable-selection.js, focusable.js, form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js, scroll-parent.js, tabbable.js, unique-id.js, widgets/mouse.js, effect.js, effects/effect-blind.js, effects/effect-bounce.js, effects/effect-clip.js, effects/effect-drop.js, effects/effect-explode.js, effects/effect-fade.js, effects/effect-fold.js, effects/effect-highlight.js, effects/effect-puff.js, effects/effect-pulsate.js, effects/effect-scale.js, effects/effect-shake.js, effects/effect-size.js, effects/effect-slide.js, effects/effect-transfer.js
+
+13
+
+* Copyright jQuery Foundation and other contributors; Licensed MIT */
+
+14
+
+(function(n){typeof define=="function"&&define.amd?define(["jquery"],n):n(jQuery)})(function(n){function y(n){for(var t=n.css("visibility");t==="inherit";)n=n.parent(),t=n.css("visibility");return t!=="hidden"}var h,o,r,c,l,a,v,p,w,b,k,d,g,nt,tt,it,rt,t,ut,ft,et,ot,st,ht,ct,lt,at,vt,yt,pt,wt,bt,kt,e,dt,gt;n.ui=n.ui||{};h=n.ui.version="1.12.1";
+
+15
+
+/*!
+
+16
+
+ * jQuery UI Widget 1.12.1
+
+17
+
+ * http://jqueryui.com
+
+18
+
+ *
+
+19
+
+ * Copyright jQuery Foundation and other contributors
+
+20
+
+ * Released under the MIT license.
+
+21
+
+ * http://jquery.org/license
+
+22
+
+ */
+
+23
+
+
+24
+
+/*!
+
+25
+
+ * jQuery UI Position 1.12.1
+
+26
+
+ * http://jqueryui.com
+
+27
+
+ *
+
+28
+
+ * Copyright jQuery Foundation and other contributors
+
+29
+
+ * Released under the MIT license.
+
+30
+
+ * http://jquery.org/license
+
+31
+
+ *
+
+32
+
+ * http://api.jqueryui.com/position/
+
+33
+
+ */
+
+34
+
+
+35
+
+/*!
+
+36
+
+ * jQuery UI :data 1.12.1
+
+37
+
+ * http://jqueryui.com
+
+38
+
+ *
+
+39
+
+ * Copyright jQuery Foundation and other contributors
+
+40
+
+ * Released under the MIT license.
+
+" | jq '.'
+"
+1
+
+/*! jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license */
+
+2
+
+
+3
+
+
+4
+
+
+5
+
+
+6
+
+
+7
+
+/*! head.css3 - v1.0.0 */
+
+8
+
+
+9
+
+/*! head.load - v1.0.3 */
+
+10
+
+
+11
+
+* http://jqueryui.com
+
+12
+
+* Includes: widget.js, position.js, data.js, disable-selection.js, focusable.js, form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js, scroll-parent.js, tabbable.js, unique-id.js, widgets/mouse.js, effect.js, effects/effect-blind.js, effects/effect-bounce.js, effects/effect-clip.js, effects/effect-drop.js, effects/effect-explode.js, effects/effect-fade.js, effects/effect-fold.js, effects/effect-highlight.js, effects/effect-puff.js, effects/effect-pulsate.js, effects/effect-scale.js, effects/effect-shake.js, effects/effect-size.js, effects/effect-slide.js, effects/effect-transfer.js
+
+13
+
+* Copyright jQuery Foundation and other contributors; Licensed MIT */
+
+14
+
+(function(n){typeof define=="function"&&define.amd?define(["jquery"],n):n(jQuery)})(function(n){function y(n){for(var t=n.css("visibility");t==="inherit";)n=n.parent(),t=n.css("visibility");return t!=="hidden"}var h,o,r,c,l,a,v,p,w,b,k,d,g,nt,tt,it,rt,t,ut,ft,et,ot,st,ht,ct,lt,at,vt,yt,pt,wt,bt,kt,e,dt,gt;n.ui=n.ui||{};h=n.ui.version="1.12.1";
+
+15
+
+/*!
+
+16
+
+ * jQuery UI Widget 1.12.1
+
+17
+
+ * http://jqueryui.com
+
+18
+
+ *
+
+19
+
+ * Copyright jQuery Foundation and other contributors
+
+20
+
+ * Released under the MIT license.
+
+21
+
+ * http://jquery.org/license
+
+22
+
+ */
+
+23
+
+
+24
+
+/*!
+
+25
+
+ * jQuery UI Position 1.12.1
+
+26
+
+ * http://jqueryui.com
+
+27
+
+ *
+
+28
+
+ * Copyright jQuery Foundation and other contributors
+
+29
+
+ * Released under the MIT license.
+
+30
+
+ * http://jquery.org/license
+
+31
+
+ *
+
+32
+
+ * http://api.jqueryui.com/position/
+
+33
+
+ */
+
+34
+
+
+35
+
+/*!
+
+36
+
+ * jQuery UI :data 1.12.1
+
+37
+
+ * http://jqueryui.com
+
+38
+
+ *
+
+39
+
+ * Copyright jQuery Foundation and other contributors
+
+40
+
+ * Released under the MIT license.
+
+"

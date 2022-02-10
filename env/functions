@@ -150,6 +150,22 @@ emacsctl() {
     esac
 }
 
+jellyctl() {
+    # syntactic sugar for controlling emacs daemon.
+    usage() {
+	      printf "%s\n" "Usage: jellyctl {status|start|stop|restart|reload}"
+    }
+
+    case "$1" in
+	      status|stop|start|restart)
+	          systemctl "$1" jellyfin ;;
+	      reload)
+	          jellyctl restart ;;
+	      *)
+	          usage
+    esac
+}
+
 genrandom() {
     # Generate a string of random characters
     # between 4 and 254 characters long
