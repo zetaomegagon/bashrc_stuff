@@ -157,9 +157,15 @@ jellyctl() {
     }
 
     case "$1" in
-	      status|stop|start|restart)
-	          systemctl "$1" jellyfin ;;
-	      reload)
+        status)
+            systemctl "$1" jellyfin ;;
+	      stop|start|restart)
+	          if (( EUID = 0 )); then
+                systemctl "$1" jellyfin
+            else
+                sudo systemctl "$1" jellyfin
+            fi ;;
+            reload)
 	          jellyctl restart ;;
 	      *)
 	          usage
