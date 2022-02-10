@@ -56,7 +56,7 @@ shopt -s checkwinsize
 shopt -s extglob
 
 ## Make sure user D-bus is accessible
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
 ## If $HOME/bin isn't in path, include it
 if ! echo $PATH | grep -q "$HOME/bin"; then

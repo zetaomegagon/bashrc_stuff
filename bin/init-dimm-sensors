@@ -1,10 +1,33 @@
 #!/usr/bin/env bash
 
-## insert kernel modules for detecting dimm tempratures
-if ! lsmod | grep -q i2c_dev; then modprobe i2c_dev; fi
-if ! lsmod | grep -q jc42; then modprobe jc42; fi
+init-jc42() {
+    ## insert kernel modules for detecting dimm tempratures
+    if ! lsmod | grep -q i2c_dev; then modprobe i2c_dev; fi
+    if ! lsmod | grep -q jc42; then modprobe jc42; fi
 
-## create new i2c device for bus 11
-## based on the ouput of `i2cdetect -l` and `i2cdetect -y 11`
-## run as root
-printf -- "jc42 0x44" > /sys/bus/i2c/devices/i2c-11/new_device
+    ## create new i2c device for bus 11
+    ## based on the ouput of `i2cdetect -l` and `i2cdetect -y 11`
+    printf -- "jc42 0x44" > /sys/bus/i2c/devices/i2c-11/new_device
+}
+
+if [[ $EUID = 0 ]]; then
+    init-jc42
+else
+    ## capture the stringified function definition in a variable
+    embedded_fun="$(declare -pf)"
+    fun_name="${embedded_fun%\(*}"
+    
+    ## since process substitution creates a new environment
+    ## we can pass in the function definition and function
+    ## call as a text string. In the new evironment context
+    ## `sudo`s point of view is that we are calling bash.
+    ## From `bash`s point of view we defined a function and
+    ## called it.
+    ##
+    ## Sorta like
+    ##
+    ##     (sudo (bash (lambda (...) ...definition...)))
+    ##
+    sudo -u root bash < <(printf "%s" "${embedded_fun}; ${fun_name}")
+fi
+

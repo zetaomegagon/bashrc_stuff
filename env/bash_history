@@ -1027,3 +1027,50 @@ echo "
  * Released under the MIT license.
 
 "
+ * Released under the MIT license.
+"
+clinfo
+clinfo --help
+clinfo -h
+sudo dnf remove clinfo
+lspci | grep -iE 'vga|ati|amd|3d'
+lspci | grep -iE 'vga|3d' | grep -iE 'nvidia|amd|ati'
+echo $DRI
+man -k DRI
+man -k DRI | less
+man amdgpu
+ls /dev/dri
+dnf search opencl | grep amd
+dnf search opencl
+jellyfin
+domain=example.com.ebeale
+echo ${domain%*}
+echo ${domain%.*}
+echo ${domain/\.com//}
+echo ${domain/\.com/}
+echo ${domain/\.*/}
+echo ${domain/\.*(comrgneti)/}
+echo ${domain/\.*(com|org)/}
+echo ${domain/\.*(com|org|net|io)/}
+unalias jellyfin
+jellyfin.ebeale 
+jellyctl status
+jellyctl sto
+foo=1
+bar=0
+{ ((foo = 0)) && echo foo is zero.; } || echo foo is not zero.
+jellyctl stop
+ll gits/bashrc_stuff/
+ll gits/bashrc_stuff/bin/
+espeak "Unfortunately I don't have too many suggestions for web development in Common Lisp. I've made a conscious effort to avoid web development in the past five or so years, because it seems like the Hamster Wheel of Backwards Incompatibility has become more of a Hamster Centrifuge in that field."
+espeak "Unfortunately I don't have too many suggestions for web development in Common Lisp. I've made a conscious effort to avoid web development in the past five or so years, because it seems like the Hamster Wheel of Backwards Incompatibility has become more of a Hamster Centrifuge in that field."
+which which
+site="lwd.state.nj.us"
+open https://$site
+firefox https://$site
+mail_to=OIT-ESD@tech.nj.gov
+emacs .functions
+emacs .bashrc 
+disroot
+echo $mail_to
+echo $site
