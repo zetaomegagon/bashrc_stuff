@@ -4,7 +4,7 @@
 ##### Notable scripts:
 - [get-baby-names](https://github.com/zetaomegagon/bashrc_stuff/blob/master/baby_names/get-baby-names.sh): Pulls the top 8077 baby names in 2017, for boys, from [NameCensus](https://namecensus.com/), and writes them to a text file. The site's routes were restructured, so this script no longer functions.
 
-- [git-sync](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/git-sync): pushes local changes to a remote git repository. It assumes that I work from multiple computers and forget about the changes I push, so makes sure to pull remote changes; stash them; and then push the current local changes. It needs refactoring, particularly building guards using the `trap` builtin.
+- [git-sync](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/git-sync): pushes local changes to a remote git repository. It assumes that I work from multiple computers and forget about the changes I push, so makes sure to pull remote changes; stash them; and then push the current local changes. It needs refactoring, particularly building guards using the `trap` builtin. To be used with a `cron` job or a `systemd timer`.
 
 - [init-dimm-sensors](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/init-dimm-sensors): instantiates an i2c dimm device so that the `sensor-temps` script, listed below, is able to parse temprature data about my laptop's ram
 
