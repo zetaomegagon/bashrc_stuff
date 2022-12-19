@@ -6,7 +6,7 @@
 
 - [git-sync](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/git-sync): pushes local changes to a remote git repository. It assumes that I work from multiple computers and forget about the changes I push, so makes sure to pull remote changes; stash them; and then push the current local changes. It needs refactoring, particularly building guards using the `trap` builtin. To be used with a `cron` job or a `systemd timer`.
 
-- [init-dimm-sensors](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/init-dimm-sensors): instantiates an i2c dimm device so that the `sensor-temps` script, listed below, is able to parse temprature data about my laptop's ram
+- [init-dimm-sensors](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/init-dimm-sensors): instantiates an i2c dimm device so that the `sensor-temps` script, listed below, is able to parse temprature data about my laptop's ram. To be used with a `systemd service`.
 
 - [sensor-temps](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/sensor-temps): uses `lm_sensors`, `jq`, and `hddtemps` to provide hardware temprature data and fan speeds for pretty printing in the Gnome top bar. Depends on [Top Bar Script Executor](https://extensions.gnome.org/extension/1154/top-bar-script-executor/).
 
