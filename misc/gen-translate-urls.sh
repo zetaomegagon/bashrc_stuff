@@ -26,14 +26,15 @@ languages[slovenian]=sl;  languages[spanish]=es;  languages[swedish]=sv
 target_html="$HOME/projects/deepl-ff-bookmark-html.html"
 target_func="$HOME/gits/bashrc_stuff/env/translate"
 
-# create or empty target files
-#[[ -f $target_html ]] && echo > $target_html
-[[ -f $target_func ]] && echo > $target_func
+# empty target files
+[[ -e $target_html ]] && echo > $target_html
+[[ -e $target_func ]] && echo > $target_func
 
 ## main
 added="$(($(date +%s) + $RANDOM))"
 modified="$(($(date +%s) + $RANDOM))"
-# Signifies a directory in FF bookmark html
+
+# `<DT>` Signifies a directory in FF bookmark html
 dir_html="<DT><H3 ADD_DATE=\"${added}\" LAST_MODIFIED=\"${modified}\">DeepL</H3>"
 
 printf "$dir_html\n" > $target_html
@@ -58,12 +59,12 @@ for language in ${!languages[@]}; do
             search_html="<DT><A HREF=\"${baseurl}${transurl}\" ADD_DATE=\"${added}\" LAST_MODIFIED=\"${modified}\" SHORTCUTURL=\"${keyword}\" TAGS=\"${tags}\">${title}</A>"
 
             # append bookmark to target
-            printf "$search_html\n" # | tee -a $target_html
+            printf "$search_html\n" | tee -a $target_html
 
-            # Bash function template (need a better way...)
-            template="${from_code}-${to_code}() {\n    # DeepL Translate | ${from_lang}->${to_lang}\n    input=\"\${@:-\$(</dev/stdin)}\"\n    baseurl=\"${baseurl}\"\n    query=\"#${from_code}/${to_code}/\${input}\"\n\n    if ps -e | grep -q GeckoMain; then\n        ( { /usr/bin/firefox --new-tab \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    else\n        ( { /usr/bin/firefox --new-instance \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    fi\n}"
+            # Bash function template. This generates `from->to` translate functions when referenced. (need a better way...)
+            template="${from_code}-${to_code}() {\n    # ${title}\n    input=\"\${@:-\$(</dev/stdin)}\"\n    baseurl=\"${baseurl}\"\n    query=\"#${from_code}/${to_code}/\${input}\"\n\n    if ps -e | grep -q GeckoMain; then\n        ( { /usr/bin/firefox --new-tab \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    else\n        ( { /usr/bin/firefox --new-instance \"\${baseurl}\${query}\"; } >/dev/null 2>&1 & )\n    fi\n}"
 
-            # append functions to target
+            # append function to target
             printf  "$template\n\n" | tee -a "$target_func"
         fi
     done 
