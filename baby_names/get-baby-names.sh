@@ -26,30 +26,23 @@ pages=1000
 
 ## functions
 requested-names-filter() {
+    set -x
     # request and filter baby names
     local http_status
     http_status="$(curl -Iso /dev/null -w "%{http_code}" "${base_url}${postfix}")"
 
     if [[ "$http_status" = 200 ]]; then
-        # if the request is successful; then
-        # request the page and filter for
-        # names
         curl -s "${base_url}${postfix}" \
             | grep \<td\> \
             | awk -F 'td' '{ print $4 }' \
             | sed -e 's:\(<\|>\|/\)::g'
     elif grep -qvE . "$target"; then
-        # if the request is not successful
-        # check if the run was a total faiure,
-        # remove the target, and exit
         rm "$target"
         exit 3
     else
-        # this case is needed since we throw
-        # a non-200 status possibly on the
-        # last page requested
         exit 0
     fi
+    set +x
 }
 
 paginate-names-requests() {
