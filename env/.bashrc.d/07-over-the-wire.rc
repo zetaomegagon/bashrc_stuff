@@ -66,10 +66,10 @@ otw-bandit-login() {
     # logs into the given bandit level
     local level="$1"; local command="$2"
 
-    _usage() { echo "Usage: otw-bandit LEVEL [COMMAND]"; }
+    _usage() { echo "Usage: otw-bandit-login LEVEL [COMMAND]"; }
 
     if [[ $level =~ [0-9]{1,2} ]]; then
-	otw-ssh bandit "$level" 2220 ""
+	otw-ssh bandit "$level" 2220 "wechall"
     else
 	_usage
     fi
