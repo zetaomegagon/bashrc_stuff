@@ -13,11 +13,11 @@ otw-ssh() {
     local user="$server$level"
     local command="$4"
     local schema=$OTW_SCHEMA
-    local password="$(jq .otw.servers.${server}.levels[${level}].password $schema)"
 
     _usage() { echo "Usage: otw-ssh SERVER LEVEL PORT [COMMAND]"; }
     
     if [[ -n "$server" && -n "$level" && -n "$port" ]]; then
+	local password="$(jq .otw.servers.${server}.levels[${level}].password $schema)"
 	sshpass -p "${password//\"/}" ssh -p "$port" "${user}"@"${server}".labs.overthewire.org "$command"
     else
 	_usage
@@ -68,7 +68,7 @@ otw-bandit-login() {
     _usage() { echo "Usage: otw-bandit LEVEL [COMMAND]"; }
 
     if [[ $level =~ [0-9]{1,2} ]]; then
-	otw-ssh bandit "$level" 2220 "wechall"
+	otw-ssh bandit "$level" 2220 ""
     else
 	_usage
     fi
