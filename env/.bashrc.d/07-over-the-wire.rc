@@ -25,7 +25,8 @@ otw-ssh() {
 }
 
 otw-backup-schema() {
-    local backup="${OTW_SCHEMA}-backup-$(command date -Is)"
+    local schema=$OTW_SCHEMA
+    local backup="${schema}-backup-$(command date -Is)"
     cp $schema $backup
 }
 
