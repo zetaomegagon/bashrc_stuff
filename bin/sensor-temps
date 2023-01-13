@@ -11,10 +11,7 @@ print-inner-sep() { printf "%4s" "$spc"; }
 precision-one() { local input=$1; sed -r 's:[0-9]{2}$::g' < <(cat $input); }
 
 ## print cpu core temps
-CPU0() { sensors -j | jq '."coretemp-isa-0000"."Core 0"."temp2_input"' | precision-one; }
-CPU1() { sensors -j | jq '."coretemp-isa-0000"."Core 1"."temp3_input"' | precision-one; }
-CPU2() { sensors -j | jq '."coretemp-isa-0000"."Core 2"."temp4_input"' | precision-one; } 
-CPU3() { sensors -j | jq '."coretemp-isa-0000"."Core 3"."temp5_input"' | precision-one; }
+CPU() { local core=$1; local temp=$2; sensors -j | jq '."coretemp-isa-0000"."Core ${core}"."temp${temp}_input"' | precision-one; }
 
 cpu-temps() {
     printf "%s%4s%s%4s%s%4s%s" \
@@ -22,7 +19,7 @@ cpu-temps() {
            "$spc" \
            "$cpu" \
            "$spc" \
-           "$(for ((core=0;core<4;core++)); do printf "%s" "$(CPU$core)"; (( core < 3 )) && print-inner-sep; done)" \
+           "$(for ((core=0;core<4;core++)); do printf "%s" "$(CPU "$core" "$((core + 2))")"; (( core < 3 )) && print-inner-sep; done)" \
            "$spc" \
            "$sep"
     
