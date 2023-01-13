@@ -37,7 +37,7 @@ otw-update-pw() {
 
     if [[ -n $server && -n $level && -n $password ]]; then
 	local schema=$OTW_SCHEMA
-	local new_schema="$(jq ".otw.servers.${server}.levels[${level}].password |= \"${password}\"" $old_schema)"
+	local new_schema="$(jq ".otw.servers.${server}.levels[${level}].password |= \"${password}\"" $schema)"
 	
 	otw-backup-schema
 	echo "$new_schema" > "$schema"
