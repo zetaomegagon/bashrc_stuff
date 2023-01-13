@@ -6,7 +6,7 @@
 if ! [[ -f /run/.containerenv ]]; then
     ## Text scaling
     #- Source: https://wiki.archlinux.org/title/HiDPI#Text_Scaling 
-    gsettings set org.gnome.desktop.interface text-scaling-factor 1.8
+    gsettings set org.gnome.desktop.interface text-scaling-factor 1.5
 
     ## Keyboard modifications
     #- Source: https://reddit.com/r/gnome/comments/bu27cu/change_caps_lock_into_a_control_key/
