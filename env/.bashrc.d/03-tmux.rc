@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Start tmux on every shell login
+if [[ -x "$(command -v tmux)" && -n "${WAYLAND_DISPLAY}" && -z "${TMUX}" ]]; then
+    if ! tmux -2 attach; then
+	    tmux new-session -d
+	    tmux set -wg base-index 1
+	    tmux set -wg renumber-windows on	    
+	    tmux set -wg pane-base-index 1
+	    tmux split-window -h
+	    tmux select-pane -t 1
+	    tmux -2 attach-session -d
+    fi >/dev/null 2>&1
+fi
