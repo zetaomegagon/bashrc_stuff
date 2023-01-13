@@ -13,7 +13,6 @@ precision-one() { local input=$1; sed -r 's:[0-9]{2}$::g' < <(cat $input); }
 CPU() { local c=$1; local n=$2; sensors -j | jq ".\"coretemp-isa-0000\".\"Core ${c}\".\"temp${n}_input\"" | precision-one; }
 
 cpu-temps() {
-    set -x
     printf "%s%4s%s%4s%s%4s%s" \
            "$opn" \
            "$spc" \
@@ -24,7 +23,6 @@ cpu-temps() {
            "$sep"
     
     print-sep
-    set +x
 }
 
 ## print fan speeds
