@@ -6,14 +6,14 @@ spc=" "    cpu="CPU:"  ram="RAM:"
 gpu="GPU:" ssd="SSD:"  fan="FAN:"
 
 ## functions for facilitating pretty printing
-print-sep() { printf "%4s" "$spc"; }
+print-sep() { printf "%2s" "$spc"; }
 precision-one() { local input=$1; sed -r 's:[0-9]{2}$::g' < <(cat $input); }
 
 ## print cpu core temps
 CPU() { local c=$1; local n=$2; sensors -j | jq ".\"coretemp-isa-0000\".\"Core ${c}\".\"temp${n}_input\"" | precision-one; }
 
 cpu-temps() {
-    printf "%s%4s%s%4s%s%4s%s" \
+    printf "%s%2s%s%2s%s%2s%s" \
            "$opn" \
            "$spc" \
            "$cpu" \
@@ -32,7 +32,7 @@ FAN_R() { sensors -j | jq '."applesmc-isa-0300"."Right side "."fan2_input"' | se
 fan-speeds() {
     local count=1
     
-    printf "%s%4s%s%s%s" \
+    printf "%s%2s%s%s%s" \
            "$fan" \
            "$spc" \
            "$(for fan in L R; do count+=1; printf "%s" "$(FAN_$fan)"; (( count > 2 )) && print-sep; done)" \
@@ -45,7 +45,7 @@ fan-speeds() {
 RAM0() { sensors -j | jq '."jc42-i2c-11-44"."temp1"."temp1_input"' | precision-one; }
 
 ram-temps() {
-    printf "%s%4s%s%4s%s" \
+    printf "%s%2s%s%2s%s" \
            "$ram" \
            "$spc" \
            "$(for ram in 0; do printf "%s" "$(RAM$ram)"; (( ram > 0 )) && print-sep; done)" \
@@ -59,7 +59,7 @@ ram-temps() {
 GPU0() { sensors -j | jq '."radeon-pci-0100"."temp1"."temp1_input"' | precision-one; }
 
 gpu-temps() {
-    printf "%s%4s%s%4s%s" \
+    printf "%s%2s%s%2s%s" \
            "$gpu" \
            "$spc" \
            "$(for gpu in 0; do printf "%s" "$(GPU$gpu)"; (( gpu < 0 )) && print-sep; done)" \
@@ -73,7 +73,7 @@ gpu-temps() {
 SSD0() { local input=$1; hddtemp --foreground --unit=C --numeric /dev/sda; }
 
 ssd-temps() {
-    printf "%s%4s%s%4s%s" \
+    printf "%s%2s%s%2s%s" \
            "$ssd" \
            "$spc" \
            "$(for ssd in 0; do printf "%s%s" "$(SSD$ssd).0"; (( ssd < 0 )) && print-sep; done)" \
