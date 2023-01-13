@@ -13,9 +13,8 @@ init-jc42() {
 if [[ $EUID = 0 ]]; then
     init-jc42
 else
-    ## capture the stringified function definition in a variable
-    embedded_fun="$(declare -pf)"
-    fun_name="${embedded_fun%\(*}"
+    embedded_fun="$(declare -pf)"    # capture the stringified function definition in a variable
+    fun_name="${embedded_fun%\(*}"   # strip all but the function name
     
     ## since process substitution creates a new environment
     ## we can pass in the function definition and function
