@@ -6,12 +6,11 @@ spc=" "    cpu="CPU:"  ram="RAM:"
 gpu="GPU:" ssd="SSD:"  fan="FAN:"
 
 ## functions for facilitating pretty printing
-print-outter-sep() { printf "%4s" "$spc"; }
-print-inner-sep() { printf "%4s" "$spc"; }
+print-sep() { printf "%4s" "$spc"; }
 precision-one() { local input=$1; sed -r 's:[0-9]{2}$::g' < <(cat $input); }
 
 ## print cpu core temps
-CPU() { local core=$1; local temp=$2; sensors -j | jq '."coretemp-isa-0000"."Core ${core}"."temp${temp}_input"' | precision-one; }
+CPU() { local c=$1; local n=$2; sensors -j | jq '."coretemp-isa-0000"."Core ${c}"."temp${n}_input"' | precision-one; }
 
 cpu-temps() {
     printf "%s%4s%s%4s%s%4s%s" \
@@ -19,11 +18,11 @@ cpu-temps() {
            "$spc" \
            "$cpu" \
            "$spc" \
-           "$(for ((core=0;core<4;core++)); do printf "%s" "$(CPU "$core" "$((core + 2))")"; (( core < 3 )) && print-inner-sep; done)" \
+           "$(for ((core=0;core<4;core++)); do printf "%s" "$(CPU $core $((core + 2)))"; (( core < 3 )) && print-sep; done)" \
            "$spc" \
            "$sep"
     
-    print-outter-sep
+    print-sep
 }
 
 ## print fan speeds
@@ -36,10 +35,10 @@ fan-speeds() {
     printf "%s%4s%s%s%s" \
            "$fan" \
            "$spc" \
-           "$(for fan in L R; do count+=1; printf "%s" "$(FAN_$fan)"; (( count > 2 )) && print-inner-sep; done)" \
+           "$(for fan in L R; do count+=1; printf "%s" "$(FAN_$fan)"; (( count > 2 )) && print-sep; done)" \
            "$cls"
     
-    print-outter-sep
+    print-sep
 }
 
 ## print ram temps
@@ -49,11 +48,11 @@ ram-temps() {
     printf "%s%4s%s%4s%s" \
            "$ram" \
            "$spc" \
-           "$(for ram in 0; do printf "%s" "$(RAM$ram)"; (( ram > 0 )) && print-inner-sep; done)" \
+           "$(for ram in 0; do printf "%s" "$(RAM$ram)"; (( ram > 0 )) && print-sep; done)" \
            "$spc" \
            "$sep"
     
-    print-outter-sep
+    print-sep
 }
 
 ## print gpu temp
@@ -63,11 +62,11 @@ gpu-temps() {
     printf "%s%4s%s%4s%s" \
            "$gpu" \
            "$spc" \
-           "$(for gpu in 0; do printf "%s" "$(GPU$gpu)"; (( gpu < 0 )) && print-inner-sep; done)" \
+           "$(for gpu in 0; do printf "%s" "$(GPU$gpu)"; (( gpu < 0 )) && print-sep; done)" \
            "$spc" \
            "$sep"
     
-    print-outter-sep
+    print-sep
 }
 
 ## print ssd temps
@@ -77,11 +76,11 @@ ssd-temps() {
     printf "%s%4s%s%4s%s" \
            "$ssd" \
            "$spc" \
-           "$(for ssd in 0; do printf "%s%s" "$(SSD$ssd).0"; (( ssd < 0 )) && print-inner-sep; done)" \
+           "$(for ssd in 0; do printf "%s%s" "$(SSD$ssd).0"; (( ssd < 0 )) && print-sep; done)" \
            "$spc" \
            "$sep"
     
-    print-outter-sep
+    print-sep
 }
 
 ## main
