@@ -2,6 +2,27 @@
 
 ## Shell functions and aliases
 
+# git
+export GIT_HOME_DIR=".git-home-$(whoami)"
+
+git-home() {
+    command git --git-dir=$GIT_HOME_DIR --work-tree=$HOME "$@"
+}
+
+git-home-init() {
+    cd $HOME
+    command git init --bare $HOME/$GIT_HOME_DIR
+    git-home config --local status.showUntrackedFiles no
+}
+
+git() {
+    if [[ $PWD = $HOME ]]; then
+	git-home "$@"
+    else
+	command git "$@"
+    fi
+}
+
 # gpaste-client
 paste() { gpaste-client "$@"; }
 
