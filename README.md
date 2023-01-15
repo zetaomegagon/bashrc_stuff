@@ -8,10 +8,7 @@
 
 - [init-dimm-sensors](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/init-dimm-sensors): instantiates an i2c dimm device so that the `sensor-temps` script, listed below, is able to parse temprature data about my laptop's ram. To be used with a `systemd service`.
 
-- [sensor-temps](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/sensor-temps): uses `lm_sensors`, `jq`, and `hddtemps` to provide hardware temprature data and fan speeds for pretty printing in the Gnome top bar. Depends on the Gnome Shell Extension [Executor](https://extensions.gnome.org/extension/2932/executor/).
-
-Here's what the output looks like when run:
-![My sensor-temps script readout](https://github.com/zetaomegagon/bashrc_stuff/blob/master/sensor-temps-readout.png?raw=true)
+- [sensor-temps](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/sensor-temps): uses `lm_sensors`, `jq`, and `hddtemps` to provide hardware temprature data and fan speeds for pretty printing in the Gnome top bar. Depends on the Gnome Shell Extension [Executor](https://extensions.gnome.org/extension/2932/executor/). Here's what the output looks like when run: ![My sensor-temps script readout](https://github.com/zetaomegagon/bashrc_stuff/blob/master/sensor-temps-readout.png?raw=true)
 
 - [touchpad-button-config](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/touchpad-button-config): Removes middle click functionality from the Dell XPS 13 Developer Edition laptop, since middle click had closed tabs in Firefox (wrote this up for my SO). I believe this only works on that machine with X11 running.
 
