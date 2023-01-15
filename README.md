@@ -18,3 +18,4 @@
 
 - [fedora-28-jss-autosnapshot](https://github.com/zetaomegagon/bashrc_stuff/blob/master/misc/fedora-28-jss-autosnapshot.sh): creates VirtualBox backups of a Fedora 28 based Jamf Pro instance.
 
+- [07-over-the-wire.rc](https://github.com/zetaomegagon/bashrc_stuff/blob/master/env/.bashrc.d/07-over-the-wire.rc): This `rc` file containes a library for interacting with a json schema ([here](https://github.com/zetaomegagon/over-the-wire)) which stores data for the servers and server levels at [OverTheWire](https://overthewire.org). This library was hacked together as I was ascending the levels on the `bandit` server...so it needs some shoring up.
