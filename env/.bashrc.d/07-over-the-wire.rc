@@ -69,7 +69,7 @@ otw-bandit-login() {
     _usage() { echo "Usage: otw-bandit-login LEVEL [COMMAND]"; }
 
     if [[ $level =~ [0-9]{1,2} ]]; then
-	otw-ssh bandit "$level" 2220 "wechall"
+	otw-ssh bandit "$level" 2220 "${command:-wechall}"
     else
 	_usage
     fi
