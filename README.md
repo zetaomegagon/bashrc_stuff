@@ -10,6 +10,9 @@
 
 - [sensor-temps](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/sensor-temps): uses `lm_sensors`, `jq`, and `hddtemps` to provide hardware temprature data and fan speeds for pretty printing in the Gnome top bar. Depends on the Gnome Shell Extension [Executor](https://extensions.gnome.org/extension/2932/executor/).
 
+Here's what the output looks like when run:
+![My sensor-temps script readout](https://github.com/zetaomegagon/bashrc_stuff/blob/master/sensor-temps-readout.png?raw=true)
+
 - [touchpad-button-config](https://github.com/zetaomegagon/bashrc_stuff/blob/master/bin/touchpad-button-config): Removes middle click functionality from the Dell XPS 13 Developer Edition laptop, since middle click had closed tabs in Firefox (wrote this up for my SO). I believe this only works on that machine with X11 running.
 
 - [gen-translate-urls](https://github.com/zetaomegagon/bashrc_stuff/blob/master/misc/gen-translate-urls.sh): Generates a bookmarks file for Firefox, and functions for command line execution, allowing omnibar bookmark and command line based translate *from* any DeepL supported language *to* any DeepL suported language.
