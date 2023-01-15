@@ -2,6 +2,9 @@
 
 ## Shell functions and aliases
 
+# gpaste-client
+paste() { gpaste-client "$@"; }
+
 # which
 which() {
     input=$1
