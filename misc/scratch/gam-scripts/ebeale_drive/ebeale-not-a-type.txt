@@ -1,4 +1,0 @@
-Owner,title,alternateLink
-ebeale@tpschool.org,Starter App (copy),https://appmaker.google.com/edit/1UIxCw_g-jeCTI1p__nfjXIQ7CYldsx8Q?nowelcome=true
-ebeale@tpschool.org,TPS Student Central — Converted from Classic Sites,https://sites.google.com/s/1f_6Gxg2Wdn6tYfv9XI7mu5cRxSPfsWOm/edit?userId=102560743405269924361
-ebeale@tpschool.org,Test Site Zero — Converted from Classic Sites,https://sites.google.com/s/1zl22z7oUYcUM6j9eh9j2BVh3iyqPDVyQ/edit?userId=102560743405269924361
