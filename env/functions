@@ -106,36 +106,20 @@ debug() {
 
 mpv() {
     # call mpv on a file and keep the display from sleeping
-    local exists_amd
-    local exists_nvidia
-    local exists_gpu
+    local exists_amd exists_nvidia
     exists_amd="$(lspci | grep -iE 'vga|3d' | grep -iE 'amd|ati|radeon')"
     exists_nvidia="$(lspci | grep -iE 'vga|3d' | grep -iE 'nvidia')"
     
-    play() {
-	      inhibit-and-play() {
-	          # syntactic sugar
-	          gnome-session-inhibit --inhibit suspend:idle systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
-	      }
-
-	      ########################
-	      # Woah! Was I hight??? #
-	      ########################
-
-        { [[ -n $exists_amd ]] || [[ -n $exists_nvidia ]]; } && exists_gpu=true
-
-	      if [[ -z "$exists_gpu" ]]; then
-	          inhibit-and-play "$@"
-	      elif [[ -n $exists_nvidia ]]; then
-            # what to do for nvidia cards?
-	          inhibit-and-play --vo=gpu "$@"
-        else
-            # what to do for amd cards?
-            inhibit-and-play --vo=gpu "$@"
-        fi        
+    inhibit-and-play() {
+	# stops suspend and suspend on lid close while playing media
+	gnome-session-inhibit --inhibit suspend:idle systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
     }
 
-    play "$@"
+    if [[ -n exists_amd || -n exists_nvidia ]]; then
+	inhibit-and-play --vo=gpu "$@"
+    else
+	inhibit-and-play "$@"
+    fi
 }
 
 emacsctl() {
