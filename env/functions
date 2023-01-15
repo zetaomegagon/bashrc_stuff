@@ -139,7 +139,7 @@ emacsctl() {
 }
 
 jellyctl() {
-    # syntactic sugar for controlling emacs daemon.
+    # syntactic sugar for controlling jellyfin daemon.
     usage() {
 	      printf "%s\n" "Usage: jellyctl {status|start|stop|restart|reload}"
     }
@@ -174,14 +174,14 @@ genrandom() {
     }
 
     print-random() {
-        local input="$1"
-        local genX; genX="$(for ((i=0;i<"$input";i++)); do printf X; done)"
+        local -i input; input="$1"
+        locla genX; genX="$(for ((i=0;i<"$input";i++)); do printf X; done)"
         mktemp -u "$genX"
     }
 
     if [[ -z "$1" ]]; then
         print-random "$input"
-    elif [[ "$input" =~ [0-9]{1,3} ]] && (( "$input" >= 4 )) && (( "$input" <= 254 )); then
+    elif (( "$input" >= 4 )) && (( "$input" <= 254 )); then
         print-random "$input"
     else
         usage        
@@ -189,24 +189,21 @@ genrandom() {
 }
 
 mmtail() {
-    # pass arbitrary number of files to multitail or
-    # all files in a directory
+    # pass arbitrary number of files to multitail or all files in a directory
     mt() {
-        declare -a input
-	      declare -a files
+        local -a input files
         input=("$@")
 
-	      for object in "${input[@]}"; do
-	          if [[ -f "$object" ]]; then
+	for object in "${input[@]}"; do
+	    if [[ -f "$object" ]]; then
                 files+=("$file ")
             fi
         done
 
-	      multitail "${files[@]}"
+	multitail "${files[@]}"
     }
 
-    # if called w/o args, process all files; otherwise
-    # process specified files
+
     if [[ -z "${input[*]}" ]]; then
         mt --
     else
@@ -219,12 +216,12 @@ iotop() {
     local input
     declare -a pids
     input="$@"
-
+    
     if (( ${#input} > 1 )); then
         for pid in $(command -p pgrep "$input"); do
-	          pids+=( "--pid $pid " )
+	    pids+=( "--pid $pid " )
         done
-
+	
         sudo command -p iotop "${pids[@]}"
     else
         sudo command -p iotop "$input"
@@ -232,8 +229,6 @@ iotop() {
 }
 
 vmanage() {
-    # syntactic sugar for the
-    # virtual box admin tool
     /usr/bin/vboxmanage "$@"
 }
 
