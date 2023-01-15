@@ -118,6 +118,10 @@ mpv() {
 	          gnome-session-inhibit --inhibit suspend:idle systemd-inhibit --what=handle-lid-switch /usr/bin/mpv "$@"
 	      }
 
+	      ########################
+	      # Woah! Was I hight??? #
+	      ########################
+
         { [[ -n $exists_amd ]] || [[ -n $exists_nvidia ]]; } && exists_gpu=true
 
 	      if [[ -z "$exists_gpu" ]]; then
