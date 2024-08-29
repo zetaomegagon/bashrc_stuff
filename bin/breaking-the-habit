@@ -58,5 +58,5 @@ I'm breaking the habit
 I'm breaking the habit tonight
 "
 
-espeak "$lyrics"
+espeak-ng "$lyrics"
 
