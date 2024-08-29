@@ -12,7 +12,7 @@ gpu="GPU:" ssd="SSD:"  fan="FAN:"
 print-sep() { printf "%2s" "$spc"; }
 precision-one() { local input=$1; sed -r 's:[0-9]{2}$::g' < <(cat $input); }
 
-## print curent gpu
+## print current gpu
 printf "%s%s%s" \
        "$opn$spc" \
        "$(lspci -k | grep -iE 'k.*e: (radeon|amdgpu)' | tr -d ' ' | cut -d ':' -f 2)" \
@@ -65,7 +65,13 @@ ram-temps() {
 }
 
 ## print gpu temp
-GPU0() { sensors -j | jq '."radeon-pci-0100"."temp1"."temp1_input"' | precision-one; }
+GPU0() {
+    if [[ "$(lspci -k | grep -iE 'k.*e: (radeon|amdgpu)' | tr -d ' ' | cut -d ':' -f 2)" == "amdgpu" ]]; then
+	sensors -j | jq '."amdgpu-pci-0100"."edge"."temp1_input"' | precision-one
+    else
+	sensors -j | jq '."radeon-pci-0100"."temp1"."temp1_input"' | precision-one
+    fi
+}
 
 gpu-temps() {
     printf "%s%2s%s%2s%s" \
